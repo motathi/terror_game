@@ -61,6 +61,7 @@ func _ready() -> void:
 func play_voice(line_id: String, bus: String = "Voice") -> bool:
 	var stream := _find("res://audio/vo/%s/%s" % [locale, line_id])
 	_voice.stop()
+	print("[audio] voz ", line_id, " -> ", stream != null, " bus=", bus)
 	if stream == null:
 		return false
 	_voice.stream = stream
