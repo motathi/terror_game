@@ -25,6 +25,11 @@ var actors: Dictionary = {}  # slot -> Actor
 var _location_root: Node3D
 var _actors_root: Node3D
 var _cam_base := Transform3D()
+var _hands_skel: Skeleton3D
+var _hands_cam_bone := -1
+## Base do osso "camera" do rig expressa em coordenadas de câmera Godot:
+## no rig, +Y do osso aponta para a frente e +X para baixo.
+const _BONE_TO_CAM := Basis(Vector3(0, 0, 1), Vector3(-1, 0, 0), Vector3(0, -1, 0))
 var _t := 0.0
 var _shake := 0.0
 
@@ -52,6 +57,10 @@ func _ready() -> void:
 	hands.position = HANDS_OFFSET
 	camera.add_child(hands)
 	hands_anim = AssetLib.find_animation_player(hands)
+	var skels := hands.find_children("*", "Skeleton3D", true, false)
+	if skels.size() > 0:
+		_hands_skel = skels[0]
+		_hands_cam_bone = _hands_skel.find_bone("camera")
 	if hands_anim:
 		hands_anim.animation_finished.connect(func(_n): play_hands(HANDS_IDLE_ANIM))
 	# luz suave "do jogador": ilumina o rosto de quem está na frente
@@ -230,6 +239,7 @@ func lights_off() -> void:
 
 func _process(delta: float) -> void:
 	_t += delta
+	_align_hands()
 	# respiração da câmera + tremor
 	var bob := Vector3(sin(_t * 0.9) * 0.008, sin(_t * 1.8) * 0.006, 0)
 	var tilt := sin(_t * 0.6) * 0.004
@@ -245,8 +255,44 @@ func _process(delta: float) -> void:
 			z.global_position += to_cam.normalized() * delta * 0.45
 
 
+## Slots calculados a partir da câmera: dois personagens lado a lado,
+## centralizados na tela em pé, e um terceiro mais ao fundo.
+## Mantém o osso "camera" do rig colado na câmera (as animações das mãos
+## foram feitas a partir desse ponto de vista).
+func _align_hands() -> void:
+	if _hands_skel == null or _hands_cam_bone < 0 or not hands.visible:
+		return
+	var skel_in_hands := Transform3D.IDENTITY
+	var n: Node = _hands_skel
+	while n != null and n != hands:
+		if n is Node3D:
+			skel_in_hands = (n as Node3D).transform * skel_in_hands
+		n = n.get_parent()
+	var bone := _hands_skel.get_bone_global_pose(_hands_cam_bone)
+	var cam_in_hands := skel_in_hands * bone * Transform3D(_BONE_TO_CAM, Vector3.ZERO)
+	hands.transform = cam_in_hands.affine_inverse()
+
+
 func _slot_position(slot: String) -> Vector3:
-	return location_cfg.get("slots", {}).get(slot, Vector3.ZERO)
+	var custom: Dictionary = location_cfg.get("slots", {})
+	if custom.has(slot):
+		return custom[slot]
+	var fwd := -_cam_base.basis.z
+	fwd.y = 0.0
+	fwd = fwd.normalized() if fwd.length() > 0.01 else Vector3.FORWARD
+	var right := fwd.cross(Vector3.UP).normalized()
+	var dist: float = location_cfg.get("slot_dist", 2.6)
+	var spread: float = location_cfg.get("slot_spread", 0.6)
+	var p := _cam_base.origin
+	match slot:
+		"left":
+			p += fwd * dist - right * spread
+		"right":
+			p += fwd * dist + right * spread
+		_:
+			p += fwd * float(location_cfg.get("center_dist", 4.6))
+	p.y = location_cfg.get("floor_y", 0.0)
+	return p
 
 
 func _face_camera(actor: Node3D, away: bool) -> void:

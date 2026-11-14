@@ -6,7 +6,10 @@ shader_type canvas_item;
 uniform float color_levels = 32.0;          // 32 = 5 bits por canal (PS1)
 uniform float dither_strength : hint_range(0.0, 2.0) = 1.0;
 uniform float grain : hint_range(0.0, 0.3) = 0.07;
-uniform float vignette : hint_range(0.0, 1.5) = 0.55;
+uniform float vignette : hint_range(0.0, 1.5) = 0.3;
+// Levanta as sombras para telas de celular (sem estourar os claros).
+uniform float lift : hint_range(0.0, 0.3) = 0.06;
+uniform float exposure : hint_range(0.5, 2.0) = 1.25;
 uniform float flash : hint_range(0.0, 1.0) = 0.0;
 uniform float blackout : hint_range(0.0, 1.0) = 0.0;
 
@@ -23,6 +26,8 @@ float hash(vec2 p) {
 
 void fragment() {
 	vec4 col = texture(TEXTURE, UV) * COLOR;
+	col.rgb = 1.0 - exp(-col.rgb * exposure * 1.6);  // tonemap suave
+	col.rgb = col.rgb * (1.0 - lift) + lift * sqrt(col.rgb);
 	ivec2 px = ivec2(UV / TEXTURE_PIXEL_SIZE);
 	float threshold = BAYER[(px.y % 4) * 4 + (px.x % 4)] / 16.0 - 0.5;
 	vec3 c = col.rgb + threshold * dither_strength / color_levels;

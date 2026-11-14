@@ -38,6 +38,14 @@ func setup(id: String, def: Dictionary, slot_def: Dictionary, title_font: Font, 
 		anim_player = AssetLib.find_animation_player(model)
 	_base_y = position.y
 
+	# luz própria: o fundo pode ser escuro, o rosto não
+	var key := OmniLight3D.new()
+	key.light_color = Color(1.0, 0.92, 0.82) if offscreen.is_empty() else Color(1.0, 0.75, 0.45)
+	key.light_energy = 1.1
+	key.omni_range = 2.6
+	key.position = Vector3(0, head_height * 0.85, 0.9)  # à frente (+Z = lado da câmera)
+	add_child(key)
+
 	name_label = _make_label(title_font, 44, Color.WHITE)
 	name_label.text = display_name
 	name_label.position.y = head_height + 0.22
