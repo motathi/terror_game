@@ -317,14 +317,18 @@ static func _campo(root: Node3D, cfg: Dictionary) -> void:
 	root.add_child(moon)
 	var moonlight := DirectionalLight3D.new()
 	moonlight.light_color = Color(0.5, 0.6, 0.9)
-	moonlight.light_energy = 0.35
+	moonlight.light_energy = 0.75
 	moonlight.rotation_degrees = Vector3(-35, 160, 0)
 	root.add_child(moonlight)
+	# luz da varanda da casa (atrás do jogador) e o disco voador parado no céu
+	omni(root, Vector3(-1.2, 2.6, 1.6), Color(1.0, 0.75, 0.45), 1.3, 8.0)
+	var u := ufo(root, Vector3(3.5, 9.0, -24.0))
+	u.scale = Vector3.ONE * 1.4
 	cfg["camera_look"] = Vector3(0, 1.5, -6.0)
 	cfg["center_dist"] = 5.0
-	cfg["fog_density"] = 0.04
-	cfg["fog_color"] = Color(0.04, 0.05, 0.08)
-	cfg["ambient_energy"] = 0.5
+	cfg["fog_density"] = 0.03
+	cfg["fog_color"] = Color(0.05, 0.07, 0.1)
+	cfg["ambient_energy"] = 0.7
 
 
 static func _fazenda_casa(root: Node3D, cfg: Dictionary) -> void:
