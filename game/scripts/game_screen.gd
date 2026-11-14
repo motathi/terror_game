@@ -59,6 +59,11 @@ func _ready() -> void:
 
 func _run() -> void:
 	runner.reset()
+	if not GameState.debug_ending.is_empty() and runner.story.get("endings", {}).has(GameState.debug_ending):
+		var e := GameState.debug_ending
+		GameState.debug_ending = ""
+		await _show_ending(e)
+		return
 	var current := runner.start_node()
 	if not GameState.debug_start_node.is_empty() and runner.story["nodes"].has(GameState.debug_start_node):
 		current = GameState.debug_start_node

@@ -51,7 +51,7 @@ func _ready() -> void:
 	index = GameState.campaign_index()
 	_select(index, false)
 	_play.grab_focus()
-	if not GameState.debug_start_node.is_empty():
+	if not GameState.debug_start_node.is_empty() or not GameState.debug_ending.is_empty():
 		_on_play.call_deferred()
 
 

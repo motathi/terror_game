@@ -23,6 +23,8 @@ var settings: Dictionary = {
 
 ## Atalho de teste na web: ...?cena=<id_do_nó> abre o jogo direto nessa cena.
 var debug_start_node := ""
+## Atalho de teste: ...?final=<id_do_final> mostra direto a cinemática do final.
+var debug_ending := ""
 
 
 func _ready() -> void:
@@ -31,6 +33,8 @@ func _ready() -> void:
 	if OS.has_feature("web"):
 		var q = JavaScriptBridge.eval("new URLSearchParams(window.location.search).get('cena') || ''", true)
 		debug_start_node = str(q) if q != null else ""
+		var fq = JavaScriptBridge.eval("new URLSearchParams(window.location.search).get('final') || ''", true)
+		debug_ending = str(fq) if fq != null else ""
 		var camp = JavaScriptBridge.eval("new URLSearchParams(window.location.search).get('campanha') || ''", true)
 		for i in campaigns.size():
 			if str(camp) != "" and campaigns[i].get("id", "") == str(camp) and campaigns[i].has("path"):
