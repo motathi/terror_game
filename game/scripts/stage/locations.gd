@@ -509,18 +509,18 @@ static func _quintal(root: Node3D, cfg: Dictionary) -> void:
 	var street := omni(root, Vector3(-3.0, 4.6, -10.5), Color(1.0, 0.6, 0.28), 1.6, 9.0)
 	street.add_child(Flicker.new(0.25, 6.0))
 	# luz da área (atrás de você, na porta da cozinha)
-	omni(root, Vector3(0.4, 2.6, 1.0), Color(1.0, 0.82, 0.55), 1.4, 9.0)
+	omni(root, Vector3(0.4, 2.6, 1.0), Color(1.0, 0.82, 0.55), 2.0, 11.0)
 	var moonlight := DirectionalLight3D.new()
-	moonlight.light_color = Color(0.45, 0.55, 0.85)
-	moonlight.light_energy = 0.5
+	moonlight.light_color = Color(0.5, 0.6, 0.9)
+	moonlight.light_energy = 0.8
 	moonlight.rotation_degrees = Vector3(-40, 150, 0)
 	root.add_child(moonlight)
 	cfg["camera_look"] = Vector3(0, 1.25, -5.0)
 	cfg["center_dist"] = 4.4
 	cfg["fog_density"] = 0.035
 	cfg["fog_color"] = Color(0.04, 0.05, 0.07)
-	cfg["ambient"] = Color(0.4, 0.42, 0.55)
-	cfg["ambient_energy"] = 0.6
+	cfg["ambient"] = Color(0.42, 0.44, 0.58)
+	cfg["ambient_energy"] = 0.85
 
 
 # --- utilitários ----------------------------------------------------------------

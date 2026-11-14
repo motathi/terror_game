@@ -29,18 +29,18 @@ const MODELS := {
 const MODEL_META := {
 	"dog": {
 		"tex": TP + "psx_dog/BlackDog.png",
-		"rot_y": 180.0,
+		"rot_y": 0.0,
 		"altura": 0.72,
 		"osso_cabeca": "spine.011",
 		"olhos": [Vector3(-0.087, 0.228, 0.101), Vector3(0.087, 0.228, 0.101)],
-		"raio_olho": 0.022,
+		"raio_olho": 0.034,
 	},
 }
 
 ## Pelagens para "pelagem" no personagem: [tom escuro, tom claro].
 const PELAGENS := {
 	"caramelo": ["#2e1408", "#ffb860"],
-	"morta": ["#0c0a08", "#6a5a48"],
+	"morta": ["#241c16", "#c0ac90"],
 	"cinza": ["#101012", "#a8a8b0"],
 }
 

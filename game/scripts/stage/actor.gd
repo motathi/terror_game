@@ -108,7 +108,7 @@ func _apply_options(key: String, def: Dictionary) -> void:
 					mat.set_shader_parameter("ramp_light", Color.html(ramp[1]))
 				m.set_surface_override_material(i, mat)
 	var em_pe: bool = def.get("em_pe", false)
-	var rot := Vector3(deg_to_rad(80.0) if em_pe else 0.0, deg_to_rad(float(meta.get("rot_y", 0.0))), 0.0)
+	var rot := Vector3(deg_to_rad(-80.0) if em_pe else 0.0, deg_to_rad(float(meta.get("rot_y", 0.0))), 0.0)
 	var altura := float(def.get("altura", meta.get("altura", 0.0)))
 	if altura > 0.0:
 		var ext := _bone_extent_y(Basis.from_euler(rot))

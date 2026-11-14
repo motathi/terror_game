@@ -40,7 +40,7 @@ void fragment() {
 	if (use_texture) {
 		vec4 t = texture(albedo_tex, uv);
 		if (use_ramp) {
-			vec3 sc = pow(t.rgb, vec3(1.0 / 2.2));  // de volta ao espaço da imagem
+			vec3 sc = t.rgb;  // no renderer Compatibility a amostra já vem no espaço da imagem
 			float sat = max(sc.r, max(sc.g, sc.b)) - min(sc.r, min(sc.g, sc.b));
 			if (sat < 0.12) {
 				float l = clamp(dot(sc, vec3(0.3, 0.59, 0.11)) * ramp_gain, 0.0, 1.0);
