@@ -28,13 +28,13 @@
         "location": "campo",
         "model": "alien_shellback",
         "anim": "idle",
-        "dist": 3.0,
+        "dist": 3.3,
         "luz": "#40ff80",
         "ovni": {
           "pos": [
-            2.2,
-            7.5,
-            -11
+            -1.9,
+            4.0,
+            -10
           ],
           "cor": "#66ff88"
         },
@@ -42,9 +42,9 @@
           {
             "model": "alien_grey",
             "pos": [
-              2.2,
-              1.2,
-              -11
+              -1.9,
+              1.1,
+              -10
             ],
             "rot": 180,
             "tint": "#9ab0a8",
