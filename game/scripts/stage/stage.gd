@@ -196,12 +196,24 @@ func _build_hands() -> void:
 	hands = Node3D.new()
 	camera.add_child(hands)
 	for side in HAND_FILES:
-		var path: String = AssetLib.TP + HAND_FILES[side]
-		var inst := AssetLib.spawn(path, Vector3.ZERO)
+		var inst := AssetLib.spawn(AssetLib.TP + HAND_FILES[side], Vector3.ZERO)
 		AssetLib.psxify(inst)
-		var meshes := inst.find_children("*", "MeshInstance3D", true, false)
-		for mi in meshes:
-			print("[maos] ", side, " existe=", ResourceLoader.exists(path), " malha=", mi.name, " aabb=", (mi as MeshInstance3D).get_aabb(), " visivel=", mi.is_visible_in_tree())
+		# Colado na câmera, o mapeamento afim e o tremido do PSX deformam demais:
+		# nas mãos fica desligado, e a pele ganha um pouco de luz própria.
+		for mi in inst.find_children("*", "MeshInstance3D", true, false):
+			var m := mi as MeshInstance3D
+			for i in m.mesh.get_surface_count():
+				var mat := (m.get_active_material(i) as ShaderMaterial)
+				if mat == null:
+					continue
+				mat = mat.duplicate()
+				mat.set_shader_parameter("affine_strength", 0.0)
+				mat.set_shader_parameter("snap_resolution", 900.0)
+				var tex = mat.get_shader_parameter("albedo_tex")
+				if tex:
+					mat.set_shader_parameter("emission_tex", tex)
+					mat.set_shader_parameter("emission_strength", 0.45)
+				m.set_surface_override_material(i, mat)
 		var pivot := Node3D.new()
 		pivot.add_child(inst)
 		hands.add_child(pivot)
