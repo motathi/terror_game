@@ -43,8 +43,8 @@ func _ready() -> void:
 	_subtitle_panel.add_theme_stylebox_override("panel", UI.panel_style())
 	_subtitle_panel.anchor_left = 0.04
 	_subtitle_panel.anchor_right = 0.96
-	_subtitle_panel.anchor_top = 0.66
-	_subtitle_panel.anchor_bottom = 0.66
+	_subtitle_panel.anchor_top = 0.8
+	_subtitle_panel.anchor_bottom = 0.8
 	_subtitle_panel.grow_vertical = Control.GROW_DIRECTION_BOTH
 	_subtitle_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_subtitle_panel)

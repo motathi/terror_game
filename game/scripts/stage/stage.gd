@@ -27,6 +27,11 @@ var _actors_root: Node3D
 var _cam_base := Transform3D()
 var _hands_skel: Skeleton3D
 var _hands_cam_bone := -1
+var _hand_l := -1
+var _hand_r := -1
+## Onde o ponto médio entre as duas mãos fica, em coordenadas da câmera:
+## parte de baixo da tela, como nos vídeos POV.
+const HANDS_TARGET := Vector3(0, -0.36, -0.6)
 ## Base do osso "camera" do rig expressa em coordenadas de câmera Godot:
 ## no rig, +Y do osso aponta para a frente e +X para baixo.
 const _BONE_TO_CAM := Basis(Vector3(0, 0, 1), Vector3(-1, 0, 0), Vector3(0, -1, 0))
@@ -61,6 +66,8 @@ func _ready() -> void:
 	if skels.size() > 0:
 		_hands_skel = skels[0]
 		_hands_cam_bone = _hands_skel.find_bone("camera")
+		_hand_l = _hands_skel.find_bone("hand.L")
+		_hand_r = _hands_skel.find_bone("hand.R")
 	if hands_anim:
 		hands_anim.animation_finished.connect(func(_n): play_hands(HANDS_IDLE_ANIM))
 	# luz suave "do jogador": ilumina o rosto de quem está na frente
@@ -260,7 +267,7 @@ func _process(delta: float) -> void:
 ## Mantém o osso "camera" do rig colado na câmera (as animações das mãos
 ## foram feitas a partir desse ponto de vista).
 func _align_hands() -> void:
-	if _hands_skel == null or _hands_cam_bone < 0 or not hands.visible:
+	if _hands_skel == null or not hands.visible:
 		return
 	var skel_in_hands := Transform3D.IDENTITY
 	var n: Node = _hands_skel
@@ -268,6 +275,12 @@ func _align_hands() -> void:
 		if n is Node3D:
 			skel_in_hands = (n as Node3D).transform * skel_in_hands
 		n = n.get_parent()
+	if _hand_l >= 0 and _hand_r >= 0:
+		# Translada o rig para o meio das mãos cair em HANDS_TARGET.
+		var mid := (_hands_skel.get_bone_global_pose(_hand_l).origin + _hands_skel.get_bone_global_pose(_hand_r).origin) * 0.5
+		var mid_in_hands := skel_in_hands * mid
+		hands.transform = Transform3D(Basis(), HANDS_TARGET - mid_in_hands)
+		return
 	var bone := _hands_skel.get_bone_global_pose(_hands_cam_bone)
 	var cam_in_hands := skel_in_hands * bone * Transform3D(_BONE_TO_CAM, Vector3.ZERO)
 	hands.transform = cam_in_hands.affine_inverse()
@@ -295,7 +308,7 @@ func _slot_position(slot: String) -> Vector3:
 	return p
 
 
-func _face_camera(actor: Node3D, away: bool) -> void:
+func _face_camera(actor: Actor, away: bool) -> void:
 	var target := _cam_base.origin
 	target.y = actor.global_position.y
 	if target.distance_to(actor.global_position) < 0.01:
@@ -303,3 +316,5 @@ func _face_camera(actor: Node3D, away: bool) -> void:
 	actor.look_at(target, Vector3.UP, true)
 	if away:
 		actor.rotate_y(PI)
+		if actor.key:
+			actor.key.position.z = -actor.key.position.z  # luz continua do lado da câmera

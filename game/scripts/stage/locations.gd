@@ -192,7 +192,7 @@ static func _carro(root: Node3D, cfg: Dictionary) -> void:
 	omni(root, Vector3(0, 1.5, -1.0), Color(0.45, 0.55, 1.0), 0.8, 3.0)  # luz interna
 	cfg["camera_pos"] = Vector3(0, 1.2, 0.55)
 	cfg["camera_look"] = Vector3(0, 0.95, -1.5)
-	cfg["floor_y"] = 0.12
+	cfg["floor_y"] = -0.12
 	cfg["slot_dist"] = 1.95
 	cfg["slot_spread"] = 0.5
 	cfg["center_dist"] = 1.95

@@ -11,6 +11,7 @@ var model: Node3D
 var anim_player: AnimationPlayer
 var name_label: Label3D
 var plead_label: Label3D
+var key: OmniLight3D
 var head_height := 1.85
 var _current_anim := ""
 var _t := randf() * 10.0
@@ -39,7 +40,7 @@ func setup(id: String, def: Dictionary, slot_def: Dictionary, title_font: Font, 
 	_base_y = position.y
 
 	# luz própria: o fundo pode ser escuro, o rosto não
-	var key := OmniLight3D.new()
+	key = OmniLight3D.new()
 	key.light_color = Color(1.0, 0.92, 0.82) if offscreen.is_empty() else Color(1.0, 0.75, 0.45)
 	key.light_energy = 1.1
 	key.omni_range = 2.6
