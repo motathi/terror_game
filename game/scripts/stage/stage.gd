@@ -141,7 +141,9 @@ func actor_for(char_id: String) -> Actor:
 func on_line_start(line: Dictionary) -> void:
 	var a := actor_for(line.get("who", ""))
 	if a != null:
-		a.play(line.get("anim", "Talk"))
+		# Sentado continua sentado ao falar; senão usa "Talk".
+		var sitting := a._current_anim.to_lower().ends_with("sit")
+		a.play(line.get("anim", "Sit" if sitting else "Talk"))
 	match line.get("fx", ""):
 		"flicker":
 			flicker_lights(1.2)
