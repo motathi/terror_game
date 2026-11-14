@@ -57,19 +57,7 @@ func _ready() -> void:
 	camera.current = true
 	add_child(camera)
 
-	hands = AssetLib.spawn(AssetLib.model_path("arms"), Vector3.ZERO)
-	AssetLib.psxify(hands)
-	hands.position = HANDS_OFFSET
-	camera.add_child(hands)
-	hands_anim = AssetLib.find_animation_player(hands)
-	var skels := hands.find_children("*", "Skeleton3D", true, false)
-	if skels.size() > 0:
-		_hands_skel = skels[0]
-		_hands_cam_bone = _hands_skel.find_bone("camera")
-		_hand_l = _hands_skel.find_bone("hand.L")
-		_hand_r = _hands_skel.find_bone("hand.R")
-	if hands_anim:
-		hands_anim.animation_finished.connect(func(_n): play_hands(HANDS_IDLE_ANIM))
+	_build_hands()
 	# luz suave "do jogador": ilumina o rosto de quem está na frente
 	var face_light := OmniLight3D.new()
 	face_light.light_color = Color(1.0, 0.9, 0.8)
@@ -77,7 +65,6 @@ func _ready() -> void:
 	face_light.omni_range = 4.5
 	face_light.position = Vector3(0, 0.2, 0.3)
 	camera.add_child(face_light)
-	play_hands(HANDS_IDLE_ANIM)
 
 	_location_root = Node3D.new()
 	add_child(_location_root)
@@ -195,14 +182,49 @@ func actor_at_screen(screen_pos: Vector2, shrink: float) -> String:
 	return best
 
 
+## Mãos em primeira pessoa (PSX FPS Hands, CC0): duas cópias do modelo, cada
+## uma mostrando só um braço, posicionadas nas bordas de baixo da tela como
+## nos vídeos POV. Pose calculada no visualizador (rotação YXZ em graus).
+const HAND_POSE := {
+	"L": {"rot": Vector3(0.87, -67.29, -153.58), "pos": Vector3(0.397, -0.585, 0.355)},  # mão da direita da tela
+	"R": {"rot": Vector3(0.87, 67.29, 153.58), "pos": Vector3(-0.397, -0.585, 0.355)},   # mão da esquerda da tela
+}
+var _hand_pivots: Dictionary = {}
+
+
+func _build_hands() -> void:
+	hands = Node3D.new()
+	camera.add_child(hands)
+	for side in ["L", "R"]:
+		var inst := AssetLib.spawn(AssetLib.model_path("hands"), Vector3.ZERO)
+		AssetLib.psxify(inst)
+		var other := "R" if side == "L" else "L"
+		for sk in inst.find_children("*", "Skeleton3D", true, false):
+			var skel := sk as Skeleton3D
+			for b in skel.get_bone_count():
+				var bn := skel.get_bone_name(b).replace(".", "").replace("_", "").to_lower()
+				if bn == "upperarm" + other.to_lower():
+					skel.set_bone_pose_scale(b, Vector3.ONE * 0.0001)  # esconde o outro braço
+		var pivot := Node3D.new()
+		pivot.add_child(inst)
+		pivot.rotation_degrees = HAND_POSE[side]["rot"]
+		pivot.position = HAND_POSE[side]["pos"]
+		hands.add_child(pivot)
+		_hand_pivots[side] = pivot
+
+
+## Compatível com o código antigo: "grab.L"/"grab.R" estica uma das mãos.
 func play_hands(anim: String) -> void:
-	var found := AssetLib.find_animation(hands_anim, anim)
-	if found.is_empty():
+	if not anim.begins_with("grab."):
 		return
-	var a := hands_anim.get_animation(found)
-	if anim == HANDS_IDLE_ANIM and a != null:
-		a.loop_mode = Animation.LOOP_LINEAR
-	hands_anim.play(found, 0.2)
+	# grab.R = mão da direita da tela = pivô "L" do modelo
+	var pivot: Node3D = _hand_pivots.get("L" if anim.ends_with("R") else "R")
+	if pivot == null:
+		return
+	var base: Vector3 = HAND_POSE["L" if anim.ends_with("R") else "R"]["pos"]
+	var tw := create_tween().set_trans(Tween.TRANS_QUAD)
+	tw.tween_property(pivot, "position", base + Vector3(0, 0.06, -0.16), 0.18).set_ease(Tween.EASE_OUT)
+	tw.tween_property(pivot, "position", base, 0.45).set_ease(Tween.EASE_IN_OUT)
 
 
 ## Mão estica na direção do personagem escolhido (como nos vídeos).
@@ -254,7 +276,9 @@ func lights_off() -> void:
 
 func _process(delta: float) -> void:
 	_t += delta
-	_align_hands()
+	if hands:
+		# respiração das mãos
+		hands.position = Vector3(sin(_t * 1.1) * 0.004, sin(_t * 2.2) * 0.005 - 0.002, 0)
 	# respiração da câmera + tremor
 	var bob := Vector3(sin(_t * 0.9) * 0.008, sin(_t * 1.8) * 0.006, 0)
 	var tilt := sin(_t * 0.6) * 0.004

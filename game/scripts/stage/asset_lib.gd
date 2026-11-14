@@ -16,6 +16,7 @@ const MODELS := {
 	"zombie_female": TP + "zombies_lowho/FBX/Characters/Zombie_Female_01.fbx",
 	"zombie_big": TP + "zombies_lowho/FBX/Characters/Zombie_Behemoth_01.fbx",
 	"arms": TP + "fp_arms/arms_rig.glb",
+	"hands": TP + "fp_hands/hands.glb",
 	"alien_shellback": TP + "psx_aliens/glb/drone.glb",
 	"alien_grey": TP + "alien_grey/Alien.fbx",
 }

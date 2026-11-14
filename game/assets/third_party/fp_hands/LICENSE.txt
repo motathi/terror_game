@@ -1,0 +1,4 @@
+PSX FPS Hands by Niko Gillsky
+https://niko-gillsky.itch.io/psx-fps-hands
+License: CC0
+Convertido de FBX para GLB (FBX2glTF) para uso no Godot.

@@ -140,6 +140,16 @@
         "Alien.fbx",
         "Alien-Texture.png"
       ]
+    },
+    {
+      "id": "fp_hands",
+      "url": "https://niko-gillsky.itch.io/psx-fps-hands",
+      "author": "Niko Gillsky",
+      "license": "CC0",
+      "commit": true,
+      "dest": "game/assets/third_party/fp_hands",
+      "include": [],
+      "_obs": "Vem em .rar/.fbx; foi convertido para GLB (FBX2glTF) e versionado. O fetch pula porque a pasta já existe."
     }
   ]
 }

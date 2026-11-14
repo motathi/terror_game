@@ -14,6 +14,7 @@ Coloque esta lista na tela de créditos do jogo. **Obrigatório:** a linha do pa
 | [PSX modular house interior pack](https://dissonantvoid.itch.io/psx-retro-interior-pack) | DissonantVoid | Uso comercial livre, sem crédito; proibido redistribuir | Não (fetch_assets) |
 | [PSX Retro Zombie – Free Sample](https://anwar2077.itch.io/psx-retro-zombie-free-sample-model) | Anwar2077 | Royalty-free comercial; proibido redistribuir | Não (fetch_assets) |
 | [PSX style office pack](https://valsekamerplant.itch.io/psx-style-opulent-office) | valsekamerplant | CC0 | Sim |
+| [PSX FPS Hands](https://niko-gillsky.itch.io/psx-fps-hands) | Niko Gillsky | CC0 | Sim (convertido para GLB) |
 | [PSX First Person Arms](https://drillimpact.itch.io/psx-first-person-arms-free) | Drillimpact | CC0 | Sim |
 | [LOWHO: Zombie Free Sample](https://standout7.itch.io/lowho-zombie) | Standout7 | CC0 | Sim |
 | [PSX Style Cars](https://ggbot.itch.io/psx-style-cars) | GGBotNet | CC0 | Sim |
