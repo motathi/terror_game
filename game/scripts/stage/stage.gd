@@ -6,11 +6,6 @@ const AssetLib := preload("res://scripts/stage/asset_lib.gd")
 const Locations := preload("res://scripts/stage/locations.gd")
 const Actor := preload("res://scripts/stage/actor.gd")
 
-## Ajuste fino das mãos em primeira pessoa (modelo arms_rig.glb).
-## O rig tem um osso "camera" em y=1.743 olhando para -Z: alinhamos ele à câmera.
-const HANDS_OFFSET := Vector3(0, -1.743, 0.0)
-const HANDS_IDLE_ANIM := "guard_idle"
-
 var title_font: Font
 var body_font: Font
 var post_material: ShaderMaterial  # material do pós-processo (flash/blackout)
@@ -18,23 +13,12 @@ var post_material: ShaderMaterial  # material do pós-processo (flash/blackout)
 var camera: Camera3D
 var env: Environment
 var hands: Node3D
-var hands_anim: AnimationPlayer
 var location_id := ""
 var location_cfg: Dictionary = {}
 var actors: Dictionary = {}  # slot -> Actor
 var _location_root: Node3D
 var _actors_root: Node3D
 var _cam_base := Transform3D()
-var _hands_skel: Skeleton3D
-var _hands_cam_bone := -1
-var _hand_l := -1
-var _hand_r := -1
-## Onde o ponto médio entre as duas mãos fica, em coordenadas da câmera:
-## parte de baixo da tela, como nos vídeos POV.
-const HANDS_TARGET := Vector3(0, -0.36, -0.6)
-## Base do osso "camera" do rig expressa em coordenadas de câmera Godot:
-## no rig, +Y do osso aponta para a frente e +X para baixo.
-const _BONE_TO_CAM := Basis(Vector3(0, 0, 1), Vector3(-1, 0, 0), Vector3(0, -1, 0))
 var _t := 0.0
 var _shake := 0.0
 
@@ -190,6 +174,18 @@ const HAND_FILES := {
 	"R": "fp_hands/mao_R.glb",  # mão da esquerda da tela
 }
 var _hand_pivots: Dictionary = {}
+## A pose foi ajustada para a tela do Safari no iPhone (390x664). Em telas
+## mais altas a borda de baixo desce; as mãos acompanham para não "subirem".
+const HANDS_DESIGN_TAN := 1.023  # tan(fov/2) vertical em 390x664 com fov 62 na largura
+const HANDS_DEPTH := 0.3
+
+
+func _hands_screen_y() -> float:
+	var size := camera.get_viewport().get_visible_rect().size
+	if size.x <= 0.0:
+		return 0.0
+	var t := tan(deg_to_rad(camera.fov * 0.5)) * size.y / size.x
+	return -(t - HANDS_DESIGN_TAN) * HANDS_DEPTH
 
 
 func _build_hands() -> void:
@@ -285,7 +281,7 @@ func _process(delta: float) -> void:
 	_t += delta
 	if hands:
 		# respiração das mãos
-		hands.position = Vector3(sin(_t * 1.1) * 0.004, sin(_t * 2.2) * 0.005 - 0.002, 0)
+		hands.position = Vector3(sin(_t * 1.1) * 0.004, sin(_t * 2.2) * 0.005 - 0.002 + _hands_screen_y(), 0)
 	# respiração da câmera + tremor
 	var bob := Vector3(sin(_t * 0.9) * 0.008, sin(_t * 1.8) * 0.006, 0)
 	var tilt := sin(_t * 0.6) * 0.004
@@ -303,28 +299,6 @@ func _process(delta: float) -> void:
 
 ## Slots calculados a partir da câmera: dois personagens lado a lado,
 ## centralizados na tela em pé, e um terceiro mais ao fundo.
-## Mantém o osso "camera" do rig colado na câmera (as animações das mãos
-## foram feitas a partir desse ponto de vista).
-func _align_hands() -> void:
-	if _hands_skel == null or not hands.visible:
-		return
-	var skel_in_hands := Transform3D.IDENTITY
-	var n: Node = _hands_skel
-	while n != null and n != hands:
-		if n is Node3D:
-			skel_in_hands = (n as Node3D).transform * skel_in_hands
-		n = n.get_parent()
-	if _hand_l >= 0 and _hand_r >= 0:
-		# Translada o rig para o meio das mãos cair em HANDS_TARGET.
-		var mid := (_hands_skel.get_bone_global_pose(_hand_l).origin + _hands_skel.get_bone_global_pose(_hand_r).origin) * 0.5
-		var mid_in_hands := skel_in_hands * mid
-		hands.transform = Transform3D(Basis(), HANDS_TARGET - mid_in_hands)
-		return
-	var bone := _hands_skel.get_bone_global_pose(_hands_cam_bone)
-	var cam_in_hands := skel_in_hands * bone * Transform3D(_BONE_TO_CAM, Vector3.ZERO)
-	hands.transform = cam_in_hands.affine_inverse()
-
-
 func _slot_position(slot: String) -> Vector3:
 	var custom: Dictionary = location_cfg.get("slots", {})
 	if custom.has(slot):

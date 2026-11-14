@@ -30,8 +30,16 @@ for side in ('L','R'):
     m = isL if side == 'L' else ~isL
     tri = I[m[I].all(1)]
     used = np.unique(tri); remap = -np.ones(len(P), int); remap[used] = np.arange(len(used))
-    pos = (R.apply(rest[used]) + np.array(p['pos'])).astype(np.float32)
-    nor = R.apply(nrest[used]).astype(np.float32)
+    pos = R.apply(rest[used]) + np.array(p['pos'])
+    nor = R.apply(nrest[used])
+    post = POSE.get('post')  # ajuste fino em espaço de câmera, espelhado para R
+    if post:
+        sx = 1 if side == 'L' else -1
+        c = np.array(post.get('centro', [0.2, -0.45, -0.25])) * [sx, 1, 1]
+        Rp = Rot.from_euler('ZYX', [sx * post.get('rz', 0), sx * post.get('ry', 0), post.get('rx', 0)], degrees=True)
+        pos = Rp.apply((pos - c) * post.get('esc', 1.0)) + c + np.array(post.get('off', [0, 0, 0])) * [sx, 1, 1]
+        nor = Rp.apply(nor)
+    pos = pos.astype(np.float32); nor = nor.astype(np.float32)
     uv = UV[used].astype(np.float32); idx = remap[tri].astype(np.uint32).reshape(-1)
     bins = [pos.tobytes(), nor.tobytes(), uv.tobytes(), idx.tobytes(), png]
     offs = np.cumsum([0]+[ (len(b)+3)//4*4 for b in bins])
