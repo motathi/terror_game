@@ -17,9 +17,12 @@ config/icon="res://icon.svg"
 
 [audio]
 
-; Web: o Godot mistura o áudio (modo Stream). O modo "Sample" ignora
-; os buses criados em código (Phone/Radio/Muffled) e ficava mudo.
-general/default_playback_type.web=0
+; Buses declarados no .tres (no modo Sample do navegador, buses criados
+; por código não existem e o som saía mudo). Web usa Sample: o navegador
+; toca o áudio nativamente, sem travar quando o 3D pesa. Efeitos de bus
+; (telefone/rádio) só valem fora da web.
+buses/default_bus_layout="res://default_bus_layout.tres"
+general/default_playback_type.web=1
 
 [autoload]
 

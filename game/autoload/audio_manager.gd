@@ -132,7 +132,10 @@ func apply_volumes() -> void:
 # --- internos ---------------------------------------------------------------
 
 func _setup_buses() -> void:
-	# Criados em código (e não num .tres) para não depender do editor.
+	# Os buses vêm de res://default_bus_layout.tres. Isto só garante que
+	# existam caso o arquivo falte (não vale para o modo Sample da web).
+	if AudioServer.get_bus_index("Muffled") >= 0:
+		return
 	_add_bus("Music", "Master")
 	_add_bus("Ambience", "Master")
 	_add_bus("SFX", "Master")
