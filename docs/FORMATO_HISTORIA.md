@@ -70,6 +70,41 @@ Opcional no topo do arquivo: `"musica_cenarios": {"casa": "skin_casa"}` e `"sons
 }
 ```
 
+## Direção de cena (a cena tem que acontecer de verdade)
+
+O que a fala descreve precisa acontecer na tela: quem chega entra andando, quem desce a escada desce, quem se vira se vira. Use `"acoes"` numa **fala** (o tempo `t` conta do início da fala) ou num **nó** (conta da entrada na cena; ações com `t: 0` rodam antes da cena aparecer, bom para posicionar alguém).
+
+```jsonc
+"acoes": [
+  { "t": 0,   "acao": "entrar", "who": "jorge", "de": [-4, 0, -0.5], "anim": "Run", "fim": "Idle", "dur": 1.6 },
+  { "t": 0.6, "acao": "camera_andar", "pos": [0, 0.7, -2.4], "olhar": [0, -0.4, -6.5], "dur": 3 },
+  { "t": 2.0, "acao": "camera_olhar", "who": "rafael", "dur": 0.8 }
+]
+```
+`"espera": 1.2` numa fala atrasa a legenda (a ação começa antes). `"aguardar": 1.6` num nó segura a primeira fala (ex.: até quem está chegando parar de andar).
+
+Offsets (`de`, `para`, `por`) são relativos à câmera: x = direita, y = cima, z = **para trás** (positivo vem de trás de você, negativo vai para a frente).
+
+| ação | o que faz |
+|---|---|
+| `entrar` | personagem começa deslocado (`de`) e anda até o lugar dele (`anim`, depois `fim`), virando para você |
+| `sair` | anda até `para` e some (`esconder: false` mantém) |
+| `andar` | anda `por` a partir de onde está; `olhar_camera: false` deixa de costas; `fim` = animação de repouso |
+| `mover` | vai até uma posição absoluta (`para`) |
+| `olhar_camera` / `olhar_para` (`alvo`) | vira para você / para outro personagem |
+| `anim` | troca a animação; `fixo: true` vira a animação de repouso |
+| `esconder` / `mostrar` | some / aparece |
+| `tremer` | personagem treme (`dur`) |
+| `camera_andar` | câmera anda com balanço de passos: `pos` + `olhar` absolutos, ou `por` relativo |
+| `camera_rel` | move a câmera relativa a ela (`por`, `olhar` opcional, `andar: true` para passos) |
+| `camera_olhar` | vira a câmera para um personagem (`who`) ou ponto (`olhar`) |
+| `camera` / `camera_voltar` | câmera para posição absoluta / volta à câmera do nó |
+| `maos` | mão estica (`grab.L` / `grab.R`); `maos_cor` tinge as mãos (ex.: sangue) |
+| `texto3d` | texto no mundo (tela do celular, relógio); mesmo `id` substitui, texto vazio apaga |
+| `sfx`, `luz`, `luz_ponto`, `no`, `fx` | som, luz do ambiente, luz pontual, mover nó do cenário, efeitos (`flash`, `tremor`, `piscar`, `vermelho`, `apagar`, `acender`, `chuvisco`) |
+
+As mesmas ações valem nas cinemáticas dos finais (`"passos"`).
+
 ## Escolha
 ```jsonc
 "choice": {

@@ -18,6 +18,7 @@ var runner := StoryRunner.new()
 var stage: Stage
 var ui: DialogueUI
 var _current_choice_options: Array = []
+var _scene_gen := 0  # muda a cada nó: ações atrasadas de um nó antigo são ignoradas
 
 
 func _ready() -> void:
@@ -93,16 +94,51 @@ func _setup_scene(node: Dictionary) -> void:
 	if changing:
 		await ui.fade_out(0.45)
 		stage.set_location(loc)
+		stage.clear_cinematic()
 		Audio.set_location(loc)
 	Audio.play_music(node.get("music", Audio.music_for_location(loc)))
 	stage.apply_node_view(node.get("camera", {}))
 	stage.set_cast(node.get("cast", {}), runner.story.get("characters", {}))
+	_scene_gen += 1
+	_start_timeline(node.get("acoes", []))  # direção de cena do nó (entradas etc.)
 	if node.has("ambience"):
 		Audio.play_ambience(node["ambience"])
 	if changing:
 		await ui.fade_in(0.6)
 	if node.has("title_card"):
 		await ui.show_title_card(node["title_card"])
+	if node.has("aguardar"):
+		await get_tree().create_timer(float(node["aguardar"])).timeout
+
+
+## Ações com tempo ("t" em segundos): as de t <= 0 rodam já (antes de a cena
+## aparecer); as outras rodam em paralelo com as falas.
+func _start_timeline(steps: Array) -> void:
+	if steps.is_empty():
+		return
+	var chars: Dictionary = runner.story.get("characters", {})
+	var sorted := steps.duplicate()
+	sorted.sort_custom(func(a, b): return float(a.get("t", 0.0)) < float(b.get("t", 0.0)))
+	var rest: Array = []
+	for st in sorted:
+		if float(st.get("t", 0.0)) <= 0.0:
+			_run_step(st, chars)
+		else:
+			rest.append(st)
+	if not rest.is_empty():
+		_timeline(rest, chars, _scene_gen)
+
+
+func _timeline(steps: Array, chars: Dictionary, gen: int) -> void:
+	var t := 0.0
+	for st in steps:
+		var at := float(st.get("t", 0.0))
+		if at > t:
+			await get_tree().create_timer(at - t).timeout
+			t = at
+		if gen != _scene_gen:
+			return
+		_run_step(st, chars)
 
 
 func _play_line(line: Dictionary, node: Dictionary) -> void:
@@ -111,8 +147,11 @@ func _play_line(line: Dictionary, node: Dictionary) -> void:
 	var cast: Dictionary = node.get("cast", {})
 	var phone: bool = line.get("phone", false) or cast.get("phone", {}).get("char", "") == who
 	stage.on_line_start(line)
+	_start_timeline(line.get("acoes", []))
 	if line.has("sfx"):
 		Audio.play_sfx(line["sfx"])
+	if line.has("espera"):
+		await get_tree().create_timer(float(line["espera"])).timeout
 	var spoke := false
 	if ch.get("voiced", true):
 		# efeitos (telefone/TV/porta) já vêm aplicados no arquivo de voz
@@ -242,6 +281,34 @@ func _run_step(s: Dictionary, chars: Dictionary) -> void:
 			var a = stage.actor_for(who)
 			if a:
 				a.play(s.get("anim", "Idle"))
+				if s.get("fixo", false):
+					a.base_anim = s.get("anim", "Idle")
+		"entrar":
+			stage.enter_actor(who, _v(s.get("de", [-3, 0, 0])), dur, s.get("anim", "Walk"), s.get("fim", "Idle"))
+		"sair":
+			stage.exit_actor(who, _v(s.get("para", [3, 0, 0])), dur, s.get("anim", "Walk"), s.get("esconder", true))
+		"andar":
+			stage.move_actor_rel(who, _v(s.get("por", [0, 0, 0])), dur, s.get("anim", "Walk"), s.get("fim", "Idle"), s.get("olhar_camera", true))
+		"olhar_para":
+			stage.face_actor(who, s.get("alvo", ""))
+		"camera_andar":
+			if s.has("pos"):
+				stage.walk_camera(_v(s["pos"]), _v(s["olhar"]), dur)
+			else:
+				stage.camera_rel(_v(s.get("por", [0, 0, -1])), dur, true, _v(s["olhar"]) if s.has("olhar") else null)
+		"camera_rel":
+			stage.camera_rel(_v(s.get("por", [0, 0, 0])), dur, s.get("andar", false), _v(s["olhar"]) if s.has("olhar") else null)
+		"camera_olhar":
+			if not who.is_empty():
+				stage.camera_look_actor(who, dur)
+			else:
+				stage.camera_look_point(_v(s["olhar"]), dur)
+		"camera_voltar":
+			stage.camera_back(dur)
+		"esconder":
+			stage.set_actor_visible(who, false)
+		"mostrar":
+			stage.set_actor_visible(who, true)
 		"mover":
 			stage.move_actor(who, _v(s["para"]), dur)
 		"olhar_camera":

@@ -14,6 +14,7 @@ var name_label: Label3D
 var plead_label: Label3D
 var key: OmniLight3D
 var head_height := 1.85
+var base_anim := "Idle"  # animação de repouso (volta para ela depois de falar)
 var _current_anim := ""
 var _t := randf() * 10.0
 var _plead_active := false

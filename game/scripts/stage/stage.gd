@@ -21,6 +21,10 @@ var _actors_root: Node3D
 var _cam_base := Transform3D()
 var _t := 0.0
 var _shake := 0.0
+var _walk := 0.0      # segundos restantes de "câmera andando" (balanço de passos)
+var _walk_amp := 0.0
+var _node_cam := Transform3D()  # câmera do nó atual (para "camera_voltar")
+var _cam_tween: Tween
 
 
 func _ready() -> void:
@@ -71,6 +75,8 @@ func set_location(id: String, force := false) -> void:
 	var cam_pos: Vector3 = location_cfg["camera_pos"]
 	camera.transform = Transform3D(Basis(), cam_pos).looking_at(location_cfg["camera_look"], Vector3.UP)
 	_cam_base = camera.transform
+	_node_cam = _cam_base
+	_walk = 0.0
 	hands.visible = location_cfg.get("hands", true)
 	_view_key = ""
 	_loc_view = {}
@@ -108,6 +114,7 @@ func apply_node_view(view: Dictionary) -> bool:
 func set_camera(pos: Vector3, look: Vector3) -> void:
 	camera.transform = Transform3D(Basis(), pos).looking_at(look, Vector3.UP)
 	_cam_base = camera.transform
+	_node_cam = _cam_base
 
 
 ## cast = {"left": {"char": "rafael", "anim": "Idle"}, ...}
@@ -126,10 +133,12 @@ func set_cast(cast: Dictionary, characters: Dictionary) -> void:
 			_actors_root.add_child(cur)
 			cur.position = _slot_position(slot)
 			cur.setup(want["char"], characters.get(want["char"], {}), want, title_font, body_font)
+			cur.base_anim = want.get("anim", "Idle")
 			_face_camera(cur, want.get("facing", "") == "away")
 			actors[slot] = cur
 		else:
-			cur.play(want.get("anim", "Idle"))
+			cur.base_anim = want.get("anim", "Idle")
+			cur.play(cur.base_anim)
 
 
 func clear_cast() -> void:
@@ -149,8 +158,13 @@ func on_line_start(line: Dictionary) -> void:
 	var a := actor_for(line.get("who", ""))
 	if a != null:
 		# Sentado continua sentado ao falar; senão usa "Talk".
-		var sitting := a._current_anim.to_lower().ends_with("sit")
-		a.play(line.get("anim", "Sit" if sitting else "Talk"))
+		var cur := a._current_anim.to_lower()
+		var busy := cur.ends_with("sit") or cur.contains("walk") or cur.contains("run")
+		# sentado/andando continua igual ao falar; parado usa "Talk"
+		if line.has("anim"):
+			a.play(line["anim"])
+		elif not busy:
+			a.play("Talk")
 	match line.get("fx", ""):
 		"flicker":
 			flicker_lights(1.2)
@@ -160,13 +174,13 @@ func on_line_start(line: Dictionary) -> void:
 		scare_flash()
 
 
-func on_line_end(line: Dictionary, cast: Dictionary) -> void:
+func on_line_end(line: Dictionary, _cast: Dictionary) -> void:
 	var a := actor_for(line.get("who", ""))
 	if a == null:
 		return
-	for slot in actors:
-		if actors[slot] == a:
-			a.play(cast.get(slot, {}).get("anim", "Idle"))
+	var cur := a._current_anim.to_lower()
+	if not (cur.contains("walk") or cur.contains("run")):
+		a.play(a.base_anim)
 
 
 func set_pleads(pleads: Dictionary) -> void:
@@ -314,6 +328,14 @@ func _process(delta: float) -> void:
 		hands.position = Vector3(sin(_t * 1.1) * 0.004, sin(_t * 2.2) * 0.005 - 0.002 + _hands_screen_y(), 0)
 	# respiração da câmera + tremor
 	var bob := Vector3(sin(_t * 0.9) * 0.008, sin(_t * 1.8) * 0.006, 0)
+	# andando: balanço lateral + passos (a câmera sobe e desce)
+	_walk = maxf(_walk - delta, 0.0)
+	_walk_amp = move_toward(_walk_amp, 1.0 if _walk > 0.0 else 0.0, delta * 4.0)
+	if _walk_amp > 0.0:
+		var ph := _t * 8.5
+		bob += Vector3(sin(ph * 0.5) * 0.035, -absf(sin(ph * 0.5)) * 0.06, 0) * _walk_amp
+		if hands:
+			hands.position += Vector3(sin(ph * 0.5) * 0.012, absf(sin(ph * 0.5)) * 0.02, 0) * _walk_amp
 	var tilt := sin(_t * 0.6) * 0.004
 	_shake = move_toward(_shake, 0.0, delta * 0.25)
 	var jitter := Vector3(randf_range(-1, 1), randf_range(-1, 1), 0) * _shake
@@ -372,10 +394,13 @@ var _cine_extra: Array = []
 func tween_camera(pos: Vector3, look: Vector3, dur: float) -> void:
 	var from := _cam_base
 	var to := Transform3D(Basis(), pos).looking_at(look, Vector3.UP)
+	if _cam_tween and _cam_tween.is_valid():
+		_cam_tween.kill()  # um movimento novo substitui o anterior
 	if dur <= 0.0:
 		_cam_base = to
 		return
 	var tw := create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	_cam_tween = tw
 	tw.tween_method(func(k: float): _cam_base = from.interpolate_with(to, k), 0.0, 1.0, dur)
 
 
@@ -478,6 +503,121 @@ func tint_hands(color: Color, dur: float) -> void:
 			m.set_surface_override_material(i, mat)
 			var from: Color = mat.get_shader_parameter("albedo_color")
 			create_tween().tween_method(func(c: Color): mat.set_shader_parameter("albedo_color", c), from, color, dur)
+
+
+# --- direção de cena (ações por fala/nó; ver docs/FORMATO_HISTORIA.md) ------------
+
+## Base da câmera só com a rotação horizontal: offsets "à esquerda/à frente".
+func _yaw_basis() -> Basis:
+	var fwd := -_cam_base.basis.z
+	fwd.y = 0.0
+	if fwd.length() < 0.01:
+		fwd = Vector3.FORWARD
+	return Basis.looking_at(fwd.normalized(), Vector3.UP)
+
+
+## Offset no referencial da câmera: x = direita, y = cima, z = para trás (+) / frente (-).
+func cam_offset(v: Vector3) -> Vector3:
+	return _yaw_basis() * v
+
+
+## Câmera andando até pos/olhar (com balanço de passos).
+func walk_camera(pos: Vector3, look: Vector3, dur: float) -> void:
+	tween_camera(pos, look, dur)
+	_walk = dur
+
+
+## Move a câmera relativa a ela mesma; olhar = ponto absoluto ou à frente.
+func camera_rel(offset: Vector3, dur: float, walk := false, look = null) -> void:
+	var pos := _cam_base.origin + cam_offset(offset)
+	var target: Vector3 = look if look is Vector3 else pos + (-_cam_base.basis.z) * 3.0
+	tween_camera(pos, target, dur)
+	if walk:
+		_walk = dur
+
+
+func camera_look_actor(char_id: String, dur: float) -> void:
+	var a := actor_for(char_id)
+	if a:
+		tween_camera(_cam_base.origin, a.global_position + Vector3(0, a.head_height * 0.82, 0), dur)
+
+
+func camera_look_point(p: Vector3, dur: float) -> void:
+	tween_camera(_cam_base.origin, p, dur)
+
+
+func camera_back(dur: float) -> void:
+	tween_camera(_node_cam.origin, _node_cam.origin - _node_cam.basis.z * 3.0, dur)
+
+
+## Personagem entra em cena: começa deslocado (offset da câmera) e anda até o slot.
+func enter_actor(char_id: String, offset: Vector3, dur: float, anim := "Walk", end_anim := "Idle") -> void:
+	var a := actor_for(char_id)
+	if a == null:
+		return
+	var slot := a.global_position
+	a.global_position = slot + cam_offset(offset)
+	a.visible = true
+	a.play(anim)
+	_face_point(a, slot)
+	var tw := create_tween()
+	tw.tween_property(a, "global_position", slot, maxf(dur, 0.01))
+	tw.tween_callback(func():
+		if is_instance_valid(a):
+			a.base_anim = end_anim
+			a.play(end_anim)
+			_face_camera(a, false))
+
+
+## Personagem sai de cena andando para o offset e some no fim.
+func exit_actor(char_id: String, offset: Vector3, dur: float, anim := "Walk", hide := true) -> void:
+	var a := actor_for(char_id)
+	if a == null:
+		return
+	var to := a.global_position + cam_offset(offset)
+	a.play(anim)
+	_face_point(a, to)
+	var tw := create_tween()
+	tw.tween_property(a, "global_position", to, maxf(dur, 0.01))
+	if hide:
+		tw.tween_callback(func():
+			if is_instance_valid(a):
+				a.visible = false)
+
+
+## Anda relativo à posição atual; no fim volta a encarar a câmera (opcional).
+func move_actor_rel(char_id: String, offset: Vector3, dur: float, anim := "", end_anim := "", face_cam := true) -> void:
+	var a := actor_for(char_id)
+	if a == null:
+		return
+	var to := a.global_position + cam_offset(offset)
+	if not anim.is_empty():
+		a.play(anim)
+	if Vector2(offset.x, offset.z).length() > 0.05:
+		_face_point(a, to)
+	var tw := create_tween()
+	tw.tween_property(a, "global_position", to, maxf(dur, 0.01))
+	tw.tween_callback(func():
+		if not is_instance_valid(a):
+			return
+		if not end_anim.is_empty():
+			a.base_anim = end_anim
+			a.play(end_anim)
+		if face_cam:
+			_face_camera(a, false))
+
+
+func face_actor(char_id: String, target_id: String) -> void:
+	var a := actor_for(char_id)
+	var b := actor_for(target_id)
+	if a and b:
+		_face_point(a, b.global_position)
+
+
+func set_actor_visible(char_id: String, v: bool) -> void:
+	var a := actor_for(char_id)
+	if a:
+		a.visible = v
 
 
 ## Move um nó do cenário pelo nome (ex.: portas do elevador).
