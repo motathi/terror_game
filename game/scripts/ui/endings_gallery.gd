@@ -19,6 +19,7 @@ func _ready() -> void:
 	UI.full_rect(bg)
 	add_child(bg)
 
+	Audio.play_music("tema")
 	var runner := StoryRunner.new()
 	runner.load_file(GameState.current_campaign)
 	var ids := runner.ending_ids()

@@ -36,7 +36,36 @@ const AMB_FALLBACK := {
 	"carro": PACK + "ambience/drone_low.ogg",
 }
 
+## Música padrão de cada cenário (o nó da história pode trocar com "music").
+const LOCATION_MUSIC := {
+	"escritorio": "inquietacao",
+	"escritorio_escuro": "tensao",
+	"escada": "tensao",
+	"garagem": "suspense",
+	"carro": "estrada",
+	"rua": "perseguicao",
+	"casa": "casa",
+}
+## Sons soltos que tocam de vez em quando, baixinho, em cada cenário.
+const LOCATION_RANDOM := {
+	"escritorio_escuro": ["longe_grito", "batida_porta", "vidro", "sirene"],
+	"escada": ["longe_grito", "batida_porta", "rosnado_longe"],
+	"garagem": ["rosnado_longe", "vidro", "longe_grito"],
+	"carro": ["sirene", "helicoptero", "longe_grito"],
+	"rua": ["sirene", "helicoptero", "longe_grito", "vidro", "rosnado_longe"],
+	"casa": ["batida_porta", "rosnado_longe", "sirene"],
+}
+const MUSIC_DB := -9.0
+const DUCK_DB := -9.0  # quanto a música abaixa enquanto alguém fala
+
 var locale := "pt_BR"
+var _music_a: AudioStreamPlayer
+var _music_b: AudioStreamPlayer
+var _music_key := ""
+var _tension: AudioStreamPlayer
+var _random_pool: Array = []
+var _random_timer := 0.0
+var _duck := 0.0
 var _voice: AudioStreamPlayer
 var _amb_a: AudioStreamPlayer
 var _amb_b: AudioStreamPlayer
@@ -54,7 +83,76 @@ func _ready() -> void:
 	_amb_b = _make_player("Ambience")
 	for i in 6:
 		_sfx_pool.append(_make_player("SFX"))
+	_music_a = _make_player("Music")
+	_music_b = _make_player("Music")
+	_tension = _make_player("SFX")
 	apply_volumes()
+
+
+func _process(delta: float) -> void:
+	# ducking: música abaixa enquanto uma voz toca
+	var target := 1.0 if _voice.playing else 0.0
+	_duck = move_toward(_duck, target, delta * (4.0 if target > _duck else 1.2))
+	var idx := AudioServer.get_bus_index("Music")
+	if idx >= 0:
+		var base := linear_to_db(maxf(float(GameState.settings.get("music_volume", 0.8)), 0.0001))
+		AudioServer.set_bus_volume_db(idx, base + DUCK_DB * _duck)
+	# sons aleatórios do cenário
+	if not _random_pool.is_empty():
+		_random_timer -= delta
+		if _random_timer <= 0.0:
+			_random_timer = randf_range(9.0, 20.0)
+			play_sfx(_random_pool.pick_random(), randf_range(-16.0, -9.0))
+
+
+## Troca a trilha com crossfade. "" = silêncio.
+func play_music(key: String, fade := 2.5) -> void:
+	if key == _music_key:
+		return
+	_music_key = key
+	var stream: AudioStream = null if key.is_empty() else _find("res://audio/music/" + key)
+	var old := _music_a
+	_music_a = _music_b
+	_music_b = old
+	var tw := create_tween()
+	tw.tween_property(_music_b, "volume_db", -60.0, fade)
+	tw.tween_callback(_music_b.stop)
+	if stream == null:
+		return
+	if not key.begins_with("final_"):
+		_set_loop(stream)
+	_music_a.stream = stream
+	_music_a.volume_db = -50.0
+	_music_a.play()
+	create_tween().tween_property(_music_a, "volume_db", MUSIC_DB, fade)
+
+
+func music_for_location(location: String) -> String:
+	return LOCATION_MUSIC.get(location, "tensao")
+
+
+func set_location(location: String) -> void:
+	_random_pool = LOCATION_RANDOM.get(location, [])
+	_random_timer = randf_range(4.0, 10.0)
+
+
+## Tique-taque + coração enquanto o jogador decide.
+func start_choice_tension() -> void:
+	var stream := _find("res://audio/amb/escolha")
+	if stream == null:
+		return
+	_set_loop(stream)
+	_tension.stream = stream
+	_tension.volume_db = -30.0
+	_tension.play()
+	create_tween().tween_property(_tension, "volume_db", -6.0, 0.8)
+
+
+func stop_choice_tension() -> void:
+	if _tension.playing:
+		var tw := create_tween()
+		tw.tween_property(_tension, "volume_db", -50.0, 0.3)
+		tw.tween_callback(_tension.stop)
 
 
 ## Toca a fala `line_id`. Retorna false se o arquivo de voz não existir.
@@ -118,7 +216,7 @@ func play_ambience(key: String, fade: float = 1.5) -> void:
 		_amb_a.stream = stream
 		_amb_a.volume_db = -60.0
 		_amb_a.play()
-		create_tween().tween_property(_amb_a, "volume_db", -6.0, fade)
+		create_tween().tween_property(_amb_a, "volume_db", -12.0, fade)
 
 
 func apply_volumes() -> void:

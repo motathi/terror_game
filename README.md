@@ -34,7 +34,12 @@ python3 tools/elevenlabs_gen.py save marina 1       # escolhe a prévia 1 como v
 python3 tools/elevenlabs_gen.py all --dry-run       # mostra o que vai gerar e quantos caracteres
 python3 tools/elevenlabs_gen.py all                 # gera efeitos, ambientes e todas as falas
 ```
-Só falas alteradas são regeradas (cache por hash). O jogo funciona sem áudio: ele usa os efeitos do pacote CC-BY enquanto o ElevenLabs não foi rodado.
+Só falas alteradas são regeradas (cache por hash). Precisa de `ffmpeg`, que aplica o efeito da cena direto no arquivo de voz (telefone, TV, voz abafada atrás da porta) e normaliza o volume.
+
+**Trilha sonora** (`python3 tools/elevenlabs_gen.py music`): 11 faixas instrumentais do Eleven Music (`music_v2_5`).
+- **Músicas de cena:** tema do menu, inquietação, tensão, espera, suspense, perseguição, estrada e a canção de ninar da casa. Cada cenário tem uma faixa padrão, e a cena pode trocar com `"music"` no JSON.
+- **Finais:** três faixas, para morte, sobrevivência e agridoce/secreto.
+- **No jogo:** a música abaixa enquanto alguém fala. Durante as escolhas entra uma camada de tique-taque com coração, e cada cenário dispara sons soltos de fundo (gritos distantes, sirenes, vidro). O jogo funciona sem áudio: ele usa os efeitos do pacote CC-BY enquanto o ElevenLabs não foi rodado.
 
 ## Escrever história
 

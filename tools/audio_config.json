@@ -72,6 +72,17 @@
         "style": 0.2,
         "speed": 1.0
       }
+    },
+    "sistema": {
+      "voice_id": "5VPn2gBWXLhkXcnVhj1e",
+      "description": "Deep, low, gravelly male narrator voice speaking Brazilian Portuguese, around 55 years old, slow and ominous delivery like a horror movie trailer or true-crime documentary narrator, rich bass, calm and menacing, studio quality.",
+      "settings": {
+        "stability": 0.55,
+        "similarity_boost": 0.8,
+        "style": 0.35,
+        "speed": 0.92
+      },
+      "default_tags": "[slow, low, ominous narration]"
     }
   },
   "sfx": {
@@ -128,6 +139,30 @@
       "coracao": {
         "prompt": "slow heavy heartbeat, tense, close",
         "duration": 4.0
+      },
+      "longe_grito": {
+        "prompt": "distant terrified scream echoing between city buildings at night",
+        "duration": 4.0
+      },
+      "sirene": {
+        "prompt": "distant police siren passing by in an empty city at night",
+        "duration": 4.0
+      },
+      "helicoptero": {
+        "prompt": "helicopter flying low overhead and fading away",
+        "duration": 4.0
+      },
+      "vidro": {
+        "prompt": "glass window shattering in the distance, echo",
+        "duration": 4.0
+      },
+      "batida_porta": {
+        "prompt": "heavy fists pounding on a wooden door in another room, muffled",
+        "duration": 4.0
+      },
+      "rosnado_longe": {
+        "prompt": "zombie growl far away in the dark, reverb",
+        "duration": 4.0
       }
     }
   },
@@ -157,6 +192,59 @@
       "casa": {
         "prompt": "silent house at night, clock ticking, refrigerator hum, faint wind outside",
         "duration": 15
+      },
+      "escolha": {
+        "prompt": "tense ticking clock with a low pulsing heartbeat bass and a rising eerie tone, horror countdown",
+        "duration": 12
+      }
+    }
+  },
+  "music": {
+    "model_id": "music_v2_5",
+    "items": {
+      "tema": {
+        "prompt": "Haunting horror main theme, slow detuned music box melody over a deep dark drone, cavernous reverb, eerie and sad, instrumental, seamless loop",
+        "duration": 40
+      },
+      "inquietacao": {
+        "prompt": "Subtle unsettling ambient film score, soft cold synth pads, faint clock ticking, quiet unease before a disaster, minimal, instrumental, seamless loop",
+        "duration": 40
+      },
+      "tensao": {
+        "prompt": "Dark horror film score, slow unsettling drone with low cellos, distant detuned piano notes, subtle metallic scrapes, creeping dread, no drums, cinematic, instrumental, seamless loop",
+        "duration": 30
+      },
+      "espera": {
+        "prompt": "Slow creeping dread horror score, low string clusters, distant muffled thuds, sparse and very dark, night siege, instrumental, seamless loop",
+        "duration": 40
+      },
+      "suspense": {
+        "prompt": "Stealth horror suspense score, slow pulsing sub-bass heartbeat rhythm, high eerie violin harmonics, holding your breath, instrumental, seamless loop",
+        "duration": 40
+      },
+      "perseguicao": {
+        "prompt": "Intense horror chase music, fast pounding taiko percussion, aggressive staccato strings, brass stabs, panic and terror, instrumental, seamless loop",
+        "duration": 40
+      },
+      "estrada": {
+        "prompt": "Dark night driving synth score, steady low analog pulse, melancholic synth melody, apocalyptic city burning, tension, instrumental, seamless loop",
+        "duration": 40
+      },
+      "casa": {
+        "prompt": "Creepy lullaby horror score, slow detuned child's music box and soft piano, airy whisper-like pads, sinister and sad, instrumental, seamless loop",
+        "duration": 45
+      },
+      "final_morte": {
+        "prompt": "Horror death ending cue, dissonant orchestral swell building into a deep boom, then a dark lingering drone fading out, instrumental",
+        "duration": 25
+      },
+      "final_vivo": {
+        "prompt": "Melancholic hopeful ending cue, solo piano and soft warm strings, survivors at dawn after a nightmare, bittersweet, instrumental",
+        "duration": 35
+      },
+      "final_triste": {
+        "prompt": "Tragic horror ending cue, slow cello lament and lonely piano, distant rain, grief, instrumental",
+        "duration": 35
       }
     }
   }

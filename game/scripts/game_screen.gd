@@ -87,6 +87,8 @@ func _setup_scene(node: Dictionary) -> void:
 	if changing:
 		await ui.fade_out(0.45)
 		stage.set_location(loc)
+		Audio.set_location(loc)
+	Audio.play_music(node.get("music", Audio.music_for_location(loc)))
 	stage.set_cast(node.get("cast", {}), runner.story.get("characters", {}))
 	if node.has("ambience"):
 		Audio.play_ambience(node["ambience"])
@@ -106,8 +108,8 @@ func _play_line(line: Dictionary, node: Dictionary) -> void:
 		Audio.play_sfx(line["sfx"])
 	var spoke := false
 	if ch.get("voiced", true):
-		var bus: String = "Phone" if phone else ch.get("bus", "Voice")
-		spoke = Audio.play_voice(line["id"], bus)
+		# efeitos (telefone/TV/porta) já vêm aplicados no arquivo de voz
+		spoke = Audio.play_voice(line["id"], "Voice")
 	await ui.present_line(ch.get("name", ""), line.get("text", ""), phone, GameState.settings.get("auto_advance", true))
 	if spoke:
 		Audio.stop_voice()
@@ -123,7 +125,10 @@ func _do_choice(node: Dictionary) -> Dictionary:
 	stage.set_pleads(choice.get("plead", {}))
 	stage.shake(0.02)
 	var timer: float = choice.get("timer", 0.0)
+	if timer > 0.0 and GameState.settings.get("timers", true):
+		Audio.start_choice_tension()
 	var idx: int = await ui.present_choice(choice.get("prompt", ""), labels, timer)
+	Audio.stop_choice_tension()
 	stage.clear_pleads()
 	if idx < 0:
 		Audio.play_sfx("stinger_hit")
@@ -152,8 +157,11 @@ func _show_ending(ending_id: String) -> void:
 	var found := GameState.count_discovered(runner.campaign_id)
 	var total := runner.ending_ids().size()
 	stage.scare_flash()
-	Audio.play_sfx("stinger_boom" if data.get("kind", "") == "morte" else "stinger_hit")
-	Audio.play_ambience("tensao")
+	var kind: String = data.get("kind", "")
+	Audio.play_sfx("stinger_boom" if kind == "morte" else "stinger_hit")
+	Audio.play_ambience("")
+	Audio.set_location("")
+	Audio.play_music({"morte": "final_morte", "sobreviveu": "final_vivo"}.get(kind, "final_triste"), 1.0)
 	var action: String = await ui.show_ending(data, is_new, found, total)
 	match action:
 		"replay":

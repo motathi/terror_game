@@ -10,7 +10,13 @@ Comandos:
   python3 tools/elevenlabs_gen.py save <personagem> <n>      # salva a prévia n como voz definitiva
   python3 tools/elevenlabs_gen.py lines [--only prefixo] [--force] [--dry-run]
   python3 tools/elevenlabs_gen.py sfx   [--force] [--dry-run]  # efeitos + ambientes
+  python3 tools/elevenlabs_gen.py music [--force] [--dry-run]  # trilha sonora (Eleven Music)
   python3 tools/elevenlabs_gen.py all   [--dry-run]
+
+Pós-processamento (precisa de ffmpeg): as vozes recebem o efeito da cena
+"queimado" no arquivo (telefone, TV/rádio, abafado atrás da porta) e
+volume normalizado, porque no navegador o Godot não aplica efeitos de bus.
+O áudio cru fica em tools/.elevenlabs_cache/raw/.
 
 As falas vêm de game/story/*.json. Cada fala vira game/audio/vo/<locale>/<id>.mp3.
 Um cache (tools/.elevenlabs_cache/manifest.json) guarda o hash de texto+voz+
@@ -21,6 +27,8 @@ import glob
 import hashlib
 import json
 import os
+import shutil
+import subprocess
 import sys
 import time
 import urllib.error
@@ -107,6 +115,29 @@ def write(path, data):
         f.write(data)
 
 
+# --- pós-processamento (ffmpeg) ------------------------------------------------------
+
+FX = {
+    "": "",
+    "phone": "highpass=f=380,lowpass=f=3200,acrusher=bits=11:mix=0.25,acompressor=threshold=-20dB:ratio=5,",
+    "radio": "highpass=f=260,lowpass=f=4200,aecho=0.8:0.55:35:0.22,acrusher=bits=12:mix=0.15,",
+    "muffled": "lowpass=f=850,aecho=0.8:0.45:18:0.3,volume=1.8,",
+}
+
+
+def ffmpeg(src, dst, filt):
+    if not shutil.which("ffmpeg"):
+        shutil.copyfile(src, dst)
+        return
+    os.makedirs(os.path.dirname(dst), exist_ok=True)
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", src, "-af", filt,
+                    "-ar", "44100", "-b:a", "128k", dst], check=True)
+
+
+def process_voice(raw, dst, fx):
+    ffmpeg(raw, dst, FX.get(fx, "") + "loudnorm=I=-16:TP=-1.5:LRA=11")
+
+
 # --- vozes ------------------------------------------------------------------------
 
 def cmd_design(char):
@@ -154,11 +185,14 @@ def collect_lines():
         chars = story["characters"]
         for node in story["nodes"].values():
             lines = node.get("lines", [])
+            phone_char = node.get("cast", {}).get("phone", {}).get("char")
             for i, ln in enumerate(lines):
-                if not chars.get(ln["who"], {}).get("voiced", True):
+                ch = chars.get(ln["who"], {})
+                if not ch.get("voiced", True):
                     continue
                 prev = lines[i - 1]["text"] if i > 0 and lines[i - 1]["who"] == ln["who"] else None
-                out.append({**ln, "previous_text": prev})
+                fx = "phone" if (ln.get("phone") or phone_char == ln["who"]) else {"Radio": "radio", "Muffled": "muffled"}.get(ch.get("bus", ""), "")
+                out.append({**ln, "previous_text": prev, "fx": fx})
     return out
 
 
@@ -175,10 +209,19 @@ def cmd_lines(only=None, force=False, dry=False):
         if not voice.get("voice_id"):
             missing_voice.add(ln["who"])
             continue
-        text = (ln.get("tags", "") + " " + ln["text"]).strip()
+        text = (ln.get("tags", voice.get("default_tags", "")) + " " + ln["text"]).strip()
         h = digest(text, voice["voice_id"], voice.get("settings"), tts["model_id"])
         path = os.path.join(out_dir, ln["id"] + ".mp3")
+        raw = os.path.join(CACHE_DIR, "raw", ln["id"] + ".mp3")
+        fx_key = "fx/" + ln["id"]
         if not force and manifest.get("vo/" + ln["id"]) == h and os.path.exists(path):
+            if not os.path.exists(raw) and fx_key not in manifest:
+                os.makedirs(os.path.dirname(raw), exist_ok=True)
+                shutil.copyfile(path, raw)  # arquivo antigo, ainda sem efeito
+            if os.path.exists(raw) and manifest.get(fx_key) != ln["fx"] + "/v1" and not dry:
+                process_voice(raw, path, ln["fx"])
+                manifest[fx_key] = ln["fx"] + "/v1"
+                save_manifest(manifest)
             continue
         todo.append((ln, voice, text, h, path))
         chars += len(text)
@@ -199,8 +242,11 @@ def cmd_lines(only=None, force=False, dry=False):
         }
         if ln.get("previous_text"):
             body["previous_text"] = ln["previous_text"]
-        print(f"  [{ln['who']}] {ln['id']}")
-        write(path, request(f"/v1/text-to-speech/{voice['voice_id']}", body, query="output_format=" + tts["output_format"]))
+        print(f"  [{ln['who']}] {ln['id']} {ln['fx']}")
+        raw = os.path.join(CACHE_DIR, "raw", ln["id"] + ".mp3")
+        write(raw, request(f"/v1/text-to-speech/{voice['voice_id']}", body, query="output_format=" + tts["output_format"]))
+        process_voice(raw, path, ln["fx"])
+        manifest["fx/" + ln["id"]] = ln["fx"] + "/v1"
         manifest["vo/" + ln["id"]] = h
         save_manifest(manifest)
     print("Pronto. Abra o Godot para ele importar os novos arquivos.")
@@ -233,6 +279,34 @@ def cmd_sfx(force=False, dry=False):
             save_manifest(manifest)
 
 
+def cmd_music(force=False, dry=False):
+    cfg = load_config()
+    manifest = load_manifest()
+    model = cfg["music"]["model_id"]
+    for key, item in cfg["music"]["items"].items():
+        path = os.path.join(ROOT, "game", "audio", "music", key + ".mp3")
+        h = digest(item, model)
+        if not force and manifest.get("music/" + key) == h and os.path.exists(path):
+            continue
+        print(f"  [music] {key} ({item['duration']}s): {item['prompt'][:60]}")
+        if dry:
+            continue
+        raw = os.path.join(CACHE_DIR, "raw", "music_" + key + ".mp3")
+        write(raw, request("/v1/music", {
+            "prompt": item["prompt"],
+            "music_length_ms": int(item["duration"] * 1000),
+            "model_id": model,
+            "force_instrumental": True,
+        }, query="output_format=mp3_44100_128"))
+        d = float(item["duration"])
+        looping = not key.startswith("final_")
+        # loops: entrada e saída suaves para a emenda não estalar
+        filt = f"afade=t=in:d=0.8,afade=t=out:st={max(d - 2.0, 0)}:d=2.0," if looping else f"afade=t=out:st={max(d - 3.0, 0)}:d=3.0,"
+        ffmpeg(raw, path, filt + "loudnorm=I=-20:TP=-2:LRA=14")
+        manifest["music/" + key] = h
+        save_manifest(manifest)
+
+
 def main():
     args = sys.argv[1:]
     if not args:
@@ -249,8 +323,11 @@ def main():
         cmd_lines(only, force, dry)
     elif cmd == "sfx":
         cmd_sfx(force, dry)
+    elif cmd == "music":
+        cmd_music(force, dry)
     elif cmd == "all":
         cmd_sfx(force, dry)
+        cmd_music(force, dry)
         cmd_lines(only, force, dry)
     else:
         print(__doc__)

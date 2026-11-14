@@ -2,7 +2,6 @@
   "id": "cap1_surto",
   "title": "Capítulo 1 — Surto",
   "start": "inicio",
-
   "vars": {
     "ligou": false,
     "marina_trancada": false,
@@ -18,494 +17,1310 @@
     "culpa": 0,
     "hesitou": 0
   },
-
   "characters": {
-    "sistema":  { "name": "",            "voiced": false },
-    "tv":       { "name": "JORNAL",      "bus": "Radio" },
-    "rafael":   { "name": "Rafael",      "model": "office_worker", "plead_color": "#ffffff" },
-    "jorge":    { "name": "Seu Jorge",   "model": "office_worker", "tint": "#3a4a7a" },
-    "patricia": { "name": "Patrícia",    "model": "nurse",         "tint": "#9a6a6a" },
-    "marina":   { "name": "Marina",      "model": "nurse" },
-    "bia":      { "name": "Bia",         "bus": "Muffled" },
-    "zumbi":    { "name": "",            "model": "zombie_student" }
+    "sistema": {
+      "name": "",
+      "voiced": true
+    },
+    "tv": {
+      "name": "JORNAL",
+      "bus": "Radio"
+    },
+    "rafael": {
+      "name": "Rafael",
+      "model": "office_worker",
+      "plead_color": "#ffffff"
+    },
+    "jorge": {
+      "name": "Seu Jorge",
+      "model": "office_worker",
+      "tint": "#3a4a7a"
+    },
+    "patricia": {
+      "name": "Patrícia",
+      "model": "nurse",
+      "tint": "#9a6a6a"
+    },
+    "marina": {
+      "name": "Marina",
+      "model": "nurse"
+    },
+    "bia": {
+      "name": "Bia",
+      "bus": "Muffled"
+    },
+    "zumbi": {
+      "name": "",
+      "model": "zombie_student"
+    }
   },
-
   "nodes": {
-
     "inicio": {
       "location": "escritorio",
       "title_card": "SEXTA-FEIRA · 17:48",
       "ambience": "escritorio",
-      "cast": { "right": { "char": "rafael", "anim": "Idle" } },
+      "cast": {
+        "right": {
+          "char": "rafael",
+          "anim": "Idle"
+        }
+      },
       "lines": [
-        { "id": "inicio_01", "who": "sistema", "text": "Faltam 12 minutos pro fim do expediente." },
-        { "id": "inicio_02", "who": "tv", "tags": "[news anchor, serious]", "text": "...repetindo: a prefeitura pede que a população evite a região central. Os casos de agressão já passam de duzentos." },
-        { "id": "inicio_03", "who": "rafael", "anim": "Talk", "tags": "[surprised]", "text": "Duzentos? Cara, hoje de manhã eram doze." },
-        { "id": "inicio_04", "who": "tv", "tags": "[news anchor, hesitant]", "text": "Testemunhas relatam que os agressores... mordem as vítimas." },
-        { "id": "inicio_05", "who": "rafael", "anim": "Talk", "tags": "[nervous laugh]", "text": "Mordem. Tá. Agora virou filme." },
-        { "id": "inicio_06", "who": "sistema", "sfx": "celular", "text": "Seu celular vibra. Marina: \"Viu o jornal? A Bia tá perguntando de você.\"" }
+        {
+          "id": "inicio_01",
+          "who": "sistema",
+          "text": "Faltam 12 minutos pro fim do expediente."
+        },
+        {
+          "id": "inicio_02",
+          "who": "tv",
+          "tags": "[news anchor, serious]",
+          "text": "...repetindo: a prefeitura pede que a população evite a região central. Os casos de agressão já passam de duzentos."
+        },
+        {
+          "id": "inicio_03",
+          "who": "rafael",
+          "anim": "Talk",
+          "tags": "[surprised]",
+          "text": "Duzentos? Cara, hoje de manhã eram doze."
+        },
+        {
+          "id": "inicio_04",
+          "who": "tv",
+          "tags": "[news anchor, hesitant]",
+          "text": "Testemunhas relatam que os agressores... mordem as vítimas."
+        },
+        {
+          "id": "inicio_05",
+          "who": "rafael",
+          "anim": "Talk",
+          "tags": "[nervous laugh]",
+          "text": "Mordem. Tá. Agora virou filme."
+        },
+        {
+          "id": "inicio_06",
+          "who": "sistema",
+          "sfx": "celular",
+          "text": "Seu celular vibra. Marina: \"Viu o jornal? A Bia tá perguntando de você.\""
+        }
       ],
       "choice": {
         "prompt": "O que você faz?",
         "timer": 10,
         "options": [
-          { "text": "Ligar pra Marina agora", "set": { "ligou": true }, "next": "ligacao" },
-          { "text": "Responder depois. Deve ser exagero.", "set": { "atraso": "=atraso + 1" }, "next": "tv_ao_vivo" }
+          {
+            "text": "Ligar pra Marina agora",
+            "set": {
+              "ligou": true
+            },
+            "next": "ligacao"
+          },
+          {
+            "text": "Responder depois. Deve ser exagero.",
+            "set": {
+              "atraso": "=atraso + 1"
+            },
+            "next": "tv_ao_vivo"
+          }
         ],
-        "timeout": { "set": { "atraso": "=atraso + 1" }, "next": "tv_ao_vivo" }
+        "timeout": {
+          "set": {
+            "atraso": "=atraso + 1"
+          },
+          "next": "tv_ao_vivo"
+        }
       }
     },
-
     "ligacao": {
       "location": "escritorio",
-      "cast": { "right": { "char": "rafael", "anim": "Idle" }, "phone": { "char": "marina" } },
+      "cast": {
+        "right": {
+          "char": "rafael",
+          "anim": "Idle"
+        },
+        "phone": {
+          "char": "marina"
+        }
+      },
       "lines": [
-        { "id": "ligacao_01", "who": "marina", "tags": "[worried]", "text": "Oi, amor. Você viu? Tá todo mundo falando disso no grupo do hospital." },
-        { "id": "ligacao_02", "who": "marina", "tags": "[whispers, scared]", "text": "Chegaram três pessoas mordidas no pronto-socorro hoje. Uma delas parou de respirar... e depois levantou." },
-        { "id": "ligacao_03", "who": "bia", "tags": "[child, distant, excited]", "text": "Mamãe, é o papai? Deixa eu falar!" },
-        { "id": "ligacao_04", "who": "marina", "tags": "[anxious]", "text": "O que eu faço? Fico aqui ou te encontro no caminho?" }
+        {
+          "id": "ligacao_01",
+          "who": "marina",
+          "tags": "[worried]",
+          "text": "Oi, amor. Você viu? Tá todo mundo falando disso no grupo do hospital."
+        },
+        {
+          "id": "ligacao_02",
+          "who": "marina",
+          "tags": "[whispers, scared]",
+          "text": "Chegaram três pessoas mordidas no pronto-socorro hoje. Uma delas parou de respirar... e depois levantou."
+        },
+        {
+          "id": "ligacao_03",
+          "who": "bia",
+          "tags": "[child, distant, excited]",
+          "text": "Mamãe, é o papai? Deixa eu falar!"
+        },
+        {
+          "id": "ligacao_04",
+          "who": "marina",
+          "tags": "[anxious]",
+          "text": "O que eu faço? Fico aqui ou te encontro no caminho?"
+        }
       ],
       "choice": {
         "prompt": "O que você diz pra Marina?",
         "timer": 8,
         "options": [
-          { "text": "\"Tranca tudo. Não abre pra ninguém.\"", "who": "marina", "set": { "marina_trancada": true }, "next": "tv_ao_vivo" },
-          { "text": "\"Pega o carro e me encontra no caminho.\"", "who": "marina", "set": { "marina_saiu": true }, "next": "tv_ao_vivo" }
+          {
+            "text": "\"Tranca tudo. Não abre pra ninguém.\"",
+            "who": "marina",
+            "set": {
+              "marina_trancada": true
+            },
+            "next": "tv_ao_vivo"
+          },
+          {
+            "text": "\"Pega o carro e me encontra no caminho.\"",
+            "who": "marina",
+            "set": {
+              "marina_saiu": true
+            },
+            "next": "tv_ao_vivo"
+          }
         ],
-        "timeout": { "next": "ligacao_caiu" }
+        "timeout": {
+          "next": "ligacao_caiu"
+        }
       }
     },
-
     "ligacao_caiu": {
       "location": "escritorio",
-      "cast": { "right": { "char": "rafael", "anim": "Idle" } },
-      "set": { "marina_saiu": true },
+      "cast": {
+        "right": {
+          "char": "rafael",
+          "anim": "Idle"
+        }
+      },
+      "set": {
+        "marina_saiu": true
+      },
       "lines": [
-        { "id": "ligacao_caiu_01", "who": "sistema", "sfx": "linha_caiu", "text": "A ligação cai antes de você responder." },
-        { "id": "ligacao_caiu_02", "who": "sistema", "text": "Ela vai decidir sozinha." }
+        {
+          "id": "ligacao_caiu_01",
+          "who": "sistema",
+          "sfx": "linha_caiu",
+          "text": "A ligação cai antes de você responder."
+        },
+        {
+          "id": "ligacao_caiu_02",
+          "who": "sistema",
+          "text": "Ela vai decidir sozinha."
+        }
       ],
       "next": "tv_ao_vivo"
     },
-
     "tv_ao_vivo": {
       "location": "escritorio",
-      "cast": { "right": { "char": "rafael", "anim": "Idle" } },
+      "cast": {
+        "right": {
+          "char": "rafael",
+          "anim": "Idle"
+        }
+      },
       "lines": [
-        { "id": "tv_ao_vivo_01", "who": "tv", "tags": "[reporter, outdoors, panicking]", "text": "Estamos ao vivo da Avenida Central, onde... meu Deus, ele tá vindo pra cá—" },
-        { "id": "tv_ao_vivo_02", "who": "sistema", "sfx": "stinger_hit", "fx": "flicker", "text": "A transmissão corta. Tela azul." },
-        { "id": "tv_ao_vivo_03", "who": "rafael", "anim": "Talk", "tags": "[whispers]", "text": "Você ouviu isso? Veio do corredor." },
-        { "id": "tv_ao_vivo_04", "who": "sistema", "sfx": "grito", "fx": "lights_off", "text": "Um grito. Depois outro. As luzes do andar se apagam." }
+        {
+          "id": "tv_ao_vivo_01",
+          "who": "tv",
+          "tags": "[reporter, outdoors, panicking]",
+          "text": "Estamos ao vivo da Avenida Central, onde... meu Deus, ele tá vindo pra cá—"
+        },
+        {
+          "id": "tv_ao_vivo_02",
+          "who": "sistema",
+          "sfx": "stinger_hit",
+          "fx": "flicker",
+          "text": "A transmissão corta. Tela azul."
+        },
+        {
+          "id": "tv_ao_vivo_03",
+          "who": "rafael",
+          "anim": "Talk",
+          "tags": "[whispers]",
+          "text": "Você ouviu isso? Veio do corredor."
+        },
+        {
+          "id": "tv_ao_vivo_04",
+          "who": "sistema",
+          "sfx": "grito",
+          "fx": "lights_off",
+          "text": "Um grito. Depois outro. As luzes do andar se apagam."
+        }
       ],
-      "next": "escolha_saida"
+      "next": "escolha_saida",
+      "music": "tensao"
     },
-
     "escolha_saida": {
       "location": "escritorio_escuro",
       "ambience": "tensao",
       "cast": {
-        "left":  { "char": "jorge",  "anim": "Idle" },
-        "right": { "char": "rafael", "anim": "Idle" }
+        "left": {
+          "char": "jorge",
+          "anim": "Idle"
+        },
+        "right": {
+          "char": "rafael",
+          "anim": "Idle"
+        }
       },
       "lines": [
-        { "id": "escolha_saida_01", "who": "jorge", "anim": "Talk", "tags": "[out of breath, firm]", "text": "Ninguém sai! Eu vou trancar o andar. Lá fora tá pior, eu vi da guarita." },
-        { "id": "escolha_saida_02", "who": "rafael", "anim": "Talk", "tags": "[urgent]", "text": "Ele tá louco. Meu carro tá no subsolo. A gente desce pela escada e em vinte minutos você tá em casa." },
-        { "id": "escolha_saida_03", "who": "jorge", "anim": "Talk", "tags": "[pleading]", "text": "Fica comigo, por favor. Sozinho eu não seguro essa porta." },
-        { "id": "escolha_saida_04", "who": "rafael", "anim": "Talk", "tags": "[pleading, voice breaking]", "text": "Não me deixa descer sozinho. Por favor." }
+        {
+          "id": "escolha_saida_01",
+          "who": "jorge",
+          "anim": "Talk",
+          "tags": "[out of breath, firm]",
+          "text": "Ninguém sai! Eu vou trancar o andar. Lá fora tá pior, eu vi da guarita."
+        },
+        {
+          "id": "escolha_saida_02",
+          "who": "rafael",
+          "anim": "Talk",
+          "tags": "[urgent]",
+          "text": "Ele tá louco. Meu carro tá no subsolo. A gente desce pela escada e em vinte minutos você tá em casa."
+        },
+        {
+          "id": "escolha_saida_03",
+          "who": "jorge",
+          "anim": "Talk",
+          "tags": "[pleading]",
+          "text": "Fica comigo, por favor. Sozinho eu não seguro essa porta."
+        },
+        {
+          "id": "escolha_saida_04",
+          "who": "rafael",
+          "anim": "Talk",
+          "tags": "[pleading, voice breaking]",
+          "text": "Não me deixa descer sozinho. Por favor."
+        }
       ],
       "choice": {
         "prompt": "Quem você escolhe?",
         "timer": 7,
-        "plead": { "jorge": "Fica comigo", "rafael": "Por favor" },
+        "plead": {
+          "jorge": "Fica comigo",
+          "rafael": "Por favor"
+        },
         "options": [
-          { "text": "Ficar com Seu Jorge", "who": "jorge", "set": { "com_jorge": true }, "next": "ficar" },
-          { "text": "Descer com Rafael", "who": "rafael", "set": { "com_rafael": true }, "next": "corredor" }
+          {
+            "text": "Ficar com Seu Jorge",
+            "who": "jorge",
+            "set": {
+              "com_jorge": true
+            },
+            "next": "ficar"
+          },
+          {
+            "text": "Descer com Rafael",
+            "who": "rafael",
+            "set": {
+              "com_rafael": true
+            },
+            "next": "corredor"
+          }
         ],
-        "timeout": { "next": "escolha_saida_congelou" }
+        "timeout": {
+          "next": "escolha_saida_congelou"
+        }
       }
     },
-
     "escolha_saida_congelou": {
       "location": "escritorio_escuro",
-      "cast": { "right": { "char": "rafael", "anim": "Run" } },
-      "set": { "com_rafael": true },
+      "cast": {
+        "right": {
+          "char": "rafael",
+          "anim": "Run"
+        }
+      },
+      "set": {
+        "com_rafael": true
+      },
       "lines": [
-        { "id": "escolha_saida_congelou_01", "who": "sistema", "text": "Você congela. Rafael agarra seu braço e te arrasta para a escada." }
+        {
+          "id": "escolha_saida_congelou_01",
+          "who": "sistema",
+          "text": "Você congela. Rafael agarra seu braço e te arrasta para a escada."
+        }
       ],
       "next": "corredor"
     },
-
     "ficar": {
       "location": "escritorio_escuro",
       "title_card": "21:30",
       "ambience": "tensao",
-      "cast": { "left": { "char": "jorge", "anim": "Sit" } },
+      "cast": {
+        "left": {
+          "char": "jorge",
+          "anim": "Sit"
+        }
+      },
       "lines": [
-        { "id": "ficar_01", "who": "sistema", "sfx": "batidas_vidro", "text": "O andar está trancado. Algo bate na porta de vidro. Sem parar." },
-        { "id": "ficar_02", "who": "jorge", "tags": "[whispers]", "text": "Não olha pra eles. Eles param quando a gente não faz barulho." },
-        { "id": "ficar_03", "who": "sistema", "text": "Sem sinal. A última mensagem da Marina é das 19:02:" },
-        { "id": "ficar_04a", "if": "marina_trancada", "who": "sistema", "text": "\"Trancamos tudo. A Bia dormiu. Te amo.\"" },
-        { "id": "ficar_04b", "if": "not marina_trancada", "who": "sistema", "text": "\"Tô saindo. Não consigo ficar parada aqui.\"" },
-        { "id": "ficar_05", "who": "jorge", "tags": "[tired, hopeful]", "text": "Amanhece às seis. Se a gente aguentar até lá, o exército chega." }
+        {
+          "id": "ficar_01",
+          "who": "sistema",
+          "sfx": "batidas_vidro",
+          "text": "O andar está trancado. Algo bate na porta de vidro. Sem parar."
+        },
+        {
+          "id": "ficar_02",
+          "who": "jorge",
+          "tags": "[whispers]",
+          "text": "Não olha pra eles. Eles param quando a gente não faz barulho."
+        },
+        {
+          "id": "ficar_03",
+          "who": "sistema",
+          "text": "Sem sinal. A última mensagem da Marina é das 19:02:"
+        },
+        {
+          "id": "ficar_04a",
+          "if": "marina_trancada",
+          "who": "sistema",
+          "text": "\"Trancamos tudo. A Bia dormiu. Te amo.\""
+        },
+        {
+          "id": "ficar_04b",
+          "if": "not marina_trancada",
+          "who": "sistema",
+          "text": "\"Tô saindo. Não consigo ficar parada aqui.\""
+        },
+        {
+          "id": "ficar_05",
+          "who": "jorge",
+          "tags": "[tired, hopeful]",
+          "text": "Amanhece às seis. Se a gente aguentar até lá, o exército chega."
+        }
       ],
       "choice": {
         "prompt": "3h da manhã. As batidas param.",
         "timer": 10,
-        "plead": { "jorge": "Não vai" },
+        "plead": {
+          "jorge": "Não vai"
+        },
         "options": [
-          { "text": "Esperar o amanhecer com Seu Jorge", "who": "jorge", "next": "esperar" },
-          { "text": "Sair escondido enquanto está quieto", "set": { "atraso": "=atraso + 2" }, "next": "rua_sozinho" }
+          {
+            "text": "Esperar o amanhecer com Seu Jorge",
+            "who": "jorge",
+            "next": "esperar"
+          },
+          {
+            "text": "Sair escondido enquanto está quieto",
+            "set": {
+              "atraso": "=atraso + 2"
+            },
+            "next": "rua_sozinho"
+          }
         ],
-        "timeout": { "next": "esperar" }
-      }
+        "timeout": {
+          "next": "esperar"
+        }
+      },
+      "music": "espera"
     },
-
     "esperar": {
       "location": "escritorio_escuro",
-      "cast": { "left": { "char": "jorge", "anim": "Sit" } },
+      "cast": {
+        "left": {
+          "char": "jorge",
+          "anim": "Sit"
+        }
+      },
       "lines": [
-        { "id": "esperar_01", "who": "sistema", "text": "Você não dorme. Só conta as horas." }
+        {
+          "id": "esperar_01",
+          "who": "sistema",
+          "text": "Você não dorme. Só conta as horas."
+        }
       ],
       "branch": [
-        { "if": "marina_trancada", "ending": "amanhecer" },
-        { "ending": "linha_muda" }
+        {
+          "if": "marina_trancada",
+          "ending": "amanhecer"
+        },
+        {
+          "ending": "linha_muda"
+        }
       ]
     },
-
     "corredor": {
       "location": "escada",
       "ambience": "tensao",
-      "cast": { "right": { "char": "rafael", "anim": "Idle" } },
+      "cast": {
+        "right": {
+          "char": "rafael",
+          "anim": "Idle"
+        }
+      },
       "lines": [
-        { "id": "corredor_01", "who": "sistema", "sfx": "passos", "text": "Escada de emergência. Cheiro de ferro." },
-        { "id": "corredor_02", "who": "rafael", "anim": "Talk", "tags": "[out of breath]", "text": "Doze andares. Vai, vai, vai." },
-        { "id": "corredor_03", "who": "sistema", "sfx": "elevador_ding", "text": "No 8º andar, a porta do elevador está aberta. Luz acesa. Vazio." },
-        { "id": "corredor_04", "who": "rafael", "anim": "Talk", "tags": "[firm, scared]", "text": "Nem pensa. Elevador não." }
+        {
+          "id": "corredor_01",
+          "who": "sistema",
+          "sfx": "passos",
+          "text": "Escada de emergência. Cheiro de ferro."
+        },
+        {
+          "id": "corredor_02",
+          "who": "rafael",
+          "anim": "Talk",
+          "tags": "[out of breath]",
+          "text": "Doze andares. Vai, vai, vai."
+        },
+        {
+          "id": "corredor_03",
+          "who": "sistema",
+          "sfx": "elevador_ding",
+          "text": "No 8º andar, a porta do elevador está aberta. Luz acesa. Vazio."
+        },
+        {
+          "id": "corredor_04",
+          "who": "rafael",
+          "anim": "Talk",
+          "tags": "[firm, scared]",
+          "text": "Nem pensa. Elevador não."
+        }
       ],
       "choice": {
         "prompt": "Elevador ou escada?",
         "timer": 6,
         "options": [
-          { "text": "Pegar o elevador. É mais rápido.", "next": "elevador" },
-          { "text": "Continuar pela escada", "who": "rafael", "next": "patricia" }
+          {
+            "text": "Pegar o elevador. É mais rápido.",
+            "next": "elevador"
+          },
+          {
+            "text": "Continuar pela escada",
+            "who": "rafael",
+            "next": "patricia"
+          }
         ],
-        "timeout": { "next": "patricia" }
+        "timeout": {
+          "next": "patricia"
+        }
       }
     },
-
     "elevador": {
       "location": "escada",
       "cast": {},
       "lines": [
-        { "id": "elevador_01", "who": "sistema", "text": "As portas fecham. Rafael fica do lado de fora, gritando seu nome." },
-        { "id": "elevador_02", "who": "sistema", "sfx": "elevador_ding", "text": "7... 6... 5... O elevador para no 4º andar." },
-        { "id": "elevador_03", "who": "sistema", "sfx": "porta_abre", "fx": "lights_off", "text": "As portas se abrem." }
+        {
+          "id": "elevador_01",
+          "who": "sistema",
+          "text": "As portas fecham. Rafael fica do lado de fora, gritando seu nome."
+        },
+        {
+          "id": "elevador_02",
+          "who": "sistema",
+          "sfx": "elevador_ding",
+          "text": "7... 6... 5... O elevador para no 4º andar."
+        },
+        {
+          "id": "elevador_03",
+          "who": "sistema",
+          "sfx": "porta_abre",
+          "fx": "lights_off",
+          "text": "As portas se abrem."
+        }
       ],
-      "ending": "portas_abertas"
+      "ending": "portas_abertas",
+      "music": "perseguicao"
     },
-
     "patricia": {
       "location": "escada",
       "cast": {
-        "left":  { "char": "patricia", "anim": "Sit" },
-        "right": { "char": "rafael",   "anim": "Idle" }
+        "left": {
+          "char": "patricia",
+          "anim": "Sit"
+        },
+        "right": {
+          "char": "rafael",
+          "anim": "Idle"
+        }
       },
       "lines": [
-        { "id": "patricia_01", "who": "sistema", "text": "No 5º andar, alguém encolhida num degrau. É a Patrícia, do financeiro." },
-        { "id": "patricia_02", "who": "patricia", "anim": "Talk", "tags": "[crying, relieved]", "text": "Graças a Deus! Me leva com vocês. Por favor." },
-        { "id": "patricia_03", "who": "rafael", "anim": "Talk", "tags": "[cold]", "text": "Olha o braço dela. Isso é mordida." },
-        { "id": "patricia_04", "who": "patricia", "anim": "Talk", "tags": "[desperate]", "text": "É um corte! Foi o vidro da copa, eu juro! Eu tenho dois filhos..." },
-        { "id": "patricia_05", "who": "rafael", "anim": "Talk", "tags": "[angry]", "text": "Se ela vier, eu não espero ninguém." }
+        {
+          "id": "patricia_01",
+          "who": "sistema",
+          "text": "No 5º andar, alguém encolhida num degrau. É a Patrícia, do financeiro."
+        },
+        {
+          "id": "patricia_02",
+          "who": "patricia",
+          "anim": "Talk",
+          "tags": "[crying, relieved]",
+          "text": "Graças a Deus! Me leva com vocês. Por favor."
+        },
+        {
+          "id": "patricia_03",
+          "who": "rafael",
+          "anim": "Talk",
+          "tags": "[cold]",
+          "text": "Olha o braço dela. Isso é mordida."
+        },
+        {
+          "id": "patricia_04",
+          "who": "patricia",
+          "anim": "Talk",
+          "tags": "[desperate]",
+          "text": "É um corte! Foi o vidro da copa, eu juro! Eu tenho dois filhos..."
+        },
+        {
+          "id": "patricia_05",
+          "who": "rafael",
+          "anim": "Talk",
+          "tags": "[angry]",
+          "text": "Se ela vier, eu não espero ninguém."
+        }
       ],
       "choice": {
         "prompt": "Quem você escuta?",
         "timer": 7,
-        "plead": { "patricia": "Me leva", "rafael": "Deixa ela" },
+        "plead": {
+          "patricia": "Me leva",
+          "rafael": "Deixa ela"
+        },
         "options": [
-          { "text": "Levar a Patrícia", "who": "patricia", "set": { "patricia": true }, "next": "garagem" },
-          { "text": "Deixar a Patrícia na escada", "who": "rafael", "set": { "culpa": "=culpa + 1" }, "next": "patricia_deixada" }
+          {
+            "text": "Levar a Patrícia",
+            "who": "patricia",
+            "set": {
+              "patricia": true
+            },
+            "next": "garagem"
+          },
+          {
+            "text": "Deixar a Patrícia na escada",
+            "who": "rafael",
+            "set": {
+              "culpa": "=culpa + 1"
+            },
+            "next": "patricia_deixada"
+          }
         ],
-        "timeout": { "set": { "culpa": "=culpa + 1" }, "next": "patricia_deixada" }
+        "timeout": {
+          "set": {
+            "culpa": "=culpa + 1"
+          },
+          "next": "patricia_deixada"
+        }
       }
     },
-
     "patricia_deixada": {
       "location": "escada",
-      "cast": { "left": { "char": "patricia", "anim": "Sit" } },
+      "cast": {
+        "left": {
+          "char": "patricia",
+          "anim": "Sit"
+        }
+      },
       "lines": [
-        { "id": "patricia_deixada_01", "who": "patricia", "tags": "[screaming, desperate]", "text": "Não! Não me deixa aqui! NÃO!" },
-        { "id": "patricia_deixada_02", "who": "sistema", "text": "Os gritos dela te seguem por cinco andares." }
+        {
+          "id": "patricia_deixada_01",
+          "who": "patricia",
+          "tags": "[screaming, desperate]",
+          "text": "Não! Não me deixa aqui! NÃO!"
+        },
+        {
+          "id": "patricia_deixada_02",
+          "who": "sistema",
+          "text": "Os gritos dela te seguem por cinco andares."
+        }
       ],
       "next": "garagem"
     },
-
     "garagem": {
       "location": "garagem",
       "ambience": "garagem",
       "cast": {
-        "center": { "char": "zumbi", "anim": "ZombieIdle", "facing": "away" },
-        "right":  { "char": "rafael", "anim": "Idle" }
+        "center": {
+          "char": "zumbi",
+          "anim": "ZombieIdle",
+          "facing": "away"
+        },
+        "right": {
+          "char": "rafael",
+          "anim": "Idle"
+        }
       },
       "lines": [
-        { "id": "garagem_01", "who": "sistema", "text": "Subsolo 2. Metade das lâmpadas queimadas." },
-        { "id": "garagem_02", "who": "rafael", "tags": "[whispers]", "text": "Meu carro é o prata, lá no fundo." },
-        { "id": "garagem_03", "who": "sistema", "sfx": "gemido", "text": "Entre os carros, um garoto de mochila. Parado. De costas. Balançando." }
+        {
+          "id": "garagem_01",
+          "who": "sistema",
+          "text": "Subsolo 2. Metade das lâmpadas queimadas."
+        },
+        {
+          "id": "garagem_02",
+          "who": "rafael",
+          "tags": "[whispers]",
+          "text": "Meu carro é o prata, lá no fundo."
+        },
+        {
+          "id": "garagem_03",
+          "who": "sistema",
+          "sfx": "gemido",
+          "text": "Entre os carros, um garoto de mochila. Parado. De costas. Balançando."
+        }
       ],
       "choice": {
         "prompt": "O que você faz?",
         "timer": 6,
         "options": [
-          { "text": "Correr até o carro agora", "next": "garagem_correr" },
-          { "text": "Esperar ele se afastar", "who": "rafael", "set": { "atraso": "=atraso + 1" }, "next": "carro" }
+          {
+            "text": "Correr até o carro agora",
+            "next": "garagem_correr"
+          },
+          {
+            "text": "Esperar ele se afastar",
+            "who": "rafael",
+            "set": {
+              "atraso": "=atraso + 1"
+            },
+            "next": "carro"
+          }
         ],
-        "timeout": { "set": { "atraso": "=atraso + 1" }, "next": "carro" }
+        "timeout": {
+          "set": {
+            "atraso": "=atraso + 1"
+          },
+          "next": "carro"
+        }
       }
     },
-
     "garagem_correr": {
       "location": "garagem",
-      "cast": { "center": { "char": "zumbi", "anim": "ZombieIdle" } },
+      "cast": {
+        "center": {
+          "char": "zumbi",
+          "anim": "ZombieIdle"
+        }
+      },
       "lines": [],
       "branch": [
-        { "if": "patricia", "next": "garagem_lenta" },
-        { "next": "carro" }
+        {
+          "if": "patricia",
+          "next": "garagem_lenta"
+        },
+        {
+          "next": "carro"
+        }
       ]
     },
-
     "garagem_lenta": {
       "location": "garagem",
       "cast": {
-        "center": { "char": "zumbi",  "anim": "ZombieAttack" },
-        "right":  { "char": "rafael", "anim": "Run" }
+        "center": {
+          "char": "zumbi",
+          "anim": "ZombieAttack"
+        },
+        "right": {
+          "char": "rafael",
+          "anim": "Run"
+        }
       },
-      "set": { "rafael_mordido": true },
+      "set": {
+        "rafael_mordido": true
+      },
       "lines": [
-        { "id": "garagem_lenta_01", "who": "sistema", "sfx": "grito_zumbi", "text": "A Patrícia não consegue correr. O garoto se vira." },
-        { "id": "garagem_lenta_02", "who": "sistema", "text": "Rafael volta para puxar ela. O garoto alcança ele primeiro." },
-        { "id": "garagem_lenta_03", "who": "rafael", "tags": "[screaming in pain]", "text": "AAAH! Tira ele! TIRA!" },
-        { "id": "garagem_lenta_04", "who": "sistema", "text": "Vocês conseguem entrar no carro. O braço do Rafael não para de sangrar." }
+        {
+          "id": "garagem_lenta_01",
+          "who": "sistema",
+          "sfx": "grito_zumbi",
+          "text": "A Patrícia não consegue correr. O garoto se vira."
+        },
+        {
+          "id": "garagem_lenta_02",
+          "who": "sistema",
+          "text": "Rafael volta para puxar ela. O garoto alcança ele primeiro."
+        },
+        {
+          "id": "garagem_lenta_03",
+          "who": "rafael",
+          "tags": "[screaming in pain]",
+          "text": "AAAH! Tira ele! TIRA!"
+        },
+        {
+          "id": "garagem_lenta_04",
+          "who": "sistema",
+          "text": "Vocês conseguem entrar no carro. O braço do Rafael não para de sangrar."
+        }
       ],
-      "next": "carro"
+      "next": "carro",
+      "music": "perseguicao"
     },
-
     "carro": {
       "location": "carro",
       "ambience": "carro",
-      "cast": { "right": { "char": "rafael", "anim": "Sit" } },
+      "cast": {
+        "right": {
+          "char": "rafael",
+          "anim": "Sit"
+        }
+      },
       "lines": [
-        { "id": "carro_01", "who": "sistema", "text": "Avenida principal. Carros abandonados com as portas abertas. Fumaça no horizonte." }
+        {
+          "id": "carro_01",
+          "who": "sistema",
+          "text": "Avenida principal. Carros abandonados com as portas abertas. Fumaça no horizonte."
+        }
       ],
       "branch": [
-        { "if": "patricia", "next": "carro_patricia" },
-        { "if": "rafael_mordido", "next": "carro_rafael" },
-        { "next": "carro_tranquilo" }
+        {
+          "if": "patricia",
+          "next": "carro_patricia"
+        },
+        {
+          "if": "rafael_mordido",
+          "next": "carro_rafael"
+        },
+        {
+          "next": "carro_tranquilo"
+        }
       ]
     },
-
     "carro_patricia": {
       "location": "carro",
       "cast": {
-        "left":  { "char": "patricia", "anim": "Sit" },
-        "right": { "char": "rafael",   "anim": "Sit" }
+        "left": {
+          "char": "patricia",
+          "anim": "Sit"
+        },
+        "right": {
+          "char": "rafael",
+          "anim": "Sit"
+        }
       },
       "lines": [
-        { "id": "carro_patricia_01", "who": "patricia", "tags": "[weak, shivering]", "text": "Tá tão frio aqui... por que tá tão frio?" },
-        { "id": "carro_patricia_02", "who": "sistema", "text": "Ela começa a tremer. Os olhos ficam brancos." },
-        { "id": "carro_patricia_03", "who": "rafael", "tags": "[shouting]", "text": "Eu falei! Eu FALEI!" },
-        { "id": "carro_patricia_04", "who": "patricia", "tags": "[gurgling, pleading]", "text": "Me leva pro hospital... por favor..." }
+        {
+          "id": "carro_patricia_01",
+          "who": "patricia",
+          "tags": "[weak, shivering]",
+          "text": "Tá tão frio aqui... por que tá tão frio?"
+        },
+        {
+          "id": "carro_patricia_02",
+          "who": "sistema",
+          "text": "Ela começa a tremer. Os olhos ficam brancos."
+        },
+        {
+          "id": "carro_patricia_03",
+          "who": "rafael",
+          "tags": "[shouting]",
+          "text": "Eu falei! Eu FALEI!"
+        },
+        {
+          "id": "carro_patricia_04",
+          "who": "patricia",
+          "tags": "[gurgling, pleading]",
+          "text": "Me leva pro hospital... por favor..."
+        }
       ],
       "choice": {
         "prompt": "Decida. Agora.",
         "timer": 5,
-        "plead": { "patricia": "Hospital...", "rafael": "Para o carro!" },
+        "plead": {
+          "patricia": "Hospital...",
+          "rafael": "Para o carro!"
+        },
         "options": [
-          { "text": "Acelerar até o hospital", "who": "patricia", "ending": "banco_de_tras" },
-          { "text": "Parar e tirar ela do carro", "who": "rafael", "next": "carro_parou" }
+          {
+            "text": "Acelerar até o hospital",
+            "who": "patricia",
+            "ending": "banco_de_tras"
+          },
+          {
+            "text": "Parar e tirar ela do carro",
+            "who": "rafael",
+            "next": "carro_parou"
+          }
         ],
-        "timeout": { "ending": "banco_de_tras" }
-      }
+        "timeout": {
+          "ending": "banco_de_tras"
+        }
+      },
+      "music": "perseguicao"
     },
-
     "carro_parou": {
       "location": "carro",
-      "cast": { "right": { "char": "rafael", "anim": "Run" } },
-      "set": { "rafael_mordido": true, "patricia": false },
+      "cast": {
+        "right": {
+          "char": "rafael",
+          "anim": "Run"
+        }
+      },
+      "set": {
+        "rafael_mordido": true,
+        "patricia": false
+      },
       "lines": [
-        { "id": "carro_parou_01", "who": "sistema", "sfx": "rosnado", "text": "Rafael abre a porta de trás. Ela pula em cima dele." },
-        { "id": "carro_parou_02", "who": "rafael", "tags": "[screaming]", "text": "SAI! SAI DE MIM!" },
-        { "id": "carro_parou_03", "who": "sistema", "text": "Você arranca ela de cima dele. O ombro do Rafael está aberto." }
+        {
+          "id": "carro_parou_01",
+          "who": "sistema",
+          "sfx": "rosnado",
+          "text": "Rafael abre a porta de trás. Ela pula em cima dele."
+        },
+        {
+          "id": "carro_parou_02",
+          "who": "rafael",
+          "tags": "[screaming]",
+          "text": "SAI! SAI DE MIM!"
+        },
+        {
+          "id": "carro_parou_03",
+          "who": "sistema",
+          "text": "Você arranca ela de cima dele. O ombro do Rafael está aberto."
+        }
       ],
-      "next": "carro_rafael"
+      "next": "carro_rafael",
+      "music": "perseguicao"
     },
-
     "carro_rafael": {
       "location": "carro",
-      "cast": { "right": { "char": "rafael", "anim": "Sit" } },
+      "cast": {
+        "right": {
+          "char": "rafael",
+          "anim": "Sit"
+        }
+      },
       "lines": [
-        { "id": "carro_rafael_01", "who": "sistema", "text": "Rafael está suando frio. Esconde o braço embaixo da jaqueta." },
-        { "id": "carro_rafael_02", "who": "rafael", "tags": "[weak, forcing a smile]", "text": "Não é nada. Me leva com você. Sua esposa é enfermeira, né? Ela me ajuda." },
-        { "id": "carro_rafael_03a", "if": "ligou", "who": "marina", "phone": true, "tags": "[firm, scared]", "text": "Amor, você tá vindo? Não traz ninguém pra cá. Ninguém. Você me ouviu?" },
-        { "id": "carro_rafael_03b", "if": "not ligou", "who": "sistema", "text": "Nenhuma notícia de casa. Nenhuma." },
-        { "id": "carro_rafael_04", "who": "rafael", "tags": "[pleading, crying]", "text": "Por favor. Eu não quero morrer sozinho." }
+        {
+          "id": "carro_rafael_01",
+          "who": "sistema",
+          "text": "Rafael está suando frio. Esconde o braço embaixo da jaqueta."
+        },
+        {
+          "id": "carro_rafael_02",
+          "who": "rafael",
+          "tags": "[weak, forcing a smile]",
+          "text": "Não é nada. Me leva com você. Sua esposa é enfermeira, né? Ela me ajuda."
+        },
+        {
+          "id": "carro_rafael_03a",
+          "if": "ligou",
+          "who": "marina",
+          "phone": true,
+          "tags": "[firm, scared]",
+          "text": "Amor, você tá vindo? Não traz ninguém pra cá. Ninguém. Você me ouviu?"
+        },
+        {
+          "id": "carro_rafael_03b",
+          "if": "not ligou",
+          "who": "sistema",
+          "text": "Nenhuma notícia de casa. Nenhuma."
+        },
+        {
+          "id": "carro_rafael_04",
+          "who": "rafael",
+          "tags": "[pleading, crying]",
+          "text": "Por favor. Eu não quero morrer sozinho."
+        }
       ],
       "choice": {
         "prompt": "Rafael ou sua família?",
         "timer": 7,
-        "plead": { "rafael": "Me leva" },
+        "plead": {
+          "rafael": "Me leva"
+        },
         "options": [
-          { "text": "Levar Rafael pra casa", "who": "rafael", "set": { "rafael_em_casa": true }, "next": "casa_chegada" },
-          { "text": "Deixar Rafael no posto de gasolina", "set": { "culpa": "=culpa + 1" }, "next": "posto" }
+          {
+            "text": "Levar Rafael pra casa",
+            "who": "rafael",
+            "set": {
+              "rafael_em_casa": true
+            },
+            "next": "casa_chegada"
+          },
+          {
+            "text": "Deixar Rafael no posto de gasolina",
+            "set": {
+              "culpa": "=culpa + 1"
+            },
+            "next": "posto"
+          }
         ],
-        "timeout": { "set": { "rafael_em_casa": true }, "next": "nao_disse_nao" }
+        "timeout": {
+          "set": {
+            "rafael_em_casa": true
+          },
+          "next": "nao_disse_nao"
+        }
       }
     },
-
     "nao_disse_nao": {
       "location": "carro",
-      "cast": { "right": { "char": "rafael", "anim": "Sit" } },
+      "cast": {
+        "right": {
+          "char": "rafael",
+          "anim": "Sit"
+        }
+      },
       "lines": [
-        { "id": "nao_disse_nao_01", "who": "sistema", "text": "Você não consegue dizer não. Ele encosta a cabeça no vidro e fecha os olhos." }
+        {
+          "id": "nao_disse_nao_01",
+          "who": "sistema",
+          "text": "Você não consegue dizer não. Ele encosta a cabeça no vidro e fecha os olhos."
+        }
       ],
       "next": "casa_chegada"
     },
-
     "posto": {
       "location": "carro",
-      "cast": { "right": { "char": "rafael", "anim": "Idle" } },
+      "cast": {
+        "right": {
+          "char": "rafael",
+          "anim": "Idle"
+        }
+      },
       "lines": [
-        { "id": "posto_01", "who": "rafael", "tags": "[quiet, resigned]", "text": "Tudo bem. Eu entendo. Cuida delas." },
-        { "id": "posto_02", "who": "sistema", "text": "Pelo retrovisor, ele senta no meio-fio. Não olha mais pra você." }
+        {
+          "id": "posto_01",
+          "who": "rafael",
+          "tags": "[quiet, resigned]",
+          "text": "Tudo bem. Eu entendo. Cuida delas."
+        },
+        {
+          "id": "posto_02",
+          "who": "sistema",
+          "text": "Pelo retrovisor, ele senta no meio-fio. Não olha mais pra você."
+        }
       ],
       "next": "casa_chegada"
     },
-
     "carro_tranquilo": {
       "location": "carro",
-      "cast": { "right": { "char": "rafael", "anim": "Sit" } },
+      "cast": {
+        "right": {
+          "char": "rafael",
+          "anim": "Sit"
+        }
+      },
       "lines": [
-        { "id": "carro_tranquilo_01", "who": "rafael", "tags": "[relieved, laughing nervously]", "text": "A gente conseguiu. Cara... a gente conseguiu." },
-        { "id": "carro_tranquilo_02", "who": "rafael", "tags": "[serious]", "text": "Te deixo na esquina. Depois vou buscar minha mãe." },
-        { "id": "carro_tranquilo_03", "who": "sistema", "text": "Ele te deixa a duas quadras de casa. Você nunca mais vê o Rafael." }
+        {
+          "id": "carro_tranquilo_01",
+          "who": "rafael",
+          "tags": "[relieved, laughing nervously]",
+          "text": "A gente conseguiu. Cara... a gente conseguiu."
+        },
+        {
+          "id": "carro_tranquilo_02",
+          "who": "rafael",
+          "tags": "[serious]",
+          "text": "Te deixo na esquina. Depois vou buscar minha mãe."
+        },
+        {
+          "id": "carro_tranquilo_03",
+          "who": "sistema",
+          "text": "Ele te deixa a duas quadras de casa. Você nunca mais vê o Rafael."
+        }
       ],
       "next": "casa_chegada"
     },
-
     "rua_sozinho": {
       "location": "rua",
       "title_card": "03:12",
       "ambience": "rua",
-      "cast": { "center": { "char": "zumbi", "anim": "ZombieWalk" } },
+      "cast": {
+        "center": {
+          "char": "zumbi",
+          "anim": "ZombieWalk"
+        }
+      },
       "lines": [
-        { "id": "rua_sozinho_01", "who": "sistema", "text": "Seis quilômetros até em casa. A pé." },
-        { "id": "rua_sozinho_02", "who": "sistema", "sfx": "rosnado", "text": "Um vulto no meio da avenida. Ele sente o seu cheiro." }
+        {
+          "id": "rua_sozinho_01",
+          "who": "sistema",
+          "text": "Seis quilômetros até em casa. A pé."
+        },
+        {
+          "id": "rua_sozinho_02",
+          "who": "sistema",
+          "sfx": "rosnado",
+          "text": "Um vulto no meio da avenida. Ele sente o seu cheiro."
+        }
       ],
       "choice": {
         "prompt": "Ele está vindo!",
         "timer": 5,
         "options": [
-          { "text": "Se esconder embaixo de um carro", "set": { "atraso": "=atraso + 1" }, "next": "casa_chegada" },
-          { "text": "Correr pela avenida", "next": "rua_arranhao" }
+          {
+            "text": "Se esconder embaixo de um carro",
+            "set": {
+              "atraso": "=atraso + 1"
+            },
+            "next": "casa_chegada"
+          },
+          {
+            "text": "Correr pela avenida",
+            "next": "rua_arranhao"
+          }
         ],
-        "timeout": { "next": "rua_arranhao" }
+        "timeout": {
+          "next": "rua_arranhao"
+        }
       }
     },
-
     "rua_arranhao": {
       "location": "rua",
-      "cast": { "center": { "char": "zumbi", "anim": "ZombieAttack" } },
-      "set": { "mordido": true },
+      "cast": {
+        "center": {
+          "char": "zumbi",
+          "anim": "ZombieAttack"
+        }
+      },
+      "set": {
+        "mordido": true
+      },
       "lines": [
-        { "id": "rua_arranhao_01", "who": "sistema", "sfx": "stinger_boom", "text": "Ele te alcança na esquina. Unhas no seu antebraço." },
-        { "id": "rua_arranhao_02", "who": "sistema", "text": "Você escapa. Sangrando. E decide não contar pra ninguém." }
+        {
+          "id": "rua_arranhao_01",
+          "who": "sistema",
+          "sfx": "stinger_boom",
+          "text": "Ele te alcança na esquina. Unhas no seu antebraço."
+        },
+        {
+          "id": "rua_arranhao_02",
+          "who": "sistema",
+          "text": "Você escapa. Sangrando. E decide não contar pra ninguém."
+        }
       ],
       "next": "casa_chegada"
     },
-
     "casa_chegada": {
       "location": "casa",
       "title_card": "CASA",
       "ambience": "casa",
       "cast": {},
-      "set": { "marina_infectada": "=marina_saiu" },
+      "set": {
+        "marina_infectada": "=marina_saiu"
+      },
       "lines": [
-        { "id": "casa_chegada_01a", "if": "marina_saiu", "who": "sistema", "text": "O carro da Marina está na garagem. Com a porta do motorista aberta." },
-        { "id": "casa_chegada_01b", "if": "not marina_saiu", "who": "sistema", "text": "Tudo trancado por dentro. Você usa a sua chave." },
-        { "id": "casa_chegada_02", "if": "rafael_em_casa", "who": "sistema", "text": "Rafael entra atrás de você, apoiado no seu ombro." },
-        { "id": "casa_chegada_03", "who": "sistema", "sfx": "porta_abre", "text": "Sala escura. A TV ligada, sem sinal." }
+        {
+          "id": "casa_chegada_01a",
+          "if": "marina_saiu",
+          "who": "sistema",
+          "text": "O carro da Marina está na garagem. Com a porta do motorista aberta."
+        },
+        {
+          "id": "casa_chegada_01b",
+          "if": "not marina_saiu",
+          "who": "sistema",
+          "text": "Tudo trancado por dentro. Você usa a sua chave."
+        },
+        {
+          "id": "casa_chegada_02",
+          "if": "rafael_em_casa",
+          "who": "sistema",
+          "text": "Rafael entra atrás de você, apoiado no seu ombro."
+        },
+        {
+          "id": "casa_chegada_03",
+          "who": "sistema",
+          "sfx": "porta_abre",
+          "text": "Sala escura. A TV ligada, sem sinal."
+        }
       ],
       "branch": [
-        { "if": "hesitou >= 3", "next": "paralisia" },
-        { "next": "casa_final" }
+        {
+          "if": "hesitou >= 3",
+          "next": "paralisia"
+        },
+        {
+          "next": "casa_final"
+        }
       ]
     },
-
     "paralisia": {
       "location": "casa",
       "cast": {},
       "lines": [
-        { "id": "paralisia_01", "who": "sistema", "text": "Você para na porta. Não consegue entrar. Não consegue sair." },
-        { "id": "paralisia_02", "who": "sistema", "text": "Igual no escritório. Igual na escada. Você sempre esperou alguém decidir por você." },
-        { "id": "paralisia_03", "who": "marina", "tags": "[whispers, from far away]", "text": "Amor...? É você?" }
+        {
+          "id": "paralisia_01",
+          "who": "sistema",
+          "text": "Você para na porta. Não consegue entrar. Não consegue sair."
+        },
+        {
+          "id": "paralisia_02",
+          "who": "sistema",
+          "text": "Igual no escritório. Igual na escada. Você sempre esperou alguém decidir por você."
+        },
+        {
+          "id": "paralisia_03",
+          "who": "marina",
+          "tags": "[whispers, from far away]",
+          "text": "Amor...? É você?"
+        }
       ],
-      "ending": "congelado"
+      "ending": "congelado",
+      "music": "casa"
     },
-
     "casa_final": {
       "location": "casa",
       "ambience": "tensao",
       "cast": {
-        "left":  { "char": "marina", "anim": "Idle" },
-        "right": { "char": "bia", "offscreen": "porta" }
+        "left": {
+          "char": "marina",
+          "anim": "Idle"
+        },
+        "right": {
+          "char": "bia",
+          "offscreen": "porta"
+        }
       },
       "lines": [
-        { "id": "casa_final_inf_01", "if": "marina_infectada", "who": "sistema", "text": "A Marina está parada na cozinha. De costas. Ela vira devagar." },
-        { "id": "casa_final_inf_02", "if": "marina_infectada", "who": "marina", "anim": "Talk", "tags": "[calm, too calm, sweet]", "text": "Amor... você chegou. Vem cá. Me dá um abraço." },
-        { "id": "casa_final_inf_03", "if": "marina_infectada", "who": "bia", "tags": "[child, whispering, terrified]", "text": "Papai! Tô trancada no meu quarto. A mamãe tá estranha. Ela mordeu o Thor." },
-        { "id": "casa_final_inf_04", "if": "marina_infectada", "who": "marina", "anim": "Talk", "tags": "[sweet, slightly off]", "text": "Ela tá assustada, só isso. Eu tô bem. Eu sou enfermeira, lembra?" },
-        { "id": "casa_final_inf_05", "if": "marina_infectada", "who": "bia", "tags": "[child, crying, pleading]", "text": "Não chega perto dela! Por favor, papai, vem pra cá!" },
-
-        { "id": "casa_final_ok_01", "if": "not marina_infectada", "who": "sistema", "text": "A Marina está na cozinha, com uma faca na mão. Ela solta quando te vê." },
-        { "id": "casa_final_ok_02", "if": "not marina_infectada", "who": "marina", "anim": "Talk", "tags": "[crying with relief]", "text": "Você tá vivo. Meu Deus, você tá vivo. Vem cá." },
-        { "id": "casa_final_ok_03", "if": "not marina_infectada", "who": "bia", "tags": "[child, scared, hopeful]", "text": "Papai? É você? Tô no meu quarto, a mamãe mandou eu trancar." },
-        { "id": "casa_final_ok_04", "if": "not marina_infectada", "who": "marina", "anim": "Talk", "tags": "[emotional]", "text": "Me abraça. Eu preciso ter certeza que você é de verdade." },
-        { "id": "casa_final_ok_05", "if": "not marina_infectada", "who": "bia", "tags": "[child, pleading]", "text": "Papai, vem aqui primeiro! Por favor!" }
+        {
+          "id": "casa_final_inf_01",
+          "if": "marina_infectada",
+          "who": "sistema",
+          "text": "A Marina está parada na cozinha. De costas. Ela vira devagar."
+        },
+        {
+          "id": "casa_final_inf_02",
+          "if": "marina_infectada",
+          "who": "marina",
+          "anim": "Talk",
+          "tags": "[calm, too calm, sweet]",
+          "text": "Amor... você chegou. Vem cá. Me dá um abraço."
+        },
+        {
+          "id": "casa_final_inf_03",
+          "if": "marina_infectada",
+          "who": "bia",
+          "tags": "[child, whispering, terrified]",
+          "text": "Papai! Tô trancada no meu quarto. A mamãe tá estranha. Ela mordeu o Thor."
+        },
+        {
+          "id": "casa_final_inf_04",
+          "if": "marina_infectada",
+          "who": "marina",
+          "anim": "Talk",
+          "tags": "[sweet, slightly off]",
+          "text": "Ela tá assustada, só isso. Eu tô bem. Eu sou enfermeira, lembra?"
+        },
+        {
+          "id": "casa_final_inf_05",
+          "if": "marina_infectada",
+          "who": "bia",
+          "tags": "[child, crying, pleading]",
+          "text": "Não chega perto dela! Por favor, papai, vem pra cá!"
+        },
+        {
+          "id": "casa_final_ok_01",
+          "if": "not marina_infectada",
+          "who": "sistema",
+          "text": "A Marina está na cozinha, com uma faca na mão. Ela solta quando te vê."
+        },
+        {
+          "id": "casa_final_ok_02",
+          "if": "not marina_infectada",
+          "who": "marina",
+          "anim": "Talk",
+          "tags": "[crying with relief]",
+          "text": "Você tá vivo. Meu Deus, você tá vivo. Vem cá."
+        },
+        {
+          "id": "casa_final_ok_03",
+          "if": "not marina_infectada",
+          "who": "bia",
+          "tags": "[child, scared, hopeful]",
+          "text": "Papai? É você? Tô no meu quarto, a mamãe mandou eu trancar."
+        },
+        {
+          "id": "casa_final_ok_04",
+          "if": "not marina_infectada",
+          "who": "marina",
+          "anim": "Talk",
+          "tags": "[emotional]",
+          "text": "Me abraça. Eu preciso ter certeza que você é de verdade."
+        },
+        {
+          "id": "casa_final_ok_05",
+          "if": "not marina_infectada",
+          "who": "bia",
+          "tags": "[child, pleading]",
+          "text": "Papai, vem aqui primeiro! Por favor!"
+        }
       ],
       "choice": {
         "prompt": "Quem você abraça primeiro?",
         "timer": 8,
-        "plead": { "marina": "Me abraça", "bia": "Vem pra cá" },
+        "plead": {
+          "marina": "Me abraça",
+          "bia": "Vem pra cá"
+        },
         "options": [
-          { "text": "Abraçar a Marina", "who": "marina", "next": "abracar_marina" },
-          { "text": "Ir até o quarto da Bia", "who": "bia", "next": "ir_bia" }
+          {
+            "text": "Abraçar a Marina",
+            "who": "marina",
+            "next": "abracar_marina"
+          },
+          {
+            "text": "Ir até o quarto da Bia",
+            "who": "bia",
+            "next": "ir_bia"
+          }
         ],
-        "timeout": { "next": "abracar_marina" }
+        "timeout": {
+          "next": "abracar_marina"
+        }
       }
     },
-
     "abracar_marina": {
       "location": "casa",
-      "cast": { "left": { "char": "marina", "anim": "Walk" } },
+      "cast": {
+        "left": {
+          "char": "marina",
+          "anim": "Walk"
+        }
+      },
       "lines": [],
       "branch": [
-        { "if": "marina_infectada", "ending": "ultimo_abraco" },
-        { "if": "rafael_em_casa", "ending": "o_convidado" },
-        { "if": "mordido", "ending": "a_ameaca" },
-        { "ending": "familia" }
+        {
+          "if": "marina_infectada",
+          "ending": "ultimo_abraco"
+        },
+        {
+          "if": "rafael_em_casa",
+          "ending": "o_convidado"
+        },
+        {
+          "if": "mordido",
+          "ending": "a_ameaca"
+        },
+        {
+          "ending": "familia"
+        }
       ]
     },
-
     "ir_bia": {
       "location": "casa",
       "cast": {},
       "lines": [],
       "branch": [
-        { "if": "marina_infectada", "ending": "porta_trancada" },
-        { "if": "rafael_em_casa", "ending": "o_convidado" },
-        { "if": "mordido", "ending": "a_ameaca" },
-        { "ending": "familia" }
+        {
+          "if": "marina_infectada",
+          "ending": "porta_trancada"
+        },
+        {
+          "if": "rafael_em_casa",
+          "ending": "o_convidado"
+        },
+        {
+          "if": "mordido",
+          "ending": "a_ameaca"
+        },
+        {
+          "ending": "familia"
+        }
       ]
     }
   },
-
   "endings": {
     "portas_abertas": {
       "title": "Portas Abertas",
@@ -552,7 +1367,10 @@
       "kind": "sobreviveu",
       "text": "Vocês barricaram a casa. Lá fora, a cidade queimava. Aqui dentro, vocês estavam juntos.",
       "extra": [
-        { "if": "culpa >= 1", "text": "Mas toda noite você ainda ouve alguém gritando numa escada." }
+        {
+          "if": "culpa >= 1",
+          "text": "Mas toda noite você ainda ouve alguém gritando numa escada."
+        }
       ]
     },
     "congelado": {

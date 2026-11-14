@@ -56,7 +56,9 @@ func _ready() -> void:
 	box.add_child(timers)
 
 	box.add_child(UI.label("Jogue com fone de ouvido.", 30, UI.DIM))
-	Audio.play_ambience("tensao")
+	Audio.play_ambience("")
+	Audio.set_location("")
+	Audio.play_music("tema")
 	play.grab_focus()
 	if not GameState.debug_start_node.is_empty():
 		_on_play.call_deferred()
