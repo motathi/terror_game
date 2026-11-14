@@ -316,7 +316,8 @@ func _build_extras(cena: Dictionary, floor_y: float) -> void:
 	if cena.has("ovni"):
 		var o: Dictionary = cena["ovni"]
 		var p: Array = o.get("pos", [0, 7, -9])
-		Locations.ufo(_extras, Vector3(p[0], p[1] + floor_y, p[2]), Color.html(o.get("cor", "#66ff88")))
+		var u := Locations.ufo(_extras, Vector3(p[0], p[1] + floor_y, p[2]), Color.html(o.get("cor", "#66ff88")))
+		u.scale = Vector3.ONE * float(o.get("escala", 1.0))
 	for e in cena.get("extras", []):
 		var n := AssetLib.spawn(AssetLib.model_path(e.get("model", "")), Vector3.ONE, "human")
 		AssetLib.psxify(n, Color.html(e.get("tint", "#ffffff")))
