@@ -33,6 +33,7 @@ game/story/*.json ──► StoryRunner ──► GameScreen ──► Stage (3D
 - **Stage** (`scripts/stage/stage.gd`) monta o cenário (`locations.gd`), põe o elenco nos slots `left`/`right`/`center` virado para a câmera e controla as mãos em primeira pessoa (que esticam para o personagem escolhido), o piscar e o apagar das luzes, o tremor da câmera e o flash vermelho.
 - **Actor** é o modelo + animação + nome flutuante + palavra de súplica tremendo ("Por favor"), como nos vídeos. `offscreen: "porta"` mostra só uma porta com luz por baixo (a Bia trancada no quarto).
 - **AssetLib** carrega modelos com fallback e troca todos os materiais pelo shader PSX: vértices tremendo, textura afim e filtro nearest.
+- **Áudio na web:** usa o modo **Sample** do Godot. O navegador toca os sons nativamente, então o áudio não trava quando o 3D pesa no celular. Por isso os buses ficam em `default_bus_layout.tres`: os criados por código não existem nesse modo. Os efeitos de bus (telefone, rádio, porta) só funcionam nos builds nativos; na web a voz sai limpa. No iOS, `navigator.audioSession.type = "playback"` (no `head_include` do preset Web) faz o som tocar mesmo com a chave de silencioso ligada.
 - **Audio** procura `audio/vo|sfx|amb/<chave>`. Se não achar, usa um fallback do pacote CC-BY. Cria os buses em código: `Phone` (banda estreita, voz no celular), `Radio` (TV), `Muffled` (atrás da porta).
 - **GameState** guarda os finais descobertos e as opções em `user://save.json`. No navegador isso vira IndexedDB.
 
