@@ -15,6 +15,13 @@ uniform float emission_strength = 0.0;
 uniform float snap_resolution = 180.0;
 uniform float affine_strength : hint_range(0.0, 1.0) = 0.85;
 uniform float alpha_scissor : hint_range(0.0, 1.0) = 0.5;
+// Recolorir textura sem cor (ex.: cachorro preto -> caramelo): o brilho do
+// pixel escolhe um tom entre ramp_dark e ramp_light. Pixels saturados
+// (olhos, língua) ficam como estão.
+uniform bool use_ramp = false;
+uniform vec4 ramp_dark : source_color = vec4(0.18, 0.08, 0.03, 1.0);
+uniform vec4 ramp_light : source_color = vec4(1.0, 0.72, 0.38, 1.0);
+uniform float ramp_gain = 3.2;
 
 varying vec3 affine_uvw;
 
@@ -31,7 +38,16 @@ void fragment() {
 	vec2 uv = mix(UV, affine_uvw.xy / affine_uvw.z, affine_strength);
 	vec4 c = albedo_color;
 	if (use_texture) {
-		c *= texture(albedo_tex, uv);
+		vec4 t = texture(albedo_tex, uv);
+		if (use_ramp) {
+			vec3 sc = pow(t.rgb, vec3(1.0 / 2.2));  // de volta ao espaço da imagem
+			float sat = max(sc.r, max(sc.g, sc.b)) - min(sc.r, min(sc.g, sc.b));
+			if (sat < 0.12) {
+				float l = clamp(dot(sc, vec3(0.3, 0.59, 0.11)) * ramp_gain, 0.0, 1.0);
+				t.rgb = mix(ramp_dark.rgb, ramp_light.rgb, l);
+			}
+		}
+		c *= t;
 	}
 	if (use_vertex_color) {
 		c.rgb *= COLOR.rgb;

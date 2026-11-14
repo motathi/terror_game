@@ -5,6 +5,7 @@ Jogo de terror de escolhas em primeira pessoa, no formato dos vídeos "escolha-m
 **Campanhas** (menu em carrossel, definidas em `game/story/campanhas.json`):
 - **Zumbi — Capítulo 1: Surto** (jogável): escritório, notícias de ataques, sua família em casa. 10 finais.
 - **Alien — Capítulo 1: Visitantes** (jogável): sítio do avô no interior, luzes sobre o milharal, quem volta não é igual. 10 finais. Momento-chave: duas Lias idênticas implorando "a outra é a cópia".
+- **Skinwalker — Capítulo 1: Caramelo** (jogável): o cachorro da família some por três dias e volta diferente. Ele não late, não manca e imita vozes. 10 finais. Momentos-chave: duas mães (uma do lado de fora da porta) e dois Caramelos implorando para entrar.
 - **Em breve:** Homem do Saco, Casa Abandonada, Fazenda.
 
 **Capítulo 1: Surto.** Sexta-feira, 17:48. Você está no escritório quando o jornal começa a falar de pessoas mordendo pessoas. Sua esposa Marina e sua filha Bia estão em casa.

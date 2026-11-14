@@ -26,12 +26,22 @@ Uma campanha = um arquivo em `game/story/`. Valide sempre com `python3 tools/sto
 | `tint` | multiplica a cor do modelo (reaproveitar o mesmo modelo como outra pessoa) |
 | `bus` | efeito na voz: `Voice` (padrão), `Phone`, `Radio`, `Muffled` |
 | `voiced` | `false` = nunca procura arquivo de voz |
+| `fx` | efeito extra na voz gerada: `errado` (imitação quase perfeita), `errado_abafado`, `monstro` |
+| `altura` | altura em metros (o modelo é escalado pelos ossos; ex.: criança 1.3) |
+| `pelagem` | recolore a textura: `caramelo`, `morta`, `cinza` ou `["#escuro", "#claro"]` |
+| `em_pe` | `true` = bicho de quatro patas de pé nas patas de trás |
+| `olhos` | cor dos olhos brilhando (modelos com olhos mapeados, ex.: `dog`) |
+
+Modelos: além dos humanos, `dog` (PSX Dog, animações `Dog1_Idle`, `Dog1_Idle_Tail_Wag`, `Dog1_Walk`, `Dog1_Run`, `Dog1_Bark`, `Dog1_Sit_Start`, `Dog1_Sit_Loop`, `Dog1_Lay_Start`, `Dog1_Lay_Loop`).
+
+Opcional no topo do arquivo: `"musica_cenarios": {"casa": "skin_casa"}` e `"sons_cenarios": {"casa": ["arranhao"]}` trocam a música padrão e os sons soltos de um cenário só nesta campanha.
 
 ## Nó
 ```jsonc
 "patricia": {
-  "location": "escada",                  // escritorio | escritorio_escuro | escada | garagem | carro | rua | casa
+  "location": "escada",                  // escritorio | escritorio_escuro | escada | garagem | carro | rua | casa | campo | fazenda_casa | celeiro | elevador | quintal
   "title_card": "21:30",                 // opcional: cartela no topo da tela
+  "camera": { "pos": [0,1.3,0.4], "olhar": [0,0.3,-2], "slot_dist": 2.0 },  // opcional: câmera só deste nó (bom p/ cachorros)
   "ambience": "tensao",                  // opcional: troca o som ambiente
   "set": { "x": true },                  // opcional: aplicado ao entrar no nó
   "cast": {                              // quem está em cena

@@ -54,6 +54,7 @@ func _ready() -> void:
 	if not runner.load_file(GameState.current_campaign):
 		push_error("Não foi possível carregar a campanha")
 		return
+	Audio.set_story_audio(runner.story.get("musica_cenarios", {}), runner.story.get("sons_cenarios", {}))
 	_run.call_deferred()
 
 
@@ -94,6 +95,7 @@ func _setup_scene(node: Dictionary) -> void:
 		stage.set_location(loc)
 		Audio.set_location(loc)
 	Audio.play_music(node.get("music", Audio.music_for_location(loc)))
+	stage.apply_node_view(node.get("camera", {}))
 	stage.set_cast(node.get("cast", {}), runner.story.get("characters", {}))
 	if node.has("ambience"):
 		Audio.play_ambience(node["ambience"])

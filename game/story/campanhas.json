@@ -58,6 +58,27 @@
       "path": "res://story/alien_visitantes.json"
     },
     {
+      "id": "skinwalker",
+      "titulo": "SKINWALKER",
+      "subtitulo": "Capítulo 1 — Caramelo",
+      "chamada": "O Caramelo sumiu por três dias. Hoje à noite ele voltou. Ele não late mais. Ele só olha.",
+      "path": "res://story/skinwalker_caramelo.json",
+      "status": "disponivel",
+      "cor": "#ff8a3a",
+      "cena": {
+        "location": "quintal",
+        "model": "dog",
+        "em_pe": true,
+        "altura": 2.1,
+        "pelagem": "morta",
+        "tint": "#c8b8a8",
+        "olhos": "#fff0b8",
+        "anim": "Dog1_Idle",
+        "dist": 3.4,
+        "luz": "#ffa060"
+      }
+    },
+    {
       "id": "homem_do_saco",
       "titulo": "HOMEM DO SACO",
       "subtitulo": "Em breve",

@@ -3,7 +3,8 @@ extends Node3D
 ## + palavra de súplica ("Por favor") que treme na hora da escolha.
 
 const AssetLib := preload("res://scripts/stage/asset_lib.gd")
-const LOOPING := ["idle", "walk", "run", "talk", "sit", "zombieidle", "zombiewalk"]
+## Animações em loop: basta o nome conter uma destas palavras ("Dog1_Idle"...).
+const LOOPING := ["idle", "walk", "run", "talk", "sit", "zombie", "loop", "wag", "bark"]
 
 var char_id := ""
 var display_name := ""
@@ -17,6 +18,7 @@ var _current_anim := ""
 var _t := randf() * 10.0
 var _plead_active := false
 var _base_y := 0.0
+var _model_y0 := 0.0
 
 
 func setup(id: String, def: Dictionary, slot_def: Dictionary, title_font: Font, body_font: Font) -> void:
@@ -37,6 +39,7 @@ func setup(id: String, def: Dictionary, slot_def: Dictionary, title_font: Font, 
 		AssetLib.psxify(model, tint)
 		add_child(model)
 		anim_player = AssetLib.find_animation_player(model)
+		_apply_options(def.get("model", ""), def)
 	_base_y = position.y
 
 	# luz própria: o fundo pode ser escuro, o rosto não
@@ -67,10 +70,103 @@ func play(anim: String, blend := 0.25) -> void:
 	if found.is_empty() or found == _current_anim:
 		return
 	var a := anim_player.get_animation(found)
-	if a != null and anim.to_lower() in LOOPING:
+	var low := found.to_lower()
+	if a != null and not low.contains("start") and LOOPING.any(func(w): return low.contains(w)):
 		a.loop_mode = Animation.LOOP_LINEAR
 	anim_player.play(found, blend)
 	_current_anim = found
+
+
+## Opções do personagem além de model/tint (e ajustes do modelo em
+## AssetLib.MODEL_META):
+##   "altura": 1.3        altura em metros (medida pelos ossos)
+##   "pelagem": "caramelo" recolore a textura (AssetLib.PELAGENS ou [escuro, claro])
+##   "em_pe": true        bicho de quatro patas levantado nas patas de trás
+##   "olhos": "#ffe070"   olhos que brilham (modelos com "olhos" no MODEL_META)
+func _apply_options(key: String, def: Dictionary) -> void:
+	var meta: Dictionary = AssetLib.MODEL_META.get(key, {})
+	var tex_path: String = meta.get("tex", "")
+	var tex: Texture2D = null
+	if not tex_path.is_empty() and ResourceLoader.exists(tex_path):
+		tex = load(tex_path) as Texture2D
+	var pel = def.get("pelagem", "")
+	var ramp = AssetLib.PELAGENS.get(pel, null) if pel is String else pel
+	if tex != null or ramp != null:
+		for mi in model.find_children("*", "MeshInstance3D", true, false):
+			var m := mi as MeshInstance3D
+			for i in m.mesh.get_surface_count():
+				var mat := m.get_active_material(i) as ShaderMaterial
+				if mat == null:
+					continue
+				mat = mat.duplicate()
+				if tex != null:
+					mat.set_shader_parameter("albedo_tex", tex)
+					mat.set_shader_parameter("use_texture", true)
+				if ramp != null:
+					mat.set_shader_parameter("use_ramp", true)
+					mat.set_shader_parameter("ramp_dark", Color.html(ramp[0]))
+					mat.set_shader_parameter("ramp_light", Color.html(ramp[1]))
+				m.set_surface_override_material(i, mat)
+	var em_pe: bool = def.get("em_pe", false)
+	var rot := Vector3(deg_to_rad(80.0) if em_pe else 0.0, deg_to_rad(float(meta.get("rot_y", 0.0))), 0.0)
+	var altura := float(def.get("altura", meta.get("altura", 0.0)))
+	if altura > 0.0:
+		var ext := _bone_extent_y(Basis.from_euler(rot))
+		if ext.y - ext.x > 0.01:
+			var s := altura / (ext.y - ext.x)
+			model.scale = Vector3.ONE * s
+			model.position.y = -ext.x * s
+			head_height = altura + (0.12 if not em_pe and meta.has("olhos") else 0.0)
+	model.rotation = rot
+	_model_y0 = model.position.y
+	if def.has("olhos") and meta.has("olhos"):
+		_add_eyes(meta, Color.html(def["olhos"]))
+
+
+## Menor e maior altura dos ossos (pose de descanso) depois de girar o modelo.
+func _bone_extent_y(rot: Basis) -> Vector2:
+	var out := Vector2(INF, -INF)
+	for sk in model.find_children("*", "Skeleton3D", true, false):
+		var skel := sk as Skeleton3D
+		var rel := Transform3D.IDENTITY
+		var n: Node = skel
+		while n != null and n != model:
+			if n is Node3D:
+				rel = (n as Node3D).transform * rel
+			n = n.get_parent()
+		for i in skel.get_bone_count():
+			var y := (rot * (rel * skel.get_bone_global_rest(i).origin)).y
+			out.x = minf(out.x, y)
+			out.y = maxf(out.y, y)
+	return out if out.x < out.y else Vector2(0, 0)
+
+
+func _add_eyes(meta: Dictionary, color: Color) -> void:
+	var skels := model.find_children("*", "Skeleton3D", true, false)
+	if skels.is_empty():
+		return
+	var skel := skels[0] as Skeleton3D
+	var bone_name: String = meta.get("osso_cabeca", "")
+	var idx := skel.find_bone(bone_name)
+	if idx < 0:
+		idx = skel.find_bone(bone_name.replace(".", "_"))
+	if idx < 0:
+		return
+	var att := BoneAttachment3D.new()
+	att.bone_name = skel.get_bone_name(idx)
+	skel.add_child(att)
+	var r := float(meta.get("raio_olho", 0.02))
+	for p in meta.get("olhos", []):
+		var eye := MeshInstance3D.new()
+		var sph := SphereMesh.new()
+		sph.radius = r
+		sph.height = r * 2.0
+		sph.radial_segments = 6
+		sph.rings = 3
+		eye.mesh = sph
+		eye.position = p
+		eye.material_override = AssetLib.make_material(color, 4.0)
+		att.add_child(eye)
 
 
 func set_plead(text: String) -> void:
@@ -91,7 +187,7 @@ func _process(delta: float) -> void:
 	_t += delta
 	if anim_player == null and model != null:
 		# Sem animação: respiração/balanço procedural.
-		model.position.y = sin(_t * 1.7) * 0.012
+		model.position.y = _model_y0 + sin(_t * 1.7) * 0.012
 		model.rotation.z = sin(_t * 0.9) * 0.02
 	if _plead_active:
 		# Tremor de súplica, como nos vídeos.

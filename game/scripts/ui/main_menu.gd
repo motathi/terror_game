@@ -261,8 +261,9 @@ func _select(i: int, animate := true) -> void:
 	stage.location_cfg["slots"] = {"center": Vector3(0, floor_y, -dist)}
 	stage.set_camera(Vector3(0, 1.2 + floor_y, 0), Vector3(0, -0.2 + floor_y, -dist))
 	var def := {"name": "", "model": cena.get("model", "zombie_student")}
-	if cena.has("tint"):
-		def["tint"] = cena["tint"]
+	for k in ["tint", "pelagem", "em_pe", "altura", "olhos"]:
+		if cena.has(k):
+			def[k] = cena[k]
 	var chars := {c["id"]: def}
 	stage.set_cast({"center": {"char": c["id"], "anim": cena.get("anim", "")}}, chars)
 	var luz := Color.html(cena.get("luz", "#ffffff"))

@@ -19,6 +19,29 @@ const MODELS := {
 	"hands": TP + "fp_hands/hands.glb",
 	"alien_shellback": TP + "psx_aliens/glb/drone.glb",
 	"alien_grey": TP + "alien_grey/Alien.fbx",
+	"dog": TP + "psx_dog/DogGlb.glb",
+}
+
+## Ajustes por modelo, aplicados pelo Actor:
+## tex = textura (o GLB do cachorro vem sem ela), rot_y = para onde o modelo
+## olha (o Actor espera +Z), altura = altura padrão em metros (medida pelos
+## ossos), olhos = osso da cabeça + posição dos olhos no espaço do osso.
+const MODEL_META := {
+	"dog": {
+		"tex": TP + "psx_dog/BlackDog.png",
+		"rot_y": 180.0,
+		"altura": 0.72,
+		"osso_cabeca": "spine.011",
+		"olhos": [Vector3(-0.087, 0.228, 0.101), Vector3(0.087, 0.228, 0.101)],
+		"raio_olho": 0.022,
+	},
+}
+
+## Pelagens para "pelagem" no personagem: [tom escuro, tom claro].
+const PELAGENS := {
+	"caramelo": ["#2e1408", "#ffb860"],
+	"morta": ["#0c0a08", "#6a5a48"],
+	"cinza": ["#101012", "#a8a8b0"],
 }
 
 static var _mat_cache: Dictionary = {}

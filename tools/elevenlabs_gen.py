@@ -122,6 +122,10 @@ FX = {
     "phone": "highpass=f=380,lowpass=f=3200,acrusher=bits=11:mix=0.25,acompressor=threshold=-20dB:ratio=5,",
     "radio": "highpass=f=260,lowpass=f=4200,aecho=0.8:0.55:35:0.22,acrusher=bits=12:mix=0.15,",
     "muffled": "lowpass=f=850,aecho=0.8:0.45:18:0.3,volume=1.8,",
+    # imitação: quase igual, mas um pouco grave e com eco curto (skinwalker)
+    "errado": "asetrate=44100*0.95,aresample=44100,atempo=1.0526,aecho=0.7:0.5:23:0.25,",
+    "errado_abafado": "asetrate=44100*0.95,aresample=44100,atempo=1.0526,lowpass=f=850,aecho=0.8:0.45:18:0.35,volume=1.8,",
+    "monstro": "asetrate=44100*0.8,aresample=44100,atempo=1.25,aecho=0.8:0.7:40|75:0.4|0.3,",
 }
 
 
@@ -193,7 +197,7 @@ def collect_lines():
                 if not ch.get("voiced", True):
                     continue
                 prev = lines[i - 1]["text"] if i > 0 and lines[i - 1]["who"] == ln["who"] else None
-                fx = "phone" if (ln.get("phone") or phone_char == ln["who"]) else {"Radio": "radio", "Muffled": "muffled"}.get(ch.get("bus", ""), "")
+                fx = "phone" if (ln.get("phone") or phone_char == ln["who"]) else ch.get("fx") or {"Radio": "radio", "Muffled": "muffled"}.get(ch.get("bus", ""), "")
                 out.append({**ln, "previous_text": prev, "fx": fx})
         # narração dos finais (lida na cinemática de cada final)
         for eid, e in story.get("endings", {}).items():

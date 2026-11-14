@@ -136,12 +136,23 @@ func play_music(key: String, fade := 2.5) -> void:
 	create_tween().tween_property(_music_a, "volume_db", MUSIC_DB, fade)
 
 
+## Cada campanha pode trocar a música padrão e os sons soltos de um cenário
+## ("musica_cenarios" / "sons_cenarios" no JSON da história).
+var _music_over: Dictionary = {}
+var _random_over: Dictionary = {}
+
+
+func set_story_audio(music: Dictionary, random: Dictionary) -> void:
+	_music_over = music
+	_random_over = random
+
+
 func music_for_location(location: String) -> String:
-	return LOCATION_MUSIC.get(location, "tensao")
+	return _music_over.get(location, LOCATION_MUSIC.get(location, "tensao"))
 
 
 func set_location(location: String) -> void:
-	_random_pool = LOCATION_RANDOM.get(location, [])
+	_random_pool = _random_over.get(location, LOCATION_RANDOM.get(location, []))
 	_random_timer = randf_range(4.0, 10.0)
 
 

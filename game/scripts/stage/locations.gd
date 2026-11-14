@@ -53,6 +53,8 @@ static func build(id: String, root: Node3D) -> Dictionary:
 			_fazenda_casa(root, cfg)
 		"celeiro":
 			_celeiro(root, cfg)
+		"quintal":
+			_quintal(root, cfg)
 		_:
 			push_warning("Locations: cenário desconhecido '%s'" % id)
 			box(root, Vector3(10, 0.1, 10), Vector3(0, -0.05, -3), Color(0.1, 0.1, 0.1))
@@ -451,6 +453,76 @@ static func _celeiro(root: Node3D, cfg: Dictionary) -> void:
 	cfg["ambient_energy"] = 0.4
 
 
+static func _quintal(root: Node3D, cfg: Dictionary) -> void:
+	# Quintal de casa no interior, à noite: muro de bloco, portão, casinha do
+	# Caramelo, varal, mangueira e o poste da rua do outro lado do muro.
+	box(root, Vector3(30, 0.1, 30), Vector3(0, -0.05, -8), Color(0.13, 0.15, 0.07))  # grama
+	box(root, Vector3(4.5, 0.03, 3.2), Vector3(0, 0.0, -0.4), Color(0.36, 0.35, 0.33))  # cimentado
+	var block := Color(0.46, 0.43, 0.38)
+	box(root, Vector3(12.5, 2.3, 0.25), Vector3(0, 1.15, -9.5), block)
+	for side in [-1, 1]:
+		box(root, Vector3(0.25, 2.3, 10.5), Vector3(side * 6.2, 1.15, -4.4), block.darkened(0.12))
+	for i in 7:
+		box(root, Vector3(0.3, 0.12, 0.3), Vector3(-6 + i * 2, 2.33, -9.5), block.darkened(0.25))  # pilaretes
+	box(root, Vector3(1.6, 2.0, 0.08), Vector3(2.6, 1.0, -9.34), Color(0.1, 0.11, 0.12))  # portão
+	for i in 8:
+		box(root, Vector3(0.03, 1.9, 0.1), Vector3(1.9 + i * 0.2, 1.0, -9.3), Color(0.16, 0.17, 0.18))
+	# casinha do Caramelo
+	var dh := Node3D.new()
+	dh.position = Vector3(-2.7, 0, -4.6)
+	dh.rotation.y = deg_to_rad(22)
+	root.add_child(dh)
+	var wood := Color(0.5, 0.3, 0.15)
+	box(dh, Vector3(1.0, 0.75, 1.15), Vector3(0, 0.375, 0), wood)
+	var r1 := box(dh, Vector3(0.66, 0.06, 1.3), Vector3(-0.27, 0.92, 0), Color(0.55, 0.12, 0.08))
+	r1.rotation.z = deg_to_rad(38)
+	var r2 := box(dh, Vector3(0.66, 0.06, 1.3), Vector3(0.27, 0.92, 0), Color(0.55, 0.12, 0.08))
+	r2.rotation.z = deg_to_rad(-38)
+	box(dh, Vector3(0.44, 0.5, 0.02), Vector3(0, 0.27, 0.58), Color(0.02, 0.02, 0.02))
+	var plate := Label3D.new()
+	plate.text = "CARAMELO"
+	plate.font_size = 40
+	plate.pixel_size = 0.004
+	plate.modulate = Color(0.95, 0.9, 0.75)
+	plate.outline_size = 6
+	plate.position = Vector3(0, 0.62, 0.59)
+	plate.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+	dh.add_child(plate)
+	box(root, Vector3(0.3, 0.08, 0.3), Vector3(-1.9, 0.04, -3.7), Color(0.7, 0.12, 0.1))  # pote de ração
+	# varal com lençóis balançando
+	for x in [1.6, 4.6]:
+		box(root, Vector3(0.07, 2.0, 0.07), Vector3(x, 1.0, -6.0), Color(0.4, 0.4, 0.42))
+	box(root, Vector3(3.0, 0.015, 0.015), Vector3(3.1, 1.95, -6.0), Color(0.2, 0.2, 0.2))
+	for i in 3:
+		var sheet := box(root, Vector3(0.75, 0.95, 0.02), Vector3(2.15 + i * 0.95, 1.45, -6.0), Color(0.85, 0.85, 0.82).darkened(0.1 * i))
+		sheet.add_child(Sway.new(0.06 + 0.02 * i, 1.1 + 0.3 * i))
+	# mangueira
+	box(root, Vector3(0.35, 2.6, 0.35), Vector3(4.6, 1.3, -8.2), Color(0.25, 0.17, 0.1))
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 31
+	for i in 9:
+		var leaf := box(root, Vector3(1.4, 1.0, 1.4), Vector3(4.6 + rng.randf_range(-1.2, 1.2), 3.0 + rng.randf_range(-0.3, 0.8), -8.2 + rng.randf_range(-1.0, 1.0)), Color(0.07, 0.13, 0.06).darkened(rng.randf() * 0.4))
+		leaf.rotation.y = rng.randf_range(0, 1.5)
+	# poste da rua atrás do muro
+	box(root, Vector3(0.15, 5.0, 0.15), Vector3(-3.2, 2.5, -11.0), Color(0.3, 0.3, 0.3))
+	box(root, Vector3(0.5, 0.12, 0.25), Vector3(-3.0, 4.95, -10.9), Color(1.0, 0.65, 0.3), 2.5)
+	var street := omni(root, Vector3(-3.0, 4.6, -10.5), Color(1.0, 0.6, 0.28), 1.6, 9.0)
+	street.add_child(Flicker.new(0.25, 6.0))
+	# luz da área (atrás de você, na porta da cozinha)
+	omni(root, Vector3(0.4, 2.6, 1.0), Color(1.0, 0.82, 0.55), 1.4, 9.0)
+	var moonlight := DirectionalLight3D.new()
+	moonlight.light_color = Color(0.45, 0.55, 0.85)
+	moonlight.light_energy = 0.5
+	moonlight.rotation_degrees = Vector3(-40, 150, 0)
+	root.add_child(moonlight)
+	cfg["camera_look"] = Vector3(0, 1.25, -5.0)
+	cfg["center_dist"] = 4.4
+	cfg["fog_density"] = 0.035
+	cfg["fog_color"] = Color(0.04, 0.05, 0.07)
+	cfg["ambient"] = Color(0.4, 0.42, 0.55)
+	cfg["ambient_energy"] = 0.6
+
+
 # --- utilitários ----------------------------------------------------------------
 
 static func prop(root: Node3D, path: String, pos: Vector3, rot_y := 0.0, s := 1.0,
@@ -666,6 +738,23 @@ class Flicker extends Node:
 		var n := sin(_t) * sin(_t * 2.31) * sin(_t * 0.53)
 		var off := 1.0 if randf() > 0.015 * amount * speed else 0.0
 		light.light_energy = _base * clampf(1.0 - amount * 0.5 + n * amount * 0.5, 0.0, 2.0) * off
+
+
+## Pano no varal balançando com o vento.
+class Sway extends Node:
+	var amount := 0.06
+	var speed := 1.2
+	var _t := randf() * 10.0
+
+	func _init(p_amount := 0.06, p_speed := 1.2) -> void:
+		amount = p_amount
+		speed = p_speed
+
+	func _process(delta: float) -> void:
+		_t += delta * speed
+		var n := get_parent() as Node3D
+		if n:
+			n.rotation.x = sin(_t) * amount + sin(_t * 2.7) * amount * 0.3
 
 
 ## Luz de emergência pulsando.

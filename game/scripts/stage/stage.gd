@@ -72,6 +72,36 @@ func set_location(id: String, force := false) -> void:
 	camera.transform = Transform3D(Basis(), cam_pos).looking_at(location_cfg["camera_look"], Vector3.UP)
 	_cam_base = camera.transform
 	hands.visible = location_cfg.get("hands", true)
+	_view_key = ""
+	_loc_view = {}
+	for k in ["slot_dist", "slot_spread", "center_dist", "camera_pos", "camera_look"]:
+		_loc_view[k] = location_cfg.get(k)
+
+
+var _view_key := ""
+var _loc_view: Dictionary = {}
+
+
+## Câmera/distâncias só para um nó da história ("camera" no JSON):
+## {"pos": [x,y,z], "olhar": [x,y,z], "slot_dist": 1.9, "slot_spread": 0.45,
+##  "center_dist": 3.0}. Nó sem "camera" volta ao padrão do cenário.
+## Devolve true se mudou (o elenco é refeito nas novas posições).
+func apply_node_view(view: Dictionary) -> bool:
+	var key := JSON.stringify(view)
+	if key == _view_key:
+		return false
+	_view_key = key
+	clear_cast()
+	for k in ["slot_dist", "slot_spread", "center_dist"]:
+		location_cfg[k] = view.get(k, _loc_view.get(k))
+	var pos: Vector3 = _loc_view.get("camera_pos", Vector3(0, 1.62, 0))
+	var look: Vector3 = _loc_view.get("camera_look", Vector3(0, 1.45, -3))
+	if view.has("pos"):
+		pos = Vector3(view["pos"][0], view["pos"][1], view["pos"][2])
+	if view.has("olhar"):
+		look = Vector3(view["olhar"][0], view["olhar"][1], view["olhar"][2])
+	set_camera(pos, look)
+	return true
 
 
 ## Sobrescreve a câmera do cenário (usado pelo menu).
@@ -384,10 +414,11 @@ func shake_actor(char_id: String, dur: float) -> void:
 	var a := actor_for(char_id)
 	if a == null or a.model == null:
 		return
+	var base: Vector3 = a.model.position  # modelos escalados têm deslocamento em y
 	var tw := create_tween()
 	for i in int(dur / 0.05):
-		tw.tween_property(a.model, "position", Vector3(randf_range(-0.05, 0.05), 0, randf_range(-0.04, 0.04)), 0.05)
-	tw.tween_property(a.model, "position", Vector3.ZERO, 0.05)
+		tw.tween_property(a.model, "position", base + Vector3(randf_range(-0.05, 0.05), 0, randf_range(-0.04, 0.04)), 0.05)
+	tw.tween_property(a.model, "position", base, 0.05)
 
 
 func hide_names() -> void:
