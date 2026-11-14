@@ -103,6 +103,12 @@ func set_location(id: String) -> void:
 	hands.visible = location_cfg.get("hands", true)
 
 
+## Sobrescreve a câmera do cenário (usado pelo menu).
+func set_camera(pos: Vector3, look: Vector3) -> void:
+	camera.transform = Transform3D(Basis(), pos).looking_at(look, Vector3.UP)
+	_cam_base = camera.transform
+
+
 ## cast = {"left": {"char": "rafael", "anim": "Idle"}, ...}
 func set_cast(cast: Dictionary, characters: Dictionary) -> void:
 	for slot in ["left", "right", "center"]:

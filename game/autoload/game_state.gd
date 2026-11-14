@@ -5,12 +5,11 @@ extends Node
 const SAVE_PATH := "user://save.json"
 const SAVE_VERSION := 1
 
-## Campanhas disponíveis (ordem do menu). Adicione novos capítulos aqui.
-const CAMPAIGNS := [
-	{"id": "cap1_surto", "path": "res://story/cap1_surto.json"},
-]
+## Lista de campanhas do menu (inclusive as "em breve").
+const CAMPAIGNS_PATH := "res://story/campanhas.json"
 
-var current_campaign: String = CAMPAIGNS[0]["path"]
+var campaigns: Array = []
+var current_campaign: String = "res://story/cap1_surto.json"
 var discovered_endings: Dictionary = {}  # "campanha/final" -> {"time": unix}
 var settings: Dictionary = {
 	"auto_advance": true,
@@ -27,10 +26,23 @@ var debug_start_node := ""
 
 
 func _ready() -> void:
+	_load_campaigns()
 	load_save()
 	if OS.has_feature("web"):
 		var q = JavaScriptBridge.eval("new URLSearchParams(window.location.search).get('cena') || ''", true)
 		debug_start_node = str(q) if q != null else ""
+
+
+func _load_campaigns() -> void:
+	var data = JSON.parse_string(FileAccess.get_file_as_string(CAMPAIGNS_PATH)) if FileAccess.file_exists(CAMPAIGNS_PATH) else null
+	if data == null:
+		var res = load(CAMPAIGNS_PATH)
+		data = res.data if res is JSON else {}
+	campaigns = data.get("campanhas", []) if typeof(data) == TYPE_DICTIONARY else []
+
+
+func campaign_index() -> int:
+	return clampi(int(settings.get("menu_campaign", 0)), 0, maxi(campaigns.size() - 1, 0))
 
 
 func discover_ending(campaign_id: String, ending_id: String) -> bool:

@@ -45,6 +45,8 @@ static func build(id: String, root: Node3D) -> Dictionary:
 			_rua(root, cfg)
 		"casa":
 			_casa(root, cfg)
+		"campo":
+			_campo(root, cfg)
 		_:
 			push_warning("Locations: cenário desconhecido '%s'" % id)
 			box(root, Vector3(10, 0.1, 10), Vector3(0, -0.05, -3), Color(0.1, 0.1, 0.1))
@@ -275,6 +277,50 @@ static func _casa(root: Node3D, cfg: Dictionary) -> void:
 	cfg["camera_pos"] = Vector3(0, 1.68, 0.6)
 	cfg["fog_density"] = 0.025
 	cfg["ambient_energy"] = 0.45
+
+
+static func _campo(root: Node3D, cfg: Dictionary) -> void:
+	# Fazenda / milharal à noite: celeiro, cerca, plantação e lua.
+	box(root, Vector3(60, 0.1, 60), Vector3(0, -0.05, -20), Color(0.16, 0.14, 0.08))
+	box(root, Vector3(3.0, 0.02, 40), Vector3(0, 0.0, -18), Color(0.25, 0.2, 0.12))  # estradinha de terra
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 77
+	for side in [-1, 1]:
+		for row in 6:
+			for i in 14:
+				var h := rng.randf_range(1.4, 2.2)
+				var stalk := box(root, Vector3(0.12, h, 0.12), Vector3(side * (2.3 + row * 0.8) + rng.randf_range(-0.2, 0.2), h * 0.5, -1.5 - i * 1.6 + rng.randf_range(-0.3, 0.3)), Color(0.32, 0.3, 0.12).darkened(rng.randf() * 0.4))
+				stalk.rotation.z = rng.randf_range(-0.15, 0.15)
+		for i in 10:
+			box(root, Vector3(0.1, 1.1, 0.1), Vector3(side * 1.8, 0.55, -1.0 - i * 2.2), Color(0.3, 0.22, 0.14))
+		box(root, Vector3(0.05, 0.08, 22), Vector3(side * 1.8, 0.9, -11), Color(0.3, 0.22, 0.14))
+	# celeiro ao fundo
+	box(root, Vector3(6, 4, 5), Vector3(-5, 2, -22), Color(0.35, 0.08, 0.06))
+	var roof := box(root, Vector3(4.6, 0.2, 5.4), Vector3(-6.6, 4.6, -22), Color(0.2, 0.18, 0.16))
+	roof.rotation.z = deg_to_rad(35)
+	var roof2 := box(root, Vector3(4.6, 0.2, 5.4), Vector3(-3.4, 4.6, -22), Color(0.2, 0.18, 0.16))
+	roof2.rotation.z = deg_to_rad(-35)
+	box(root, Vector3(0.8, 0.6, 0.05), Vector3(-5, 2.8, -19.47), Color(1.0, 0.75, 0.35), 1.5)  # janela acesa
+	omni(root, Vector3(-5, 2.6, -18.5), Color(1.0, 0.7, 0.35), 1.2, 6.0)
+	# lua
+	var moon := MeshInstance3D.new()
+	var sph := SphereMesh.new()
+	sph.radius = 2.5
+	sph.height = 5.0
+	moon.mesh = sph
+	moon.position = Vector3(10, 16, -45)
+	moon.material_override = AssetLib.make_material(Color(0.85, 0.88, 1.0), 2.0)
+	root.add_child(moon)
+	var moonlight := DirectionalLight3D.new()
+	moonlight.light_color = Color(0.5, 0.6, 0.9)
+	moonlight.light_energy = 0.35
+	moonlight.rotation_degrees = Vector3(-35, 160, 0)
+	root.add_child(moonlight)
+	cfg["camera_look"] = Vector3(0, 1.5, -6.0)
+	cfg["center_dist"] = 5.0
+	cfg["fog_density"] = 0.04
+	cfg["fog_color"] = Color(0.04, 0.05, 0.08)
+	cfg["ambient_energy"] = 0.5
 
 
 # --- utilitários ----------------------------------------------------------------

@@ -1,0 +1,86 @@
+{
+  "_doc": "Campanhas do menu, na ordem do carrossel. status: disponivel | em_breve. 'cena' monta o fundo 3D do menu (location de Locations, model de AssetLib.MODELS).",
+  "campanhas": [
+    {
+      "id": "cap1_surto",
+      "titulo": "ZUMBI",
+      "subtitulo": "Capítulo 1 — Surto",
+      "chamada": "Sexta-feira, 17:48. O jornal fala de pessoas mordendo pessoas. Sua família está em casa.",
+      "path": "res://story/cap1_surto.json",
+      "status": "disponivel",
+      "cor": "#d01818",
+      "cena": {
+        "location": "garagem",
+        "model": "zombie_student",
+        "anim": "ZombieIdle",
+        "dist": 2.6,
+        "luz": "#cfe6ff"
+      }
+    },
+    {
+      "id": "alien",
+      "titulo": "ALIEN",
+      "subtitulo": "Em breve",
+      "chamada": "As luzes no céu voltaram. E desta vez alguém desceu no milharal.",
+      "status": "em_breve",
+      "cor": "#30e070",
+      "cena": {
+        "location": "campo",
+        "model": "zombie_big",
+        "anim": "",
+        "tint": "#0c1a10",
+        "dist": 3.4,
+        "luz": "#40ff80",
+        "feixe": true
+      }
+    },
+    {
+      "id": "homem_do_saco",
+      "titulo": "HOMEM DO SACO",
+      "subtitulo": "Em breve",
+      "chamada": "Ele usa a voz de quem você ama para você abrir a porta.",
+      "status": "em_breve",
+      "cor": "#c8a060",
+      "cena": {
+        "location": "rua",
+        "model": "zombie_retro",
+        "anim": "",
+        "tint": "#0a0908",
+        "dist": 2.8,
+        "luz": "#ffb060"
+      }
+    },
+    {
+      "id": "casa_abandonada",
+      "titulo": "CASA ABANDONADA",
+      "subtitulo": "Em breve",
+      "chamada": "Ninguém mora aqui há vinte anos. Então quem acendeu a luz do quarto?",
+      "status": "em_breve",
+      "cor": "#9070ff",
+      "cena": {
+        "location": "casa",
+        "model": "zombie_female",
+        "anim": "",
+        "tint": "#08080c",
+        "dist": 2.7,
+        "luz": "#8090ff"
+      }
+    },
+    {
+      "id": "fazenda",
+      "titulo": "FAZENDA",
+      "subtitulo": "Em breve",
+      "chamada": "O espantalho não estava ali ontem. Hoje ele está mais perto da casa.",
+      "status": "em_breve",
+      "cor": "#e0a020",
+      "cena": {
+        "location": "campo",
+        "model": "zombie_male",
+        "anim": "",
+        "tint": "#3a2a14",
+        "dist": 2.8,
+        "luz": "#ffcc70"
+      }
+    }
+  ]
+}

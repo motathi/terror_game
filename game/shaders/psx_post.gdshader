@@ -12,6 +12,9 @@ uniform float lift : hint_range(0.0, 0.3) = 0.06;
 uniform float exposure : hint_range(0.5, 2.0) = 1.25;
 uniform float flash : hint_range(0.0, 1.0) = 0.0;
 uniform float blackout : hint_range(0.0, 1.0) = 0.0;
+// Efeito VHS (menu): linhas de varredura, faixa de ruído e chuvisco.
+uniform float scanlines : hint_range(0.0, 1.0) = 0.0;
+uniform float static_amount : hint_range(0.0, 1.0) = 0.0;
 
 const float BAYER[16] = float[16](
 	0.0, 8.0, 2.0, 10.0,
@@ -36,6 +39,12 @@ void fragment() {
 	c += n * grain;
 	vec2 d = UV - 0.5;
 	c *= 1.0 - dot(d, d) * vignette * 2.0;
+	if (scanlines > 0.0) {
+		c *= 1.0 - scanlines * 0.35 * step(0.5, fract(float(px.y) * 0.5));
+		float band = smoothstep(0.0, 0.04, abs(fract(UV.y - TIME * 0.07) - 0.5) - 0.46);
+		c += (1.0 - band) * scanlines * 0.06;
+	}
+	c = mix(c, vec3(hash(vec2(px) * 1.7 + TIME * 50.0)), static_amount);
 	c = mix(c, vec3(0.7, 0.0, 0.0), flash * 0.6);
 	c *= 1.0 - blackout;
 	COLOR = vec4(clamp(c, 0.0, 1.0), 1.0);
