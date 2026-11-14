@@ -196,8 +196,12 @@ func _build_hands() -> void:
 	hands = Node3D.new()
 	camera.add_child(hands)
 	for side in HAND_FILES:
-		var inst := AssetLib.spawn(AssetLib.TP + HAND_FILES[side], Vector3.ZERO)
+		var path: String = AssetLib.TP + HAND_FILES[side]
+		var inst := AssetLib.spawn(path, Vector3.ZERO)
 		AssetLib.psxify(inst)
+		var meshes := inst.find_children("*", "MeshInstance3D", true, false)
+		for mi in meshes:
+			print("[maos] ", side, " existe=", ResourceLoader.exists(path), " malha=", mi.name, " aabb=", (mi as MeshInstance3D).get_aabb(), " visivel=", mi.is_visible_in_tree())
 		var pivot := Node3D.new()
 		pivot.add_child(inst)
 		hands.add_child(pivot)
