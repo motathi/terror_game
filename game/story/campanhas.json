@@ -29,7 +29,7 @@
         "model": "zombie_big",
         "anim": "",
         "tint": "#0c1a10",
-        "dist": 3.4,
+        "dist": 6.5,
         "luz": "#40ff80",
         "feixe": true
       }
@@ -59,10 +59,10 @@
       "cor": "#9070ff",
       "cena": {
         "location": "casa",
-        "model": "zombie_female",
-        "anim": "",
+        "model": "nurse",
+        "anim": "Idle",
         "tint": "#08080c",
-        "dist": 2.7,
+        "dist": 3.0,
         "luz": "#8090ff"
       }
     },
