@@ -94,11 +94,10 @@ static func _escritorio(root: Node3D, cfg: Dictionary, dark: bool) -> void:
 	tv_light.add_child(Flicker.new(0.35, 9.0))
 
 	if not dark:
-		for z in [-1.5, -4.5]:
-			var l := omni(root, Vector3(0, 2.8, z), Color(1.0, 0.95, 0.85), 1.1, 7.0)
+		for z in [-2.8, -5.8]:
+			var l := omni(root, Vector3(0, 2.8, z), Color(1.0, 0.95, 0.85), 1.2, 7.0)
 			l.add_to_group("main_lights")
-		box(root, Vector3(1.2, 0.04, 0.3), Vector3(0, 2.94, -1.5), Color(1, 1, 0.95), 2.0)
-		box(root, Vector3(1.2, 0.04, 0.3), Vector3(0, 2.94, -4.5), Color(1, 1, 0.95), 2.0)
+			box(root, Vector3(1.0, 0.03, 0.25), Vector3(0, 2.94, z), Color(1, 1, 0.95), 1.2)
 		cfg["ambient_energy"] = 0.5
 		cfg["fog_density"] = 0.03
 		cfg["fog_color"] = Color(0.1, 0.09, 0.08)

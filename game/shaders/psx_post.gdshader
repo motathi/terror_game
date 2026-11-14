@@ -22,7 +22,7 @@ float hash(vec2 p) {
 }
 
 void fragment() {
-	vec4 col = texture(TEXTURE, UV);
+	vec4 col = texture(TEXTURE, UV) * COLOR;
 	ivec2 px = ivec2(UV / TEXTURE_PIXEL_SIZE);
 	float threshold = BAYER[(px.y % 4) * 4 + (px.x % 4)] / 16.0 - 0.5;
 	vec3 c = col.rgb + threshold * dither_strength / color_levels;

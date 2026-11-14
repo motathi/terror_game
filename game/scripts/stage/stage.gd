@@ -40,7 +40,7 @@ func _ready() -> void:
 
 	camera = Camera3D.new()
 	camera.keep_aspect = Camera3D.KEEP_WIDTH  # tela em pé: garante os 2 personagens na largura
-	camera.fov = 74.0
+	camera.fov = 62.0
 	camera.near = 0.05
 	camera.far = 60.0
 	camera.current = true
@@ -49,6 +49,7 @@ func _ready() -> void:
 	hands = AssetLib.spawn(AssetLib.model_path("arms"), Vector3.ZERO)
 	AssetLib.psxify(hands)
 	hands.position = HANDS_OFFSET
+	hands.rotation.y = PI  # modelo glTF olha para +Z; câmera olha para -Z
 	camera.add_child(hands)
 	hands_anim = AssetLib.find_animation_player(hands)
 	play_hands(HANDS_IDLE_ANIM)
