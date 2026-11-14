@@ -14,6 +14,8 @@ var post: ShaderMaterial
 var index := 0
 var _t := 0.0
 var _touch_x := -1.0
+var _drag_acc := 0.0
+var _swiped := false
 var _menu_light: OmniLight3D
 var _beam: SpotLight3D
 
@@ -312,16 +314,27 @@ func _timers_text() -> String:
 
 # --- entrada e animação ----------------------------------------------------------------
 
-func _unhandled_input(event: InputEvent) -> void:
-	# arrastar para os lados troca de campanha
+func _input(event: InputEvent) -> void:
+	# arrastar para os lados troca de campanha (lido em _input para funcionar
+	# mesmo quando o gesto começa em cima de um texto/botão)
 	if event is InputEventScreenTouch:
 		if event.pressed:
 			_touch_x = event.position.x
-		elif _touch_x >= 0.0:
-			var dx: float = event.position.x - _touch_x
+			_drag_acc = 0.0
+			_swiped = false
+		else:
 			_touch_x = -1.0
-			if absf(dx) > 70.0:
-				_select(index + (-1 if dx > 0 else 1))
+	elif event is InputEventScreenDrag and _touch_x >= 0.0 and not _swiped:
+		_drag_acc += event.relative.x
+		if absf(_drag_acc) > 70.0:
+			_swiped = true
+			_select(index + (-1 if _drag_acc > 0 else 1))
+			get_viewport().set_input_as_handled()
+	elif event is InputEventMouseMotion and _touch_x >= 0.0 and not _swiped and (event.button_mask & MOUSE_BUTTON_MASK_LEFT):
+		_drag_acc += event.relative.x
+		if absf(_drag_acc) > 70.0:
+			_swiped = true
+			_select(index + (-1 if _drag_acc > 0 else 1))
 	elif event.is_action_pressed("ui_left"):
 		_select(index - 1)
 	elif event.is_action_pressed("ui_right"):
