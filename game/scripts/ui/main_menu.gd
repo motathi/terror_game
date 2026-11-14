@@ -8,6 +8,8 @@ const Stage := preload("res://scripts/stage/stage.gd")
 const StoryRunner := preload("res://scripts/story/story_runner.gd")
 const POST_SHADER := preload("res://shaders/psx_post.gdshader")
 const PIXEL_SHRINK := 4
+const AssetLib := preload("res://scripts/stage/asset_lib.gd")
+const Locations := preload("res://scripts/stage/locations.gd")
 
 var stage: Stage
 var post: ShaderMaterial
@@ -18,6 +20,7 @@ var _drag_acc := 0.0
 var _swiped := false
 var _menu_light: OmniLight3D
 var _back_light: OmniLight3D
+var _extras: Node3D  # disco voador, figuras ao fundo etc. da campanha atual
 var _beam: SpotLight3D
 
 # widgets
@@ -78,6 +81,8 @@ func _build_3d() -> void:
 	_menu_light.omni_range = 5.0
 	_menu_light.light_energy = 1.6
 	stage.add_child(_menu_light)
+	_extras = Node3D.new()
+	stage.add_child(_extras)
 	_back_light = OmniLight3D.new()
 	_back_light.omni_range = 7.0
 	_back_light.light_energy = 5.0
@@ -270,6 +275,7 @@ func _select(i: int, animate := true) -> void:
 	stage.env.fog_light_color = luz * 0.35
 	stage.env.fog_density = 0.07
 	stage.env.background_color = luz * 0.08
+	_build_extras(cena, floor_y)
 	_beam.visible = cena.get("feixe", false)
 	_beam.light_color = luz
 	_beam.position = Vector3(0, 9.0 + floor_y, -dist)
@@ -300,6 +306,32 @@ func _select(i: int, animate := true) -> void:
 		var d := _dots.get_child(k) as ColorRect
 		d.color = accent if k == index else Color(1, 1, 1, 0.25)
 		d.custom_minimum_size = Vector2(28 if k == index else 14, 14)
+
+
+## Elementos extras do fundo: "ovni" (disco voador com feixe) e "extras"
+## (lista de modelos: model, pos [x,y,z], rot, escala, tint, anim).
+func _build_extras(cena: Dictionary, floor_y: float) -> void:
+	for ch in _extras.get_children():
+		ch.queue_free()
+	if cena.has("ovni"):
+		var o: Dictionary = cena["ovni"]
+		var p: Array = o.get("pos", [0, 7, -9])
+		Locations.ufo(_extras, Vector3(p[0], p[1] + floor_y, p[2]), Color.html(o.get("cor", "#66ff88")))
+	for e in cena.get("extras", []):
+		var n := AssetLib.spawn(AssetLib.model_path(e.get("model", "")), Vector3.ONE, "human")
+		AssetLib.psxify(n, Color.html(e.get("tint", "#ffffff")))
+		var p: Array = e.get("pos", [0, 0, -6])
+		n.position = Vector3(p[0], p[1] + floor_y, p[2])
+		n.rotation.y = deg_to_rad(float(e.get("rot", 0.0)))
+		n.scale = Vector3.ONE * float(e.get("escala", 1.0))
+		_extras.add_child(n)
+		var ap := AssetLib.find_animation_player(n)
+		var anim := AssetLib.find_animation(ap, e.get("anim", ""))
+		if not anim.is_empty():
+			ap.get_animation(anim).loop_mode = Animation.LOOP_LINEAR
+			ap.play(anim)
+		if e.get("flutua", false):
+			n.add_child(Locations.Hover.new())
 
 
 func _endings_total(c: Dictionary) -> int:

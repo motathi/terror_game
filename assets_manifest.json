@@ -8,7 +8,10 @@
       "license": "Gratuito p/ uso comercial; proibido redistribuir os arquivos",
       "commit": false,
       "dest": "game/assets/third_party/everyday_npcs",
-      "include": ["Characters/*/*.glb", "LICENSE.txt"],
+      "include": [
+        "Characters/*/*.glb",
+        "LICENSE.txt"
+      ],
       "flatten_prefix": "Characters/"
     },
     {
@@ -19,7 +22,10 @@
       "license": "Gratuito p/ uso comercial, sem crédito obrigatório; proibido redistribuir",
       "commit": false,
       "dest": "game/assets/third_party/house_interior",
-      "include": ["geometry/*.glb", "props/*.glb"]
+      "include": [
+        "geometry/*.glb",
+        "props/*.glb"
+      ]
     },
     {
       "id": "zombie_retro",
@@ -28,7 +34,9 @@
       "license": "Royalty-free comercial; proibido redistribuir os arquivos originais",
       "commit": false,
       "dest": "game/assets/third_party/zombie_retro",
-      "include": ["zombie 2/zombie 2.glb"],
+      "include": [
+        "zombie 2/zombie 2.glb"
+      ],
       "flatten_prefix": "zombie 2/"
     },
     {
@@ -38,7 +46,9 @@
       "license": "CC0",
       "commit": true,
       "dest": "game/assets/third_party/office",
-      "include": ["OFFICE/*/*.glb"],
+      "include": [
+        "OFFICE/*/*.glb"
+      ],
       "flatten_prefix": "OFFICE/"
     },
     {
@@ -48,7 +58,9 @@
       "license": "CC0",
       "commit": true,
       "dest": "game/assets/third_party/fp_arms",
-      "include": ["arms_rig.glb"]
+      "include": [
+        "arms_rig.glb"
+      ]
     },
     {
       "id": "zombies_lowho",
@@ -57,7 +69,10 @@
       "license": "CC0",
       "commit": true,
       "dest": "game/assets/third_party/zombies_lowho",
-      "include": ["Zombie_Free/FBX/Characters/*.fbx", "Zombie_Free/Texture/LOWHO.png"],
+      "include": [
+        "Zombie_Free/FBX/Characters/*.fbx",
+        "Zombie_Free/Texture/LOWHO.png"
+      ],
       "flatten_prefix": "Zombie_Free/"
     },
     {
@@ -67,7 +82,11 @@
       "license": "CC0",
       "commit": true,
       "dest": "game/assets/third_party/cars",
-      "include": ["Car 02/*.obj", "Car 02/*.mtl", "Car 02/*.png"]
+      "include": [
+        "Car 02/*.obj",
+        "Car 02/*.mtl",
+        "Car 02/*.png"
+      ]
     },
     {
       "id": "psx_horror_sfx",
@@ -76,8 +95,51 @@
       "license": "CC BY 4.0 (crédito obrigatório - ver CREDITS.md)",
       "commit": true,
       "dest": "game/assets/third_party/psx_horror_sfx",
-      "include": ["psx-horror-sfx-free/OGG/*/*.ogg", "psx-horror-sfx-free/LICENSE.txt"],
+      "include": [
+        "psx-horror-sfx-free/OGG/*/*.ogg",
+        "psx-horror-sfx-free/LICENSE.txt"
+      ],
       "flatten_prefix": "psx-horror-sfx-free/"
+    },
+    {
+      "id": "psx_aliens",
+      "url": "https://heyheythere.itch.io/psx-aliens-free",
+      "author": "heyheythere",
+      "license": "CC BY 4.0 (crédito obrigatório - ver CREDITS.md)",
+      "commit": true,
+      "dest": "game/assets/third_party/psx_aliens",
+      "include": [
+        "psx-aliens-free/glb/drone.glb",
+        "psx-aliens-free/textures/atlas.png",
+        "psx-aliens-free/LICENSE.txt"
+      ],
+      "flatten_prefix": "psx-aliens-free/"
+    },
+    {
+      "id": "horror_farm_kit",
+      "url": "https://heyheythere.itch.io/psx-horror-farm-kit-free",
+      "author": "heyheythere",
+      "license": "CC BY 4.0 (crédito obrigatório - ver CREDITS.md)",
+      "commit": true,
+      "dest": "game/assets/third_party/horror_farm_kit",
+      "include": [
+        "psx-horror-farm-kit-free/glb/*.glb",
+        "psx-horror-farm-kit-free/textures/*.png",
+        "psx-horror-farm-kit-free/LICENSE.txt"
+      ],
+      "flatten_prefix": "psx-horror-farm-kit-free/"
+    },
+    {
+      "id": "alien_grey",
+      "url": "https://normal-sleep.itch.io/low-poly-alien-character",
+      "author": "Normal Sleep",
+      "license": "Gratuito para usar em qualquer jogo (crédito apreciado); redistribuição não autorizada explicitamente",
+      "commit": false,
+      "dest": "game/assets/third_party/alien_grey",
+      "include": [
+        "Alien.fbx",
+        "Alien-Texture.png"
+      ]
     }
   ]
 }

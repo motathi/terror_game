@@ -11,6 +11,7 @@ Pacotes com "commit": false não podem ir para o repositório público
 import fnmatch
 import json
 import os
+import shutil
 import sys
 import tempfile
 import zipfile
@@ -68,7 +69,16 @@ def main():
         print(f"[get]  {pack['id']}  ({pack['license']})")
         with tempfile.TemporaryDirectory() as tmp:
             meta = itch_fetch.fetch(pack["url"], tmp, pack.get("only"))
-            total = sum(extract(os.path.join(tmp, f), pack) for f in meta["files"] if f.lower().endswith(".zip") or zipfile.is_zipfile(os.path.join(tmp, f)))
+            total = 0
+            for f in meta["files"]:
+                src = os.path.join(tmp, f)
+                if zipfile.is_zipfile(src):
+                    total += extract(src, pack)
+                elif any(fnmatch.fnmatch(f, g) for g in pack["include"]):
+                    # arquivo solto (sem zip)
+                    os.makedirs(dest, exist_ok=True)
+                    shutil.copyfile(src, os.path.join(dest, f))
+                    total += 1
         print(f"       {total} arquivos -> {pack['dest']}")
     write_gitignore(packs)
 

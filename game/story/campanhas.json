@@ -21,17 +21,36 @@
       "id": "alien",
       "titulo": "ALIEN",
       "subtitulo": "Em breve",
-      "chamada": "As luzes no céu voltaram. E desta vez alguém desceu no milharal.",
+      "chamada": "As luzes no céu voltaram. Desta vez, alguma coisa desceu no milharal. E ela está com fome.",
       "status": "em_breve",
       "cor": "#30e070",
       "cena": {
         "location": "campo",
-        "model": "zombie_big",
-        "anim": "",
-        "tint": "#0c1a10",
-        "dist": 6.5,
+        "model": "alien_shellback",
+        "anim": "idle",
+        "dist": 3.0,
         "luz": "#40ff80",
-        "feixe": true
+        "ovni": {
+          "pos": [
+            2.2,
+            7.5,
+            -11
+          ],
+          "cor": "#66ff88"
+        },
+        "extras": [
+          {
+            "model": "alien_grey",
+            "pos": [
+              2.2,
+              1.2,
+              -11
+            ],
+            "rot": 180,
+            "tint": "#9ab0a8",
+            "flutua": true
+          }
+        ]
       }
     },
     {

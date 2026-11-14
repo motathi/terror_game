@@ -4,6 +4,8 @@ Coloque esta lista na tela de créditos do jogo. **Obrigatório:** a linha do pa
 
 ## Obrigatório (CC BY 4.0)
 - PSX Horror SFX Free by heyheythere - https://heyheythere.itch.io/psx-horror-sfx-free - CC BY 4.0
+- PSX Sci-Fi Creatures Free by heyheythere - https://heyheythere.itch.io/psx-aliens-free - CC BY 4.0
+- PSX Horror Farm Kit Free by heyheythere - https://heyheythere.itch.io/psx-horror-farm-kit-free - CC BY 4.0
 
 ## Assets usados
 | Pacote | Autor | Licença | No repo? |
@@ -16,6 +18,9 @@ Coloque esta lista na tela de créditos do jogo. **Obrigatório:** a linha do pa
 | [LOWHO: Zombie Free Sample](https://standout7.itch.io/lowho-zombie) | Standout7 | CC0 | Sim |
 | [PSX Style Cars](https://ggbot.itch.io/psx-style-cars) | GGBotNet | CC0 | Sim |
 | [PSX Horror SFX Free](https://heyheythere.itch.io/psx-horror-sfx-free) | heyheythere | CC BY 4.0 | Sim |
+| [PSX Sci-Fi Creatures Free](https://heyheythere.itch.io/psx-aliens-free) | heyheythere | CC BY 4.0 | Sim |
+| [PSX Horror Farm Kit Free](https://heyheythere.itch.io/psx-horror-farm-kit-free) | heyheythere | CC BY 4.0 | Sim |
+| [Low Poly Alien Character](https://normal-sleep.itch.io/low-poly-alien-character) | Normal Sleep | Uso livre em jogos (crédito apreciado) | Não (fetch_assets) |
 | [VT323](https://fonts.google.com/specimen/VT323) | Peter Hull | SIL OFL 1.1 | Sim |
 | [Silkscreen](https://fonts.google.com/specimen/Silkscreen) | Jason Kottke | SIL OFL 1.1 | Sim |
 

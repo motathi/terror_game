@@ -16,6 +16,8 @@ const MODELS := {
 	"zombie_female": TP + "zombies_lowho/FBX/Characters/Zombie_Female_01.fbx",
 	"zombie_big": TP + "zombies_lowho/FBX/Characters/Zombie_Behemoth_01.fbx",
 	"arms": TP + "fp_arms/arms_rig.glb",
+	"alien_shellback": TP + "psx_aliens/glb/drone.glb",
+	"alien_grey": TP + "alien_grey/Alien.fbx",
 }
 
 static var _mat_cache: Dictionary = {}
@@ -120,6 +122,8 @@ static func _convert(src: Material, tint: Color) -> Material:
 	if src is BaseMaterial3D:
 		var b := src as BaseMaterial3D
 		color = b.albedo_color
+		if b.vertex_color_use_as_albedo:
+			m.set_shader_parameter("use_vertex_color", true)
 		if b.albedo_texture != null:
 			m.set_shader_parameter("albedo_tex", b.albedo_texture)
 			m.set_shader_parameter("use_texture", true)

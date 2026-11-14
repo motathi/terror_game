@@ -7,6 +7,8 @@ render_mode diffuse_lambert, specular_disabled, cull_back;
 uniform vec4 albedo_color : source_color = vec4(1.0);
 uniform sampler2D albedo_tex : source_color, filter_nearest, repeat_enable;
 uniform bool use_texture = false;
+// Modelos com sombreamento pintado nos vértices (ex.: PSX Aliens).
+uniform bool use_vertex_color = false;
 uniform sampler2D emission_tex : source_color, filter_nearest, hint_default_black;
 uniform float emission_strength = 0.0;
 // Resolução da grade de snap (menor = mais tremido). ~ largura da tela PS1.
@@ -30,6 +32,9 @@ void fragment() {
 	vec4 c = albedo_color;
 	if (use_texture) {
 		c *= texture(albedo_tex, uv);
+	}
+	if (use_vertex_color) {
+		c.rgb *= COLOR.rgb;
 	}
 	if (c.a < alpha_scissor) {
 		discard;

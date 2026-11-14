@@ -14,12 +14,14 @@ __pycache__/
 # Cache do pipeline de áudio
 /tools/.elevenlabs_cache/
 
-# >>> assets não redistribuíveis (gerado por tools/fetch_assets.py)
-/game/assets/third_party/everyday_npcs/
-/game/assets/third_party/house_interior/
-/game/assets/third_party/zombie_retro/
-# <<< assets não redistribuíveis
 
 # Binários locais (Godot headless)
 /.tools/
 /dist/
+
+# >>> assets não redistribuíveis (gerado por tools/fetch_assets.py)
+/game/assets/third_party/everyday_npcs/
+/game/assets/third_party/house_interior/
+/game/assets/third_party/zombie_retro/
+/game/assets/third_party/alien_grey/
+# <<< assets não redistribuíveis

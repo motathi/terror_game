@@ -375,6 +375,146 @@ static func omni(root: Node3D, pos: Vector3, color: Color, energy: float, light_
 	return l
 
 
+# --- disco voador (procedural, estilo PSX) -------------------------------------------
+
+## Disco voador flutuando e girando, com luzes piscando, feixe de abdução
+## e partículas subindo pelo feixe.
+static func ufo(root: Node3D, pos: Vector3, beam_color := Color(0.4, 1.0, 0.55)) -> Node3D:
+	var u := Node3D.new()
+	u.position = pos
+	root.add_child(u)
+	var body := Node3D.new()
+	u.add_child(body)
+	var hull := MeshInstance3D.new()
+	var cyl := CylinderMesh.new()
+	cyl.top_radius = 1.6
+	cyl.bottom_radius = 2.4
+	cyl.height = 0.38
+	cyl.radial_segments = 12
+	hull.mesh = cyl
+	hull.material_override = AssetLib.make_material(Color(0.45, 0.47, 0.52))
+	body.add_child(hull)
+	var rim := MeshInstance3D.new()
+	var rc := CylinderMesh.new()
+	rc.top_radius = 2.4
+	rc.bottom_radius = 1.5
+	rc.height = 0.3
+	rc.radial_segments = 12
+	rim.mesh = rc
+	rim.position.y = -0.33
+	rim.material_override = AssetLib.make_material(Color(0.3, 0.31, 0.35))
+	body.add_child(rim)
+	var dome := MeshInstance3D.new()
+	var sph := SphereMesh.new()
+	sph.radius = 0.85
+	sph.height = 1.1
+	sph.radial_segments = 10
+	sph.rings = 5
+	dome.mesh = sph
+	dome.position.y = 0.35
+	dome.material_override = AssetLib.make_material(Color(0.5, 0.9, 0.8), 1.2)
+	body.add_child(dome)
+	var core := MeshInstance3D.new()
+	var cc := CylinderMesh.new()
+	cc.top_radius = 0.7
+	cc.bottom_radius = 0.7
+	cc.height = 0.08
+	core.mesh = cc
+	core.position.y = -0.5
+	core.material_override = AssetLib.make_material(beam_color, 3.0)
+	body.add_child(core)
+	for i in 8:
+		var a := TAU * i / 8.0
+		var lamp := MeshInstance3D.new()
+		var bm := BoxMesh.new()
+		bm.size = Vector3(0.22, 0.12, 0.22)
+		lamp.mesh = bm
+		lamp.position = Vector3(cos(a) * 2.25, -0.12, sin(a) * 2.25)
+		lamp.material_override = AssetLib.make_material(Color(1.0, 0.9, 0.3) if i % 2 == 0 else Color(1.0, 0.2, 0.15), 3.0)
+		lamp.add_child(Blink.new(0.25 * i))
+		body.add_child(lamp)
+	body.add_child(Hover.new())
+	var beam := SpotLight3D.new()
+	beam.light_color = beam_color
+	beam.light_energy = 9.0
+	beam.spot_range = pos.y + 4.0
+	beam.spot_angle = 16.0
+	beam.rotation_degrees = Vector3(-90, 0, 0)
+	beam.position.y = -0.5
+	beam.add_child(Flicker.new(0.15, 6.0))
+	u.add_child(beam)
+	var glow := OmniLight3D.new()
+	glow.light_color = beam_color
+	glow.light_energy = 2.0
+	glow.omni_range = 4.0
+	glow.position.y = -pos.y + 0.3  # poça de luz no chão
+	u.add_child(glow)
+	var dust := BeamDust.new()
+	dust.height = pos.y
+	dust.color = beam_color
+	u.add_child(dust)
+	return u
+
+
+## Faz o disco girar e balançar.
+class Hover extends Node:
+	var _t := randf() * 10.0
+
+	func _process(delta: float) -> void:
+		var n := get_parent() as Node3D
+		if n == null:
+			return
+		_t += delta
+		n.rotation.y += delta * 0.8
+		n.position.y = sin(_t * 1.3) * 0.15
+		n.rotation.z = sin(_t * 0.9) * 0.05
+
+
+## Pisca uma luzinha (alterna visível/invisível).
+class Blink extends Node:
+	var _t := 0.0
+
+	func _init(offset := 0.0) -> void:
+		_t = offset
+
+	func _process(delta: float) -> void:
+		_t += delta
+		var n := get_parent() as Node3D
+		if n:
+			n.visible = fmod(_t, 1.0) < 0.55
+
+
+## Partículas subindo pelo feixe de abdução.
+class BeamDust extends Node3D:
+	var height := 7.0
+	var color := Color(0.4, 1.0, 0.55)
+	var _bits: Array[MeshInstance3D] = []
+
+	func _ready() -> void:
+		var mat := AssetLib.make_material(color, 3.0)
+		for i in 18:
+			var b := MeshInstance3D.new()
+			var bm := BoxMesh.new()
+			bm.size = Vector3.ONE * randf_range(0.04, 0.09)
+			b.mesh = bm
+			b.material_override = mat
+			add_child(b)
+			_reset(b, randf() * height)
+			_bits.append(b)
+
+	func _reset(b: MeshInstance3D, y_up: float) -> void:
+		var r := randf() * 0.9
+		var a := randf() * TAU
+		b.position = Vector3(cos(a) * r, -height + y_up, sin(a) * r)
+
+	func _process(delta: float) -> void:
+		for b in _bits:
+			b.position.y += delta * randf_range(0.8, 1.6)
+			b.rotate_y(delta * 2.0)
+			if b.position.y > -0.6:
+				_reset(b, 0.0)
+
+
 # --- comportamentos de luz ------------------------------------------------------
 
 ## Lâmpada falhando. Filho de uma Light3D.
