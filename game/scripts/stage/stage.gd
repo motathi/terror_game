@@ -7,8 +7,9 @@ const Locations := preload("res://scripts/stage/locations.gd")
 const Actor := preload("res://scripts/stage/actor.gd")
 
 ## Ajuste fino das mãos em primeira pessoa (modelo arms_rig.glb).
-const HANDS_OFFSET := Vector3(0, -1.58, 0.05)
-const HANDS_IDLE_ANIM := "relax"
+## O rig tem um osso "camera" em y=1.743 olhando para -Z: alinhamos ele à câmera.
+const HANDS_OFFSET := Vector3(0, -1.743, 0.0)
+const HANDS_IDLE_ANIM := "guard_idle"
 
 var title_font: Font
 var body_font: Font
@@ -49,9 +50,17 @@ func _ready() -> void:
 	hands = AssetLib.spawn(AssetLib.model_path("arms"), Vector3.ZERO)
 	AssetLib.psxify(hands)
 	hands.position = HANDS_OFFSET
-	hands.rotation.y = PI  # modelo glTF olha para +Z; câmera olha para -Z
 	camera.add_child(hands)
 	hands_anim = AssetLib.find_animation_player(hands)
+	if hands_anim:
+		hands_anim.animation_finished.connect(func(_n): play_hands(HANDS_IDLE_ANIM))
+	# luz suave "do jogador": ilumina o rosto de quem está na frente
+	var face_light := OmniLight3D.new()
+	face_light.light_color = Color(1.0, 0.9, 0.8)
+	face_light.light_energy = 0.55
+	face_light.omni_range = 4.5
+	face_light.position = Vector3(0, 0.2, 0.3)
+	camera.add_child(face_light)
 	play_hands(HANDS_IDLE_ANIM)
 
 	_location_root = Node3D.new()
