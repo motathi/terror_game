@@ -17,6 +17,7 @@ var _touch_x := -1.0
 var _drag_acc := 0.0
 var _swiped := false
 var _menu_light: OmniLight3D
+var _back_light: OmniLight3D
 var _beam: SpotLight3D
 
 # widgets
@@ -77,6 +78,10 @@ func _build_3d() -> void:
 	_menu_light.omni_range = 5.0
 	_menu_light.light_energy = 1.6
 	stage.add_child(_menu_light)
+	_back_light = OmniLight3D.new()
+	_back_light.omni_range = 7.0
+	_back_light.light_energy = 5.0
+	stage.add_child(_back_light)
 	_beam = SpotLight3D.new()
 	_beam.spot_range = 14.0
 	_beam.spot_angle = 14.0
@@ -256,8 +261,15 @@ func _select(i: int, animate := true) -> void:
 	var chars := {c["id"]: def}
 	stage.set_cast({"center": {"char": c["id"], "anim": cena.get("anim", "")}}, chars)
 	var luz := Color.html(cena.get("luz", "#ffffff"))
+	# luz de frente fraca + contraluz forte: o monstro vira silhueta recortada
 	_menu_light.light_color = luz
+	_menu_light.light_energy = 1.6 if available else 0.5
 	_menu_light.position = Vector3(0.6, 2.6 + floor_y, -dist + 1.4)
+	_back_light.light_color = luz
+	_back_light.position = Vector3(0, 1.6 + floor_y, -dist - 1.6)
+	stage.env.fog_light_color = luz * 0.35
+	stage.env.fog_density = 0.07
+	stage.env.background_color = luz * 0.08
 	_beam.visible = cena.get("feixe", false)
 	_beam.light_color = luz
 	_beam.position = Vector3(0, 9.0 + floor_y, -dist)
