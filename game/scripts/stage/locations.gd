@@ -537,7 +537,7 @@ static func _avenida(root: Node3D, cfg: Dictionary) -> void:
 		mine.add_child(hl)
 	var tail := omni(mine, Vector3(0, 0.9, -2.8), Color(1.0, 0.1, 0.05), 0.8, 3.0)
 	tail.remove_from_group("scene_lights")
-	var fill := omni(mine, Vector3(1.5, 3.0, -3.5), Color(1.0, 0.8, 0.65), 2.2, 7.0)  # luz que acompanha o carro
+	var fill := omni(mine, Vector3(1.2, 2.6, -3.0), Color(1.0, 0.85, 0.7), 4.5, 6.5)  # luz que acompanha o carro
 	fill.remove_from_group("scene_lights")
 	var moon := DirectionalLight3D.new()
 	moon.light_color = Color(0.7, 0.6, 0.6)
