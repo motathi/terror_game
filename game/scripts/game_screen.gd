@@ -60,6 +60,9 @@ func _ready() -> void:
 func _run() -> void:
 	runner.reset()
 	var current := runner.start_node()
+	if not GameState.debug_start_node.is_empty() and runner.story["nodes"].has(GameState.debug_start_node):
+		current = GameState.debug_start_node
+		GameState.debug_start_node = ""
 	while true:
 		var node := runner.enter_node(current)
 		if node.is_empty():

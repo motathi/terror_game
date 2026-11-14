@@ -22,8 +22,15 @@ var settings: Dictionary = {
 }
 
 
+## Atalho de teste na web: ...?cena=<id_do_nó> abre o jogo direto nessa cena.
+var debug_start_node := ""
+
+
 func _ready() -> void:
 	load_save()
+	if OS.has_feature("web"):
+		var q = JavaScriptBridge.eval("new URLSearchParams(window.location.search).get('cena') || ''", true)
+		debug_start_node = str(q) if q != null else ""
 
 
 func discover_ending(campaign_id: String, ending_id: String) -> bool:
