@@ -19,3 +19,6 @@ __pycache__/
 /game/assets/third_party/house_interior/
 /game/assets/third_party/zombie_retro/
 # <<< assets não redistribuíveis
+
+# Binários locais (Godot headless)
+/.tools/
