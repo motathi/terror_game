@@ -53,11 +53,13 @@ echo ">> Assets de terceiros"
 python3 "$ROOT/tools/fetch_assets.py" || echo "AVISO: fetch_assets falhou; o build segue com modelos provisórios."
 
 echo ">> Importando projeto"
-"$GODOT" --headless --path "$ROOT/game" --import 2>&1 | tail -n 40 || true
+"$GODOT" --headless --path "$ROOT/game" --import 2>&1 \
+  | grep -vE "^\[ *[0-9]+% \]|DONE|^.\[0m$" | tail -n 80 || true
 
 echo ">> Exportando Web"
 rm -rf "$ROOT/dist" && mkdir -p "$ROOT/dist"
-"$GODOT" --headless --path "$ROOT/game" --export-release "Web" "$ROOT/dist/index.html" 2>&1 | tail -n 60
+"$GODOT" --headless --path "$ROOT/game" --export-release "Web" "$ROOT/dist/index.html" 2>&1 \
+  | grep -vE "^\[ *[0-9]+% \]|DONE|^.\[0m$" | tail -n 80
 test -f "$ROOT/dist/index.pck" || { echo "ERRO: exportação não gerou dist/index.pck"; exit 1; }
 
 echo ">> Teste de fumaça (menu, jogo e cenários)"
