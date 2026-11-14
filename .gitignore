@@ -1,0 +1,21 @@
+# Godot
+.godot/
+*.translation
+/game/export/
+/game/android/
+
+# Python
+__pycache__/
+.venv/
+
+# Segredos
+.env
+
+# Cache do pipeline de áudio
+/tools/.elevenlabs_cache/
+
+# >>> assets não redistribuíveis (gerado por tools/fetch_assets.py)
+/game/assets/third_party/everyday_npcs/
+/game/assets/third_party/house_interior/
+/game/assets/third_party/zombie_retro/
+# <<< assets não redistribuíveis

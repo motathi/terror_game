@@ -1,0 +1,66 @@
+# Escolha-me
+
+Jogo de terror de escolhas em primeira pessoa, no formato dos vídeos "escolha-me / pick your partner" do TikTok e Instagram: você vê pelos olhos do personagem, duas pessoas (ou coisas) imploram para você escolher uma delas, o tempo está acabando, e cada decisão leva a um dos vários finais. Visual low poly estilo PS1, vozes geradas com ElevenLabs.
+
+**Capítulo 1: Surto.** Sexta-feira, 17:48. Você está no escritório quando o jornal começa a falar de pessoas mordendo pessoas. Sua esposa Marina e sua filha Bia estão em casa.
+29 cenas · 89 falas · 867 caminhos · **10 finais**.
+
+| | |
+|---|---|
+| Engine | Godot 4.7, GDScript, renderer Compatibility |
+| Plataformas | Navegador (mobile), Google Play, App Store. Tela vertical |
+| Idioma | Português (BR) |
+| Áudio | ElevenLabs: vozes (TTS v4), efeitos e ambientes (Sound Effects v3) |
+| Arte | Pacotes PSX gratuitos do itch.io ([CREDITS.md](CREDITS.md)) |
+
+## Como rodar
+
+```bash
+git clone <repo> && cd terror_game
+python3 tools/fetch_assets.py        # baixa os pacotes que não podem ficar no repo público
+```
+Depois, no Godot 4.7: **Importar** e selecione `game/project.godot`. Aperte **F5** para jogar.
+Para ajustar enquadramento e luz dos cenários, abra `scenes/location_preview.tscn` e aperte **F6**.
+
+> Sem o `fetch_assets.py` o jogo ainda roda, mas com bonecos provisórios no lugar dos personagens e da casa.
+
+## Gerar o áudio (ElevenLabs)
+
+```bash
+export ELEVENLABS_API_KEY=...                       # ou crie .env na raiz (já está no .gitignore)
+python3 tools/elevenlabs_gen.py design marina       # gera 3 vozes de teste em tools/.elevenlabs_cache/previews
+python3 tools/elevenlabs_gen.py save marina 1       # escolhe a prévia 1 como voz da Marina
+# ...repita para rafael, jorge, patricia, bia, tv
+python3 tools/elevenlabs_gen.py all --dry-run       # mostra o que vai gerar e quantos caracteres
+python3 tools/elevenlabs_gen.py all                 # gera efeitos, ambientes e todas as falas
+```
+Só falas alteradas são regeradas (cache por hash). O jogo funciona sem áudio: ele usa os efeitos do pacote CC-BY enquanto o ElevenLabs não foi rodado.
+
+## Escrever história
+
+A história fica em JSON (`game/story/cap1_surto.json`). O formato está em [docs/FORMATO_HISTORIA.md](docs/FORMATO_HISTORIA.md). Sempre valide depois de editar:
+
+```bash
+python3 tools/story_check.py game/story/cap1_surto.json          # erros + finais alcançáveis
+python3 tools/story_check.py game/story/cap1_surto.json --paths  # todos os caminhos
+```
+
+## Estrutura
+
+```
+game/                      projeto Godot
+  story/                   histórias em JSON (dados, sem código)
+  scripts/story/           StoryRunner: variáveis, condições, próximos nós
+  scripts/stage/           cenários 3D, personagens, câmera POV, materiais PSX
+  scripts/ui/              legenda, escolhas com tempo, finais, menu, galeria
+  autoload/                GameState (save/finais) e Audio (vozes/efeitos/ambiente)
+  shaders/                 psx_lit (tremido + textura afim) e psx_post (dither + granulado)
+  audio/vo|sfx|amb/        saída do ElevenLabs
+  assets/third_party/      pacotes PSX (ver assets_manifest.json)
+tools/
+  fetch_assets.py          baixa os pacotes do itch.io listados no manifesto
+  itch_fetch.py            baixador de assets gratuitos do itch.io
+  elevenlabs_gen.py        pipeline de vozes e efeitos
+  story_check.py           validador e simulador de caminhos
+docs/ARQUITETURA.md        por que Godot e como as peças se encaixam
+```

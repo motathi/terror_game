@@ -1,0 +1,76 @@
+{
+  "_doc": "Configuração do pipeline ElevenLabs (tools/elevenlabs_gen.py). voice_id vazio = rode 'design' e 'save' para criar a voz, ou cole o id de uma voz da Voice Library.",
+  "tts": {
+    "model_id": "eleven_v4",
+    "fallback_model_id": "eleven_v3",
+    "language_code": "pt",
+    "output_format": "mp3_44100_128",
+    "locale_dir": "pt_BR"
+  },
+  "voice_design": {
+    "model_id": "eleven_ttv_v3",
+    "preview_text": "Por favor, me escuta. A gente não tem muito tempo. Se você sair por aquela porta agora, talvez nunca mais volte. Eu tô pedindo... fica comigo."
+  },
+  "voices": {
+    "rafael": {
+      "voice_id": "",
+      "description": "Brazilian Portuguese man, early 30s, office worker from São Paulo, nervous and fast-talking, slightly hoarse, natural and casual, close microphone.",
+      "settings": { "stability": 0.4, "similarity_boost": 0.8, "style": 0.3, "speed": 1.05 }
+    },
+    "jorge": {
+      "voice_id": "",
+      "description": "Brazilian Portuguese man, late 50s, building security guard, deep gravelly voice, tired but firm, working-class Rio accent.",
+      "settings": { "stability": 0.5, "similarity_boost": 0.8, "style": 0.2, "speed": 0.95 }
+    },
+    "patricia": {
+      "voice_id": "",
+      "description": "Brazilian Portuguese woman, around 40, accountant, frightened and breathless, voice trembling, on the verge of crying.",
+      "settings": { "stability": 0.3, "similarity_boost": 0.75, "style": 0.5, "speed": 1.0 }
+    },
+    "marina": {
+      "voice_id": "",
+      "description": "Brazilian Portuguese woman, mid 30s, nurse and mother, warm and soft voice, calm under pressure, intimate tone as if speaking to her husband.",
+      "settings": { "stability": 0.45, "similarity_boost": 0.8, "style": 0.35, "speed": 1.0 }
+    },
+    "bia": {
+      "voice_id": "",
+      "description": "Little girl's voice speaking Brazilian Portuguese, about 7 years old, sweet, scared, whispering.",
+      "settings": { "stability": 0.4, "similarity_boost": 0.75, "style": 0.4, "speed": 1.0 },
+      "_obs": "Se o Voice Design recusar voz infantil, escolha uma voz na Voice Library e cole o voice_id."
+    },
+    "tv": {
+      "voice_id": "",
+      "description": "Brazilian Portuguese TV news anchor, male, 45, formal broadcast voice, clear diction, becoming increasingly alarmed.",
+      "settings": { "stability": 0.55, "similarity_boost": 0.8, "style": 0.2, "speed": 1.0 }
+    }
+  },
+  "sfx": {
+    "model_id": "eleven_text_to_sound_v3",
+    "items": {
+      "celular":       { "prompt": "smartphone vibrating twice on a wooden office desk", "duration": 1.5 },
+      "linha_caiu":    { "prompt": "phone call disconnected, three short busy tone beeps", "duration": 2.0 },
+      "stinger_hit":   { "prompt": "sudden horror movie stinger, dissonant orchestral string hit", "duration": 2.0 },
+      "stinger_boom":  { "prompt": "deep cinematic horror impact boom with long dark reverb tail", "duration": 4.0 },
+      "grito":         { "prompt": "distant terrified human scream echoing down an office building corridor", "duration": 3.0 },
+      "grito_zumbi":   { "prompt": "zombie shriek, guttural and wet, close to the listener", "duration": 2.5 },
+      "gemido":        { "prompt": "low raspy zombie moan in a concrete underground parking garage, echo", "duration": 4.0 },
+      "rosnado":       { "prompt": "aggressive zombie growl and snarl, close, animalistic", "duration": 2.5 },
+      "batidas_vidro": { "prompt": "hands banging repeatedly on a glass office door, muffled, relentless", "duration": 5.0 },
+      "passos":        { "prompt": "two people running down a concrete emergency stairwell, footsteps echoing", "duration": 4.0 },
+      "elevador_ding": { "prompt": "old elevator arrival chime ding in an empty building", "duration": 2.0 },
+      "porta_abre":    { "prompt": "wooden door slowly creaking open in a silent house, horror", "duration": 3.0 },
+      "coracao":       { "prompt": "slow heavy heartbeat, tense, close", "duration": 4.0 }
+    }
+  },
+  "ambience": {
+    "model_id": "eleven_text_to_sound_v3",
+    "items": {
+      "escritorio": { "prompt": "quiet office ambience, air conditioning hum, distant keyboard typing, muffled television news in the background", "duration": 25 },
+      "tensao":     { "prompt": "dark horror drone ambience, low rumble and subtle dissonant tension", "duration": 25 },
+      "garagem":    { "prompt": "underground parking garage at night, buzzing fluorescent lamp, dripping water, distant echoes", "duration": 25 },
+      "carro":      { "prompt": "inside a moving car at night, engine hum, road noise, distant police sirens", "duration": 25 },
+      "rua":        { "prompt": "empty city street at night, wind, distant sirens, faraway screams, buzzing street lamp", "duration": 25 },
+      "casa":       { "prompt": "silent house at night, clock ticking, refrigerator hum, faint wind outside", "duration": 25 }
+    }
+  }
+}

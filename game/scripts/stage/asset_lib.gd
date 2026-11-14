@@ -1,0 +1,162 @@
+extends RefCounted
+## Catálogo de modelos + utilitários para carregar com fallback e aplicar o
+## material PSX. Se um pacote não foi baixado (tools/fetch_assets.py), o jogo
+## continua rodando com formas provisórias no lugar.
+
+const TP := "res://assets/third_party/"
+const PSX_SHADER := preload("res://shaders/psx_lit.gdshader")
+
+## Personagens: chave usada em "model" no JSON da história.
+const MODELS := {
+	"office_worker": TP + "everyday_npcs/NPC_OfficeWorker/NPC_OfficeWorker.glb",
+	"nurse": TP + "everyday_npcs/NPC_Nurse/NPC_Nurse.glb",
+	"zombie_student": TP + "everyday_npcs/NPC_Student_Zombie/NPC_Student_Zombie.glb",
+	"zombie_retro": TP + "zombie_retro/zombie 2.glb",
+	"zombie_male": TP + "zombies_lowho/FBX/Characters/Zombie_Male_01.fbx",
+	"zombie_female": TP + "zombies_lowho/FBX/Characters/Zombie_Female_01.fbx",
+	"zombie_big": TP + "zombies_lowho/FBX/Characters/Zombie_Behemoth_01.fbx",
+	"arms": TP + "fp_arms/arms_rig.glb",
+}
+
+static var _mat_cache: Dictionary = {}
+
+
+static func model_path(key: String) -> String:
+	return MODELS.get(key, key)
+
+
+## Instancia um modelo. Se não existir, devolve um placeholder do tamanho
+## aproximado (`fallback_size`). `kind` = "human" gera uma silhueta.
+static func spawn(path: String, fallback_size := Vector3(0.5, 0.5, 0.5), kind := "box") -> Node3D:
+	if ResourceLoader.exists(path):
+		var res = load(path)
+		if res is PackedScene:
+			var inst = res.instantiate()
+			if inst is Node3D:
+				return inst
+			var holder := Node3D.new()
+			holder.add_child(inst)
+			return holder
+		if res is Mesh:  # .obj é importado como Mesh por padrão
+			var mi := MeshInstance3D.new()
+			mi.mesh = res
+			var root := Node3D.new()
+			root.add_child(mi)
+			return root
+	if kind == "human":
+		return placeholder_human()
+	return placeholder_box(fallback_size, Color(0.35, 0.35, 0.38))
+
+
+static func placeholder_box(size: Vector3, color: Color) -> Node3D:
+	var mi := MeshInstance3D.new()
+	var mesh := BoxMesh.new()
+	mesh.size = size
+	mi.mesh = mesh
+	mi.position.y = size.y * 0.5
+	mi.material_override = make_material(color)
+	var root := Node3D.new()
+	root.add_child(mi)
+	return root
+
+
+static func placeholder_human() -> Node3D:
+	var root := Node3D.new()
+	var body := MeshInstance3D.new()
+	var cap := CapsuleMesh.new()
+	cap.radius = 0.22
+	cap.height = 1.45
+	body.mesh = cap
+	body.position.y = 0.75
+	body.material_override = make_material(Color(0.25, 0.25, 0.28))
+	root.add_child(body)
+	var head := MeshInstance3D.new()
+	var sph := SphereMesh.new()
+	sph.radius = 0.15
+	sph.height = 0.3
+	head.mesh = sph
+	head.position.y = 1.62
+	head.material_override = make_material(Color(0.8, 0.8, 0.78))
+	root.add_child(head)
+	return root
+
+
+## Material PSX sólido (sem textura).
+static func make_material(color: Color, emission := 0.0) -> ShaderMaterial:
+	var m := ShaderMaterial.new()
+	m.shader = PSX_SHADER
+	m.set_shader_parameter("albedo_color", color)
+	m.set_shader_parameter("use_texture", false)
+	if emission > 0.0:
+		var img := Image.create_empty(1, 1, false, Image.FORMAT_RGB8)
+		img.fill(color)
+		m.set_shader_parameter("emission_tex", ImageTexture.create_from_image(img))
+		m.set_shader_parameter("emission_strength", emission)
+	return m
+
+
+## Troca os materiais de todos os MeshInstance3D por materiais PSX,
+## preservando textura, cor e emissão. `tint` multiplica a cor (útil para
+## reaproveitar o mesmo modelo como outro personagem).
+static func psxify(root: Node, tint := Color.WHITE) -> void:
+	for mi in root.find_children("*", "MeshInstance3D", true, false):
+		var mesh_inst := mi as MeshInstance3D
+		if mesh_inst.mesh == null:
+			continue
+		for i in mesh_inst.mesh.get_surface_count():
+			var src := mesh_inst.get_active_material(i)
+			mesh_inst.set_surface_override_material(i, _convert(src, tint))
+
+
+static func _convert(src: Material, tint: Color) -> Material:
+	if src is ShaderMaterial and (src as ShaderMaterial).shader == PSX_SHADER:
+		return src
+	var key := [src, tint]
+	if _mat_cache.has(key):
+		return _mat_cache[key]
+	var m := ShaderMaterial.new()
+	m.shader = PSX_SHADER
+	var color := Color.WHITE
+	if src is BaseMaterial3D:
+		var b := src as BaseMaterial3D
+		color = b.albedo_color
+		if b.albedo_texture != null:
+			m.set_shader_parameter("albedo_tex", b.albedo_texture)
+			m.set_shader_parameter("use_texture", true)
+		if b.emission_enabled:
+			var etex: Texture2D = b.emission_texture
+			if etex != null:
+				m.set_shader_parameter("emission_tex", etex)
+				m.set_shader_parameter("emission_strength", 1.5 * b.emission_energy_multiplier)
+		if b.transparency == BaseMaterial3D.TRANSPARENCY_DISABLED:
+			m.set_shader_parameter("alpha_scissor", 0.0)
+	m.set_shader_parameter("albedo_color", color * tint)
+	_mat_cache[key] = m
+	return m
+
+
+## Procura o AnimationPlayer de um modelo importado.
+static func find_animation_player(root: Node) -> AnimationPlayer:
+	if root is AnimationPlayer:
+		return root
+	var found := root.find_children("*", "AnimationPlayer", true, false)
+	return found[0] if found.size() > 0 else null
+
+
+## Encontra uma animação pelo nome, tolerando prefixo de biblioteca
+## ("Library/Idle") e diferenças de maiúsculas.
+static func find_animation(player: AnimationPlayer, wanted: String) -> String:
+	if player == null or wanted.is_empty():
+		return ""
+	if player.has_animation(wanted):
+		return wanted
+	var low := wanted.to_lower()
+	for a in player.get_animation_list():
+		var n := String(a)
+		var short := n.get_slice("/", n.get_slice_count("/") - 1).to_lower()
+		if short == low:
+			return n
+	for a in player.get_animation_list():
+		if String(a).to_lower().contains(low):
+			return String(a)
+	return ""
