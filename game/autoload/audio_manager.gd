@@ -27,6 +27,9 @@ const SFX_FALLBACK := {
 	"ui_select": PACK + "menus/select.ogg",
 	"ui_cursor": PACK + "menus/cursor_01.ogg",
 	"coracao": PACK + "ambience/heartbeat_slow.ogg",
+	"tiro": PACK + "weapons/shot_shotgun_pump_02.ogg",
+	"criatura_grito": PACK + "creatures/screech_01.ogg",
+	"ovni_zumbido": PACK + "ambience/drone_low.ogg",
 }
 const AMB_FALLBACK := {
 	"tensao": PACK + "ambience/drone_low.ogg",
@@ -45,6 +48,9 @@ const LOCATION_MUSIC := {
 	"carro": "estrada",
 	"rua": "perseguicao",
 	"casa": "casa",
+	"campo": "alien_milharal",
+	"fazenda_casa": "alien_casa",
+	"celeiro": "suspense",
 }
 ## Sons soltos que tocam de vez em quando, baixinho, em cada cenário.
 const LOCATION_RANDOM := {
@@ -54,6 +60,9 @@ const LOCATION_RANDOM := {
 	"carro": ["sirene", "helicoptero", "longe_grito"],
 	"rua": ["sirene", "helicoptero", "longe_grito", "vidro", "rosnado_longe"],
 	"casa": ["batida_porta", "rosnado_longe", "sirene"],
+	"campo": ["ovni_zumbido", "criatura_grito", "rosnado_longe"],
+	"fazenda_casa": ["batida_porta", "ovni_zumbido", "criatura_grito"],
+	"celeiro": ["criatura_grito", "rosnado_longe"],
 }
 const MUSIC_DB := -9.0
 const DUCK_DB := -9.0  # quanto a música abaixa enquanto alguém fala

@@ -20,9 +20,9 @@
     {
       "id": "alien",
       "titulo": "ALIEN",
-      "subtitulo": "Em breve",
+      "subtitulo": "Capítulo 1 — Visitantes",
       "chamada": "As luzes no céu voltaram. Desta vez, alguma coisa desceu no milharal. E ela está com fome.",
-      "status": "em_breve",
+      "status": "disponivel",
       "cor": "#30e070",
       "cena": {
         "location": "campo",
@@ -54,7 +54,8 @@
             "flutua": true
           }
         ]
-      }
+      },
+      "path": "res://story/alien_visitantes.json"
     },
     {
       "id": "homem_do_saco",

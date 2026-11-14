@@ -31,6 +31,11 @@ func _ready() -> void:
 	if OS.has_feature("web"):
 		var q = JavaScriptBridge.eval("new URLSearchParams(window.location.search).get('cena') || ''", true)
 		debug_start_node = str(q) if q != null else ""
+		var camp = JavaScriptBridge.eval("new URLSearchParams(window.location.search).get('campanha') || ''", true)
+		for i in campaigns.size():
+			if str(camp) != "" and campaigns[i].get("id", "") == str(camp) and campaigns[i].has("path"):
+				current_campaign = campaigns[i]["path"]
+				settings["menu_campaign"] = i
 
 
 func _load_campaigns() -> void:

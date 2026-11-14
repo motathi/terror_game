@@ -2,6 +2,11 @@
 
 Jogo de terror de escolhas em primeira pessoa, no formato dos vídeos "escolha-me / pick your partner" do TikTok e Instagram: você vê pelos olhos do personagem, duas pessoas (ou coisas) imploram para você escolher uma delas, o tempo está acabando, e cada decisão leva a um dos vários finais. Visual low poly estilo PS1, vozes geradas com ElevenLabs.
 
+**Campanhas** (menu em carrossel, definidas em `game/story/campanhas.json`):
+- **Zumbi — Capítulo 1: Surto** (jogável): escritório, notícias de ataques, sua família em casa. 10 finais.
+- **Alien — Capítulo 1: Visitantes** (jogável): sítio do avô no interior, luzes sobre o milharal, quem volta não é igual. 10 finais. Momento-chave: duas Lias idênticas implorando "a outra é a cópia".
+- **Em breve:** Homem do Saco, Casa Abandonada, Fazenda.
+
 **Capítulo 1: Surto.** Sexta-feira, 17:48. Você está no escritório quando o jornal começa a falar de pessoas mordendo pessoas. Sua esposa Marina e sua filha Bia estão em casa.
 29 cenas · 89 falas · 867 caminhos · **10 finais**.
 

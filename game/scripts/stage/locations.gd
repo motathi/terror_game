@@ -47,6 +47,10 @@ static func build(id: String, root: Node3D) -> Dictionary:
 			_casa(root, cfg)
 		"campo":
 			_campo(root, cfg)
+		"fazenda_casa":
+			_fazenda_casa(root, cfg)
+		"celeiro":
+			_celeiro(root, cfg)
 		_:
 			push_warning("Locations: cenário desconhecido '%s'" % id)
 			box(root, Vector3(10, 0.1, 10), Vector3(0, -0.05, -3), Color(0.1, 0.1, 0.1))
@@ -321,6 +325,87 @@ static func _campo(root: Node3D, cfg: Dictionary) -> void:
 	cfg["fog_density"] = 0.04
 	cfg["fog_color"] = Color(0.04, 0.05, 0.08)
 	cfg["ambient_energy"] = 0.5
+
+
+static func _fazenda_casa(root: Node3D, cfg: Dictionary) -> void:
+	# Cozinha de casa de fazenda (PSX Horror Farm Kit). Paredes de 2x3m.
+	var K := AssetLib.TP + "horror_farm_kit/glb/"
+	for x in [-2, 0, 2]:
+		for z in [0, -2, -4]:
+			prop(root, K + "floor_lino.glb", Vector3(x, 0, z), 0, 1, Vector3(2, 0.02, 2))
+	box(root, Vector3(6.4, 0.1, 6.6), Vector3(0, 3.0, -2), Color(0.32, 0.26, 0.2))  # teto
+	prop(root, K + "wall_kitchen.glb", Vector3(-2, 0, -5), 0, 1, Vector3(2, 3, 0.2))
+	prop(root, K + "wall_window_kitchen.glb", Vector3(0, 0, -5), 0, 1, Vector3(2, 3, 0.2))
+	prop(root, K + "wall_doorway_kitchen.glb", Vector3(2, 0, -5), 0, 1, Vector3(2, 3, 0.2))
+	prop(root, K + "door_interior.glb", Vector3(2, 0, -5), 0, 1, Vector3(1, 2.2, 0.1))
+	for z in [-4, -2, 0]:
+		prop(root, K + ("wall_window_kitchen.glb" if z == -2 else "wall_kitchen.glb"), Vector3(-3, 0, z), 90, 1, Vector3(2, 3, 0.2))
+		prop(root, K + "wall_kitchen.glb", Vector3(3, 0, z), -90, 1, Vector3(2, 3, 0.2))
+	for p in [Vector3(-3, 0, -5), Vector3(3, 0, -5)]:
+		prop(root, K + "wall_post_farm.glb", p, 0)
+	prop(root, K + "cookstove.glb", Vector3(-2.2, 0, -4.45), 0, 1, Vector3(1.1, 1.0, 0.7))
+	prop(root, K + "hoosier.glb", Vector3(0.9, 0, -4.6), 0, 1, Vector3(1.1, 1.9, 0.6))
+	prop(root, K + "icebox.glb", Vector3(2.55, 0, -2.6), -90, 1, Vector3(0.8, 1.4, 0.6))
+	prop(root, K + "pump_sink.glb", Vector3(-2.5, 0, -1.2), 90, 1, Vector3(1.2, 1.0, 0.6))
+	prop(root, K + "calendar_farm.glb", Vector3(-1.2, 0, -4.88), 0)
+	prop(root, K + "sampler.glb", Vector3(2.88, 0, -1.0), -90)
+	prop(root, K + "window_curtained.glb", Vector3(0, 0, -4.88), 0)
+	# mesa com a lamparina
+	box(root, Vector3(1.4, 0.08, 0.9), Vector3(0, 0.78, -2.6), Color(0.35, 0.22, 0.12))
+	for lx in [-0.6, 0.6]:
+		for lz in [-0.35, 0.35]:
+			box(root, Vector3(0.07, 0.78, 0.07), Vector3(lx, 0.39, -2.6 + lz), Color(0.3, 0.19, 0.1))
+	box(root, Vector3(0.12, 0.22, 0.12), Vector3(0.3, 0.93, -2.6), Color(1.0, 0.7, 0.3), 2.0)
+	var lamp := omni(root, Vector3(0.3, 1.2, -2.6), Color(1.0, 0.65, 0.3), 1.6, 5.5)
+	lamp.add_child(Flicker.new(0.3, 8.0))
+	# luz verde lá fora, entrando pelas janelas
+	var green := omni(root, Vector3(0, 1.8, -6.2), Color(0.35, 1.0, 0.45), 3.5, 6.0)
+	green.add_child(Pulse.new(0.5, 0.4))
+	omni(root, Vector3(-4.2, 1.8, -2), Color(0.35, 1.0, 0.45), 2.0, 4.0)
+	cfg["floor_y"] = 0.0
+	cfg["slot_dist"] = 2.5
+	cfg["camera_pos"] = Vector3(0, 1.62, 0.8)
+	cfg["fog_density"] = 0.03
+	cfg["fog_color"] = Color(0.05, 0.06, 0.04)
+	cfg["ambient_energy"] = 0.45
+
+
+static func _celeiro(root: Node3D, cfg: Dictionary) -> void:
+	var wood := Color(0.36, 0.24, 0.14)
+	box(root, Vector3(9, 0.1, 14), Vector3(0, -0.05, -5), Color(0.24, 0.18, 0.1))  # chão de terra
+	for side in [-1, 1]:
+		for i in 14:
+			box(root, Vector3(0.12, 4.5, 1.0), Vector3(side * 4.4, 2.25, 1.5 - i * 1.0), wood.darkened(0.15 * (i % 2)))
+		for z in [-1.0, -5.0, -9.0]:
+			box(root, Vector3(0.3, 4.6, 0.3), Vector3(side * 3.6, 2.3, z), wood.darkened(0.25))
+	for z in [-1.0, -5.0, -9.0]:
+		box(root, Vector3(7.5, 0.3, 0.3), Vector3(0, 4.2, z), wood.darkened(0.3))  # vigas
+	box(root, Vector3(9, 0.2, 14), Vector3(0, 4.7, -5), wood.darkened(0.45))
+	# fundo: portão aberto com a luz verde lá fora
+	box(root, Vector3(2.8, 4.5, 0.12), Vector3(-2.9, 2.25, -11.5), wood.darkened(0.2))
+	box(root, Vector3(2.8, 4.5, 0.12), Vector3(2.9, 2.25, -11.5), wood.darkened(0.2))
+	box(root, Vector3(3.0, 3.6, 0.05), Vector3(0, 1.8, -12.0), Color(0.3, 0.9, 0.45), 1.4)
+	var outside := omni(root, Vector3(0, 2.0, -12.8), Color(0.35, 1.0, 0.45), 4.0, 9.0)
+	outside.add_child(Pulse.new(0.4, 0.5))
+	# fardos de feno e sangue
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 9
+	for i in 9:
+		var p := Vector3(rng.randf_range(-3.6, -1.8) if i % 2 == 0 else rng.randf_range(1.8, 3.6), 0.3, rng.randf_range(-10.0, -1.0))
+		var bale := box(root, Vector3(1.0, 0.6, 0.6), p, Color(0.62, 0.52, 0.22).darkened(rng.randf() * 0.3))
+		bale.rotation.y = rng.randf_range(-0.5, 0.5)
+	box(root, Vector3(1.8, 0.01, 1.2), Vector3(0.2, 0.01, -4.8), Color(0.3, 0.02, 0.02))
+	box(root, Vector3(0.6, 0.01, 0.4), Vector3(-0.8, 0.01, -3.6), Color(0.28, 0.02, 0.02))
+	# lampião pendurado
+	box(root, Vector3(0.02, 1.2, 0.02), Vector3(-0.6, 3.6, -3.2), Color(0.1, 0.1, 0.1))
+	box(root, Vector3(0.2, 0.28, 0.2), Vector3(-0.6, 2.9, -3.2), Color(1.0, 0.7, 0.3), 2.0)
+	var lantern := omni(root, Vector3(-0.6, 2.8, -3.2), Color(1.0, 0.65, 0.3), 1.8, 6.0)
+	lantern.add_child(Flicker.new(0.6, 9.0))
+	cfg["center_dist"] = 5.0
+	cfg["camera_look"] = Vector3(0, 1.3, -6.0)
+	cfg["fog_density"] = 0.04
+	cfg["fog_color"] = Color(0.04, 0.06, 0.04)
+	cfg["ambient_energy"] = 0.4
 
 
 # --- utilitários ----------------------------------------------------------------

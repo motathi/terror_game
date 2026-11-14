@@ -83,6 +83,56 @@
         "speed": 0.92
       },
       "default_tags": "[slow, low, ominous narration]"
+    },
+    "vo": {
+      "voice_id": "FWfDaMSFTOF6KaXlM56F",
+      "description": "Old Brazilian Portuguese man, 75 years old, farmer from the countryside of Minas Gerais, strong caipira accent, raspy smoker's voice, warm but stern, slow speech.",
+      "settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.8,
+        "style": 0.3,
+        "speed": 0.95
+      }
+    },
+    "lia": {
+      "voice_id": "Ln9LboxiF0avKx2yPHYJ",
+      "description": "Young Brazilian Portuguese woman, 19 years old, energetic and curious, slightly nasal, speaks fast when excited, terrified at times, natural casual tone.",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.8,
+        "style": 0.4,
+        "speed": 1.05
+      }
+    },
+    "radio": {
+      "voice_id": "2nAf3WkLSGIi4nMdpgjU",
+      "description": "Brazilian Portuguese TV news anchor, male, 45, formal broadcast voice, clear diction, becoming increasingly alarmed.",
+      "settings": {
+        "stability": 0.55,
+        "similarity_boost": 0.8,
+        "style": 0.2,
+        "speed": 1.0
+      }
+    },
+    "lia_copia": {
+      "voice_id": "Ln9LboxiF0avKx2yPHYJ",
+      "description": "Young Brazilian Portuguese woman, 19 years old, energetic and curious, slightly nasal, speaks fast when excited, terrified at times, natural casual tone.",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.8,
+        "style": 0.4,
+        "speed": 1.05
+      }
+    },
+    "vo_copia": {
+      "voice_id": "FWfDaMSFTOF6KaXlM56F",
+      "description": "Old Brazilian Portuguese man, 75 years old, farmer from the countryside of Minas Gerais, strong caipira accent, raspy smoker's voice, warm but stern, slow speech.",
+      "settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.8,
+        "style": 0.3,
+        "speed": 0.95
+      }
     }
   },
   "sfx": {
@@ -163,6 +213,18 @@
       "rosnado_longe": {
         "prompt": "zombie growl far away in the dark, reverb",
         "duration": 4.0
+      },
+      "ovni_zumbido": {
+        "prompt": "UFO low electronic humming drone swelling and fading, eerie sci-fi",
+        "duration": 4.0
+      },
+      "criatura_grito": {
+        "prompt": "alien creature shriek with insect-like clicking mandibles, close, horror",
+        "duration": 2.5
+      },
+      "tiro": {
+        "prompt": "single old shotgun blast inside a wooden barn, loud, echo",
+        "duration": 2.0
       }
     }
   },
@@ -196,6 +258,10 @@
       "escolha": {
         "prompt": "tense ticking clock with a low pulsing heartbeat bass and a rising eerie tone, horror countdown",
         "duration": 12
+      },
+      "milharal": {
+        "prompt": "cornfield at night, wind rustling through tall corn stalks, crickets, distant low electronic hum",
+        "duration": 15
       }
     }
   },
@@ -245,6 +311,18 @@
       "final_triste": {
         "prompt": "Tragic horror ending cue, slow cello lament and lonely piano, distant rain, grief, instrumental",
         "duration": 35
+      },
+      "alien_milharal": {
+        "prompt": "Eerie sci-fi horror ambient score, wavering theremin tones, deep sub-bass hum, night crickets fading, mysterious lights in the sky over a cornfield, instrumental, seamless loop",
+        "duration": 40
+      },
+      "alien_casa": {
+        "prompt": "Claustrophobic sci-fi horror drone, low electrical hum, distant radio static, slow pulsing synth, dread inside an old farmhouse at night, instrumental, seamless loop",
+        "duration": 40
+      },
+      "alien_final": {
+        "prompt": "Tense sci-fi horror confrontation score, dissonant detuned synths, shimmering alien tones, rising tension, heartbeat-like pulse, something is wrong, instrumental, seamless loop",
+        "duration": 40
       }
     }
   }

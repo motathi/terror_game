@@ -182,6 +182,8 @@ def collect_lines():
     out = []
     for path in sorted(glob.glob(os.path.join(ROOT, "game", "story", "*.json"))):
         story = json.load(open(path, encoding="utf-8"))
+        if "nodes" not in story:
+            continue  # ex.: campanhas.json
         chars = story["characters"]
         for node in story["nodes"].values():
             lines = node.get("lines", [])
