@@ -85,8 +85,8 @@ func _ready() -> void:
 	add_child(_actors_root)
 
 
-func set_location(id: String) -> void:
-	if id == location_id:
+func set_location(id: String, force := false) -> void:
+	if id == location_id and not force:
 		return
 	location_id = id
 	clear_cast()
@@ -326,3 +326,148 @@ func _face_camera(actor: Actor, away: bool) -> void:
 		actor.rotate_y(PI)
 		if actor.key:
 			actor.key.position.z = -actor.key.position.z  # luz continua do lado da câmera
+
+
+# --- cinemáticas (finais animados) ---------------------------------------------------
+
+var _cine_labels: Dictionary = {}
+var _cine_extra: Array = []
+
+
+func tween_camera(pos: Vector3, look: Vector3, dur: float) -> void:
+	var from := _cam_base
+	var to := Transform3D(Basis(), pos).looking_at(look, Vector3.UP)
+	if dur <= 0.0:
+		_cam_base = to
+		return
+	var tw := create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tw.tween_method(func(k: float): _cam_base = from.interpolate_with(to, k), 0.0, 1.0, dur)
+
+
+func move_actor(char_id: String, to: Vector3, dur: float) -> void:
+	var a := actor_for(char_id)
+	if a == null:
+		return
+	_face_point(a, to if to.distance_to(a.global_position) > 0.3 else _cam_base.origin)
+	create_tween().tween_property(a, "global_position", to, maxf(dur, 0.01))
+
+
+func face_camera_now(char_id: String) -> void:
+	var a := actor_for(char_id)
+	if a:
+		_face_camera(a, false)
+
+
+## Troca um personagem por outro no mesmo lugar (ex.: vira zumbi).
+func swap_actor(char_id: String, new_id: String, def: Dictionary, anim: String) -> void:
+	for slot in actors:
+		var old: Actor = actors[slot]
+		if old.char_id != char_id:
+			continue
+		var a := Actor.new()
+		_actors_root.add_child(a)
+		a.global_position = old.global_position
+		a.setup(new_id, def, {"anim": anim}, title_font, body_font)
+		a.global_rotation = old.global_rotation
+		a.set_name_visible(false)
+		old.queue_free()
+		actors[slot] = a
+		return
+
+
+func shake_actor(char_id: String, dur: float) -> void:
+	var a := actor_for(char_id)
+	if a == null or a.model == null:
+		return
+	var tw := create_tween()
+	for i in int(dur / 0.05):
+		tw.tween_property(a.model, "position", Vector3(randf_range(-0.05, 0.05), 0, randf_range(-0.04, 0.04)), 0.05)
+	tw.tween_property(a.model, "position", Vector3.ZERO, 0.05)
+
+
+func hide_names() -> void:
+	for a in actors.values():
+		a.set_name_visible(false)
+
+
+## Texto no mundo 3D (relógio, tela de celular, placa...). Reutiliza pela chave.
+func world_text(key: String, text: String, pos: Vector3, size: int, color: Color) -> void:
+	var l: Label3D = _cine_labels.get(key)
+	if l == null:
+		l = Label3D.new()
+		l.font = body_font
+		l.outline_size = 10
+		l.outline_modulate = Color.BLACK
+		l.pixel_size = 0.003
+		l.no_depth_test = true
+		l.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+		add_child(l)
+		_cine_labels[key] = l
+	l.text = text
+	l.position = pos
+	l.font_size = size
+	l.modulate = color
+
+
+func point_light(pos: Vector3, color: Color, energy: float, light_range: float, flicker := false) -> void:
+	var l := OmniLight3D.new()
+	l.position = pos
+	l.light_color = color
+	l.light_energy = energy
+	l.omni_range = light_range
+	if flicker:
+		l.add_child(Locations.Flicker.new(0.6, 7.0))
+	add_child(l)
+	_cine_extra.append(l)
+
+
+func tween_env(ambient: Color, energy: float, fog_color: Color, fog_density: float, background: Color, dur: float) -> void:
+	var tw := create_tween().set_parallel(true)
+	tw.tween_property(env, "ambient_light_color", ambient, dur)
+	tw.tween_property(env, "ambient_light_energy", energy, dur)
+	tw.tween_property(env, "fog_light_color", fog_color, dur)
+	tw.tween_property(env, "fog_density", fog_density, dur)
+	tw.tween_property(env, "background_color", background, dur)
+
+
+## Mãos mudando de cor (ex.: infecção). Duplica o material para não sujar o cache.
+func tint_hands(color: Color, dur: float) -> void:
+	for mi in hands.find_children("*", "MeshInstance3D", true, false):
+		var m := mi as MeshInstance3D
+		for i in m.mesh.get_surface_count():
+			var mat := m.get_surface_override_material(i) as ShaderMaterial
+			if mat == null:
+				continue
+			mat = mat.duplicate()
+			m.set_surface_override_material(i, mat)
+			var from: Color = mat.get_shader_parameter("albedo_color")
+			create_tween().tween_method(func(c: Color): mat.set_shader_parameter("albedo_color", c), from, color, dur)
+
+
+## Move um nó do cenário pelo nome (ex.: portas do elevador).
+func move_location_node(node_name: String, to: Vector3, dur: float) -> void:
+	var n := _location_root.find_child(node_name, true, false) as Node3D
+	if n:
+		create_tween().set_trans(Tween.TRANS_SINE).tween_property(n, "position", to, maxf(dur, 0.01))
+
+
+func post_tween(param: String, from: float, to: float, dur: float) -> void:
+	if post_material == null:
+		return
+	create_tween().tween_method(func(v: float): post_material.set_shader_parameter(param, v), from, to, maxf(dur, 0.01))
+
+
+func clear_cinematic() -> void:
+	for l in _cine_labels.values():
+		l.queue_free()
+	_cine_labels.clear()
+	for n in _cine_extra:
+		if is_instance_valid(n):
+			n.queue_free()
+	_cine_extra.clear()
+
+
+func _face_point(actor: Actor, target: Vector3) -> void:
+	target.y = actor.global_position.y
+	if target.distance_to(actor.global_position) > 0.01:
+		actor.look_at(target, Vector3.UP, true)

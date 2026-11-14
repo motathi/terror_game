@@ -179,6 +179,24 @@ func present_line(speaker: String, text: String, phone: bool, auto: bool) -> voi
 	_advance = false
 
 
+## Legenda que não espera o jogador (usada nas cinemáticas).
+func show_caption(speaker: String, text: String) -> void:
+	_subtitle_panel.visible = true
+	_speaker.visible = not speaker.is_empty()
+	_speaker.text = speaker.to_upper()
+	_text.text = text
+	_text.add_theme_color_override("font_color", UI.DIM if speaker.is_empty() else UI.WHITE)
+	_text.visible_characters = -1
+	_next_hint.visible = false
+
+
+## true se o jogador tocou na tela desde a última chamada.
+func consume_tap() -> bool:
+	var t := _advance
+	_advance = false
+	return t
+
+
 func hide_subtitle() -> void:
 	_subtitle_panel.visible = false
 

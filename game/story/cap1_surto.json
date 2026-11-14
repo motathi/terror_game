@@ -1325,42 +1325,1151 @@
     "portas_abertas": {
       "title": "Portas Abertas",
       "kind": "morte",
-      "text": "O elevador parou no 4º andar. Eles estavam esperando."
+      "text": "O elevador parou no 4º andar. Eles estavam esperando.",
+      "cinematica": {
+        "location": "elevador",
+        "camera": {
+          "pos": [
+            0,
+            1.62,
+            0.7
+          ],
+          "olhar": [
+            0,
+            1.5,
+            -3
+          ]
+        },
+        "slots": {
+          "center": [
+            0,
+            0,
+            -3.4
+          ],
+          "left": [
+            -0.8,
+            0,
+            -4.4
+          ],
+          "right": [
+            0.8,
+            0,
+            -4.6
+          ]
+        },
+        "cast": {
+          "center": {
+            "char": "z_estudante",
+            "anim": "ZombieIdle"
+          },
+          "left": {
+            "char": "z_homem",
+            "anim": "Idle"
+          },
+          "right": {
+            "char": "z_mulher",
+            "anim": "Idle"
+          }
+        },
+        "personagens": {
+          "z_estudante": {
+            "name": "",
+            "model": "zombie_student"
+          },
+          "z_homem": {
+            "name": "",
+            "model": "office_worker",
+            "tint": "#6a8460"
+          },
+          "z_mulher": {
+            "name": "",
+            "model": "nurse",
+            "tint": "#7a9070"
+          }
+        },
+        "dur": 8.5,
+        "narrar": 1.4,
+        "passos": [
+          {
+            "t": 0,
+            "acao": "texto3d",
+            "id": "andar",
+            "texto": "7",
+            "pos": [
+              0,
+              2.4,
+              -0.52
+            ],
+            "tamanho": 40,
+            "cor": "#ff3020"
+          },
+          {
+            "t": 0.6,
+            "acao": "texto3d",
+            "id": "andar",
+            "texto": "6",
+            "pos": [
+              0,
+              2.4,
+              -0.52
+            ],
+            "tamanho": 40,
+            "cor": "#ff3020"
+          },
+          {
+            "t": 1.2,
+            "acao": "texto3d",
+            "id": "andar",
+            "texto": "5",
+            "pos": [
+              0,
+              2.4,
+              -0.52
+            ],
+            "tamanho": 40,
+            "cor": "#ff3020"
+          },
+          {
+            "t": 1.8,
+            "acao": "texto3d",
+            "id": "andar",
+            "texto": "4",
+            "pos": [
+              0,
+              2.4,
+              -0.52
+            ],
+            "tamanho": 40,
+            "cor": "#ff3020"
+          },
+          {
+            "t": 1.9,
+            "acao": "sfx",
+            "som": "elevador_ding"
+          },
+          {
+            "t": 2.4,
+            "acao": "no",
+            "nome": "porta_e",
+            "para": [
+              -1.0,
+              1.1,
+              -0.64
+            ],
+            "dur": 1.4
+          },
+          {
+            "t": 2.4,
+            "acao": "no",
+            "nome": "porta_d",
+            "para": [
+              1.0,
+              1.1,
+              -0.64
+            ],
+            "dur": 1.4
+          },
+          {
+            "t": 2.4,
+            "acao": "sfx",
+            "som": "porta_abre"
+          },
+          {
+            "t": 3.5,
+            "acao": "sfx",
+            "som": "gemido"
+          },
+          {
+            "t": 3.9,
+            "acao": "anim",
+            "who": "z_estudante",
+            "anim": "ZombieWalk"
+          },
+          {
+            "t": 3.9,
+            "acao": "mover",
+            "who": "z_estudante",
+            "para": [
+              0,
+              0,
+              0.05
+            ],
+            "dur": 2.2
+          },
+          {
+            "t": 4.1,
+            "acao": "anim",
+            "who": "z_homem",
+            "anim": "Walk"
+          },
+          {
+            "t": 4.1,
+            "acao": "mover",
+            "who": "z_homem",
+            "para": [
+              -0.45,
+              0,
+              -0.3
+            ],
+            "dur": 2.6
+          },
+          {
+            "t": 4.3,
+            "acao": "anim",
+            "who": "z_mulher",
+            "anim": "Walk"
+          },
+          {
+            "t": 4.3,
+            "acao": "mover",
+            "who": "z_mulher",
+            "para": [
+              0.45,
+              0,
+              -0.4
+            ],
+            "dur": 2.7
+          },
+          {
+            "t": 5.8,
+            "acao": "anim",
+            "who": "z_estudante",
+            "anim": "ZombieAttack"
+          },
+          {
+            "t": 5.8,
+            "acao": "sfx",
+            "som": "grito_zumbi"
+          },
+          {
+            "t": 5.8,
+            "acao": "fx",
+            "tipo": "tremor",
+            "forca": 0.12
+          },
+          {
+            "t": 6.0,
+            "acao": "fx",
+            "tipo": "vermelho",
+            "dur": 0.3
+          },
+          {
+            "t": 6.4,
+            "acao": "fx",
+            "tipo": "apagar",
+            "dur": 0.4
+          },
+          {
+            "t": 6.4,
+            "acao": "sfx",
+            "som": "stinger_boom"
+          }
+        ]
+      }
     },
     "banco_de_tras": {
       "title": "Banco de Trás",
       "kind": "morte",
-      "text": "A Patrícia nunca chegou ao hospital. Nem você."
+      "text": "A Patrícia nunca chegou ao hospital. Nem você.",
+      "cinematica": {
+        "location": "carro",
+        "camera": {
+          "pos": [
+            0,
+            1.2,
+            0.55
+          ],
+          "olhar": [
+            0,
+            0.95,
+            -1.5
+          ]
+        },
+        "slots": {
+          "left": [
+            -0.5,
+            -0.12,
+            -1.4
+          ],
+          "right": [
+            0.5,
+            -0.12,
+            -1.4
+          ]
+        },
+        "cast": {
+          "left": {
+            "char": "patricia",
+            "anim": "Sit"
+          },
+          "right": {
+            "char": "rafael",
+            "anim": "Sit"
+          }
+        },
+        "personagens": {
+          "patricia_z": {
+            "name": "",
+            "model": "nurse",
+            "tint": "#6f8a66"
+          }
+        },
+        "dur": 8,
+        "narrar": 4.0,
+        "passos": [
+          {
+            "t": 0,
+            "acao": "fx",
+            "tipo": "piscar",
+            "dur": 1.2
+          },
+          {
+            "t": 0.3,
+            "acao": "tremer",
+            "who": "patricia",
+            "dur": 1.8
+          },
+          {
+            "t": 0.5,
+            "acao": "sfx",
+            "som": "gemido"
+          },
+          {
+            "t": 1.0,
+            "acao": "anim",
+            "who": "rafael",
+            "anim": "Talk"
+          },
+          {
+            "t": 1.0,
+            "acao": "voz",
+            "id": "carro_patricia_03",
+            "quem": "Rafael",
+            "texto": "Eu falei! Eu FALEI!"
+          },
+          {
+            "t": 2.3,
+            "acao": "trocar",
+            "who": "patricia",
+            "novo": "patricia_z",
+            "anim": "Walk"
+          },
+          {
+            "t": 2.3,
+            "acao": "fx",
+            "tipo": "flash"
+          },
+          {
+            "t": 2.3,
+            "acao": "sfx",
+            "som": "grito_zumbi"
+          },
+          {
+            "t": 2.5,
+            "acao": "mover",
+            "who": "patricia_z",
+            "para": [
+              0,
+              0.1,
+              0.1
+            ],
+            "dur": 0.45
+          },
+          {
+            "t": 2.7,
+            "acao": "fx",
+            "tipo": "tremor",
+            "forca": 0.2
+          },
+          {
+            "t": 2.8,
+            "acao": "camera",
+            "pos": [
+              0.35,
+              0.85,
+              0.45
+            ],
+            "olhar": [
+              1.2,
+              0.1,
+              -1.0
+            ],
+            "dur": 0.35
+          },
+          {
+            "t": 2.8,
+            "acao": "sfx",
+            "som": "stinger_boom"
+          },
+          {
+            "t": 2.9,
+            "acao": "sfx",
+            "som": "vidro"
+          },
+          {
+            "t": 3.0,
+            "acao": "fx",
+            "tipo": "vermelho",
+            "dur": 0.2
+          },
+          {
+            "t": 3.3,
+            "acao": "fx",
+            "tipo": "apagar",
+            "dur": 0.5
+          }
+        ]
+      }
     },
     "amanhecer": {
       "title": "Amanhecer",
       "kind": "sobreviveu",
-      "text": "O exército chegou às 6:14. A Marina e a Bia estavam vivas, trancadas, esperando por você."
+      "text": "O exército chegou às 6:14. A Marina e a Bia estavam vivas, trancadas, esperando por você.",
+      "cinematica": {
+        "location": "rua",
+        "camera": {
+          "pos": [
+            0,
+            1.62,
+            0
+          ],
+          "olhar": [
+            0,
+            1.4,
+            -6
+          ]
+        },
+        "slots": {
+          "center": [
+            0,
+            0,
+            -9
+          ],
+          "right": [
+            0.9,
+            0,
+            -6
+          ]
+        },
+        "cast": {
+          "center": {
+            "char": "soldado",
+            "anim": "Walk"
+          },
+          "right": {
+            "char": "marina",
+            "anim": "Idle"
+          }
+        },
+        "personagens": {
+          "soldado": {
+            "name": "",
+            "model": "office_worker",
+            "tint": "#4a5a3a"
+          }
+        },
+        "dur": 10,
+        "narrar": 1.5,
+        "passos": [
+          {
+            "t": 0,
+            "acao": "luz",
+            "ambiente": "#ffb07a",
+            "energia": 1.1,
+            "neblina": "#d89060",
+            "densidade": 0.025,
+            "fundo": "#f2a070",
+            "dur": 4
+          },
+          {
+            "t": 0,
+            "acao": "luz_ponto",
+            "pos": [
+              0,
+              8,
+              -30
+            ],
+            "cor": "#ffb060",
+            "energia": 3,
+            "raio": 40
+          },
+          {
+            "t": 0.5,
+            "acao": "sfx",
+            "som": "helicoptero"
+          },
+          {
+            "t": 0.5,
+            "acao": "mover",
+            "who": "soldado",
+            "para": [
+              0,
+              0,
+              -4
+            ],
+            "dur": 5
+          },
+          {
+            "t": 1.0,
+            "acao": "anim",
+            "who": "marina",
+            "anim": "Run"
+          },
+          {
+            "t": 1.0,
+            "acao": "mover",
+            "who": "marina",
+            "para": [
+              0.25,
+              0,
+              -0.9
+            ],
+            "dur": 3
+          },
+          {
+            "t": 4.0,
+            "acao": "anim",
+            "who": "marina",
+            "anim": "Idle"
+          },
+          {
+            "t": 4.0,
+            "acao": "olhar_camera",
+            "who": "marina"
+          },
+          {
+            "t": 4.5,
+            "acao": "camera",
+            "pos": [
+              0,
+              3.0,
+              1.8
+            ],
+            "olhar": [
+              0,
+              1.2,
+              -3
+            ],
+            "dur": 5
+          }
+        ]
+      }
     },
     "linha_muda": {
       "title": "Linha Muda",
       "kind": "agridoce",
-      "text": "Você sobreviveu à noite. Mas a Marina saiu de casa às 19:02. O telefone nunca mais tocou."
+      "text": "Você sobreviveu à noite. Mas a Marina saiu de casa às 19:02. O telefone nunca mais tocou.",
+      "cinematica": {
+        "location": "escritorio_escuro",
+        "camera": {
+          "pos": [
+            0,
+            1.62,
+            0
+          ],
+          "olhar": [
+            0,
+            1.45,
+            -3
+          ]
+        },
+        "slots": {
+          "left": [
+            -0.9,
+            0,
+            -2.6
+          ]
+        },
+        "cast": {
+          "left": {
+            "char": "jorge",
+            "anim": "Sit"
+          }
+        },
+        "maos": true,
+        "dur": 10,
+        "narrar": 2.0,
+        "passos": [
+          {
+            "t": 0,
+            "acao": "luz",
+            "ambiente": "#9fb6d8",
+            "energia": 0.8,
+            "neblina": "#6070a0",
+            "densidade": 0.03,
+            "fundo": "#304060",
+            "dur": 5
+          },
+          {
+            "t": 0,
+            "acao": "texto3d",
+            "id": "tel",
+            "texto": "LIGANDO...\nMARINA",
+            "pos": [
+              0,
+              1.25,
+              -0.55
+            ],
+            "tamanho": 28,
+            "cor": "#80ff90"
+          },
+          {
+            "t": 0.2,
+            "acao": "sfx",
+            "som": "celular"
+          },
+          {
+            "t": 1.6,
+            "acao": "sfx",
+            "som": "celular"
+          },
+          {
+            "t": 3.2,
+            "acao": "texto3d",
+            "id": "tel",
+            "texto": "SEM SINAL",
+            "pos": [
+              0,
+              1.25,
+              -0.55
+            ],
+            "tamanho": 28,
+            "cor": "#ff5050"
+          },
+          {
+            "t": 3.2,
+            "acao": "sfx",
+            "som": "linha_caiu"
+          },
+          {
+            "t": 4.5,
+            "acao": "texto3d",
+            "id": "tel",
+            "texto": "",
+            "pos": [
+              0,
+              1.25,
+              -0.55
+            ],
+            "tamanho": 28,
+            "cor": "#ff5050"
+          },
+          {
+            "t": 4.0,
+            "acao": "camera",
+            "pos": [
+              1.4,
+              1.62,
+              -1.2
+            ],
+            "olhar": [
+              4.9,
+              1.7,
+              -3.5
+            ],
+            "dur": 6
+          }
+        ]
+      }
     },
     "ultimo_abraco": {
       "title": "Último Abraço",
       "kind": "morte",
-      "text": "Ela ainda tinha o seu perfume. E os dentes de outra coisa."
+      "text": "Ela ainda tinha o seu perfume. E os dentes de outra coisa.",
+      "cinematica": {
+        "location": "casa",
+        "camera": {
+          "pos": [
+            0,
+            1.68,
+            0.6
+          ],
+          "olhar": [
+            0,
+            1.4,
+            -3
+          ]
+        },
+        "slots": {
+          "left": [
+            -0.4,
+            0.06,
+            -2.6
+          ]
+        },
+        "cast": {
+          "left": {
+            "char": "marina",
+            "anim": "Idle"
+          }
+        },
+        "personagens": {
+          "marina_z": {
+            "name": "",
+            "model": "nurse",
+            "tint": "#7a9478"
+          }
+        },
+        "maos": true,
+        "dur": 8,
+        "narrar": 4.4,
+        "passos": [
+          {
+            "t": 0.3,
+            "acao": "voz",
+            "id": "casa_final_inf_02",
+            "quem": "Marina",
+            "texto": "Amor... você chegou. Vem cá. Me dá um abraço."
+          },
+          {
+            "t": 0.5,
+            "acao": "anim",
+            "who": "marina",
+            "anim": "Walk"
+          },
+          {
+            "t": 0.5,
+            "acao": "mover",
+            "who": "marina",
+            "para": [
+              0,
+              0.06,
+              -0.45
+            ],
+            "dur": 2.6
+          },
+          {
+            "t": 3.1,
+            "acao": "trocar",
+            "who": "marina",
+            "novo": "marina_z",
+            "anim": "Idle"
+          },
+          {
+            "t": 3.1,
+            "acao": "fx",
+            "tipo": "flash"
+          },
+          {
+            "t": 3.1,
+            "acao": "sfx",
+            "som": "rosnado"
+          },
+          {
+            "t": 3.1,
+            "acao": "fx",
+            "tipo": "tremor",
+            "forca": 0.1
+          },
+          {
+            "t": 3.3,
+            "acao": "mover",
+            "who": "marina_z",
+            "para": [
+              0,
+              0.06,
+              0.25
+            ],
+            "dur": 0.3
+          },
+          {
+            "t": 3.4,
+            "acao": "fx",
+            "tipo": "vermelho",
+            "dur": 0.4
+          },
+          {
+            "t": 3.8,
+            "acao": "fx",
+            "tipo": "apagar",
+            "dur": 0.6
+          },
+          {
+            "t": 3.8,
+            "acao": "sfx",
+            "som": "stinger_boom"
+          }
+        ]
+      }
     },
     "porta_trancada": {
       "title": "Porta Trancada",
       "kind": "agridoce",
-      "text": "Você e a Bia passaram a noite ouvindo a Marina bater na porta. Chamando o seu nome. Até o amanhecer."
+      "text": "Você e a Bia passaram a noite ouvindo a Marina bater na porta. Chamando o seu nome. Até o amanhecer.",
+      "cinematica": {
+        "location": "casa",
+        "camera": {
+          "pos": [
+            0.4,
+            1.4,
+            -3.4
+          ],
+          "olhar": [
+            1.6,
+            1.1,
+            -5.75
+          ]
+        },
+        "slots": {
+          "right": [
+            1.6,
+            0.06,
+            -5.75
+          ]
+        },
+        "cast": {
+          "right": {
+            "char": "bia",
+            "offscreen": "porta"
+          }
+        },
+        "dur": 11,
+        "narrar": 4.5,
+        "passos": [
+          {
+            "t": 0.5,
+            "acao": "tremer",
+            "who": "bia",
+            "dur": 0.5
+          },
+          {
+            "t": 0.5,
+            "acao": "sfx",
+            "som": "batida_porta"
+          },
+          {
+            "t": 1.6,
+            "acao": "voz",
+            "id": "casa_final_inf_02",
+            "quem": "Marina",
+            "texto": "Amor... você chegou. Vem cá. Me dá um abraço."
+          },
+          {
+            "t": 2.0,
+            "acao": "camera",
+            "pos": [
+              0.9,
+              1.3,
+              -4.4
+            ],
+            "olhar": [
+              1.6,
+              1.1,
+              -5.75
+            ],
+            "dur": 8
+          },
+          {
+            "t": 3.5,
+            "acao": "tremer",
+            "who": "bia",
+            "dur": 0.6
+          },
+          {
+            "t": 3.5,
+            "acao": "sfx",
+            "som": "batida_porta"
+          },
+          {
+            "t": 5.5,
+            "acao": "tremer",
+            "who": "bia",
+            "dur": 0.6
+          },
+          {
+            "t": 5.5,
+            "acao": "sfx",
+            "som": "batida_porta"
+          },
+          {
+            "t": 6.0,
+            "acao": "luz",
+            "ambiente": "#c09070",
+            "energia": 0.7,
+            "neblina": "#806050",
+            "densidade": 0.02,
+            "fundo": "#402820",
+            "dur": 4
+          },
+          {
+            "t": 7.5,
+            "acao": "tremer",
+            "who": "bia",
+            "dur": 0.4
+          },
+          {
+            "t": 7.5,
+            "acao": "sfx",
+            "som": "batida_porta",
+            "volume": -6
+          }
+        ]
+      }
     },
     "o_convidado": {
       "title": "O Convidado",
       "kind": "morte",
-      "text": "Às 2h da manhã, o Rafael parou de respirar. Às 2h04, ele levantou."
+      "text": "Às 2h da manhã, o Rafael parou de respirar. Às 2h04, ele levantou.",
+      "cinematica": {
+        "location": "casa",
+        "camera": {
+          "pos": [
+            0,
+            1.68,
+            0.6
+          ],
+          "olhar": [
+            0,
+            1.3,
+            -3
+          ]
+        },
+        "slots": {
+          "center": [
+            0.2,
+            0.06,
+            -3.2
+          ]
+        },
+        "cast": {
+          "center": {
+            "char": "rafael",
+            "anim": "Sit"
+          }
+        },
+        "personagens": {
+          "rafael_z": {
+            "name": "",
+            "model": "office_worker",
+            "tint": "#6d8566"
+          }
+        },
+        "dur": 10,
+        "narrar": 0.8,
+        "passos": [
+          {
+            "t": 0,
+            "acao": "texto3d",
+            "id": "relogio",
+            "texto": "02:00",
+            "pos": [
+              0.2,
+              2.3,
+              -5.8
+            ],
+            "tamanho": 54,
+            "cor": "#ff3030"
+          },
+          {
+            "t": 0,
+            "acao": "sfx",
+            "som": "coracao"
+          },
+          {
+            "t": 2.6,
+            "acao": "texto3d",
+            "id": "relogio",
+            "texto": "02:04",
+            "pos": [
+              0.2,
+              2.3,
+              -5.8
+            ],
+            "tamanho": 54,
+            "cor": "#ff3030"
+          },
+          {
+            "t": 2.6,
+            "acao": "sfx",
+            "som": "stinger_hit"
+          },
+          {
+            "t": 3.0,
+            "acao": "fx",
+            "tipo": "piscar",
+            "dur": 1.5
+          },
+          {
+            "t": 3.4,
+            "acao": "trocar",
+            "who": "rafael",
+            "novo": "rafael_z",
+            "anim": "Walk"
+          },
+          {
+            "t": 3.4,
+            "acao": "fx",
+            "tipo": "flash"
+          },
+          {
+            "t": 3.4,
+            "acao": "sfx",
+            "som": "grito_zumbi"
+          },
+          {
+            "t": 3.6,
+            "acao": "mover",
+            "who": "rafael_z",
+            "para": [
+              0,
+              0.06,
+              -0.3
+            ],
+            "dur": 2.6
+          },
+          {
+            "t": 3.8,
+            "acao": "sfx",
+            "som": "gemido"
+          },
+          {
+            "t": 6.2,
+            "acao": "fx",
+            "tipo": "tremor",
+            "forca": 0.15
+          },
+          {
+            "t": 6.2,
+            "acao": "fx",
+            "tipo": "vermelho",
+            "dur": 0.3
+          },
+          {
+            "t": 6.6,
+            "acao": "fx",
+            "tipo": "apagar",
+            "dur": 0.4
+          },
+          {
+            "t": 6.6,
+            "acao": "sfx",
+            "som": "stinger_boom"
+          }
+        ]
+      }
     },
     "a_ameaca": {
       "title": "A Ameaça Era Você",
       "kind": "secreto",
-      "text": "O arranhão no seu braço já estava preto. A Bia foi a primeira a perceber."
+      "text": "O arranhão no seu braço já estava preto. A Bia foi a primeira a perceber.",
+      "cinematica": {
+        "location": "casa",
+        "camera": {
+          "pos": [
+            0,
+            1.68,
+            0.6
+          ],
+          "olhar": [
+            0,
+            1.45,
+            -3
+          ]
+        },
+        "slots": {
+          "left": [
+            -0.6,
+            0.06,
+            -2.6
+          ],
+          "right": [
+            1.6,
+            0.06,
+            -5.75
+          ]
+        },
+        "cast": {
+          "left": {
+            "char": "marina",
+            "anim": "Idle"
+          },
+          "right": {
+            "char": "bia",
+            "offscreen": "porta"
+          }
+        },
+        "maos": true,
+        "dur": 9,
+        "narrar": 0.8,
+        "passos": [
+          {
+            "t": 0.5,
+            "acao": "camera",
+            "pos": [
+              0,
+              1.68,
+              0.6
+            ],
+            "olhar": [
+              0,
+              0.4,
+              -0.9
+            ],
+            "dur": 2
+          },
+          {
+            "t": 1.0,
+            "acao": "sfx",
+            "som": "coracao"
+          },
+          {
+            "t": 1.5,
+            "acao": "maos_cor",
+            "cor": "#5f7055",
+            "dur": 3
+          },
+          {
+            "t": 4.6,
+            "acao": "camera",
+            "pos": [
+              0,
+              1.68,
+              0.6
+            ],
+            "olhar": [
+              0,
+              1.45,
+              -3
+            ],
+            "dur": 0.8
+          },
+          {
+            "t": 5.4,
+            "acao": "anim",
+            "who": "marina",
+            "anim": "Talk"
+          },
+          {
+            "t": 5.4,
+            "acao": "sfx",
+            "som": "grito"
+          },
+          {
+            "t": 5.4,
+            "acao": "fx",
+            "tipo": "tremor",
+            "forca": 0.12
+          },
+          {
+            "t": 5.4,
+            "acao": "legenda",
+            "quem": "Marina",
+            "texto": "Seu braço... NÃO!"
+          },
+          {
+            "t": 5.6,
+            "acao": "fx",
+            "tipo": "vermelho",
+            "dur": 0.3
+          },
+          {
+            "t": 6.2,
+            "acao": "fx",
+            "tipo": "apagar",
+            "dur": 0.5
+          }
+        ]
+      }
     },
     "familia": {
       "title": "Família",
@@ -1371,12 +2480,185 @@
           "if": "culpa >= 1",
           "text": "Mas toda noite você ainda ouve alguém gritando numa escada."
         }
-      ]
+      ],
+      "cinematica": {
+        "location": "casa",
+        "camera": {
+          "pos": [
+            0,
+            1.68,
+            0.6
+          ],
+          "olhar": [
+            0,
+            1.4,
+            -3
+          ]
+        },
+        "slots": {
+          "left": [
+            -0.5,
+            0.06,
+            -2.8
+          ]
+        },
+        "cast": {
+          "left": {
+            "char": "marina",
+            "anim": "Idle"
+          }
+        },
+        "dur": 10,
+        "narrar": 1.0,
+        "passos": [
+          {
+            "t": 0,
+            "acao": "luz",
+            "ambiente": "#ffc890",
+            "energia": 0.9,
+            "neblina": "#402010",
+            "densidade": 0.02,
+            "fundo": "#100804",
+            "dur": 2
+          },
+          {
+            "t": 0,
+            "acao": "luz_ponto",
+            "pos": [
+              -4.6,
+              1.8,
+              -4.0
+            ],
+            "cor": "#ff7020",
+            "energia": 3,
+            "raio": 7,
+            "piscar": true
+          },
+          {
+            "t": 0.5,
+            "acao": "anim",
+            "who": "marina",
+            "anim": "Walk"
+          },
+          {
+            "t": 0.5,
+            "acao": "mover",
+            "who": "marina",
+            "para": [
+              -0.2,
+              0.06,
+              -1.0
+            ],
+            "dur": 2.2
+          },
+          {
+            "t": 2.7,
+            "acao": "anim",
+            "who": "marina",
+            "anim": "Idle"
+          },
+          {
+            "t": 2.7,
+            "acao": "olhar_camera",
+            "who": "marina"
+          },
+          {
+            "t": 4.0,
+            "acao": "camera",
+            "pos": [
+              0.3,
+              1.68,
+              0.4
+            ],
+            "olhar": [
+              -4,
+              1.6,
+              -4.0
+            ],
+            "dur": 4
+          },
+          {
+            "t": 5.0,
+            "acao": "sfx",
+            "som": "sirene",
+            "volume": -8
+          }
+        ]
+      }
     },
     "congelado": {
       "title": "Congelado",
       "kind": "secreto",
-      "text": "Você hesitou tantas vezes que a escolha deixou de ser sua."
+      "text": "Você hesitou tantas vezes que a escolha deixou de ser sua.",
+      "cinematica": {
+        "location": "casa",
+        "camera": {
+          "pos": [
+            0,
+            1.62,
+            1.6
+          ],
+          "olhar": [
+            0,
+            1.4,
+            -3
+          ]
+        },
+        "cast": {},
+        "dur": 9,
+        "narrar": 4.0,
+        "passos": [
+          {
+            "t": 0,
+            "acao": "fx",
+            "tipo": "chuvisco",
+            "de": 0,
+            "ate": 0.12,
+            "dur": 1
+          },
+          {
+            "t": 1.0,
+            "acao": "voz",
+            "id": "paralisia_03",
+            "quem": "Marina",
+            "texto": "Amor...? É você?"
+          },
+          {
+            "t": 2.5,
+            "acao": "camera",
+            "pos": [
+              0,
+              1.62,
+              -1.2
+            ],
+            "olhar": [
+              0,
+              1.4,
+              -4.5
+            ],
+            "dur": 5
+          },
+          {
+            "t": 7.0,
+            "acao": "fx",
+            "tipo": "chuvisco",
+            "de": 0.12,
+            "ate": 1.0,
+            "dur": 1.0
+          },
+          {
+            "t": 7.2,
+            "acao": "sfx",
+            "som": "stinger_hit"
+          },
+          {
+            "t": 8.0,
+            "acao": "fx",
+            "tipo": "apagar",
+            "dur": 0.3
+          }
+        ]
+      }
     }
   }
 }

@@ -156,12 +156,15 @@ func _show_ending(ending_id: String) -> void:
 	var is_new := GameState.discover_ending(runner.campaign_id, ending_id)
 	var found := GameState.count_discovered(runner.campaign_id)
 	var total := runner.ending_ids().size()
-	stage.scare_flash()
 	var kind: String = data.get("kind", "")
-	Audio.play_sfx("stinger_boom" if kind == "morte" else "stinger_hit")
 	Audio.play_ambience("")
 	Audio.set_location("")
 	Audio.play_music({"morte": "final_morte", "sobreviveu": "final_vivo"}.get(kind, "final_triste"), 1.0)
+	if data.has("cinematica"):
+		await _play_cinematic(data["cinematica"], ending_id, data.get("text", ""))
+	else:
+		stage.scare_flash()
+		Audio.play_sfx("stinger_boom" if kind == "morte" else "stinger_hit")
 	var action: String = await ui.show_ending(data, is_new, found, total)
 	match action:
 		"replay":
@@ -170,3 +173,121 @@ func _show_ending(ending_id: String) -> void:
 			get_tree().change_scene_to_file("res://scenes/endings_gallery.tscn")
 		_:
 			get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+
+
+# --- cinemáticas dos finais ------------------------------------------------------------
+# Cada final pode ter "cinematica": {location, camera, slots, cast, personagens,
+# maos, dur, narrar, passos: [{t, acao, ...}]}. Ver docs/FORMATO_HISTORIA.md.
+
+func _play_cinematic(c: Dictionary, ending_id: String, narration: String) -> void:
+	var chars: Dictionary = runner.story.get("characters", {}).duplicate()
+	chars.merge(c.get("personagens", {}), true)
+	await ui.fade_out(0.5)
+	ui.hide_subtitle()
+	stage.clear_cinematic()
+	stage.set_location(c.get("location", stage.location_id), true)
+	stage.location_cfg["approach_center"] = false
+	var slots := {}
+	for k in c.get("slots", {}):
+		slots[k] = _v(c["slots"][k])
+	stage.location_cfg["slots"] = slots
+	if c.has("camera"):
+		stage.set_camera(_v(c["camera"]["pos"]), _v(c["camera"]["olhar"]))
+	stage.hands.visible = c.get("maos", false)
+	stage.set_cast(c.get("cast", {}), chars)
+	stage.hide_names()
+	await ui.fade_in(0.5)
+
+	var steps: Array = c.get("passos", []).duplicate()
+	steps.sort_custom(func(a, b): return float(a.get("t", 0.0)) < float(b.get("t", 0.0)))
+	var dur: float = c.get("dur", 8.0)
+	var narr_at: float = c.get("narrar", 0.8)
+	var narrated := false
+	var t := 0.0
+	var i := 0
+	ui.consume_tap()
+	while true:
+		while i < steps.size() and float(steps[i].get("t", 0.0)) <= t:
+			_run_step(steps[i], chars)
+			i += 1
+		if not narrated and t >= narr_at and not narration.is_empty():
+			narrated = true
+			Audio.play_voice("fim_%s_%s" % [runner.campaign_id, ending_id], "Voice")
+			ui.show_caption("", narration)
+		await get_tree().process_frame
+		t += get_process_delta_time()
+		var voice_busy := narrated and Audio.is_voice_playing()
+		if t >= dur and not voice_busy and i >= steps.size():
+			break
+		if t > dur + 12.0:
+			break
+		if ui.consume_tap() and t > 1.2:
+			break  # toque pula a cena
+	Audio.stop_voice()
+	ui.hide_subtitle()
+
+
+func _run_step(s: Dictionary, chars: Dictionary) -> void:
+	var who: String = s.get("who", "")
+	var dur: float = s.get("dur", 1.0)
+	match s.get("acao", ""):
+		"anim":
+			var a = stage.actor_for(who)
+			if a:
+				a.play(s.get("anim", "Idle"))
+		"mover":
+			stage.move_actor(who, _v(s["para"]), dur)
+		"olhar_camera":
+			stage.face_camera_now(who)
+		"trocar":
+			stage.swap_actor(who, s["novo"], chars.get(s["novo"], {}), s.get("anim", "Idle"))
+		"tremer":
+			stage.shake_actor(who, dur)
+		"camera":
+			stage.tween_camera(_v(s["pos"]), _v(s["olhar"]), s.get("dur", 0.0))
+		"sfx":
+			Audio.play_sfx(s.get("som", ""), float(s.get("volume", 0.0)))
+		"voz":
+			Audio.play_voice(s.get("id", ""), "Voice")
+			if s.has("texto"):
+				ui.show_caption(s.get("quem", ""), s["texto"])
+		"legenda":
+			ui.show_caption(s.get("quem", ""), s.get("texto", ""))
+		"texto3d":
+			stage.world_text(s.get("id", "t"), s.get("texto", ""), _v(s["pos"]), int(s.get("tamanho", 48)), Color.html(s.get("cor", "#ffffff")))
+		"luz":
+			stage.tween_env(Color.html(s.get("ambiente", "#404050")), float(s.get("energia", 0.5)),
+				Color.html(s.get("neblina", "#101010")), float(s.get("densidade", 0.03)), Color.html(s.get("fundo", "#000000")), dur)
+		"luz_ponto":
+			stage.point_light(_v(s["pos"]), Color.html(s.get("cor", "#ffffff")), float(s.get("energia", 1.0)), float(s.get("raio", 5.0)), s.get("piscar", false))
+		"no":
+			stage.move_location_node(s.get("nome", ""), _v(s["para"]), dur)
+		"maos":
+			stage.hands.visible = true
+			stage.play_hands(s.get("anim", "guard_idle"))
+		"maos_cor":
+			stage.tint_hands(Color.html(s.get("cor", "#ffffff")), dur)
+		"fx":
+			match s.get("tipo", ""):
+				"flash":
+					stage.scare_flash()
+				"tremor":
+					stage.shake(float(s.get("forca", 0.08)))
+				"piscar":
+					stage.flicker_lights(dur)
+				"luzes_off":
+					stage.lights_off()
+				"vermelho":
+					stage.post_tween("flash", float(s.get("de", 0.0)), float(s.get("ate", 0.9)), dur)
+				"apagar":
+					stage.post_tween("blackout", 0.0, 1.0, dur)
+				"acender":
+					stage.post_tween("blackout", 1.0, 0.0, dur)
+				"chuvisco":
+					stage.post_tween("static_amount", float(s.get("de", 0.0)), float(s.get("ate", 0.8)), dur)
+
+
+func _v(a) -> Vector3:
+	if a is Vector3:
+		return a
+	return Vector3(float(a[0]), float(a[1]), float(a[2]))

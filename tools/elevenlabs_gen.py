@@ -195,6 +195,9 @@ def collect_lines():
                 prev = lines[i - 1]["text"] if i > 0 and lines[i - 1]["who"] == ln["who"] else None
                 fx = "phone" if (ln.get("phone") or phone_char == ln["who"]) else {"Radio": "radio", "Muffled": "muffled"}.get(ch.get("bus", ""), "")
                 out.append({**ln, "previous_text": prev, "fx": fx})
+        # narração dos finais (lida na cinemática de cada final)
+        for eid, e in story.get("endings", {}).items():
+            out.append({"id": f"fim_{story['id']}_{eid}", "who": "sistema", "text": e["text"], "previous_text": None, "fx": ""})
     return out
 
 

@@ -47,6 +47,8 @@ static func build(id: String, root: Node3D) -> Dictionary:
 			_casa(root, cfg)
 		"campo":
 			_campo(root, cfg)
+		"elevador":
+			_elevador(root, cfg)
 		"fazenda_casa":
 			_fazenda_casa(root, cfg)
 		"celeiro":
@@ -329,6 +331,43 @@ static func _campo(root: Node3D, cfg: Dictionary) -> void:
 	cfg["fog_density"] = 0.03
 	cfg["fog_color"] = Color(0.05, 0.07, 0.1)
 	cfg["ambient_energy"] = 0.7
+
+
+static func _elevador(root: Node3D, cfg: Dictionary) -> void:
+	# Cabine de elevador com portas que abrem (nós "porta_e"/"porta_d") e um
+	# corredor escuro com luz de emergência do outro lado.
+	var metal := Color(0.52, 0.54, 0.58)
+	box(root, Vector3(2.0, 0.1, 2.2), Vector3(0, -0.05, 0.5), Color(0.25, 0.25, 0.27))
+	box(root, Vector3(2.0, 0.1, 2.2), Vector3(0, 2.6, 0.5), metal.darkened(0.3))
+	box(root, Vector3(1.2, 0.04, 0.5), Vector3(0, 2.54, 0.5), Color(0.9, 0.95, 1.0), 1.5)
+	for x in [-1.0, 1.0]:
+		box(root, Vector3(0.08, 2.6, 2.2), Vector3(x, 1.3, 0.5), metal)
+	box(root, Vector3(2.0, 2.6, 0.08), Vector3(0, 1.3, 1.6), metal)
+	box(root, Vector3(0.3, 2.6, 0.1), Vector3(-0.85, 1.3, -0.6), metal.darkened(0.1))
+	box(root, Vector3(0.3, 2.6, 0.1), Vector3(0.85, 1.3, -0.6), metal.darkened(0.1))
+	box(root, Vector3(2.0, 0.4, 0.1), Vector3(0, 2.4, -0.6), metal.darkened(0.1))
+	box(root, Vector3(0.24, 0.16, 0.02), Vector3(0, 2.4, -0.54), Color(0.05, 0.02, 0.02))
+	var pe := box(root, Vector3(0.7, 2.2, 0.05), Vector3(-0.35, 1.1, -0.64), metal.lightened(0.1))
+	pe.name = "porta_e"
+	var pd := box(root, Vector3(0.7, 2.2, 0.05), Vector3(0.35, 1.1, -0.64), metal.lightened(0.1))
+	pd.name = "porta_d"
+	var cab := omni(root, Vector3(0, 2.3, 0.5), Color(0.85, 0.92, 1.0), 1.2, 4.0)
+	cab.add_child(Flicker.new(0.3, 10.0))
+	# corredor do 4º andar
+	box(root, Vector3(3.0, 0.1, 9.0), Vector3(0, -0.05, -5.2), Color(0.2, 0.19, 0.18))
+	box(root, Vector3(3.0, 0.1, 9.0), Vector3(0, 2.8, -5.2), Color(0.25, 0.24, 0.22))
+	for x in [-1.5, 1.5]:
+		box(root, Vector3(0.1, 2.8, 9.0), Vector3(x, 1.4, -5.2), Color(0.42, 0.4, 0.34))
+	box(root, Vector3(3.0, 2.8, 0.1), Vector3(0, 1.4, -9.6), Color(0.35, 0.33, 0.3))
+	box(root, Vector3(1.2, 0.01, 0.9), Vector3(0.3, 0.01, -2.8), Color(0.3, 0.02, 0.02))
+	box(root, Vector3(0.1, 1.2, 0.6), Vector3(-1.44, 1.0, -3.6), Color(0.3, 0.02, 0.02))
+	var red := omni(root, Vector3(0, 2.5, -4.5), Color(1.0, 0.12, 0.08), 2.5, 8.0)
+	red.add_child(Pulse.new(0.6, 1.4))
+	cfg["camera_pos"] = Vector3(0, 1.62, 0.7)
+	cfg["camera_look"] = Vector3(0, 1.5, -3.0)
+	cfg["hands"] = false
+	cfg["fog_density"] = 0.04
+	cfg["ambient_energy"] = 0.35
 
 
 static func _fazenda_casa(root: Node3D, cfg: Dictionary) -> void:
