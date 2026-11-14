@@ -1,426 +1,2721 @@
 {
-  "id": "alien_visitantes",
-  "title": "Alien — Capítulo 1: Visitantes",
-  "start": "inicio",
-
-  "vars": {
-    "com_lia": false,
-    "fica_vo": false,
-    "sabe_senha": false,
-    "lia_levada": false,
-    "lia_salva": false,
-    "marcado": false,
-    "vo_levado": false,
-    "criatura_ferida": false,
-    "culpa": 0,
-    "hesitou": 0
+ "id": "alien_visitantes",
+ "title": "Alien — Capítulo 1: Visitantes",
+ "start": "inicio",
+ "vars": {
+  "com_lia": false,
+  "fica_vo": false,
+  "sabe_senha": false,
+  "lia_levada": false,
+  "lia_salva": false,
+  "marcado": false,
+  "vo_levado": false,
+  "criatura_ferida": false,
+  "culpa": 0,
+  "hesitou": 0
+ },
+ "characters": {
+  "sistema": {
+   "name": "",
+   "voiced": true
   },
-
-  "characters": {
-    "sistema":   { "name": "", "voiced": true },
-    "radio":     { "name": "RÁDIO", "bus": "Radio" },
-    "lia":       { "name": "Lia", "model": "nurse", "tint": "#d8b8c8" },
-    "lia_copia": { "name": "Lia", "model": "nurse", "tint": "#d8b8c8" },
-    "vo":        { "name": "Vô Tião", "model": "office_worker", "tint": "#a89878" },
-    "vo_copia":  { "name": "Vô Tião", "model": "office_worker", "tint": "#a89878" },
-    "criatura":  { "name": "", "model": "alien_shellback" }
+  "radio": {
+   "name": "RÁDIO",
+   "bus": "Radio"
   },
-
-  "nodes": {
-
-    "inicio": {
-      "location": "campo",
-      "title_card": "SÍTIO SÃO JOSÉ · 23:40",
-      "ambience": "milharal",
-      "music": "alien_milharal",
-      "cast": {
-        "left":  { "char": "lia", "anim": "Idle" },
-        "right": { "char": "vo",  "anim": "Idle" }
-      },
-      "lines": [
-        { "id": "al_inicio_01", "who": "sistema", "text": "Férias no sítio do seu avô. A energia caiu às onze da noite." },
-        { "id": "al_inicio_02", "who": "radio", "tags": "[radio announcer, rural station, static]", "text": "...moradores da região relatam luzes no céu pela terceira noite seguida. A polícia pede calma à população..." },
-        { "id": "al_inicio_03", "who": "vo", "anim": "Talk", "tags": "[old man, grumpy, worried]", "text": "Calma, nada. Já sumiram três vacas. Ontem foi a Mimosa." },
-        { "id": "al_inicio_04", "who": "lia", "anim": "Talk", "tags": "[excited, whispering]", "text": "Olha lá, em cima do milharal! Tá parado no ar!" },
-        { "id": "al_inicio_05", "who": "sistema", "sfx": "ovni_zumbido", "text": "Uma luz verde, imóvel. Nenhum som. Os grilos param de cantar." },
-        { "id": "al_inicio_06", "who": "lia", "anim": "Talk", "tags": "[pleading, excited]", "text": "Vem comigo filmar! Se a gente postar isso, vai viralizar!" },
-        { "id": "al_inicio_07", "who": "vo", "anim": "Talk", "tags": "[firm, scared]", "text": "Ninguém sai dessa casa hoje. Fica comigo, menino." }
-      ],
-      "choice": {
-        "prompt": "Com quem você vai?",
-        "timer": 8,
-        "plead": { "lia": "Vem comigo!", "vo": "Fica aqui" },
-        "options": [
-          { "text": "Ir com a Lia até o milharal", "who": "lia", "set": { "com_lia": true }, "next": "milharal" },
-          { "text": "Ficar com o Vô", "who": "vo", "set": { "fica_vo": true }, "next": "casa_vo" }
-        ],
-        "timeout": { "next": "inicio_puxado" }
-      }
-    },
-
-    "inicio_puxado": {
-      "location": "campo",
-      "cast": { "left": { "char": "lia", "anim": "Run" } },
-      "set": { "com_lia": true },
-      "lines": [
-        { "id": "al_inicio_puxado_01", "who": "sistema", "text": "Você hesita. A Lia agarra a sua mão e te puxa para o milho." }
-      ],
-      "next": "milharal"
-    },
-
-    "milharal": {
-      "location": "campo",
-      "music": "suspense",
-      "cast": {
-        "left":   { "char": "lia", "anim": "Idle" },
-        "center": { "char": "criatura", "anim": "idle" }
-      },
-      "lines": [
-        { "id": "al_milharal_01", "who": "sistema", "text": "O milho é mais alto que vocês. A luz do celular da Lia treme." },
-        { "id": "al_milharal_02", "who": "lia", "anim": "Talk", "tags": "[pain, hissing]", "text": "Ai! Cortei a mão no arame farpado." },
-        { "id": "al_milharal_03", "who": "sistema", "text": "Ela enrola a mão esquerda na manga da blusa. O sangue escurece o tecido." },
-        { "id": "al_milharal_04", "who": "lia", "anim": "Talk", "tags": "[whispers, amazed]", "text": "Olha... um círculo. O milho tá deitado num círculo perfeito." },
-        { "id": "al_milharal_05", "who": "sistema", "sfx": "criatura_grito", "text": "Algo se mexe entre as fileiras. Alto. Curvado. Muitos olhos verdes." }
-      ],
-      "choice": {
-        "prompt": "Ela ainda não viu vocês.",
-        "timer": 6,
-        "options": [
-          { "text": "Se esconder no milho", "next": "feixe" },
-          { "text": "Correr de volta pra casa", "who": "lia", "next": "queda" }
-        ],
-        "timeout": { "next": "feixe" }
-      }
-    },
-
-    "feixe": {
-      "location": "campo",
-      "music": "alien_final",
-      "cast": { "left": { "char": "lia", "anim": "Idle" } },
-      "set": { "lia_levada": true },
-      "lines": [
-        { "id": "al_feixe_01", "who": "sistema", "sfx": "ovni_zumbido", "fx": "flicker", "text": "Vocês se jogam no chão. Uma luz verde desce do céu, sem fazer barulho." },
-        { "id": "al_feixe_02", "who": "lia", "tags": "[screaming, terrified]", "text": "Eu tô subindo! Me segura! ME SEGURA!" },
-        { "id": "al_feixe_03", "who": "sistema", "text": "Os pés dela saem do chão. A mão machucada escorrega da sua." },
-        { "id": "al_feixe_04", "who": "sistema", "fx": "lights_off", "text": "E a luz se apaga. Com ela." }
-      ],
-      "next": "casa_volta_sozinho"
-    },
-
-    "queda": {
-      "location": "campo",
-      "music": "perseguicao",
-      "cast": {
-        "left":   { "char": "lia", "anim": "Sit" },
-        "center": { "char": "criatura", "anim": "walk" }
-      },
-      "lines": [
-        { "id": "al_queda_01", "who": "sistema", "sfx": "passos", "text": "Vocês correm. A Lia tropeça numa raiz e cai." },
-        { "id": "al_queda_02", "who": "lia", "tags": "[crying, pleading]", "text": "Minha perna! Não me deixa aqui!" },
-        { "id": "al_queda_03", "who": "sistema", "sfx": "criatura_grito", "text": "A criatura sai do milho. Dez metros. Oito." }
-      ],
-      "choice": {
-        "prompt": "Decida!",
-        "timer": 5,
-        "plead": { "lia": "Volta!" },
-        "options": [
-          { "text": "Voltar pela Lia", "who": "lia", "set": { "lia_salva": true, "marcado": true }, "next": "queda_volta" },
-          { "text": "Correr sem ela", "set": { "lia_levada": true, "culpa": "=culpa + 1" }, "next": "queda_fuga" }
-        ],
-        "timeout": { "set": { "lia_levada": true, "culpa": "=culpa + 1" }, "next": "queda_fuga" }
-      }
-    },
-
-    "queda_volta": {
-      "location": "campo",
-      "cast": { "left": { "char": "lia", "anim": "Run" } },
-      "lines": [
-        { "id": "al_queda_volta_01", "who": "sistema", "text": "Você puxa a Lia pelo braço. Por um segundo, a luz verde cai sobre você." },
-        { "id": "al_queda_volta_02", "who": "sistema", "sfx": "ovni_zumbido", "text": "Um frio atravessa o seu corpo inteiro. Depois, nada. Vocês correm." }
-      ],
-      "next": "casa_volta_salva"
-    },
-
-    "queda_fuga": {
-      "location": "campo",
-      "cast": { "center": { "char": "criatura", "anim": "attack" } },
-      "lines": [
-        { "id": "al_queda_fuga_01", "who": "lia", "tags": "[screaming, far away]", "text": "Volta! VOLTA!" },
-        { "id": "al_queda_fuga_02", "who": "sistema", "text": "Você não olha pra trás. Atrás de você, o grito para de repente." }
-      ],
-      "next": "casa_volta_sozinho"
-    },
-
-    "casa_vo": {
-      "location": "fazenda_casa",
-      "ambience": "casa",
-      "cast": { "right": { "char": "vo", "anim": "Idle" } },
-      "set": { "lia_levada": true, "sabe_senha": true },
-      "lines": [
-        { "id": "al_casa_vo_01", "who": "sistema", "text": "A Lia sai correndo para o milharal antes que alguém consiga segurar." },
-        { "id": "al_casa_vo_02", "who": "vo", "anim": "Talk", "tags": "[angry, old man]", "text": "Menina teimosa! Igualzinha à mãe!" },
-        { "id": "al_casa_vo_03", "who": "vo", "anim": "Talk", "tags": "[serious, low voice]", "text": "Escuta bem. Se alguém bater nessa porta dizendo que é da família, você pede a senha. Jabuticaba. Quem não souber, não entra." },
-        { "id": "al_casa_vo_04", "who": "sistema", "sfx": "ovni_zumbido", "text": "Pela janela, a luz verde desce sobre o milharal. E apaga." },
-        { "id": "al_casa_vo_05", "who": "vo", "anim": "Talk", "tags": "[determined, scared]", "text": "Eu vou atrás dela. Você vem comigo ou fica?" }
-      ],
-      "choice": {
-        "prompt": "O Vô pega a espingarda.",
-        "timer": 8,
-        "plead": { "vo": "Vem comigo" },
-        "options": [
-          { "text": "Ir com o Vô até o celeiro", "who": "vo", "next": "celeiro" },
-          { "text": "Ficar e trancar a casa", "next": "espera" }
-        ],
-        "timeout": { "next": "espera" }
-      }
-    },
-
-    "celeiro": {
-      "location": "celeiro",
-      "music": "suspense",
-      "cast": {
-        "center": { "char": "criatura", "anim": "idle", "facing": "away" },
-        "right":  { "char": "vo", "anim": "Idle" }
-      },
-      "lines": [
-        { "id": "al_celeiro_01", "who": "sistema", "text": "O celeiro fede a sangue. Alguma coisa mastiga no escuro." },
-        { "id": "al_celeiro_02", "who": "lia", "tags": "[pleading, muffled, from far away]", "text": "Seu Tião! Me ajuda! Tô aqui no fundo!" },
-        { "id": "al_celeiro_03", "who": "vo", "anim": "Talk", "tags": "[whispers, horrified]", "text": "Isso não é ela. A Lia nunca me chamou de Seu Tião na vida." },
-        { "id": "al_celeiro_04", "who": "vo", "anim": "Talk", "tags": "[urgent, shouting]", "text": "Atira, menino! Toma a espingarda!" }
-      ],
-      "choice": {
-        "prompt": "A criatura se vira.",
-        "timer": 6,
-        "plead": { "vo": "Atira!" },
-        "options": [
-          { "text": "Atirar na criatura", "set": { "criatura_ferida": true, "vo_levado": true }, "next": "celeiro_tiro" },
-          { "text": "Seguir a voz da Lia", "ending": "isca" }
-        ],
-        "timeout": { "ending": "isca" }
-      }
-    },
-
-    "celeiro_tiro": {
-      "location": "celeiro",
-      "cast": { "center": { "char": "criatura", "anim": "hit" } },
-      "lines": [
-        { "id": "al_celeiro_tiro_01", "who": "sistema", "sfx": "tiro", "fx": "flicker", "text": "O tiro ilumina o celeiro. A criatura grita." },
-        { "id": "al_celeiro_tiro_02", "who": "sistema", "sfx": "criatura_grito", "text": "Ela sobe pelas vigas e foge pelo telhado... levando o seu avô junto." },
-        { "id": "al_celeiro_tiro_03", "who": "vo", "tags": "[screaming, far away]", "text": "CORRE PRA CASA! TRANCA A PORTA!" }
-      ],
-      "next": "espera"
-    },
-
-    "espera": {
-      "location": "fazenda_casa",
-      "ambience": "casa",
-      "music": "alien_casa",
-      "cast": {},
-      "lines": [
-        { "id": "al_espera_01", "who": "sistema", "text": "Você tranca a porta. Arrasta o armário. Apaga a lamparina." },
-        { "id": "al_espera_02", "who": "sistema", "text": "O relógio da cozinha parou às três horas. Lá fora, nenhum grilo." }
-      ],
-      "next": "batidas"
-    },
-
-    "casa_volta_sozinho": {
-      "location": "fazenda_casa",
-      "ambience": "casa",
-      "music": "alien_casa",
-      "cast": { "right": { "char": "vo", "anim": "Idle" } },
-      "lines": [
-        { "id": "al_volta_sozinho_01", "who": "sistema", "text": "Você entra sozinho. O Vô olha pra sua cara e entende tudo." },
-        { "id": "al_volta_sozinho_02", "who": "vo", "anim": "Talk", "tags": "[devastated, crying]", "text": "A Lia... não. Não, não, não." },
-        { "id": "al_volta_sozinho_03", "who": "vo", "anim": "Talk", "tags": "[whispers, grave]", "text": "Fica longe das janelas. Eles sempre devolvem o que levam. Só que nunca igual." }
-      ],
-      "next": "batidas"
-    },
-
-    "casa_volta_salva": {
-      "location": "fazenda_casa",
-      "ambience": "casa",
-      "music": "alien_casa",
-      "cast": {
-        "left":  { "char": "lia", "anim": "Sit" },
-        "right": { "char": "vo", "anim": "Idle" }
-      },
-      "lines": [
-        { "id": "al_volta_salva_01", "who": "sistema", "text": "Vocês entram correndo. O Vô tranca a porta e te abraça." },
-        { "id": "al_volta_salva_02", "who": "sistema", "text": "Pela primeira vez na vida, ele não tem cheiro de fumo de rolo." },
-        { "id": "al_volta_salva_03", "who": "vo", "anim": "Talk", "tags": "[calm, too calm]", "text": "Graças a Deus. Eu vi a luz descer. Sentem aí. Vou passar um café." },
-        { "id": "al_volta_salva_04", "who": "lia", "anim": "Sit", "tags": "[whispers, shaking]", "text": "Café, às três da manhã? Desde quando o Vô faz café?" }
-      ],
-      "next": "batidas"
-    },
-
-    "batidas": {
-      "location": "fazenda_casa",
-      "title_card": "03:00",
-      "cast": {},
-      "lines": [
-        { "id": "al_batidas_01", "who": "sistema", "sfx": "batida_porta", "text": "Três batidas na porta. Depois, mais três." }
-      ],
-      "branch": [
-        { "if": "hesitou >= 2", "ending": "estatua" },
-        { "if": "lia_salva", "next": "final_vos" },
-        { "next": "final_lias" }
-      ]
-    },
-
-    "final_lias": {
-      "location": "fazenda_casa",
-      "music": "alien_final",
-      "cast": {
-        "left":  { "char": "lia", "anim": "Idle" },
-        "right": { "char": "lia_copia", "anim": "Idle" }
-      },
-      "lines": [
-        { "id": "al_lias_01", "who": "sistema", "text": "Uma Lia entra pela porta. Outra pula a janela da cozinha. As duas brilham levemente no escuro." },
-        { "id": "al_lias_02", "who": "lia", "anim": "Talk", "tags": "[terrified, pleading]", "text": "Não chega perto dela! Ela não sou eu!" },
-        { "id": "al_lias_03", "who": "lia_copia", "anim": "Talk", "tags": "[terrified, pleading]", "text": "Mentira! Eu voltei primeiro! Ela é a cópia!" },
-        { "id": "al_lias_04a", "if": "com_lia", "who": "sistema", "text": "A da esquerda esconde a mão enrolada na manga, sangrando. A da direita não tem nenhum arranhão." },
-        { "id": "al_lias_04b", "if": "not com_lia", "who": "sistema", "text": "Mesma roupa. Mesma voz. Mesmo medo nos olhos." },
-        { "id": "al_lias_05a", "if": "sabe_senha and not vo_levado", "who": "vo", "tags": "[shouting from another room]", "text": "Pede a senha, menino! A senha!" },
-        { "id": "al_lias_05b", "if": "vo_levado", "who": "sistema", "text": "O Vô não está aqui pra te ajudar. Só você." },
-        { "id": "al_lias_06", "who": "lia", "anim": "Talk", "tags": "[crying, pleading]", "text": "Sou eu, primo. Por favor." },
-        { "id": "al_lias_07", "who": "lia_copia", "anim": "Talk", "tags": "[crying, pleading]", "text": "Sou eu, primo! Me escolhe, por favor!" }
-      ],
-      "choice": {
-        "prompt": "Qual é a Lia de verdade?",
-        "timer": 8,
-        "plead": { "lia": "Sou eu!", "lia_copia": "Sou eu!" },
-        "options": [
-          { "text": "A Lia da esquerda", "who": "lia", "ending": "mao_machucada" },
-          { "text": "A Lia da direita", "who": "lia_copia", "ending": "copia_perfeita" },
-          { "text": "Pedir a senha", "if": "sabe_senha", "next": "senha_lias" }
-        ],
-        "timeout": { "ending": "nenhuma_das_duas" }
-      }
-    },
-
-    "senha_lias": {
-      "location": "fazenda_casa",
-      "cast": {
-        "left":  { "char": "lia", "anim": "Idle" },
-        "right": { "char": "lia_copia", "anim": "Idle" }
-      },
-      "lines": [
-        { "id": "al_senha_lias_01", "who": "sistema", "text": "Você pergunta a senha da família." },
-        { "id": "al_senha_lias_02", "who": "lia", "anim": "Talk", "tags": "[desperate, fast]", "text": "Jabuticaba! É jabuticaba! O Vô fala isso desde que eu era pequena!" },
-        { "id": "al_senha_lias_03", "who": "sistema", "sfx": "ovni_zumbido", "text": "A outra abre a boca. Não sai nenhuma palavra. Só um zumbido." }
-      ],
-      "ending": "jabuticaba"
-    },
-
-    "final_vos": {
-      "location": "fazenda_casa",
-      "music": "alien_final",
-      "cast": {
-        "left":  { "char": "vo", "anim": "Idle" },
-        "right": { "char": "vo_copia", "anim": "Idle" }
-      },
-      "lines": [
-        { "id": "al_vos_01", "who": "sistema", "sfx": "porta_abre", "text": "A porta se abre. É o Vô, com a espingarda, coberto de terra. O Vô que estava na cozinha para de mexer o café." },
-        { "id": "al_vos_02", "who": "vo_copia", "anim": "Talk", "tags": "[out of breath, old man, urgent]", "text": "Esse aí não é seu avô! Eu passei a noite no celeiro caçando aquela coisa!" },
-        { "id": "al_vos_03", "who": "vo", "anim": "Talk", "tags": "[calm, sweet, old man]", "text": "Não escuta ele, menino. Quem te abriu a porta fui eu." },
-        { "id": "al_vos_04", "who": "sistema", "text": "O Vô da porta acende um cigarro de palha com a mão tremendo." },
-        { "id": "al_vos_05", "who": "lia", "tags": "[whispers, urgent]", "text": "Pede a senha! O Vô sempre falou que a senha da família é jabuticaba!" },
-        { "id": "al_vos_06", "who": "vo", "anim": "Talk", "tags": "[pleading]", "text": "Vem cá, meu neto." },
-        { "id": "al_vos_07", "who": "vo_copia", "anim": "Talk", "tags": "[pleading, desperate]", "text": "Sai de perto dele!" }
-      ],
-      "choice": {
-        "prompt": "Qual é o seu avô?",
-        "timer": 8,
-        "plead": { "vo": "Vem cá", "vo_copia": "Sou eu!" },
-        "options": [
-          { "text": "O Vô que estava em casa", "who": "vo", "ending": "sem_cheiro" },
-          { "text": "O Vô que chegou da rua", "who": "vo_copia", "ending": "fumo_de_rolo" },
-          { "text": "Pedir a senha", "next": "senha_vos" }
-        ],
-        "timeout": { "ending": "tres_da_manha" }
-      }
-    },
-
-    "senha_vos": {
-      "location": "fazenda_casa",
-      "cast": {
-        "left":  { "char": "vo", "anim": "Idle" },
-        "right": { "char": "vo_copia", "anim": "Idle" }
-      },
-      "lines": [
-        { "id": "al_senha_vos_01", "who": "vo", "anim": "Talk", "tags": "[calm]", "text": "Jabuticaba." },
-        { "id": "al_senha_vos_02", "who": "vo_copia", "anim": "Talk", "tags": "[out of breath]", "text": "Jabuticaba!" },
-        { "id": "al_senha_vos_03", "who": "sistema", "text": "Os dois respondem ao mesmo tempo. Depois, os dois olham pra você." },
-        { "id": "al_senha_vos_04", "who": "lia", "tags": "[whispers, terrified]", "text": "Primo... e você? Fala a senha." }
-      ],
-      "branch": [
-        { "if": "marcado", "ending": "o_terceiro" },
-        { "ending": "fumo_de_rolo" }
-      ]
-    }
+  "lia": {
+   "name": "Lia",
+   "model": "nurse",
+   "tint": "#d8b8c8"
   },
-
-  "endings": {
-    "isca": {
-      "title": "A Isca",
-      "kind": "morte",
-      "text": "A voz te levou até o fundo do celeiro. A Lia nunca esteve lá. Só a fome."
-    },
-    "mao_machucada": {
-      "title": "Mão Machucada",
-      "kind": "sobreviveu",
-      "text": "Você puxa a Lia da esquerda. A outra se desfaz em luz verde como fumaça. De manhã, ninguém acredita em vocês. Mas o vídeo da Lia tem dois milhões de visualizações.",
-      "extra": [
-        { "if": "vo_levado", "text": "O Vô Tião nunca mais voltou do celeiro." },
-        { "if": "not com_lia", "text": "Você acertou no chute. Será que acertaria de novo?" }
-      ]
-    },
-    "copia_perfeita": {
-      "title": "Cópia Perfeita",
-      "kind": "morte",
-      "text": "Ela te abraçou forte. Forte demais. A última coisa que você viu foi a outra Lia gritando, enquanto tudo ficava verde."
-    },
-    "nenhuma_das_duas": {
-      "title": "Nenhuma das Duas",
-      "kind": "morte",
-      "text": "Você demorou demais. As duas sorriram ao mesmo tempo. Do mesmo jeito. Talvez nenhuma fosse a Lia."
-    },
-    "jabuticaba": {
-      "title": "Jabuticaba",
-      "kind": "sobreviveu",
-      "text": "A cópia se desfez num zumbido. Você e a Lia passaram o resto da noite abraçados, repetindo a senha baixinho até o sol nascer.",
-      "extra": [
-        { "if": "vo_levado", "text": "O Vô Tião nunca mais voltou do celeiro. Mas a senha dele salvou vocês." },
-        { "if": "criatura_ferida", "text": "Nas noites seguintes, a luz verde nunca mais apareceu sobre o milharal." }
-      ]
-    },
-    "sem_cheiro": {
-      "title": "Sem Cheiro",
-      "kind": "morte",
-      "text": "O abraço dele era frio. E não tinha cheiro de fumo de rolo. Você só se lembrou disso tarde demais."
-    },
-    "fumo_de_rolo": {
-      "title": "Fumo de Rolo",
-      "kind": "sobreviveu",
-      "text": "O Vô de verdade puxou o gatilho. A coisa na cozinha gritou como metal rasgando e virou luz. O café ficou na mesa até esfriar.",
-      "extra": [
-        { "if": "culpa >= 1", "text": "Mas toda vez que o milho balança, você ainda escuta alguém gritando 'volta'." }
-      ]
-    },
-    "o_terceiro": {
-      "title": "O Terceiro",
-      "kind": "secreto",
-      "text": "Você abre a boca para dizer a senha. Só sai um zumbido. Seus olhos brilham verde no reflexo da janela. A luz não te devolveu naquela noite no milharal. Quem voltou foi outra coisa."
-    },
-    "tres_da_manha": {
-      "title": "Três da Manhã",
-      "kind": "morte",
-      "text": "Você não escolheu. Os dois avós deram um passo ao mesmo tempo. Depois outro. O relógio da cozinha voltou a andar."
-    },
-    "estatua": {
-      "title": "Estátua",
-      "kind": "secreto",
-      "text": "Você não abriu, não fugiu, não escolheu. Ficou parado no escuro até a luz verde entrar pela fresta da porta. Ela gosta de quem não resiste."
-    }
+  "lia_copia": {
+   "name": "Lia",
+   "model": "nurse",
+   "tint": "#d8b8c8"
+  },
+  "vo": {
+   "name": "Vô Tião",
+   "model": "office_worker",
+   "tint": "#a89878"
+  },
+  "vo_copia": {
+   "name": "Vô Tião",
+   "model": "office_worker",
+   "tint": "#a89878"
+  },
+  "criatura": {
+   "name": "",
+   "model": "alien_shellback"
   }
+ },
+ "nodes": {
+  "inicio": {
+   "location": "campo",
+   "title_card": "SÍTIO SÃO JOSÉ · 23:40",
+   "ambience": "milharal",
+   "music": "alien_milharal",
+   "cast": {
+    "left": {
+     "char": "lia",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "vo",
+     "anim": "Idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "al_inicio_01",
+     "who": "sistema",
+     "text": "Férias no sítio do seu avô. A energia caiu às onze da noite."
+    },
+    {
+     "id": "al_inicio_02",
+     "who": "radio",
+     "tags": "[radio announcer, rural station, static]",
+     "text": "...moradores da região relatam luzes no céu pela terceira noite seguida. A polícia pede calma à população..."
+    },
+    {
+     "id": "al_inicio_03",
+     "who": "vo",
+     "anim": "Talk",
+     "tags": "[old man, grumpy, worried]",
+     "text": "Calma, nada. Já sumiram três vacas. Ontem foi a Mimosa."
+    },
+    {
+     "id": "al_inicio_04",
+     "who": "lia",
+     "anim": "Talk",
+     "tags": "[excited, whispering]",
+     "text": "Olha lá, em cima do milharal! Tá parado no ar!"
+    },
+    {
+     "id": "al_inicio_05",
+     "who": "sistema",
+     "sfx": "ovni_zumbido",
+     "text": "Uma luz verde, imóvel. Nenhum som. Os grilos param de cantar."
+    },
+    {
+     "id": "al_inicio_06",
+     "who": "lia",
+     "anim": "Talk",
+     "tags": "[pleading, excited]",
+     "text": "Vem comigo filmar! Se a gente postar isso, vai viralizar!"
+    },
+    {
+     "id": "al_inicio_07",
+     "who": "vo",
+     "anim": "Talk",
+     "tags": "[firm, scared]",
+     "text": "Ninguém sai dessa casa hoje. Fica comigo, menino."
+    }
+   ],
+   "choice": {
+    "prompt": "Com quem você vai?",
+    "timer": 8,
+    "plead": {
+     "lia": "Vem comigo!",
+     "vo": "Fica aqui"
+    },
+    "options": [
+     {
+      "text": "Ir com a Lia até o milharal",
+      "who": "lia",
+      "set": {
+       "com_lia": true
+      },
+      "next": "milharal"
+     },
+     {
+      "text": "Ficar com o Vô",
+      "who": "vo",
+      "set": {
+       "fica_vo": true
+      },
+      "next": "casa_vo"
+     }
+    ],
+    "timeout": {
+     "next": "inicio_puxado"
+    }
+   }
+  },
+  "inicio_puxado": {
+   "location": "campo",
+   "cast": {
+    "left": {
+     "char": "lia",
+     "anim": "Run"
+    }
+   },
+   "set": {
+    "com_lia": true
+   },
+   "lines": [
+    {
+     "id": "al_inicio_puxado_01",
+     "who": "sistema",
+     "text": "Você hesita. A Lia agarra a sua mão e te puxa para o milho."
+    }
+   ],
+   "next": "milharal"
+  },
+  "milharal": {
+   "location": "campo",
+   "music": "suspense",
+   "cast": {
+    "left": {
+     "char": "lia",
+     "anim": "Idle"
+    },
+    "center": {
+     "char": "criatura",
+     "anim": "idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "al_milharal_01",
+     "who": "sistema",
+     "text": "O milho é mais alto que vocês. A luz do celular da Lia treme."
+    },
+    {
+     "id": "al_milharal_02",
+     "who": "lia",
+     "anim": "Talk",
+     "tags": "[pain, hissing]",
+     "text": "Ai! Cortei a mão no arame farpado."
+    },
+    {
+     "id": "al_milharal_03",
+     "who": "sistema",
+     "text": "Ela enrola a mão esquerda na manga da blusa. O sangue escurece o tecido."
+    },
+    {
+     "id": "al_milharal_04",
+     "who": "lia",
+     "anim": "Talk",
+     "tags": "[whispers, amazed]",
+     "text": "Olha... um círculo. O milho tá deitado num círculo perfeito."
+    },
+    {
+     "id": "al_milharal_05",
+     "who": "sistema",
+     "sfx": "criatura_grito",
+     "text": "Algo se mexe entre as fileiras. Alto. Curvado. Muitos olhos verdes."
+    }
+   ],
+   "choice": {
+    "prompt": "Ela ainda não viu vocês.",
+    "timer": 6,
+    "options": [
+     {
+      "text": "Se esconder no milho",
+      "next": "feixe"
+     },
+     {
+      "text": "Correr de volta pra casa",
+      "who": "lia",
+      "next": "queda"
+     }
+    ],
+    "timeout": {
+     "next": "feixe"
+    }
+   }
+  },
+  "feixe": {
+   "location": "campo",
+   "music": "alien_final",
+   "cast": {
+    "left": {
+     "char": "lia",
+     "anim": "Idle"
+    }
+   },
+   "set": {
+    "lia_levada": true
+   },
+   "lines": [
+    {
+     "id": "al_feixe_01",
+     "who": "sistema",
+     "sfx": "ovni_zumbido",
+     "fx": "flicker",
+     "text": "Vocês se jogam no chão. Uma luz verde desce do céu, sem fazer barulho."
+    },
+    {
+     "id": "al_feixe_02",
+     "who": "lia",
+     "tags": "[screaming, terrified]",
+     "text": "Eu tô subindo! Me segura! ME SEGURA!"
+    },
+    {
+     "id": "al_feixe_03",
+     "who": "sistema",
+     "text": "Os pés dela saem do chão. A mão machucada escorrega da sua."
+    },
+    {
+     "id": "al_feixe_04",
+     "who": "sistema",
+     "fx": "lights_off",
+     "text": "E a luz se apaga. Com ela."
+    }
+   ],
+   "next": "casa_volta_sozinho"
+  },
+  "queda": {
+   "location": "campo",
+   "music": "perseguicao",
+   "cast": {
+    "left": {
+     "char": "lia",
+     "anim": "Sit"
+    },
+    "center": {
+     "char": "criatura",
+     "anim": "walk"
+    }
+   },
+   "lines": [
+    {
+     "id": "al_queda_01",
+     "who": "sistema",
+     "sfx": "passos",
+     "text": "Vocês correm. A Lia tropeça numa raiz e cai."
+    },
+    {
+     "id": "al_queda_02",
+     "who": "lia",
+     "tags": "[crying, pleading]",
+     "text": "Minha perna! Não me deixa aqui!"
+    },
+    {
+     "id": "al_queda_03",
+     "who": "sistema",
+     "sfx": "criatura_grito",
+     "text": "A criatura sai do milho. Dez metros. Oito."
+    }
+   ],
+   "choice": {
+    "prompt": "Decida!",
+    "timer": 5,
+    "plead": {
+     "lia": "Volta!"
+    },
+    "options": [
+     {
+      "text": "Voltar pela Lia",
+      "who": "lia",
+      "set": {
+       "lia_salva": true,
+       "marcado": true
+      },
+      "next": "queda_volta"
+     },
+     {
+      "text": "Correr sem ela",
+      "set": {
+       "lia_levada": true,
+       "culpa": "=culpa + 1"
+      },
+      "next": "queda_fuga"
+     }
+    ],
+    "timeout": {
+     "set": {
+      "lia_levada": true,
+      "culpa": "=culpa + 1"
+     },
+     "next": "queda_fuga"
+    }
+   }
+  },
+  "queda_volta": {
+   "location": "campo",
+   "cast": {
+    "left": {
+     "char": "lia",
+     "anim": "Run"
+    }
+   },
+   "lines": [
+    {
+     "id": "al_queda_volta_01",
+     "who": "sistema",
+     "text": "Você puxa a Lia pelo braço. Por um segundo, a luz verde cai sobre você."
+    },
+    {
+     "id": "al_queda_volta_02",
+     "who": "sistema",
+     "sfx": "ovni_zumbido",
+     "text": "Um frio atravessa o seu corpo inteiro. Depois, nada. Vocês correm."
+    }
+   ],
+   "next": "casa_volta_salva"
+  },
+  "queda_fuga": {
+   "location": "campo",
+   "cast": {
+    "center": {
+     "char": "criatura",
+     "anim": "attack"
+    }
+   },
+   "lines": [
+    {
+     "id": "al_queda_fuga_01",
+     "who": "lia",
+     "tags": "[screaming, far away]",
+     "text": "Volta! VOLTA!"
+    },
+    {
+     "id": "al_queda_fuga_02",
+     "who": "sistema",
+     "text": "Você não olha pra trás. Atrás de você, o grito para de repente."
+    }
+   ],
+   "next": "casa_volta_sozinho"
+  },
+  "casa_vo": {
+   "location": "fazenda_casa",
+   "ambience": "casa",
+   "cast": {
+    "right": {
+     "char": "vo",
+     "anim": "Idle"
+    }
+   },
+   "set": {
+    "lia_levada": true,
+    "sabe_senha": true
+   },
+   "lines": [
+    {
+     "id": "al_casa_vo_01",
+     "who": "sistema",
+     "text": "A Lia sai correndo para o milharal antes que alguém consiga segurar."
+    },
+    {
+     "id": "al_casa_vo_02",
+     "who": "vo",
+     "anim": "Talk",
+     "tags": "[angry, old man]",
+     "text": "Menina teimosa! Igualzinha à mãe!"
+    },
+    {
+     "id": "al_casa_vo_03",
+     "who": "vo",
+     "anim": "Talk",
+     "tags": "[serious, low voice]",
+     "text": "Escuta bem. Se alguém bater nessa porta dizendo que é da família, você pede a senha. Jabuticaba. Quem não souber, não entra."
+    },
+    {
+     "id": "al_casa_vo_04",
+     "who": "sistema",
+     "sfx": "ovni_zumbido",
+     "text": "Pela janela, a luz verde desce sobre o milharal. E apaga."
+    },
+    {
+     "id": "al_casa_vo_05",
+     "who": "vo",
+     "anim": "Talk",
+     "tags": "[determined, scared]",
+     "text": "Eu vou atrás dela. Você vem comigo ou fica?"
+    }
+   ],
+   "choice": {
+    "prompt": "O Vô pega a espingarda.",
+    "timer": 8,
+    "plead": {
+     "vo": "Vem comigo"
+    },
+    "options": [
+     {
+      "text": "Ir com o Vô até o celeiro",
+      "who": "vo",
+      "next": "celeiro"
+     },
+     {
+      "text": "Ficar e trancar a casa",
+      "next": "espera"
+     }
+    ],
+    "timeout": {
+     "next": "espera"
+    }
+   }
+  },
+  "celeiro": {
+   "location": "celeiro",
+   "music": "suspense",
+   "cast": {
+    "center": {
+     "char": "criatura",
+     "anim": "idle",
+     "facing": "away"
+    },
+    "right": {
+     "char": "vo",
+     "anim": "Idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "al_celeiro_01",
+     "who": "sistema",
+     "text": "O celeiro fede a sangue. Alguma coisa mastiga no escuro."
+    },
+    {
+     "id": "al_celeiro_02",
+     "who": "lia",
+     "tags": "[pleading, muffled, from far away]",
+     "text": "Seu Tião! Me ajuda! Tô aqui no fundo!"
+    },
+    {
+     "id": "al_celeiro_03",
+     "who": "vo",
+     "anim": "Talk",
+     "tags": "[whispers, horrified]",
+     "text": "Isso não é ela. A Lia nunca me chamou de Seu Tião na vida."
+    },
+    {
+     "id": "al_celeiro_04",
+     "who": "vo",
+     "anim": "Talk",
+     "tags": "[urgent, shouting]",
+     "text": "Atira, menino! Toma a espingarda!"
+    }
+   ],
+   "choice": {
+    "prompt": "A criatura se vira.",
+    "timer": 6,
+    "plead": {
+     "vo": "Atira!"
+    },
+    "options": [
+     {
+      "text": "Atirar na criatura",
+      "set": {
+       "criatura_ferida": true,
+       "vo_levado": true
+      },
+      "next": "celeiro_tiro"
+     },
+     {
+      "text": "Seguir a voz da Lia",
+      "ending": "isca"
+     }
+    ],
+    "timeout": {
+     "ending": "isca"
+    }
+   }
+  },
+  "celeiro_tiro": {
+   "location": "celeiro",
+   "cast": {
+    "center": {
+     "char": "criatura",
+     "anim": "hit"
+    }
+   },
+   "lines": [
+    {
+     "id": "al_celeiro_tiro_01",
+     "who": "sistema",
+     "sfx": "tiro",
+     "fx": "flicker",
+     "text": "O tiro ilumina o celeiro. A criatura grita."
+    },
+    {
+     "id": "al_celeiro_tiro_02",
+     "who": "sistema",
+     "sfx": "criatura_grito",
+     "text": "Ela sobe pelas vigas e foge pelo telhado... levando o seu avô junto."
+    },
+    {
+     "id": "al_celeiro_tiro_03",
+     "who": "vo",
+     "tags": "[screaming, far away]",
+     "text": "CORRE PRA CASA! TRANCA A PORTA!"
+    }
+   ],
+   "next": "espera"
+  },
+  "espera": {
+   "location": "fazenda_casa",
+   "ambience": "casa",
+   "music": "alien_casa",
+   "cast": {},
+   "lines": [
+    {
+     "id": "al_espera_01",
+     "who": "sistema",
+     "text": "Você tranca a porta. Arrasta o armário. Apaga a lamparina."
+    },
+    {
+     "id": "al_espera_02",
+     "who": "sistema",
+     "text": "O relógio da cozinha parou às três horas. Lá fora, nenhum grilo."
+    }
+   ],
+   "next": "batidas"
+  },
+  "casa_volta_sozinho": {
+   "location": "fazenda_casa",
+   "ambience": "casa",
+   "music": "alien_casa",
+   "cast": {
+    "right": {
+     "char": "vo",
+     "anim": "Idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "al_volta_sozinho_01",
+     "who": "sistema",
+     "text": "Você entra sozinho. O Vô olha pra sua cara e entende tudo."
+    },
+    {
+     "id": "al_volta_sozinho_02",
+     "who": "vo",
+     "anim": "Talk",
+     "tags": "[devastated, crying]",
+     "text": "A Lia... não. Não, não, não."
+    },
+    {
+     "id": "al_volta_sozinho_03",
+     "who": "vo",
+     "anim": "Talk",
+     "tags": "[whispers, grave]",
+     "text": "Fica longe das janelas. Eles sempre devolvem o que levam. Só que nunca igual."
+    }
+   ],
+   "next": "batidas"
+  },
+  "casa_volta_salva": {
+   "location": "fazenda_casa",
+   "ambience": "casa",
+   "music": "alien_casa",
+   "cast": {
+    "left": {
+     "char": "lia",
+     "anim": "Sit"
+    },
+    "right": {
+     "char": "vo",
+     "anim": "Idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "al_volta_salva_01",
+     "who": "sistema",
+     "text": "Vocês entram correndo. O Vô tranca a porta e te abraça."
+    },
+    {
+     "id": "al_volta_salva_02",
+     "who": "sistema",
+     "text": "Pela primeira vez na vida, ele não tem cheiro de fumo de rolo."
+    },
+    {
+     "id": "al_volta_salva_03",
+     "who": "vo",
+     "anim": "Talk",
+     "tags": "[calm, too calm]",
+     "text": "Graças a Deus. Eu vi a luz descer. Sentem aí. Vou passar um café."
+    },
+    {
+     "id": "al_volta_salva_04",
+     "who": "lia",
+     "anim": "Sit",
+     "tags": "[whispers, shaking]",
+     "text": "Café, às três da manhã? Desde quando o Vô faz café?"
+    }
+   ],
+   "next": "batidas"
+  },
+  "batidas": {
+   "location": "fazenda_casa",
+   "title_card": "03:00",
+   "cast": {},
+   "lines": [
+    {
+     "id": "al_batidas_01",
+     "who": "sistema",
+     "sfx": "batida_porta",
+     "text": "Três batidas na porta. Depois, mais três."
+    }
+   ],
+   "branch": [
+    {
+     "if": "hesitou >= 2",
+     "ending": "estatua"
+    },
+    {
+     "if": "lia_salva",
+     "next": "final_vos"
+    },
+    {
+     "next": "final_lias"
+    }
+   ]
+  },
+  "final_lias": {
+   "location": "fazenda_casa",
+   "music": "alien_final",
+   "cast": {
+    "left": {
+     "char": "lia",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "lia_copia",
+     "anim": "Idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "al_lias_01",
+     "who": "sistema",
+     "text": "Uma Lia entra pela porta. Outra pula a janela da cozinha. As duas brilham levemente no escuro."
+    },
+    {
+     "id": "al_lias_02",
+     "who": "lia",
+     "anim": "Talk",
+     "tags": "[terrified, pleading]",
+     "text": "Não chega perto dela! Ela não sou eu!"
+    },
+    {
+     "id": "al_lias_03",
+     "who": "lia_copia",
+     "anim": "Talk",
+     "tags": "[terrified, pleading]",
+     "text": "Mentira! Eu voltei primeiro! Ela é a cópia!"
+    },
+    {
+     "id": "al_lias_04a",
+     "if": "com_lia",
+     "who": "sistema",
+     "text": "A da esquerda esconde a mão enrolada na manga, sangrando. A da direita não tem nenhum arranhão."
+    },
+    {
+     "id": "al_lias_04b",
+     "if": "not com_lia",
+     "who": "sistema",
+     "text": "Mesma roupa. Mesma voz. Mesmo medo nos olhos."
+    },
+    {
+     "id": "al_lias_05a",
+     "if": "sabe_senha and not vo_levado",
+     "who": "vo",
+     "tags": "[shouting from another room]",
+     "text": "Pede a senha, menino! A senha!"
+    },
+    {
+     "id": "al_lias_05b",
+     "if": "vo_levado",
+     "who": "sistema",
+     "text": "O Vô não está aqui pra te ajudar. Só você."
+    },
+    {
+     "id": "al_lias_06",
+     "who": "lia",
+     "anim": "Talk",
+     "tags": "[crying, pleading]",
+     "text": "Sou eu, primo. Por favor."
+    },
+    {
+     "id": "al_lias_07",
+     "who": "lia_copia",
+     "anim": "Talk",
+     "tags": "[crying, pleading]",
+     "text": "Sou eu, primo! Me escolhe, por favor!"
+    }
+   ],
+   "choice": {
+    "prompt": "Qual é a Lia de verdade?",
+    "timer": 8,
+    "plead": {
+     "lia": "Sou eu!",
+     "lia_copia": "Sou eu!"
+    },
+    "options": [
+     {
+      "text": "A Lia da esquerda",
+      "who": "lia",
+      "ending": "mao_machucada"
+     },
+     {
+      "text": "A Lia da direita",
+      "who": "lia_copia",
+      "ending": "copia_perfeita"
+     },
+     {
+      "text": "Pedir a senha",
+      "if": "sabe_senha",
+      "next": "senha_lias"
+     }
+    ],
+    "timeout": {
+     "ending": "nenhuma_das_duas"
+    }
+   }
+  },
+  "senha_lias": {
+   "location": "fazenda_casa",
+   "cast": {
+    "left": {
+     "char": "lia",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "lia_copia",
+     "anim": "Idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "al_senha_lias_01",
+     "who": "sistema",
+     "text": "Você pergunta a senha da família."
+    },
+    {
+     "id": "al_senha_lias_02",
+     "who": "lia",
+     "anim": "Talk",
+     "tags": "[desperate, fast]",
+     "text": "Jabuticaba! É jabuticaba! O Vô fala isso desde que eu era pequena!"
+    },
+    {
+     "id": "al_senha_lias_03",
+     "who": "sistema",
+     "sfx": "ovni_zumbido",
+     "text": "A outra abre a boca. Não sai nenhuma palavra. Só um zumbido."
+    }
+   ],
+   "ending": "jabuticaba"
+  },
+  "final_vos": {
+   "location": "fazenda_casa",
+   "music": "alien_final",
+   "cast": {
+    "left": {
+     "char": "vo",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "vo_copia",
+     "anim": "Idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "al_vos_01",
+     "who": "sistema",
+     "sfx": "porta_abre",
+     "text": "A porta se abre. É o Vô, com a espingarda, coberto de terra. O Vô que estava na cozinha para de mexer o café."
+    },
+    {
+     "id": "al_vos_02",
+     "who": "vo_copia",
+     "anim": "Talk",
+     "tags": "[out of breath, old man, urgent]",
+     "text": "Esse aí não é seu avô! Eu passei a noite no celeiro caçando aquela coisa!"
+    },
+    {
+     "id": "al_vos_03",
+     "who": "vo",
+     "anim": "Talk",
+     "tags": "[calm, sweet, old man]",
+     "text": "Não escuta ele, menino. Quem te abriu a porta fui eu."
+    },
+    {
+     "id": "al_vos_04",
+     "who": "sistema",
+     "text": "O Vô da porta acende um cigarro de palha com a mão tremendo."
+    },
+    {
+     "id": "al_vos_05",
+     "who": "lia",
+     "tags": "[whispers, urgent]",
+     "text": "Pede a senha! O Vô sempre falou que a senha da família é jabuticaba!"
+    },
+    {
+     "id": "al_vos_06",
+     "who": "vo",
+     "anim": "Talk",
+     "tags": "[pleading]",
+     "text": "Vem cá, meu neto."
+    },
+    {
+     "id": "al_vos_07",
+     "who": "vo_copia",
+     "anim": "Talk",
+     "tags": "[pleading, desperate]",
+     "text": "Sai de perto dele!"
+    }
+   ],
+   "choice": {
+    "prompt": "Qual é o seu avô?",
+    "timer": 8,
+    "plead": {
+     "vo": "Vem cá",
+     "vo_copia": "Sou eu!"
+    },
+    "options": [
+     {
+      "text": "O Vô que estava em casa",
+      "who": "vo",
+      "ending": "sem_cheiro"
+     },
+     {
+      "text": "O Vô que chegou da rua",
+      "who": "vo_copia",
+      "ending": "fumo_de_rolo"
+     },
+     {
+      "text": "Pedir a senha",
+      "next": "senha_vos"
+     }
+    ],
+    "timeout": {
+     "ending": "tres_da_manha"
+    }
+   }
+  },
+  "senha_vos": {
+   "location": "fazenda_casa",
+   "cast": {
+    "left": {
+     "char": "vo",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "vo_copia",
+     "anim": "Idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "al_senha_vos_01",
+     "who": "vo",
+     "anim": "Talk",
+     "tags": "[calm]",
+     "text": "Jabuticaba."
+    },
+    {
+     "id": "al_senha_vos_02",
+     "who": "vo_copia",
+     "anim": "Talk",
+     "tags": "[out of breath]",
+     "text": "Jabuticaba!"
+    },
+    {
+     "id": "al_senha_vos_03",
+     "who": "sistema",
+     "text": "Os dois respondem ao mesmo tempo. Depois, os dois olham pra você."
+    },
+    {
+     "id": "al_senha_vos_04",
+     "who": "lia",
+     "tags": "[whispers, terrified]",
+     "text": "Primo... e você? Fala a senha."
+    }
+   ],
+   "branch": [
+    {
+     "if": "marcado",
+     "ending": "o_terceiro"
+    },
+    {
+     "ending": "fumo_de_rolo"
+    }
+   ]
+  }
+ },
+ "endings": {
+  "isca": {
+   "title": "A Isca",
+   "kind": "morte",
+   "text": "A voz te levou até o fundo do celeiro. A Lia nunca esteve lá. Só a fome.",
+   "cinematica": {
+    "location": "celeiro",
+    "camera": {
+     "pos": [
+      0,
+      1.62,
+      0.5
+     ],
+     "olhar": [
+      0,
+      1.4,
+      -8
+     ]
+    },
+    "slots": {
+     "left": [
+      0.3,
+      0,
+      -3.2
+     ],
+     "center": [
+      0.1,
+      0,
+      -10.0
+     ]
+    },
+    "cast": {
+     "left": {
+      "char": "lia_copia",
+      "anim": "Idle",
+      "facing": "away"
+     }
+    },
+    "dur": 10.5,
+    "narrar": 0.8,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#304838",
+      "energia": 0.45,
+      "neblina": "#0a2010",
+      "densidade": 0.05,
+      "fundo": "#041008",
+      "dur": 0.1
+     },
+     {
+      "t": 0.4,
+      "acao": "anim",
+      "who": "lia_copia",
+      "anim": "Walk"
+     },
+     {
+      "t": 0.4,
+      "acao": "mover",
+      "who": "lia_copia",
+      "para": [
+       0.1,
+       0,
+       -9.0
+      ],
+      "dur": 4.5
+     },
+     {
+      "t": 1.0,
+      "acao": "camera",
+      "pos": [
+       0,
+       1.62,
+       -3.0
+      ],
+      "olhar": [
+       0,
+       1.4,
+       -10
+      ],
+      "dur": 4.5
+     },
+     {
+      "t": 4.9,
+      "acao": "anim",
+      "who": "lia_copia",
+      "anim": "Idle"
+     },
+     {
+      "t": 5.4,
+      "acao": "olhar_camera",
+      "who": "lia_copia"
+     },
+     {
+      "t": 6.2,
+      "acao": "sfx",
+      "som": "criatura_grito"
+     },
+     {
+      "t": 6.2,
+      "acao": "trocar",
+      "who": "lia_copia",
+      "novo": "criatura",
+      "anim": "attack"
+     },
+     {
+      "t": 6.2,
+      "acao": "fx",
+      "tipo": "flash"
+     },
+     {
+      "t": 6.4,
+      "acao": "mover",
+      "who": "criatura",
+      "para": [
+       0,
+       0,
+       -4.4
+      ],
+      "dur": 1.6
+     },
+     {
+      "t": 6.5,
+      "acao": "anim",
+      "who": "criatura",
+      "anim": "run"
+     },
+     {
+      "t": 8.0,
+      "acao": "fx",
+      "tipo": "vermelho",
+      "de": 0.0,
+      "ate": 0.85,
+      "dur": 0.5
+     },
+     {
+      "t": 8.1,
+      "acao": "fx",
+      "tipo": "tremor",
+      "forca": 0.12
+     },
+     {
+      "t": 9.4,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.9
+     }
+    ]
+   }
+  },
+  "mao_machucada": {
+   "title": "Mão Machucada",
+   "kind": "sobreviveu",
+   "text": "Você puxa a Lia da esquerda. A outra se desfaz em luz verde como fumaça. De manhã, ninguém acredita em vocês. Mas o vídeo da Lia tem dois milhões de visualizações.",
+   "extra": [
+    {
+     "if": "vo_levado",
+     "text": "O Vô Tião nunca mais voltou do celeiro."
+    },
+    {
+     "if": "not com_lia",
+     "text": "Você acertou no chute. Será que acertaria de novo?"
+    }
+   ],
+   "cinematica": {
+    "location": "fazenda_casa",
+    "camera": {
+     "pos": [
+      0,
+      1.62,
+      0.8
+     ],
+     "olhar": [
+      0,
+      1.35,
+      -3
+     ]
+    },
+    "slots": {
+     "left": [
+      -0.6,
+      0,
+      -1.9
+     ],
+     "right": [
+      0.6,
+      0,
+      -1.9
+     ]
+    },
+    "cast": {
+     "left": {
+      "char": "lia",
+      "anim": "Idle"
+     },
+     "right": {
+      "char": "lia_copia",
+      "anim": "Idle"
+     }
+    },
+    "dur": 12,
+    "narrar": 0.6,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#405848",
+      "energia": 0.5,
+      "neblina": "#06100a",
+      "densidade": 0.035,
+      "fundo": "#020604",
+      "dur": 0.1
+     },
+     {
+      "t": 0.8,
+      "acao": "luz_ponto",
+      "pos": [
+       0.6,
+       1.2,
+       -1.4
+      ],
+      "cor": "#40ff70",
+      "energia": 2.5,
+      "raio": 3,
+      "piscar": true
+     },
+     {
+      "t": 0.8,
+      "acao": "tremer",
+      "who": "lia_copia",
+      "dur": 1.8
+     },
+     {
+      "t": 0.9,
+      "acao": "sfx",
+      "som": "ovni_zumbido"
+     },
+     {
+      "t": 2.6,
+      "acao": "fx",
+      "tipo": "flash"
+     },
+     {
+      "t": 2.7,
+      "acao": "mover",
+      "who": "lia_copia",
+      "para": [
+       0.6,
+       6.0,
+       -1.9
+      ],
+      "dur": 0.6
+     },
+     {
+      "t": 4.2,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.5
+     },
+     {
+      "t": 4.8,
+      "acao": "luz",
+      "ambiente": "#ffc090",
+      "energia": 0.95,
+      "neblina": "#906850",
+      "densidade": 0.02,
+      "fundo": "#c08860",
+      "dur": 0.1
+     },
+     {
+      "t": 5.0,
+      "acao": "fx",
+      "tipo": "acender",
+      "dur": 1.0
+     },
+     {
+      "t": 5.6,
+      "acao": "anim",
+      "who": "lia",
+      "anim": "Walk"
+     },
+     {
+      "t": 5.6,
+      "acao": "mover",
+      "who": "lia",
+      "para": [
+       -0.2,
+       0,
+       -1.1
+      ],
+      "dur": 1.8
+     },
+     {
+      "t": 7.4,
+      "acao": "anim",
+      "who": "lia",
+      "anim": "Talk"
+     },
+     {
+      "t": 7.4,
+      "acao": "olhar_camera",
+      "who": "lia"
+     },
+     {
+      "t": 7.6,
+      "acao": "texto3d",
+      "id": "views",
+      "texto": "2.000.000 visualizações",
+      "pos": [
+       -0.2,
+       2.25,
+       -1.1
+      ],
+      "tamanho": 40,
+      "cor": "#ffffff"
+     },
+     {
+      "t": 9.0,
+      "acao": "anim",
+      "who": "lia",
+      "anim": "Idle"
+     },
+     {
+      "t": 11.0,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.9
+     }
+    ]
+   }
+  },
+  "copia_perfeita": {
+   "title": "Cópia Perfeita",
+   "kind": "morte",
+   "text": "Ela te abraçou forte. Forte demais. A última coisa que você viu foi a outra Lia gritando, enquanto tudo ficava verde.",
+   "cinematica": {
+    "location": "fazenda_casa",
+    "camera": {
+     "pos": [
+      0,
+      1.62,
+      0.8
+     ],
+     "olhar": [
+      0,
+      1.35,
+      -3
+     ]
+    },
+    "slots": {
+     "left": [
+      -0.9,
+      0,
+      -3.6
+     ],
+     "right": [
+      0.5,
+      0,
+      -2.0
+     ]
+    },
+    "cast": {
+     "left": {
+      "char": "lia",
+      "anim": "Idle"
+     },
+     "right": {
+      "char": "lia_copia",
+      "anim": "Idle"
+     }
+    },
+    "dur": 10.5,
+    "narrar": 0.8,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#405848",
+      "energia": 0.5,
+      "neblina": "#06100a",
+      "densidade": 0.035,
+      "fundo": "#020604",
+      "dur": 0.1
+     },
+     {
+      "t": 0.6,
+      "acao": "anim",
+      "who": "lia_copia",
+      "anim": "Walk"
+     },
+     {
+      "t": 0.6,
+      "acao": "mover",
+      "who": "lia_copia",
+      "para": [
+       0.05,
+       0,
+       -0.8
+      ],
+      "dur": 2.4
+     },
+     {
+      "t": 3.0,
+      "acao": "anim",
+      "who": "lia_copia",
+      "anim": "Idle"
+     },
+     {
+      "t": 3.0,
+      "acao": "olhar_camera",
+      "who": "lia_copia"
+     },
+     {
+      "t": 3.4,
+      "acao": "anim",
+      "who": "lia",
+      "anim": "Talk"
+     },
+     {
+      "t": 3.4,
+      "acao": "tremer",
+      "who": "lia",
+      "dur": 2.5
+     },
+     {
+      "t": 3.6,
+      "acao": "sfx",
+      "som": "grito",
+      "volume": -6
+     },
+     {
+      "t": 4.0,
+      "acao": "luz",
+      "ambiente": "#40ff70",
+      "energia": 1.6,
+      "neblina": "#20a040",
+      "densidade": 0.08,
+      "fundo": "#0a3a14",
+      "dur": 3.0
+     },
+     {
+      "t": 4.4,
+      "acao": "sfx",
+      "som": "ovni_zumbido"
+     },
+     {
+      "t": 6.4,
+      "acao": "fx",
+      "tipo": "flash"
+     },
+     {
+      "t": 6.6,
+      "acao": "camera",
+      "pos": [
+       0,
+       1.9,
+       0.8
+      ],
+      "olhar": [
+       0,
+       4.5,
+       -1.5
+      ],
+      "dur": 2.2
+     },
+     {
+      "t": 6.6,
+      "acao": "luz_ponto",
+      "pos": [
+       0,
+       2.8,
+       0.2
+      ],
+      "cor": "#60ff90",
+      "energia": 4,
+      "raio": 5
+     },
+     {
+      "t": 9.4,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.9
+     }
+    ]
+   }
+  },
+  "nenhuma_das_duas": {
+   "title": "Nenhuma das Duas",
+   "kind": "morte",
+   "text": "Você demorou demais. As duas sorriram ao mesmo tempo. Do mesmo jeito. Talvez nenhuma fosse a Lia.",
+   "cinematica": {
+    "location": "fazenda_casa",
+    "camera": {
+     "pos": [
+      0,
+      1.62,
+      0.8
+     ],
+     "olhar": [
+      0,
+      1.35,
+      -3
+     ]
+    },
+    "slots": {
+     "left": [
+      -0.55,
+      0,
+      -2.0
+     ],
+     "right": [
+      0.55,
+      0,
+      -2.0
+     ]
+    },
+    "cast": {
+     "left": {
+      "char": "lia",
+      "anim": "Idle"
+     },
+     "right": {
+      "char": "lia_copia",
+      "anim": "Idle"
+     }
+    },
+    "personagens": {
+     "criatura2": {
+      "name": "",
+      "model": "alien_shellback"
+     }
+    },
+    "dur": 10.5,
+    "narrar": 0.6,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#405848",
+      "energia": 0.5,
+      "neblina": "#06100a",
+      "densidade": 0.035,
+      "fundo": "#020604",
+      "dur": 0.1
+     },
+     {
+      "t": 1.0,
+      "acao": "olhar_camera",
+      "who": "lia"
+     },
+     {
+      "t": 1.0,
+      "acao": "olhar_camera",
+      "who": "lia_copia"
+     },
+     {
+      "t": 2.0,
+      "acao": "anim",
+      "who": "lia",
+      "anim": "Walk"
+     },
+     {
+      "t": 2.0,
+      "acao": "anim",
+      "who": "lia_copia",
+      "anim": "Walk"
+     },
+     {
+      "t": 2.0,
+      "acao": "mover",
+      "who": "lia",
+      "para": [
+       -0.4,
+       0,
+       -1.0
+      ],
+      "dur": 2.2
+     },
+     {
+      "t": 2.0,
+      "acao": "mover",
+      "who": "lia_copia",
+      "para": [
+       0.4,
+       0,
+       -1.0
+      ],
+      "dur": 2.2
+     },
+     {
+      "t": 4.2,
+      "acao": "anim",
+      "who": "lia",
+      "anim": "Idle"
+     },
+     {
+      "t": 4.2,
+      "acao": "anim",
+      "who": "lia_copia",
+      "anim": "Idle"
+     },
+     {
+      "t": 4.3,
+      "acao": "olhar_camera",
+      "who": "lia"
+     },
+     {
+      "t": 4.3,
+      "acao": "olhar_camera",
+      "who": "lia_copia"
+     },
+     {
+      "t": 5.0,
+      "acao": "fx",
+      "tipo": "piscar",
+      "dur": 1.4
+     },
+     {
+      "t": 6.5,
+      "acao": "trocar",
+      "who": "lia",
+      "novo": "criatura",
+      "anim": "attack"
+     },
+     {
+      "t": 6.5,
+      "acao": "trocar",
+      "who": "lia_copia",
+      "novo": "criatura2",
+      "anim": "attack"
+     },
+     {
+      "t": 6.5,
+      "acao": "fx",
+      "tipo": "flash"
+     },
+     {
+      "t": 6.6,
+      "acao": "sfx",
+      "som": "criatura_grito"
+     },
+     {
+      "t": 7.8,
+      "acao": "fx",
+      "tipo": "vermelho",
+      "de": 0.0,
+      "ate": 0.85,
+      "dur": 0.5
+     },
+     {
+      "t": 8.0,
+      "acao": "fx",
+      "tipo": "tremor",
+      "forca": 0.1
+     },
+     {
+      "t": 9.4,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.9
+     }
+    ]
+   }
+  },
+  "jabuticaba": {
+   "title": "Jabuticaba",
+   "kind": "sobreviveu",
+   "text": "A cópia se desfez num zumbido. Você e a Lia passaram o resto da noite abraçados, repetindo a senha baixinho até o sol nascer.",
+   "extra": [
+    {
+     "if": "vo_levado",
+     "text": "O Vô Tião nunca mais voltou do celeiro. Mas a senha dele salvou vocês."
+    },
+    {
+     "if": "criatura_ferida",
+     "text": "Nas noites seguintes, a luz verde nunca mais apareceu sobre o milharal."
+    }
+   ],
+   "cinematica": {
+    "location": "fazenda_casa",
+    "camera": {
+     "pos": [
+      0,
+      1.62,
+      0.8
+     ],
+     "olhar": [
+      0,
+      1.35,
+      -3
+     ]
+    },
+    "slots": {
+     "left": [
+      -0.6,
+      0,
+      -1.9
+     ],
+     "right": [
+      0.6,
+      0,
+      -1.9
+     ]
+    },
+    "cast": {
+     "left": {
+      "char": "lia",
+      "anim": "Idle"
+     },
+     "right": {
+      "char": "lia_copia",
+      "anim": "Idle"
+     }
+    },
+    "dur": 12,
+    "narrar": 0.6,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#405848",
+      "energia": 0.5,
+      "neblina": "#06100a",
+      "densidade": 0.035,
+      "fundo": "#020604",
+      "dur": 0.1
+     },
+     {
+      "t": 0.6,
+      "acao": "tremer",
+      "who": "lia_copia",
+      "dur": 1.6
+     },
+     {
+      "t": 0.6,
+      "acao": "sfx",
+      "som": "ovni_zumbido"
+     },
+     {
+      "t": 0.7,
+      "acao": "luz_ponto",
+      "pos": [
+       0.6,
+       1.2,
+       -1.4
+      ],
+      "cor": "#40ff70",
+      "energia": 2.5,
+      "raio": 3,
+      "piscar": true
+     },
+     {
+      "t": 2.2,
+      "acao": "fx",
+      "tipo": "flash"
+     },
+     {
+      "t": 2.3,
+      "acao": "mover",
+      "who": "lia_copia",
+      "para": [
+       0.6,
+       6.0,
+       -1.9
+      ],
+      "dur": 0.5
+     },
+     {
+      "t": 3.2,
+      "acao": "luz",
+      "ambiente": "#806048",
+      "energia": 0.55,
+      "neblina": "#100804",
+      "densidade": 0.03,
+      "fundo": "#050302",
+      "dur": 2.0
+     },
+     {
+      "t": 3.4,
+      "acao": "anim",
+      "who": "lia",
+      "anim": "Walk"
+     },
+     {
+      "t": 3.4,
+      "acao": "mover",
+      "who": "lia",
+      "para": [
+       -0.15,
+       0,
+       -1.0
+      ],
+      "dur": 1.8
+     },
+     {
+      "t": 5.2,
+      "acao": "anim",
+      "who": "lia",
+      "anim": "Idle"
+     },
+     {
+      "t": 5.2,
+      "acao": "olhar_camera",
+      "who": "lia"
+     },
+     {
+      "t": 5.6,
+      "acao": "camera",
+      "pos": [
+       0.2,
+       1.62,
+       0.8
+      ],
+      "olhar": [
+       0,
+       1.6,
+       -4.9
+      ],
+      "dur": 3.0
+     },
+     {
+      "t": 6.0,
+      "acao": "texto3d",
+      "id": "vidro",
+      "texto": "jabuticaba",
+      "pos": [
+       0,
+       1.75,
+       -4.85
+      ],
+      "tamanho": 36,
+      "cor": "#d8e8f0"
+     },
+     {
+      "t": 7.0,
+      "acao": "luz",
+      "ambiente": "#ffc090",
+      "energia": 0.95,
+      "neblina": "#906850",
+      "densidade": 0.02,
+      "fundo": "#c08860",
+      "dur": 3.5
+     },
+     {
+      "t": 11.0,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.9
+     }
+    ]
+   }
+  },
+  "sem_cheiro": {
+   "title": "Sem Cheiro",
+   "kind": "morte",
+   "text": "O abraço dele era frio. E não tinha cheiro de fumo de rolo. Você só se lembrou disso tarde demais.",
+   "cinematica": {
+    "location": "fazenda_casa",
+    "camera": {
+     "pos": [
+      0,
+      1.62,
+      0.8
+     ],
+     "olhar": [
+      0,
+      1.35,
+      -3
+     ]
+    },
+    "slots": {
+     "left": [
+      -0.9,
+      0,
+      -3.6
+     ],
+     "right": [
+      0.5,
+      0,
+      -2.0
+     ]
+    },
+    "cast": {
+     "left": {
+      "char": "vo",
+      "anim": "Idle"
+     },
+     "right": {
+      "char": "vo_copia",
+      "anim": "Idle"
+     }
+    },
+    "dur": 10.5,
+    "narrar": 0.8,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#405848",
+      "energia": 0.5,
+      "neblina": "#06100a",
+      "densidade": 0.035,
+      "fundo": "#020604",
+      "dur": 0.1
+     },
+     {
+      "t": 0.6,
+      "acao": "anim",
+      "who": "vo_copia",
+      "anim": "Walk"
+     },
+     {
+      "t": 0.6,
+      "acao": "mover",
+      "who": "vo_copia",
+      "para": [
+       0.05,
+       0,
+       -0.8
+      ],
+      "dur": 2.6
+     },
+     {
+      "t": 3.2,
+      "acao": "anim",
+      "who": "vo_copia",
+      "anim": "Idle"
+     },
+     {
+      "t": 3.2,
+      "acao": "olhar_camera",
+      "who": "vo_copia"
+     },
+     {
+      "t": 3.6,
+      "acao": "anim",
+      "who": "vo",
+      "anim": "Talk"
+     },
+     {
+      "t": 4.0,
+      "acao": "luz",
+      "ambiente": "#2a3a48",
+      "energia": 0.35,
+      "neblina": "#04080c",
+      "densidade": 0.04,
+      "fundo": "#010203",
+      "dur": 1.5
+     },
+     {
+      "t": 5.0,
+      "acao": "tremer",
+      "who": "vo_copia",
+      "dur": 1.2
+     },
+     {
+      "t": 6.2,
+      "acao": "trocar",
+      "who": "vo_copia",
+      "novo": "criatura",
+      "anim": "attack"
+     },
+     {
+      "t": 6.2,
+      "acao": "fx",
+      "tipo": "flash"
+     },
+     {
+      "t": 6.3,
+      "acao": "sfx",
+      "som": "criatura_grito"
+     },
+     {
+      "t": 6.4,
+      "acao": "camera",
+      "pos": [
+       0,
+       1.55,
+       0.8
+      ],
+      "olhar": [
+       0,
+       2.2,
+       -0.8
+      ],
+      "dur": 1.6
+     },
+     {
+      "t": 7.8,
+      "acao": "fx",
+      "tipo": "vermelho",
+      "de": 0.0,
+      "ate": 0.85,
+      "dur": 0.6
+     },
+     {
+      "t": 9.4,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.9
+     }
+    ]
+   }
+  },
+  "fumo_de_rolo": {
+   "title": "Fumo de Rolo",
+   "kind": "sobreviveu",
+   "text": "O Vô de verdade puxou o gatilho. A coisa na cozinha gritou como metal rasgando e virou luz. O café ficou na mesa até esfriar.",
+   "extra": [
+    {
+     "if": "culpa >= 1",
+     "text": "Mas toda vez que o milho balança, você ainda escuta alguém gritando 'volta'."
+    }
+   ],
+   "cinematica": {
+    "location": "fazenda_casa",
+    "camera": {
+     "pos": [
+      0,
+      1.62,
+      0.8
+     ],
+     "olhar": [
+      0,
+      1.35,
+      -3
+     ]
+    },
+    "slots": {
+     "left": [
+      -0.7,
+      0,
+      -1.8
+     ],
+     "right": [
+      0.8,
+      0,
+      -2.6
+     ]
+    },
+    "cast": {
+     "left": {
+      "char": "vo",
+      "anim": "Idle"
+     },
+     "right": {
+      "char": "vo_copia",
+      "anim": "Idle"
+     }
+    },
+    "dur": 12,
+    "narrar": 0.6,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#405848",
+      "energia": 0.5,
+      "neblina": "#06100a",
+      "densidade": 0.035,
+      "fundo": "#020604",
+      "dur": 0.1
+     },
+     {
+      "t": 1.6,
+      "acao": "sfx",
+      "som": "tiro"
+     },
+     {
+      "t": 1.6,
+      "acao": "fx",
+      "tipo": "flash"
+     },
+     {
+      "t": 1.6,
+      "acao": "fx",
+      "tipo": "tremor",
+      "forca": 0.1
+     },
+     {
+      "t": 1.7,
+      "acao": "trocar",
+      "who": "vo_copia",
+      "novo": "criatura",
+      "anim": "hit"
+     },
+     {
+      "t": 1.8,
+      "acao": "sfx",
+      "som": "criatura_grito"
+     },
+     {
+      "t": 2.6,
+      "acao": "anim",
+      "who": "criatura",
+      "anim": "death"
+     },
+     {
+      "t": 2.8,
+      "acao": "luz_ponto",
+      "pos": [
+       0.8,
+       1.0,
+       -2.3
+      ],
+      "cor": "#40ff70",
+      "energia": 3,
+      "raio": 3,
+      "piscar": true
+     },
+     {
+      "t": 4.6,
+      "acao": "fx",
+      "tipo": "flash"
+     },
+     {
+      "t": 4.7,
+      "acao": "mover",
+      "who": "criatura",
+      "para": [
+       0.8,
+       -4.0,
+       -2.6
+      ],
+      "dur": 0.3
+     },
+     {
+      "t": 5.0,
+      "acao": "luz",
+      "ambiente": "#806048",
+      "energia": 0.55,
+      "neblina": "#100804",
+      "densidade": 0.03,
+      "fundo": "#050302",
+      "dur": 2.0
+     },
+     {
+      "t": 5.6,
+      "acao": "olhar_camera",
+      "who": "vo"
+     },
+     {
+      "t": 6.4,
+      "acao": "camera",
+      "pos": [
+       0.3,
+       1.5,
+       0.4
+      ],
+      "olhar": [
+       0.2,
+       0.85,
+       -2.6
+      ],
+      "dur": 3.0
+     },
+     {
+      "t": 7.0,
+      "acao": "texto3d",
+      "id": "fumaca",
+      "texto": "~ ~",
+      "pos": [
+       0.3,
+       1.15,
+       -2.6
+      ],
+      "tamanho": 30,
+      "cor": "#c8c8c8"
+     },
+     {
+      "t": 11.0,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.9
+     }
+    ]
+   }
+  },
+  "o_terceiro": {
+   "title": "O Terceiro",
+   "kind": "secreto",
+   "text": "Você abre a boca para dizer a senha. Só sai um zumbido. Seus olhos brilham verde no reflexo da janela. A luz não te devolveu naquela noite no milharal. Quem voltou foi outra coisa.",
+   "cinematica": {
+    "location": "fazenda_casa",
+    "camera": {
+     "pos": [
+      0,
+      1.62,
+      0.8
+     ],
+     "olhar": [
+      0,
+      1.35,
+      -3
+     ]
+    },
+    "slots": {
+     "left": [
+      -1.1,
+      0,
+      -2.2
+     ],
+     "right": [
+      1.1,
+      0,
+      -2.2
+     ],
+     "center": [
+      0,
+      0,
+      -5.8
+     ]
+    },
+    "cast": {
+     "left": {
+      "char": "lia",
+      "anim": "Idle"
+     },
+     "right": {
+      "char": "vo",
+      "anim": "Idle"
+     },
+     "center": {
+      "char": "reflexo",
+      "anim": "Idle"
+     }
+    },
+    "personagens": {
+     "reflexo": {
+      "name": "",
+      "model": "office_worker",
+      "tint": "#3a4a40"
+     }
+    },
+    "dur": 11.5,
+    "narrar": 0.6,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#405848",
+      "energia": 0.5,
+      "neblina": "#06100a",
+      "densidade": 0.035,
+      "fundo": "#020604",
+      "dur": 0.1
+     },
+     {
+      "t": 0.4,
+      "acao": "olhar_camera",
+      "who": "lia"
+     },
+     {
+      "t": 0.4,
+      "acao": "olhar_camera",
+      "who": "vo"
+     },
+     {
+      "t": 1.5,
+      "acao": "anim",
+      "who": "lia",
+      "anim": "Walk"
+     },
+     {
+      "t": 1.5,
+      "acao": "mover",
+      "who": "lia",
+      "para": [
+       -1.7,
+       0,
+       -3.4
+      ],
+      "dur": 1.6
+     },
+     {
+      "t": 1.6,
+      "acao": "anim",
+      "who": "vo",
+      "anim": "Walk"
+     },
+     {
+      "t": 1.6,
+      "acao": "mover",
+      "who": "vo",
+      "para": [
+       1.8,
+       0,
+       -3.4
+      ],
+      "dur": 1.6
+     },
+     {
+      "t": 3.2,
+      "acao": "anim",
+      "who": "lia",
+      "anim": "Idle"
+     },
+     {
+      "t": 3.2,
+      "acao": "anim",
+      "who": "vo",
+      "anim": "Idle"
+     },
+     {
+      "t": 3.3,
+      "acao": "olhar_camera",
+      "who": "lia"
+     },
+     {
+      "t": 3.3,
+      "acao": "olhar_camera",
+      "who": "vo"
+     },
+     {
+      "t": 3.6,
+      "acao": "camera",
+      "pos": [
+       0,
+       1.62,
+       -1.6
+      ],
+      "olhar": [
+       0,
+       1.62,
+       -5.8
+      ],
+      "dur": 3.5
+     },
+     {
+      "t": 6.4,
+      "acao": "sfx",
+      "som": "ovni_zumbido"
+     },
+     {
+      "t": 6.6,
+      "acao": "texto3d",
+      "id": "olhos",
+      "texto": "•   •",
+      "pos": [
+       0,
+       1.64,
+       -5.4
+      ],
+      "tamanho": 44,
+      "cor": "#60ff80"
+     },
+     {
+      "t": 6.6,
+      "acao": "luz_ponto",
+      "pos": [
+       0,
+       1.6,
+       -5.2
+      ],
+      "cor": "#40ff70",
+      "energia": 2.0,
+      "raio": 2.5
+     },
+     {
+      "t": 7.2,
+      "acao": "camera",
+      "pos": [
+       0,
+       1.62,
+       -2.6
+      ],
+      "olhar": [
+       0,
+       1.62,
+       -5.8
+      ],
+      "dur": 2.5
+     },
+     {
+      "t": 10.4,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.9
+     }
+    ]
+   }
+  },
+  "tres_da_manha": {
+   "title": "Três da Manhã",
+   "kind": "morte",
+   "text": "Você não escolheu. Os dois avós deram um passo ao mesmo tempo. Depois outro. O relógio da cozinha voltou a andar.",
+   "cinematica": {
+    "location": "fazenda_casa",
+    "camera": {
+     "pos": [
+      0,
+      1.62,
+      0.8
+     ],
+     "olhar": [
+      0,
+      1.35,
+      -3
+     ]
+    },
+    "slots": {
+     "left": [
+      -0.6,
+      0,
+      -3.0
+     ],
+     "right": [
+      0.6,
+      0,
+      -3.0
+     ]
+    },
+    "cast": {
+     "left": {
+      "char": "vo",
+      "anim": "Idle"
+     },
+     "right": {
+      "char": "vo_copia",
+      "anim": "Idle"
+     }
+    },
+    "personagens": {
+     "criatura2": {
+      "name": "",
+      "model": "alien_shellback"
+     }
+    },
+    "dur": 10.5,
+    "narrar": 0.6,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#405848",
+      "energia": 0.5,
+      "neblina": "#06100a",
+      "densidade": 0.035,
+      "fundo": "#020604",
+      "dur": 0.1
+     },
+     {
+      "t": 0,
+      "acao": "texto3d",
+      "id": "relogio",
+      "texto": "03:00",
+      "pos": [
+       -1.4,
+       2.3,
+       -4.8
+      ],
+      "tamanho": 44,
+      "cor": "#ff3030"
+     },
+     {
+      "t": 0.4,
+      "acao": "olhar_camera",
+      "who": "vo"
+     },
+     {
+      "t": 0.4,
+      "acao": "olhar_camera",
+      "who": "vo_copia"
+     },
+     {
+      "t": 1.5,
+      "acao": "anim",
+      "who": "vo",
+      "anim": "Walk"
+     },
+     {
+      "t": 1.5,
+      "acao": "anim",
+      "who": "vo_copia",
+      "anim": "Walk"
+     },
+     {
+      "t": 1.5,
+      "acao": "mover",
+      "who": "vo",
+      "para": [
+       -0.5,
+       0,
+       -2.2
+      ],
+      "dur": 0.9
+     },
+     {
+      "t": 1.5,
+      "acao": "mover",
+      "who": "vo_copia",
+      "para": [
+       0.5,
+       0,
+       -2.2
+      ],
+      "dur": 0.9
+     },
+     {
+      "t": 2.4,
+      "acao": "anim",
+      "who": "vo",
+      "anim": "Idle"
+     },
+     {
+      "t": 2.4,
+      "acao": "anim",
+      "who": "vo_copia",
+      "anim": "Idle"
+     },
+     {
+      "t": 2.5,
+      "acao": "olhar_camera",
+      "who": "vo"
+     },
+     {
+      "t": 2.5,
+      "acao": "olhar_camera",
+      "who": "vo_copia"
+     },
+     {
+      "t": 3.6,
+      "acao": "anim",
+      "who": "vo",
+      "anim": "Walk"
+     },
+     {
+      "t": 3.6,
+      "acao": "anim",
+      "who": "vo_copia",
+      "anim": "Walk"
+     },
+     {
+      "t": 3.6,
+      "acao": "mover",
+      "who": "vo",
+      "para": [
+       -0.4,
+       0,
+       -1.3
+      ],
+      "dur": 0.9
+     },
+     {
+      "t": 3.6,
+      "acao": "mover",
+      "who": "vo_copia",
+      "para": [
+       0.4,
+       0,
+       -1.3
+      ],
+      "dur": 0.9
+     },
+     {
+      "t": 4.5,
+      "acao": "anim",
+      "who": "vo",
+      "anim": "Idle"
+     },
+     {
+      "t": 4.5,
+      "acao": "anim",
+      "who": "vo_copia",
+      "anim": "Idle"
+     },
+     {
+      "t": 4.6,
+      "acao": "olhar_camera",
+      "who": "vo"
+     },
+     {
+      "t": 4.6,
+      "acao": "olhar_camera",
+      "who": "vo_copia"
+     },
+     {
+      "t": 5.2,
+      "acao": "texto3d",
+      "id": "relogio",
+      "texto": "03:01",
+      "pos": [
+       -1.4,
+       2.3,
+       -4.8
+      ],
+      "tamanho": 44,
+      "cor": "#ff3030"
+     },
+     {
+      "t": 5.2,
+      "acao": "sfx",
+      "som": "coracao"
+     },
+     {
+      "t": 6.6,
+      "acao": "trocar",
+      "who": "vo",
+      "novo": "criatura",
+      "anim": "attack"
+     },
+     {
+      "t": 6.6,
+      "acao": "trocar",
+      "who": "vo_copia",
+      "novo": "criatura2",
+      "anim": "attack"
+     },
+     {
+      "t": 6.6,
+      "acao": "fx",
+      "tipo": "flash"
+     },
+     {
+      "t": 6.7,
+      "acao": "sfx",
+      "som": "criatura_grito"
+     },
+     {
+      "t": 7.8,
+      "acao": "fx",
+      "tipo": "vermelho",
+      "de": 0.0,
+      "ate": 0.85,
+      "dur": 0.5
+     },
+     {
+      "t": 9.4,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.9
+     }
+    ]
+   }
+  },
+  "estatua": {
+   "title": "Estátua",
+   "kind": "secreto",
+   "text": "Você não abriu, não fugiu, não escolheu. Ficou parado no escuro até a luz verde entrar pela fresta da porta. Ela gosta de quem não resiste.",
+   "cinematica": {
+    "location": "fazenda_casa",
+    "camera": {
+     "pos": [
+      -0.6,
+      1.62,
+      0.8
+     ],
+     "olhar": [
+      2.0,
+      1.1,
+      -5.0
+     ]
+    },
+    "slots": {
+     "center": [
+      2.0,
+      0,
+      -6.4
+     ]
+    },
+    "cast": {
+     "center": {
+      "char": "criatura",
+      "anim": "idle"
+     }
+    },
+    "dur": 11.5,
+    "narrar": 0.6,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#202830",
+      "energia": 0.25,
+      "neblina": "#020304",
+      "densidade": 0.05,
+      "fundo": "#000000",
+      "dur": 0.1
+     },
+     {
+      "t": 0.5,
+      "acao": "sfx",
+      "som": "coracao"
+     },
+     {
+      "t": 1.5,
+      "acao": "luz_ponto",
+      "pos": [
+       2.0,
+       0.1,
+       -4.7
+      ],
+      "cor": "#40ff70",
+      "energia": 1.0,
+      "raio": 1.6
+     },
+     {
+      "t": 3.5,
+      "acao": "luz_ponto",
+      "pos": [
+       2.0,
+       1.0,
+       -4.7
+      ],
+      "cor": "#40ff70",
+      "energia": 1.6,
+      "raio": 2.6
+     },
+     {
+      "t": 4.0,
+      "acao": "sfx",
+      "som": "ovni_zumbido"
+     },
+     {
+      "t": 5.5,
+      "acao": "luz_ponto",
+      "pos": [
+       2.0,
+       1.6,
+       -4.4
+      ],
+      "cor": "#60ff90",
+      "energia": 2.5,
+      "raio": 4.5,
+      "piscar": true
+     },
+     {
+      "t": 5.6,
+      "acao": "sfx",
+      "som": "porta_abre"
+     },
+     {
+      "t": 6.0,
+      "acao": "anim",
+      "who": "criatura",
+      "anim": "walk"
+     },
+     {
+      "t": 6.0,
+      "acao": "mover",
+      "who": "criatura",
+      "para": [
+       1.6,
+       0,
+       -3.4
+      ],
+      "dur": 2.6
+     },
+     {
+      "t": 8.6,
+      "acao": "anim",
+      "who": "criatura",
+      "anim": "idle"
+     },
+     {
+      "t": 8.6,
+      "acao": "olhar_camera",
+      "who": "criatura"
+     },
+     {
+      "t": 8.8,
+      "acao": "luz",
+      "ambiente": "#40ff70",
+      "energia": 1.6,
+      "neblina": "#20a040",
+      "densidade": 0.06,
+      "fundo": "#0a3a14",
+      "dur": 1.2
+     },
+     {
+      "t": 10.4,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.9
+     }
+    ]
+   }
+  }
+ }
 }
