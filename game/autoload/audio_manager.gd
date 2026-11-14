@@ -51,6 +51,7 @@ const LOCATION_MUSIC := {
 	"campo": "alien_milharal",
 	"fazenda_casa": "alien_casa",
 	"celeiro": "suspense",
+	"avenida": "estrada",
 }
 ## Sons soltos que tocam de vez em quando, baixinho, em cada cenário.
 const LOCATION_RANDOM := {
@@ -63,6 +64,7 @@ const LOCATION_RANDOM := {
 	"campo": ["ovni_zumbido", "criatura_grito", "rosnado_longe"],
 	"fazenda_casa": ["batida_porta", "ovni_zumbido", "criatura_grito"],
 	"celeiro": ["criatura_grito", "rosnado_longe"],
+	"avenida": ["sirene", "helicoptero", "longe_grito", "vidro"],
 }
 const MUSIC_DB := -9.0
 const DUCK_DB := -9.0  # quanto a música abaixa enquanto alguém fala

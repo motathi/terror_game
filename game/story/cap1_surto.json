@@ -2030,14 +2030,14 @@
       "set": {
        "atraso": "=atraso + 1"
       },
-      "next": "carro"
+      "next": "carro_entrar"
      }
     ],
     "timeout": {
      "set": {
       "atraso": "=atraso + 1"
      },
-     "next": "carro"
+     "next": "carro_entrar"
     }
    },
    "aguardar": 1.2,
@@ -2107,7 +2107,7 @@
      "next": "garagem_lenta"
     },
     {
-     "next": "carro"
+     "next": "carro_entrar"
     }
    ]
   },
@@ -2284,47 +2284,15 @@
    "music": "perseguicao"
   },
   "carro": {
-   "location": "carro",
+   "location": "avenida",
    "ambience": "carro",
-   "cast": {
-    "right": {
-     "char": "rafael",
-     "anim": "Sit"
-    }
-   },
+   "cast": {},
    "lines": [
     {
      "id": "carro_01",
      "who": "sistema",
      "text": "Avenida principal. Carros abandonados com as portas abertas. Fumaça no horizonte.",
-     "acoes": [
-      {
-       "t": 0,
-       "acao": "fx",
-       "tipo": "acender",
-       "dur": 0.6
-      },
-      {
-       "t": 0.3,
-       "acao": "camera_olhar",
-       "olhar": [
-        -1.6,
-        1.1,
-        -2.6
-       ],
-       "dur": 1.6
-      },
-      {
-       "t": 2.6,
-       "acao": "camera_olhar",
-       "olhar": [
-        0,
-        0.95,
-        -1.5
-       ],
-       "dur": 1.4
-      }
-     ]
+     "acoes": []
     }
    ],
    "branch": [
@@ -2338,6 +2306,57 @@
     },
     {
      "next": "carro_tranquilo"
+    }
+   ],
+   "music": "estrada",
+   "aguardar": 1.2,
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "camera",
+     "pos": [
+      3.4,
+      2.5,
+      17.0
+     ],
+     "olhar": [
+      1.4,
+      0.9,
+      8.0
+     ],
+     "dur": 0
+    },
+    {
+     "t": 0.2,
+     "acao": "sfx",
+     "som": "motor",
+     "volume": -4
+    },
+    {
+     "t": 0.3,
+     "acao": "no",
+     "nome": "carro_prata",
+     "para": [
+      1.4,
+      0,
+      -30.0
+     ],
+     "dur": 11.0
+    },
+    {
+     "t": 0.3,
+     "acao": "camera",
+     "pos": [
+      3.2,
+      2.4,
+      -20.5
+     ],
+     "olhar": [
+      1.2,
+      0.9,
+      -32.0
+     ],
+     "dur": 11.0
     }
    ]
   },
@@ -2876,54 +2895,9 @@
        "volume": -6
       }
      ]
-    },
-    {
-     "id": "posto_02",
-     "who": "sistema",
-     "text": "Pelo retrovisor, ele senta no meio-fio. Não olha mais pra você.",
-     "acoes": [
-      {
-       "t": 0,
-       "acao": "mover",
-       "who": "rafael",
-       "para": [
-        1.6,
-        -0.12,
-        4.6
-       ],
-       "dur": 0.01
-      },
-      {
-       "t": 0.05,
-       "acao": "mostrar",
-       "who": "rafael"
-      },
-      {
-       "t": 0.05,
-       "acao": "anim",
-       "who": "rafael",
-       "anim": "Sit",
-       "fixo": true
-      },
-      {
-       "t": 0.1,
-       "acao": "olhar_camera",
-       "who": "rafael"
-      },
-      {
-       "t": 0.2,
-       "acao": "camera_olhar",
-       "olhar": [
-        1.4,
-        0.6,
-        4.6
-       ],
-       "dur": 1.4
-      }
-     ]
     }
    ],
-   "next": "casa_chegada"
+   "next": "posto_fora"
   },
   "carro_tranquilo": {
    "location": "carro",
@@ -3668,6 +3642,356 @@
     },
     {
      "ending": "familia"
+    }
+   ]
+  },
+  "carro_entrar": {
+   "location": "garagem",
+   "music": "suspense",
+   "camera": {
+    "pos": [
+     0.4,
+     1.62,
+     -8.0
+    ],
+    "olhar": [
+     2.4,
+     1.0,
+     -14.5
+    ]
+   },
+   "cast": {
+    "right": {
+     "char": "rafael",
+     "anim": "Run"
+    },
+    "left": {
+     "char": "patricia",
+     "anim": "Idle"
+    },
+    "center": {
+     "char": "zumbi",
+     "anim": "ZombieIdle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "esconder",
+     "who": "patricia"
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "zumbi",
+     "para": [
+      7.4,
+      0,
+      -14.6
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0.05,
+     "acao": "mover",
+     "who": "zumbi",
+     "para": [
+      6.9,
+      0,
+      -14.6
+     ],
+     "dur": 0.01
+    }
+   ],
+   "lines": [
+    {
+     "id": "carro_entrar_01",
+     "who": "sistema",
+     "text": "Vocês correm abaixados entre os carros até o prata.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "anim",
+       "who": "rafael",
+       "anim": "Run"
+      },
+      {
+       "t": 0,
+       "acao": "mover",
+       "who": "rafael",
+       "para": [
+        1.6,
+        0,
+        -13.2
+       ],
+       "dur": 2.2
+      },
+      {
+       "t": 0.1,
+       "acao": "camera_andar",
+       "pos": [
+        1.0,
+        1.3,
+        -11.2
+       ],
+       "olhar": [
+        2.4,
+        0.9,
+        -14.5
+       ],
+       "dur": 2.4
+      },
+      {
+       "t": 2.3,
+       "acao": "anim",
+       "who": "rafael",
+       "anim": "Idle",
+       "fixo": true
+      },
+      {
+       "t": 2.3,
+       "acao": "olhar_camera",
+       "who": "rafael"
+      }
+     ]
+    },
+    {
+     "id": "carro_entrar_02",
+     "who": "rafael",
+     "text": "Entra! Entra logo!",
+     "tags": "[panicked, urgent whisper]",
+     "acoes": [
+      {
+       "t": 1.0,
+       "acao": "anim",
+       "who": "rafael",
+       "anim": "Run"
+      },
+      {
+       "t": 1.0,
+       "acao": "mover",
+       "who": "rafael",
+       "para": [
+        5.3,
+        0,
+        -13.3
+       ],
+       "dur": 0.9
+      },
+      {
+       "t": 1.95,
+       "acao": "mover",
+       "who": "rafael",
+       "para": [
+        5.3,
+        0,
+        -15.5
+       ],
+       "dur": 0.6
+      },
+      {
+       "t": 2.5,
+       "acao": "sfx",
+       "som": "porta_abre",
+       "volume": -4
+      },
+      {
+       "t": 2.6,
+       "acao": "esconder",
+       "who": "rafael"
+      }
+     ]
+    },
+    {
+     "id": "carro_entrar_03",
+     "who": "sistema",
+     "text": "A Patrícia vem atrás, mancando, segurando o braço.",
+     "if": "patricia",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "mostrar",
+       "who": "patricia"
+      },
+      {
+       "t": 0,
+       "acao": "entrar",
+       "who": "patricia",
+       "de": [
+        -1.0,
+        0,
+        3.4
+       ],
+       "dur": 2.4,
+       "anim": "Walk",
+       "fim": "Idle"
+      }
+     ]
+    },
+    {
+     "id": "carro_entrar_04",
+     "who": "sistema",
+     "text": "O motor pega na segunda tentativa. Os faróis acendem o fundo da garagem. E o garoto de mochila está olhando pra vocês.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "sfx",
+       "som": "motor"
+      },
+      {
+       "t": 0,
+       "acao": "esconder",
+       "who": "patricia"
+      },
+      {
+       "t": 0,
+       "acao": "camera_andar",
+       "pos": [
+        2.0,
+        1.15,
+        -13.9
+       ],
+       "olhar": [
+        7.0,
+        1.0,
+        -14.5
+       ],
+       "dur": 1.0
+      },
+      {
+       "t": 1.4,
+       "acao": "luz_ponto",
+       "pos": [
+        5.4,
+        0.8,
+        -14.5
+       ],
+       "cor": "#fff4d0",
+       "energia": 4,
+       "raio": 9
+      },
+      {
+       "t": 2.4,
+       "acao": "andar",
+       "who": "zumbi",
+       "por": [
+        0,
+        0,
+        1.6
+       ],
+       "dur": 2.2,
+       "anim": "ZombieWalk",
+       "fim": "ZombieWalk"
+      }
+     ]
+    }
+   ],
+   "next": "carro"
+  },
+  "posto_fora": {
+   "location": "avenida",
+   "cast": {
+    "right": {
+     "char": "rafael",
+     "anim": "Sit"
+    }
+   },
+   "lines": [
+    {
+     "id": "posto_02",
+     "who": "sistema",
+     "text": "Pelo retrovisor, ele senta no meio-fio. Não olha mais pra você."
+    }
+   ],
+   "next": "casa_chegada",
+   "aguardar": 0.6,
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "carro_prata",
+     "para": [
+      1.6,
+      0,
+      -24.0
+     ],
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "rafael",
+     "para": [
+      4.95,
+      -0.2,
+      -20.6
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0.05,
+     "acao": "mover",
+     "who": "rafael",
+     "para": [
+      4.55,
+      -0.2,
+      -20.6
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0.1,
+     "acao": "anim",
+     "who": "rafael",
+     "anim": "Sit",
+     "fixo": true
+    },
+    {
+     "t": 0,
+     "acao": "camera",
+     "pos": [
+      1.6,
+      1.35,
+      -25.4
+     ],
+     "olhar": [
+      4.5,
+      0.5,
+      -20.6
+     ],
+     "dur": 0
+    },
+    {
+     "t": 0.8,
+     "acao": "sfx",
+     "som": "motor",
+     "volume": -6
+    },
+    {
+     "t": 1.0,
+     "acao": "no",
+     "nome": "carro_prata",
+     "para": [
+      1.6,
+      0,
+      -42.0
+     ],
+     "dur": 6.0
+    },
+    {
+     "t": 1.0,
+     "acao": "camera",
+     "pos": [
+      1.6,
+      1.35,
+      -43.4
+     ],
+     "olhar": [
+      4.5,
+      0.5,
+      -20.6
+     ],
+     "dur": 6.0
     }
    ]
   }

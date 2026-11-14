@@ -55,6 +55,8 @@ static func build(id: String, root: Node3D) -> Dictionary:
 			_celeiro(root, cfg)
 		"quintal":
 			_quintal(root, cfg)
+		"avenida":
+			_avenida(root, cfg)
 		_:
 			push_warning("Locations: cenário desconhecido '%s'" % id)
 			box(root, Vector3(10, 0.1, 10), Vector3(0, -0.05, -3), Color(0.1, 0.1, 0.1))
@@ -453,6 +455,103 @@ static func _celeiro(root: Node3D, cfg: Dictionary) -> void:
 	cfg["ambient_energy"] = 0.4
 
 
+static func _avenida(root: Node3D, cfg: Dictionary) -> void:
+	# Avenida principal vista de fora: carros abandonados de porta aberta, um
+	# capotado, outro pegando fogo, fumaça e incêndio no horizonte, um posto de
+	# gasolina e o carro prata do Rafael (nó "carro_prata", anda pela cena).
+	box(root, Vector3(9, 0.1, 130), Vector3(0, -0.05, -45), Color(0.12, 0.12, 0.13))
+	for side in [-1, 1]:
+		box(root, Vector3(3, 0.3, 130), Vector3(side * 6, 0.1, -45), Color(0.33, 0.33, 0.31))
+	for z in range(14, -108, -3):
+		box(root, Vector3(0.15, 0.01, 1.2), Vector3(0, 0.01, z), Color(0.75, 0.7, 0.55))
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 2024
+	for side in [-1, 1]:
+		for i in 17:
+			var z := 8.0 - i * 7.0
+			if side == 1 and z < -13.0 and z > -30.0:
+				continue  # espaço do posto
+			var h := rng.randf_range(6.0, 16.0)
+			box(root, Vector3(5, h, 6.4), Vector3(side * 10.0, h * 0.5, z), Color(0.17, 0.16, 0.17).lightened(rng.randf() * 0.1))
+			for w in 5:
+				if rng.randf() < 0.14:
+					box(root, Vector3(0.05, 0.7, 0.9), Vector3(side * 7.47, rng.randf_range(2.0, h - 1.0), z + rng.randf_range(-2.4, 2.4)), Color(1.0, 0.75, 0.35), 1.4)
+		for i in 9:
+			var z := 6.0 - i * 12.0
+			box(root, Vector3(0.12, 4.5, 0.12), Vector3(side * 4.6, 2.25, z), Color(0.25, 0.25, 0.25))
+			if (i + (1 if side > 0 else 0)) % 3 != 0:
+				var l := omni(root, Vector3(side * 4.0, 4.3, z), Color(1.0, 0.6, 0.25), 1.4, 8.0)
+				if i % 2 == 1:
+					l.add_child(Flicker.new(0.95, 5.0))
+	# carros abandonados, portas abertas
+	for c in [[-2.3, -4.0, 20.0, Color(0.3, 0.32, 0.36)], [2.5, -15.0, 170.0, Color(0.45, 0.1, 0.08)],
+			[-2.0, -31.0, 60.0, Color(0.2, 0.3, 0.22)], [2.2, -46.0, 195.0, Color(0.6, 0.55, 0.4)], [-2.5, -62.0, -15.0, Color(0.25, 0.25, 0.4)]]:
+		var n := car_node(root, Vector3(c[0], 0, c[1]), c[2], c[3])
+		var hinge := Node3D.new()
+		hinge.position = Vector3(1.05, 0.75, 1.2)
+		hinge.rotation.y = deg_to_rad(65)
+		n.add_child(hinge)
+		box(hinge, Vector3(0.06, 0.8, 1.1), Vector3(0, 0, -0.55), (c[3] as Color).lightened(0.2))
+	# capotado no meio da pista
+	var flip := car_node(root, Vector3(-0.6, 1.58, -38.0), 75.0, Color(0.5, 0.5, 0.52))
+	flip.rotation.z = PI
+	# carro pegando fogo
+	car_node(root, Vector3(2.4, 0, -54.0), 160.0, Color(0.2, 0.2, 0.2))
+	var fire := omni(root, Vector3(2.4, 1.8, -54.0), Color(1.0, 0.45, 0.12), 3.0, 9.0)
+	fire.add_child(Flicker.new(0.7, 9.0))
+	box(root, Vector3(1.2, 0.6, 2.0), Vector3(2.4, 1.4, -54.0), Color(1.0, 0.45, 0.1), 3.0)
+	root.add_child(Smoke.new(Vector3(2.4, 2.0, -54.0), 0.9))
+	# entulho
+	for i in 26:
+		var deb := box(root, Vector3(rng.randf_range(0.2, 0.7), rng.randf_range(0.05, 0.25), rng.randf_range(0.2, 0.7)),
+			Vector3(rng.randf_range(-4.0, 4.0), 0.05, rng.randf_range(-70.0, 6.0)), Color(0.3, 0.28, 0.25).darkened(rng.randf() * 0.5))
+		deb.rotation.y = rng.randf() * TAU
+	# incêndio e fumaça no horizonte
+	box(root, Vector3(40, 7, 1), Vector3(0, 3.5, -112), Color(1.0, 0.42, 0.12), 2.0)
+	omni(root, Vector3(0, 6.0, -98), Color(1.0, 0.45, 0.15), 4.0, 40.0)
+	for x in [-14.0, -4.0, 7.0, 16.0]:
+		root.add_child(Smoke.new(Vector3(x, 5.0, -104.0), 3.5))
+	# posto de gasolina (lado direito)
+	box(root, Vector3(6.5, 0.35, 6.0), Vector3(9.0, 4.0, -21.0), Color(0.8, 0.15, 0.1))
+	box(root, Vector3(6.0, 0.03, 5.5), Vector3(9.0, 3.8, -21.0), Color(1.0, 1.0, 0.95), 1.6)
+	for z in [-19.0, -23.0]:
+		box(root, Vector3(0.35, 3.8, 0.35), Vector3(7.6, 1.9, z), Color(0.75, 0.75, 0.75))
+		box(root, Vector3(0.6, 1.4, 0.9), Vector3(9.2, 0.7, z), Color(0.85, 0.85, 0.82))
+		box(root, Vector3(0.5, 0.25, 0.04), Vector3(8.88, 1.1, z), Color(0.3, 1.0, 0.4), 1.2)
+	box(root, Vector3(6.5, 0.12, 7.0), Vector3(9.5, 0.06, -21.0), Color(0.3, 0.3, 0.3))
+	omni(root, Vector3(8.5, 3.4, -21.0), Color(0.95, 1.0, 1.0), 2.2, 9.0)
+	# o carro prata, com faróis e lanternas
+	var mine := car_node(root, Vector3(1.4, 0, 10.0), 180.0, Color(0.75, 0.75, 0.78))
+	mine.name = "carro_prata"
+	for x in [-0.62, 0.62]:
+		box(mine, Vector3(0.3, 0.14, 0.05), Vector3(x, 0.62, 2.36), Color(1, 1, 0.9), 3.0)
+		box(mine, Vector3(0.28, 0.14, 0.05), Vector3(x, 0.8, -2.36), Color(1, 0.05, 0.05), 3.0)
+		var hl := SpotLight3D.new()
+		hl.position = Vector3(x, 0.65, 2.4)
+		hl.light_color = Color(1.0, 0.95, 0.8)
+		hl.light_energy = 3.0
+		hl.spot_range = 22.0
+		hl.spot_angle = 26.0
+		hl.rotation_degrees = Vector3(-4, 0, 0)  # o carro olha para +Z (local)
+		hl.rotate_object_local(Vector3.UP, PI)
+		mine.add_child(hl)
+	var tail := omni(mine, Vector3(0, 0.9, -2.8), Color(1.0, 0.1, 0.05), 0.8, 3.0)
+	tail.remove_from_group("scene_lights")
+	var moon := DirectionalLight3D.new()
+	moon.light_color = Color(0.7, 0.55, 0.5)
+	moon.light_energy = 0.35
+	moon.rotation_degrees = Vector3(-30, 200, 0)
+	root.add_child(moon)
+	cfg["camera_pos"] = Vector3(4.0, 2.6, 16.0)
+	cfg["camera_look"] = Vector3(1.4, 0.8, 6.0)
+	cfg["hands"] = false
+	cfg["center_dist"] = 6.0
+	cfg["fog_density"] = 0.022
+	cfg["fog_color"] = Color(0.16, 0.08, 0.05)
+	cfg["ambient"] = Color(0.55, 0.42, 0.38)
+	cfg["ambient_energy"] = 0.55
+
+
 static func _quintal(root: Node3D, cfg: Dictionary) -> void:
 	# Quintal de casa no interior, à noite: muro de bloco, portão, casinha do
 	# Caramelo, varal, mangueira e o poste da rua do outro lado do muro.
@@ -550,6 +649,17 @@ static func wall(root: Node3D, piece: String, cell: Vector3, rot_y: float) -> vo
 
 static func car(root: Node3D, pos: Vector3, rot_y: float, color: Color) -> void:
 	prop(root, CAR, pos, rot_y, 0.72, Vector3(2.0, 1.4, 4.4), Vector3.ZERO, color.lightened(0.3))
+
+
+## Carro dentro de um Node3D (frente para +Z local; tamanho real ~2 x 4.7 m),
+## para poder mover, girar e pendurar portas/luzes nele.
+static func car_node(root: Node3D, pos: Vector3, rot_y: float, color: Color) -> Node3D:
+	var n := Node3D.new()
+	n.position = pos
+	n.rotation.y = deg_to_rad(rot_y)
+	root.add_child(n)
+	prop(n, CAR, Vector3.ZERO, 0.0, 0.72, Vector3(2.0, 1.4, 4.4), Vector3.ZERO, color.lightened(0.3))
+	return n
 
 
 static func box(root: Node3D, size: Vector3, pos: Vector3, color: Color, emission := 0.0) -> MeshInstance3D:
@@ -738,6 +848,36 @@ class Flicker extends Node:
 		var n := sin(_t) * sin(_t * 2.31) * sin(_t * 0.53)
 		var off := 1.0 if randf() > 0.015 * amount * speed else 0.0
 		light.light_energy = _base * clampf(1.0 - amount * 0.5 + n * amount * 0.5, 0.0, 2.0) * off
+
+
+## Coluna de fumaça: blocos escuros subindo e se abrindo, em loop.
+class Smoke extends Node3D:
+	var base := Vector3.ZERO
+	var size := 1.0
+	var _puffs: Array = []
+
+	func _init(p_base := Vector3.ZERO, p_size := 1.0) -> void:
+		base = p_base
+		size = p_size
+
+	func _ready() -> void:
+		for i in 14:
+			var mi := MeshInstance3D.new()
+			var m := BoxMesh.new()
+			m.size = Vector3.ONE
+			mi.mesh = m
+			mi.material_override = AssetLib.make_material(Color(0.12, 0.1, 0.1).lightened(randf() * 0.12))
+			add_child(mi)
+			_puffs.append([mi, randf()])
+
+	func _process(delta: float) -> void:
+		for p in _puffs:
+			p[1] = fmod(p[1] + delta * 0.05, 1.0)
+			var k: float = p[1]
+			var mi: MeshInstance3D = p[0]
+			mi.position = base + Vector3(sin(k * 9.0 + mi.get_index()) * size * 0.6 + k * size * 2.0, k * size * 10.0, cos(k * 7.0 + mi.get_index()) * size * 0.4)
+			mi.scale = Vector3.ONE * size * (0.6 + k * 2.2)
+			mi.rotation = Vector3(k * 2.0, k * 3.0 + mi.get_index(), 0)
 
 
 ## Pano no varal balançando com o vento.

@@ -355,6 +355,10 @@
    "portao_rangendo": {
     "prompt": "old metal gate slowly creaking open in a backyard at night",
     "duration": 2.5
+   },
+   "motor": {
+    "prompt": "old car engine cranking twice, then starting and revving, echoing in an underground parking garage",
+    "duration": 3.5
    }
   }
  },
