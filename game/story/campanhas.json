@@ -32,22 +32,24 @@
         "luz": "#40ff80",
         "ovni": {
           "pos": [
-            -1.9,
-            4.0,
-            -10
+            -2.3,
+            2.7,
+            -8
           ],
           "cor": "#66ff88"
         },
         "extras": [
           {
-            "model": "alien_grey",
+            "model": "office_worker",
+            "anim": "Idle",
             "pos": [
-              -1.9,
-              1.1,
-              -10
+              -2.3,
+              0.55,
+              -8
             ],
-            "rot": 180,
-            "tint": "#9ab0a8",
+            "rot": 25,
+            "tint": "#1c2a22",
+            "escala": 0.9,
             "flutua": true
           }
         ]
