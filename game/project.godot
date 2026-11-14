@@ -15,6 +15,12 @@ boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
 config/icon="res://icon.svg"
 
+[audio]
+
+; Web: o Godot mistura o áudio (modo Stream). O modo "Sample" ignora
+; os buses criados em código (Phone/Radio/Muffled) e ficava mudo.
+general/default_playback_type.web=0
+
 [autoload]
 
 GameState="*res://autoload/game_state.gd"

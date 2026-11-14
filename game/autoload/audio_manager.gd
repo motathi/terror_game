@@ -84,7 +84,9 @@ func play_sfx(key: String, volume_db: float = 0.0) -> void:
 	if stream == null and SFX_FALLBACK.has(key):
 		stream = _load(SFX_FALLBACK[key])
 	if stream == null:
+		print("[audio] sfx sem arquivo: ", key)
 		return
+	print("[audio] sfx ", key)
 	for p in _sfx_pool:
 		if not p.playing:
 			p.stream = stream
@@ -109,6 +111,7 @@ func play_ambience(key: String, fade: float = 1.5) -> void:
 	var tw := create_tween().set_parallel(true)
 	tw.tween_property(_amb_b, "volume_db", -60.0, fade)
 	tw.chain().tween_callback(_amb_b.stop)
+	print("[audio] ambiente ", key, " -> ", stream != null)
 	if stream != null:
 		_set_loop(stream)
 		_amb_a.stream = stream
