@@ -182,12 +182,12 @@ func actor_at_screen(screen_pos: Vector2, shrink: float) -> String:
 	return best
 
 
-## Mãos em primeira pessoa (PSX FPS Hands, CC0): duas cópias do modelo, cada
-## uma mostrando só um braço, posicionadas nas bordas de baixo da tela como
-## nos vídeos POV. Pose calculada no visualizador (rotação YXZ em graus).
-const HAND_POSE := {
-	"L": {"rot": Vector3(0.87, -67.29, -153.58), "pos": Vector3(0.397, -0.585, 0.355)},  # mão da direita da tela
-	"R": {"rot": Vector3(0.87, 67.29, 153.58), "pos": Vector3(-0.397, -0.585, 0.355)},   # mão da esquerda da tela
+## Mãos em primeira pessoa (PSX FPS Hands, CC0). A pose foi "assada" em dois
+## modelos estáticos já em coordenadas de câmera (tools/hands/bake_hands.py):
+## antebraço e mão subindo pelas bordas de baixo da tela, como nos vídeos POV.
+const HAND_FILES := {
+	"L": "fp_hands/mao_L.glb",  # mão da direita da tela
+	"R": "fp_hands/mao_R.glb",  # mão da esquerda da tela
 }
 var _hand_pivots: Dictionary = {}
 
@@ -195,20 +195,11 @@ var _hand_pivots: Dictionary = {}
 func _build_hands() -> void:
 	hands = Node3D.new()
 	camera.add_child(hands)
-	for side in ["L", "R"]:
-		var inst := AssetLib.spawn(AssetLib.model_path("hands"), Vector3.ZERO)
+	for side in HAND_FILES:
+		var inst := AssetLib.spawn(AssetLib.TP + HAND_FILES[side], Vector3.ZERO)
 		AssetLib.psxify(inst)
-		var other := "R" if side == "L" else "L"
-		for sk in inst.find_children("*", "Skeleton3D", true, false):
-			var skel := sk as Skeleton3D
-			for b in skel.get_bone_count():
-				var bn := skel.get_bone_name(b).replace(".", "").replace("_", "").to_lower()
-				if bn == "upperarm" + other.to_lower():
-					skel.set_bone_pose_scale(b, Vector3.ONE * 0.0001)  # esconde o outro braço
 		var pivot := Node3D.new()
 		pivot.add_child(inst)
-		pivot.rotation_degrees = HAND_POSE[side]["rot"]
-		pivot.position = HAND_POSE[side]["pos"]
 		hands.add_child(pivot)
 		_hand_pivots[side] = pivot
 
@@ -221,7 +212,7 @@ func play_hands(anim: String) -> void:
 	var pivot: Node3D = _hand_pivots.get("L" if anim.ends_with("R") else "R")
 	if pivot == null:
 		return
-	var base: Vector3 = HAND_POSE["L" if anim.ends_with("R") else "R"]["pos"]
+	var base := Vector3.ZERO
 	var tw := create_tween().set_trans(Tween.TRANS_QUAD)
 	tw.tween_property(pivot, "position", base + Vector3(0, 0.06, -0.16), 0.18).set_ease(Tween.EASE_OUT)
 	tw.tween_property(pivot, "position", base, 0.45).set_ease(Tween.EASE_IN_OUT)
