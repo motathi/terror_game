@@ -77,6 +77,8 @@ func set_location(id: String, force := false) -> void:
 	_cam_base = camera.transform
 	_node_cam = _cam_base
 	_walk = 0.0
+	if _cam_tween and _cam_tween.is_valid():
+		_cam_tween.kill()  # movimento de câmera do cenário anterior não continua aqui
 	hands.visible = location_cfg.get("hands", true)
 	_view_key = ""
 	_loc_view = {}
@@ -106,6 +108,8 @@ func apply_node_view(view: Dictionary) -> bool:
 		pos = Vector3(view["pos"][0], view["pos"][1], view["pos"][2])
 	if view.has("olhar"):
 		look = Vector3(view["olhar"][0], view["olhar"][1], view["olhar"][2])
+	if _cam_tween and _cam_tween.is_valid():
+		_cam_tween.kill()
 	set_camera(pos, look)
 	return true
 

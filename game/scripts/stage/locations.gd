@@ -480,7 +480,7 @@ static func _avenida(root: Node3D, cfg: Dictionary) -> void:
 			var z := 6.0 - i * 12.0
 			box(root, Vector3(0.12, 4.5, 0.12), Vector3(side * 4.6, 2.25, z), Color(0.25, 0.25, 0.25))
 			if (i + (1 if side > 0 else 0)) % 3 != 0:
-				var l := omni(root, Vector3(side * 4.0, 4.3, z), Color(1.0, 0.6, 0.25), 1.4, 8.0)
+				var l := omni(root, Vector3(side * 4.0, 4.3, z), Color(1.0, 0.62, 0.3), 2.4, 11.0)
 				if i % 2 == 1:
 					l.add_child(Flicker.new(0.95, 5.0))
 	# carros abandonados, portas abertas
@@ -519,7 +519,7 @@ static func _avenida(root: Node3D, cfg: Dictionary) -> void:
 		box(root, Vector3(0.6, 1.4, 0.9), Vector3(9.2, 0.7, z), Color(0.85, 0.85, 0.82))
 		box(root, Vector3(0.5, 0.25, 0.04), Vector3(8.88, 1.1, z), Color(0.3, 1.0, 0.4), 1.2)
 	box(root, Vector3(6.5, 0.12, 7.0), Vector3(9.5, 0.06, -21.0), Color(0.3, 0.3, 0.3))
-	omni(root, Vector3(8.5, 3.4, -21.0), Color(0.95, 1.0, 1.0), 2.2, 9.0)
+	omni(root, Vector3(8.0, 3.4, -21.0), Color(0.95, 1.0, 1.0), 3.5, 12.0)
 	# o carro prata, com faróis e lanternas
 	var mine := car_node(root, Vector3(1.4, 0, 10.0), 180.0, Color(0.75, 0.75, 0.78))
 	mine.name = "carro_prata"
@@ -538,18 +538,23 @@ static func _avenida(root: Node3D, cfg: Dictionary) -> void:
 	var tail := omni(mine, Vector3(0, 0.9, -2.8), Color(1.0, 0.1, 0.05), 0.8, 3.0)
 	tail.remove_from_group("scene_lights")
 	var moon := DirectionalLight3D.new()
-	moon.light_color = Color(0.7, 0.55, 0.5)
-	moon.light_energy = 0.35
-	moon.rotation_degrees = Vector3(-30, 200, 0)
+	moon.light_color = Color(0.7, 0.6, 0.6)
+	moon.light_energy = 0.5
+	moon.rotation_degrees = Vector3(-35, 30, 0)
 	root.add_child(moon)
+	var glow := DirectionalLight3D.new()  # clarão laranja do incêndio, vindo do horizonte
+	glow.light_color = Color(1.0, 0.5, 0.2)
+	glow.light_energy = 0.7
+	glow.rotation_degrees = Vector3(-12, 180, 0)
+	root.add_child(glow)
 	cfg["camera_pos"] = Vector3(4.0, 2.6, 16.0)
 	cfg["camera_look"] = Vector3(1.4, 0.8, 6.0)
 	cfg["hands"] = false
 	cfg["center_dist"] = 6.0
-	cfg["fog_density"] = 0.022
-	cfg["fog_color"] = Color(0.16, 0.08, 0.05)
-	cfg["ambient"] = Color(0.55, 0.42, 0.38)
-	cfg["ambient_energy"] = 0.55
+	cfg["fog_density"] = 0.01
+	cfg["fog_color"] = Color(0.32, 0.15, 0.08)
+	cfg["ambient"] = Color(0.6, 0.48, 0.44)
+	cfg["ambient_energy"] = 1.1
 
 
 static func _quintal(root: Node3D, cfg: Dictionary) -> void:
