@@ -330,6 +330,7 @@ static func _campo(root: Node3D, cfg: Dictionary) -> void:
 	omni(root, Vector3(-1.2, 2.6, 1.6), Color(1.0, 0.75, 0.45), 1.3, 8.0)
 	var u := ufo(root, Vector3(3.5, 9.0, -24.0))
 	u.scale = Vector3.ONE * 1.4
+	u.name = "ovni"  # a história pode mover o disco ("no")
 	cfg["camera_look"] = Vector3(0, 1.5, -6.0)
 	cfg["center_dist"] = 5.0
 	cfg["fog_density"] = 0.03

@@ -68,47 +68,188 @@
     {
      "id": "al_inicio_01",
      "who": "sistema",
-     "text": "Férias no sítio do seu avô. A energia caiu às onze da noite."
+     "text": "Férias no sítio do seu avô. A energia caiu às onze da noite.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        10,
+        16,
+        -45
+       ],
+       "dur": 1.8
+      },
+      {
+       "t": 2.6,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        1.5,
+        -6
+       ],
+       "dur": 1.4
+      }
+     ]
     },
     {
      "id": "al_inicio_02",
      "who": "radio",
      "tags": "[radio announcer, rural station, static]",
-     "text": "...moradores da região relatam luzes no céu pela terceira noite seguida. A polícia pede calma à população..."
+     "text": "...moradores da região relatam luzes no céu pela terceira noite seguida. A polícia pede calma à população...",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "vo",
+       "dur": 0.8
+      }
+     ]
     },
     {
      "id": "al_inicio_03",
      "who": "vo",
      "anim": "Talk",
      "tags": "[old man, grumpy, worried]",
-     "text": "Calma, nada. Já sumiram três vacas. Ontem foi a Mimosa."
+     "text": "Calma, nada. Já sumiram três vacas. Ontem foi a Mimosa.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "olhar_camera",
+       "who": "vo"
+      }
+     ]
     },
     {
      "id": "al_inicio_04",
      "who": "lia",
      "anim": "Talk",
      "tags": "[excited, whispering]",
-     "text": "Olha lá, em cima do milharal! Tá parado no ar!"
+     "text": "Olha lá, em cima do milharal! Tá parado no ar!",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "anim",
+       "who": "lia",
+       "anim": "Wave"
+      },
+      {
+       "t": 0.4,
+       "acao": "andar",
+       "who": "lia",
+       "por": [
+        0.2,
+        0,
+        -0.7
+       ],
+       "dur": 1.2,
+       "olhar_camera": false
+      },
+      {
+       "t": 0.6,
+       "acao": "camera_olhar",
+       "olhar": [
+        3.5,
+        9.0,
+        -24.0
+       ],
+       "dur": 1.4
+      }
+     ]
     },
     {
      "id": "al_inicio_05",
      "who": "sistema",
      "sfx": "ovni_zumbido",
-     "text": "Uma luz verde, imóvel. Nenhum som. Os grilos param de cantar."
+     "text": "Uma luz verde, imóvel. Nenhum som. Os grilos param de cantar.",
+     "acoes": [
+      {
+       "t": 0.5,
+       "acao": "luz_ponto",
+       "pos": [
+        2.5,
+        2.0,
+        -14.0
+       ],
+       "cor": "#40ff70",
+       "energia": 2.0,
+       "raio": 10
+      },
+      {
+       "t": 1.0,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        -0.3
+       ],
+       "dur": 3.0,
+       "olhar": [
+        3.5,
+        9.0,
+        -24.0
+       ]
+      }
+     ]
     },
     {
      "id": "al_inicio_06",
      "who": "lia",
      "anim": "Talk",
      "tags": "[pleading, excited]",
-     "text": "Vem comigo filmar! Se a gente postar isso, vai viralizar!"
+     "text": "Vem comigo filmar! Se a gente postar isso, vai viralizar!",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "olhar_camera",
+       "who": "lia"
+      },
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "lia",
+       "dur": 0.8
+      },
+      {
+       "t": 0.3,
+       "acao": "andar",
+       "who": "lia",
+       "por": [
+        0.1,
+        0,
+        0.8
+       ],
+       "dur": 1.2,
+       "fim": "Idle"
+      }
+     ]
     },
     {
      "id": "al_inicio_07",
      "who": "vo",
      "anim": "Talk",
      "tags": "[firm, scared]",
-     "text": "Ninguém sai dessa casa hoje. Fica comigo, menino."
+     "text": "Ninguém sai dessa casa hoje. Fica comigo, menino.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "vo",
+       "dur": 0.6
+      },
+      {
+       "t": 0.2,
+       "acao": "andar",
+       "who": "vo",
+       "por": [
+        -0.2,
+        0,
+        0.5
+       ],
+       "dur": 1.2,
+       "fim": "Idle"
+      }
+     ]
     }
    ],
    "choice": {
@@ -156,7 +297,42 @@
     {
      "id": "al_inicio_puxado_01",
      "who": "sistema",
-     "text": "Você hesita. A Lia agarra a sua mão e te puxa para o milho."
+     "text": "Você hesita. A Lia agarra a sua mão e te puxa para o milho.",
+     "acoes": [
+      {
+       "t": 0.5,
+       "acao": "maos",
+       "anim": "grab.L"
+      },
+      {
+       "t": 0.6,
+       "acao": "andar",
+       "who": "lia",
+       "por": [
+        -1.8,
+        0,
+        -3.0
+       ],
+       "dur": 2.2,
+       "anim": "Run",
+       "olhar_camera": false
+      },
+      {
+       "t": 0.8,
+       "acao": "camera_andar",
+       "por": [
+        -1.4,
+        0,
+        -2.6
+       ],
+       "dur": 2.2,
+       "olhar": [
+        -3.5,
+        1.3,
+        -9.0
+       ]
+      }
+     ]
     }
    ],
    "next": "milharal"
@@ -178,32 +354,156 @@
     {
      "id": "al_milharal_01",
      "who": "sistema",
-     "text": "O milho é mais alto que vocês. A luz do celular da Lia treme."
+     "text": "O milho é mais alto que vocês. A luz do celular da Lia treme.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_andar",
+       "por": [
+        0,
+        0,
+        -1.2
+       ],
+       "dur": 2.6
+      },
+      {
+       "t": 0.3,
+       "acao": "luz_ponto",
+       "pos": [
+        -4.6,
+        1.3,
+        -7.0
+       ],
+       "cor": "#e8f0ff",
+       "energia": 1.2,
+       "raio": 3.5,
+       "piscar": true
+      }
+     ]
     },
     {
      "id": "al_milharal_02",
      "who": "lia",
      "anim": "Talk",
      "tags": "[pain, hissing]",
-     "text": "Ai! Cortei a mão no arame farpado."
+     "text": "Ai! Cortei a mão no arame farpado.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "lia",
+       "dur": 0.6
+      },
+      {
+       "t": 0,
+       "acao": "tremer",
+       "who": "lia",
+       "dur": 0.5
+      }
+     ]
     },
     {
      "id": "al_milharal_03",
      "who": "sistema",
-     "text": "Ela enrola a mão esquerda na manga da blusa. O sangue escurece o tecido."
+     "text": "Ela enrola a mão esquerda na manga da blusa. O sangue escurece o tecido.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        -4.8,
+        0.95,
+        -6.6
+       ],
+       "dur": 1.0
+      }
+     ]
     },
     {
      "id": "al_milharal_04",
      "who": "lia",
      "anim": "Talk",
      "tags": "[whispers, amazed]",
-     "text": "Olha... um círculo. O milho tá deitado num círculo perfeito."
+     "text": "Olha... um círculo. O milho tá deitado num círculo perfeito.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "andar",
+       "who": "lia",
+       "por": [
+        0.25,
+        0,
+        -1.3
+       ],
+       "dur": 1.8,
+       "olhar_camera": false
+      },
+      {
+       "t": 0.4,
+       "acao": "camera_andar",
+       "por": [
+        0.1,
+        0,
+        -1.0
+       ],
+       "dur": 2.0,
+       "olhar": [
+        -4.3,
+        0.1,
+        -11.0
+       ]
+      }
+     ]
     },
     {
      "id": "al_milharal_05",
      "who": "sistema",
      "sfx": "criatura_grito",
-     "text": "Algo se mexe entre as fileiras. Alto. Curvado. Muitos olhos verdes."
+     "text": "Algo se mexe entre as fileiras. Alto. Curvado. Muitos olhos verdes.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "mostrar",
+       "who": "criatura"
+      },
+      {
+       "t": 0,
+       "acao": "entrar",
+       "who": "criatura",
+       "de": [
+        3.5,
+        0,
+        -1.5
+       ],
+       "dur": 2.6,
+       "anim": "walk",
+       "fim": "idle"
+      },
+      {
+       "t": 0.4,
+       "acao": "camera_olhar",
+       "who": "criatura",
+       "dur": 1.2
+      },
+      {
+       "t": 0.2,
+       "acao": "olhar_camera",
+       "who": "lia"
+      },
+      {
+       "t": 0.5,
+       "acao": "luz_ponto",
+       "pos": [
+        -3.6,
+        2.6,
+        -8.6
+       ],
+       "cor": "#40ff70",
+       "energia": 1.5,
+       "raio": 3.0,
+       "piscar": true
+      }
+     ]
     }
    ],
    "choice": {
@@ -223,7 +523,29 @@
     "timeout": {
      "next": "feixe"
     }
-   }
+   },
+   "camera": {
+    "pos": [
+     -4.3,
+     1.5,
+     -4.0
+    ],
+    "olhar": [
+     -4.3,
+     1.3,
+     -12.0
+    ],
+    "slot_dist": 2.4,
+    "slot_spread": 0.5,
+    "center_dist": 5.2
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "esconder",
+     "who": "criatura"
+    }
+   ]
   },
   "feixe": {
    "location": "campo",
@@ -243,27 +565,214 @@
      "who": "sistema",
      "sfx": "ovni_zumbido",
      "fx": "flicker",
-     "text": "Vocês se jogam no chão. Uma luz verde desce do céu, sem fazer barulho."
+     "text": "Vocês se jogam no chão. Uma luz verde desce do céu, sem fazer barulho.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        -1.0,
+        0
+       ],
+       "dur": 0.5,
+       "olhar": [
+        -4.6,
+        4.0,
+        -9.0
+       ]
+      },
+      {
+       "t": 0,
+       "acao": "anim",
+       "who": "lia",
+       "anim": "Sit",
+       "fixo": true
+      },
+      {
+       "t": 0.2,
+       "acao": "no",
+       "nome": "ovni",
+       "para": [
+        -4.6,
+        7.5,
+        -8.0
+       ],
+       "dur": 2.2
+      },
+      {
+       "t": 1.6,
+       "acao": "luz_ponto",
+       "pos": [
+        -4.6,
+        4.0,
+        -7.4
+       ],
+       "cor": "#50ff80",
+       "energia": 4.0,
+       "raio": 9.0
+      },
+      {
+       "t": 1.6,
+       "acao": "luz",
+       "ambiente": "#60ff90",
+       "energia": 1.3,
+       "neblina": "#1a5a2a",
+       "densidade": 0.05,
+       "fundo": "#082010",
+       "dur": 1.0
+      }
+     ]
     },
     {
      "id": "al_feixe_02",
      "who": "lia",
      "tags": "[screaming, terrified]",
-     "text": "Eu tô subindo! Me segura! ME SEGURA!"
+     "text": "Eu tô subindo! Me segura! ME SEGURA!",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "anim",
+       "who": "lia",
+       "anim": "Run",
+       "fixo": true
+      },
+      {
+       "t": 0,
+       "acao": "andar",
+       "who": "lia",
+       "por": [
+        0,
+        1.2,
+        0
+       ],
+       "dur": 3.0,
+       "anim": "Run",
+       "fim": "Run"
+      },
+      {
+       "t": 0.3,
+       "acao": "maos",
+       "anim": "grab.L"
+      },
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "lia",
+       "dur": 0.8
+      }
+     ]
     },
     {
      "id": "al_feixe_03",
      "who": "sistema",
-     "text": "Os pés dela saem do chão. A mão machucada escorrega da sua."
+     "text": "Os pés dela saem do chão. A mão machucada escorrega da sua.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "andar",
+       "who": "lia",
+       "por": [
+        0,
+        2.4,
+        0
+       ],
+       "dur": 2.6,
+       "anim": "Run",
+       "fim": "Run"
+      },
+      {
+       "t": 0.8,
+       "acao": "maos",
+       "anim": "grab.L"
+      },
+      {
+       "t": 1.0,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.06
+      },
+      {
+       "t": 0.3,
+       "acao": "camera_olhar",
+       "olhar": [
+        -4.6,
+        4.6,
+        -7.4
+       ],
+       "dur": 1.6
+      }
+     ]
     },
     {
      "id": "al_feixe_04",
      "who": "sistema",
      "fx": "lights_off",
-     "text": "E a luz se apaga. Com ela."
+     "text": "E a luz se apaga. Com ela.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "andar",
+       "who": "lia",
+       "por": [
+        0,
+        8.0,
+        0
+       ],
+       "dur": 0.7,
+       "anim": "Run",
+       "fim": "Run"
+      },
+      {
+       "t": 0.7,
+       "acao": "esconder",
+       "who": "lia"
+      },
+      {
+       "t": 0.6,
+       "acao": "fx",
+       "tipo": "flash"
+      },
+      {
+       "t": 0.8,
+       "acao": "no",
+       "nome": "ovni",
+       "para": [
+        6.0,
+        40.0,
+        -60.0
+       ],
+       "dur": 1.4
+      },
+      {
+       "t": 1.0,
+       "acao": "luz",
+       "ambiente": "#203028",
+       "energia": 0.35,
+       "neblina": "#020604",
+       "densidade": 0.04,
+       "fundo": "#000000",
+       "dur": 0.6
+      }
+     ]
     }
    ],
-   "next": "casa_volta_sozinho"
+   "next": "casa_volta_sozinho",
+   "camera": {
+    "pos": [
+     -4.3,
+     1.5,
+     -4.0
+    ],
+    "olhar": [
+     -4.3,
+     1.3,
+     -12.0
+    ],
+    "slot_dist": 2.4,
+    "slot_spread": 0.5,
+    "center_dist": 5.2
+   }
   },
   "queda": {
    "location": "campo",
@@ -283,19 +792,116 @@
      "id": "al_queda_01",
      "who": "sistema",
      "sfx": "passos",
-     "text": "Vocês correm. A Lia tropeça numa raiz e cai."
+     "text": "Vocês correm. A Lia tropeça numa raiz e cai.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "anim",
+       "who": "lia",
+       "anim": "Run"
+      },
+      {
+       "t": 0,
+       "acao": "camera_andar",
+       "por": [
+        0,
+        0,
+        1.6
+       ],
+       "dur": 1.2
+      },
+      {
+       "t": 0.9,
+       "acao": "anim",
+       "who": "lia",
+       "anim": "Sit",
+       "fixo": true
+      },
+      {
+       "t": 0.9,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.05
+      },
+      {
+       "t": 1.0,
+       "acao": "andar",
+       "who": "lia",
+       "por": [
+        0,
+        -0.42,
+        0
+       ],
+       "dur": 0.2,
+       "anim": "Sit",
+       "fim": "Sit"
+      }
+     ]
     },
     {
      "id": "al_queda_02",
      "who": "lia",
      "tags": "[crying, pleading]",
-     "text": "Minha perna! Não me deixa aqui!"
+     "text": "Minha perna! Não me deixa aqui!",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "lia",
+       "dur": 0.6
+      },
+      {
+       "t": 0.2,
+       "acao": "tremer",
+       "who": "lia",
+       "dur": 0.8
+      }
+     ]
     },
     {
      "id": "al_queda_03",
      "who": "sistema",
      "sfx": "criatura_grito",
-     "text": "A criatura sai do milho. Dez metros. Oito."
+     "text": "A criatura sai do milho. Dez metros. Oito.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "mostrar",
+       "who": "criatura"
+      },
+      {
+       "t": 0,
+       "acao": "entrar",
+       "who": "criatura",
+       "de": [
+        -3.2,
+        0,
+        -4.0
+       ],
+       "dur": 2.0,
+       "anim": "run",
+       "fim": "walk"
+      },
+      {
+       "t": 0.3,
+       "acao": "camera_olhar",
+       "who": "criatura",
+       "dur": 1.0
+      },
+      {
+       "t": 2.2,
+       "acao": "andar",
+       "who": "criatura",
+       "por": [
+        0.2,
+        0,
+        1.6
+       ],
+       "dur": 2.4,
+       "anim": "walk",
+       "fim": "walk"
+      }
+     ]
     }
    ],
    "choice": {
@@ -330,7 +936,21 @@
      },
      "next": "queda_fuga"
     }
-   }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "anim",
+     "who": "lia",
+     "anim": "Run",
+     "fixo": true
+    },
+    {
+     "t": 0,
+     "acao": "esconder",
+     "who": "criatura"
+    }
+   ]
   },
   "queda_volta": {
    "location": "campo",
@@ -344,13 +964,110 @@
     {
      "id": "al_queda_volta_01",
      "who": "sistema",
-     "text": "Você puxa a Lia pelo braço. Por um segundo, a luz verde cai sobre você."
+     "text": "Você puxa a Lia pelo braço. Por um segundo, a luz verde cai sobre você.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "maos",
+       "anim": "grab.L"
+      },
+      {
+       "t": 0.2,
+       "acao": "anim",
+       "who": "lia",
+       "anim": "Run",
+       "fixo": true
+      },
+      {
+       "t": 0.3,
+       "acao": "andar",
+       "who": "lia",
+       "por": [
+        0.4,
+        0.42,
+        1.8
+       ],
+       "dur": 1.4,
+       "anim": "Run",
+       "fim": "Run"
+      },
+      {
+       "t": 0.8,
+       "acao": "luz",
+       "ambiente": "#80ffa0",
+       "energia": 1.6,
+       "neblina": "#2a7a3a",
+       "densidade": 0.06,
+       "fundo": "#0a3014",
+       "dur": 0.3
+      },
+      {
+       "t": 0.9,
+       "acao": "fx",
+       "tipo": "flash"
+      }
+     ]
     },
     {
      "id": "al_queda_volta_02",
      "who": "sistema",
      "sfx": "ovni_zumbido",
-     "text": "Um frio atravessa o seu corpo inteiro. Depois, nada. Vocês correm."
+     "text": "Um frio atravessa o seu corpo inteiro. Depois, nada. Vocês correm.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "luz",
+       "ambiente": "#405848",
+       "energia": 0.6,
+       "neblina": "#06100a",
+       "densidade": 0.03,
+       "fundo": "#020604",
+       "dur": 1.2
+      },
+      {
+       "t": 0.2,
+       "acao": "maos_cor",
+       "cor": "#c8dcc4",
+       "dur": 2.0
+      },
+      {
+       "t": 1.2,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        1.5,
+        10
+       ],
+       "dur": 0.6
+      },
+      {
+       "t": 1.8,
+       "acao": "camera_andar",
+       "pos": [
+        0,
+        1.62,
+        6.0
+       ],
+       "olhar": [
+        0,
+        1.5,
+        12
+       ],
+       "dur": 2.4
+      },
+      {
+       "t": 1.8,
+       "acao": "sair",
+       "who": "lia",
+       "para": [
+        0.8,
+        0,
+        6.5
+       ],
+       "dur": 2.0,
+       "anim": "Run"
+      }
+     ]
     }
    ],
    "next": "casa_volta_salva"
@@ -368,12 +1085,62 @@
      "id": "al_queda_fuga_01",
      "who": "lia",
      "tags": "[screaming, far away]",
-     "text": "Volta! VOLTA!"
+     "text": "Volta! VOLTA!",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        1.5,
+        10
+       ],
+       "dur": 0.5
+      },
+      {
+       "t": 0.5,
+       "acao": "camera_andar",
+       "pos": [
+        0,
+        1.62,
+        4.0
+       ],
+       "olhar": [
+        0,
+        1.5,
+        12
+       ],
+       "dur": 2.2
+      }
+     ]
     },
     {
      "id": "al_queda_fuga_02",
      "who": "sistema",
-     "text": "Você não olha pra trás. Atrás de você, o grito para de repente."
+     "text": "Você não olha pra trás. Atrás de você, o grito para de repente.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_andar",
+       "pos": [
+        -0.6,
+        1.62,
+        8.0
+       ],
+       "olhar": [
+        -1.2,
+        1.8,
+        14
+       ],
+       "dur": 3.0
+      },
+      {
+       "t": 1.6,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.04
+      }
+     ]
     }
    ],
    "next": "casa_volta_sozinho"
@@ -382,6 +1149,10 @@
    "location": "fazenda_casa",
    "ambience": "casa",
    "cast": {
+    "left": {
+     "char": "lia",
+     "anim": "Idle"
+    },
     "right": {
      "char": "vo",
      "anim": "Idle"
@@ -395,34 +1166,147 @@
     {
      "id": "al_casa_vo_01",
      "who": "sistema",
-     "text": "A Lia sai correndo para o milharal antes que alguém consiga segurar."
+     "text": "A Lia sai correndo para o milharal antes que alguém consiga segurar.",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "sair",
+       "who": "lia",
+       "para": [
+        2.6,
+        0,
+        -3.3
+       ],
+       "dur": 1.4,
+       "anim": "Run"
+      },
+      {
+       "t": 0.3,
+       "acao": "camera_olhar",
+       "olhar": [
+        2.0,
+        1.2,
+        -4.8
+       ],
+       "dur": 1.0
+      },
+      {
+       "t": 1.4,
+       "acao": "sfx",
+       "som": "porta_abre",
+       "volume": -4
+      },
+      {
+       "t": 0.5,
+       "acao": "andar",
+       "who": "vo",
+       "por": [
+        0.4,
+        0,
+        -0.5
+       ],
+       "dur": 1.0,
+       "fim": "Idle",
+       "olhar_camera": false
+      }
+     ]
     },
     {
      "id": "al_casa_vo_02",
      "who": "vo",
      "anim": "Talk",
      "tags": "[angry, old man]",
-     "text": "Menina teimosa! Igualzinha à mãe!"
+     "text": "Menina teimosa! Igualzinha à mãe!",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "vo",
+       "dur": 0.8
+      },
+      {
+       "t": 1.2,
+       "acao": "olhar_camera",
+       "who": "vo"
+      }
+     ]
     },
     {
      "id": "al_casa_vo_03",
      "who": "vo",
      "anim": "Talk",
      "tags": "[serious, low voice]",
-     "text": "Escuta bem. Se alguém bater nessa porta dizendo que é da família, você pede a senha. Jabuticaba. Quem não souber, não entra."
+     "text": "Escuta bem. Se alguém bater nessa porta dizendo que é da família, você pede a senha. Jabuticaba. Quem não souber, não entra.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "andar",
+       "who": "vo",
+       "por": [
+        -0.4,
+        0,
+        0.7
+       ],
+       "dur": 1.2,
+       "fim": "Idle"
+      }
+     ]
     },
     {
      "id": "al_casa_vo_04",
      "who": "sistema",
      "sfx": "ovni_zumbido",
-     "text": "Pela janela, a luz verde desce sobre o milharal. E apaga."
+     "text": "Pela janela, a luz verde desce sobre o milharal. E apaga.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        1.6,
+        -4.9
+       ],
+       "dur": 1.2
+      },
+      {
+       "t": 0.8,
+       "acao": "luz_ponto",
+       "pos": [
+        0,
+        1.8,
+        -6.0
+       ],
+       "cor": "#50ff80",
+       "energia": 4.0,
+       "raio": 6.0
+      },
+      {
+       "t": 2.0,
+       "acao": "fx",
+       "tipo": "piscar",
+       "dur": 1.0
+      }
+     ]
     },
     {
      "id": "al_casa_vo_05",
      "who": "vo",
      "anim": "Talk",
      "tags": "[determined, scared]",
-     "text": "Eu vou atrás dela. Você vem comigo ou fica?"
+     "text": "Eu vou atrás dela. Você vem comigo ou fica?",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "vo",
+       "dur": 0.8
+      },
+      {
+       "t": 0.2,
+       "acao": "olhar_camera",
+       "who": "vo"
+      }
+     ]
     }
    ],
    "choice": {
@@ -465,27 +1349,123 @@
     {
      "id": "al_celeiro_01",
      "who": "sistema",
-     "text": "O celeiro fede a sangue. Alguma coisa mastiga no escuro."
+     "text": "O celeiro fede a sangue. Alguma coisa mastiga no escuro.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.2,
+        0,
+        -4.8
+       ],
+       "dur": 1.4
+      },
+      {
+       "t": 2.4,
+       "acao": "camera_olhar",
+       "who": "criatura",
+       "dur": 1.2
+      },
+      {
+       "t": 1.0,
+       "acao": "sfx",
+       "som": "gemido",
+       "volume": -8
+      }
+     ]
     },
     {
      "id": "al_celeiro_02",
      "who": "lia",
      "tags": "[pleading, muffled, from far away]",
-     "text": "Seu Tião! Me ajuda! Tô aqui no fundo!"
+     "text": "Seu Tião! Me ajuda! Tô aqui no fundo!",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        1.5,
+        -11.5
+       ],
+       "dur": 1.2
+      },
+      {
+       "t": 0.2,
+       "acao": "olhar_para",
+       "who": "vo",
+       "alvo": "criatura"
+      }
+     ]
     },
     {
      "id": "al_celeiro_03",
      "who": "vo",
      "anim": "Talk",
      "tags": "[whispers, horrified]",
-     "text": "Isso não é ela. A Lia nunca me chamou de Seu Tião na vida."
+     "text": "Isso não é ela. A Lia nunca me chamou de Seu Tião na vida.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "olhar_camera",
+       "who": "vo"
+      },
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "vo",
+       "dur": 0.6
+      },
+      {
+       "t": 0.4,
+       "acao": "andar",
+       "who": "vo",
+       "por": [
+        -0.2,
+        0,
+        0.4
+       ],
+       "dur": 1.0,
+       "fim": "Idle"
+      }
+     ]
     },
     {
      "id": "al_celeiro_04",
      "who": "vo",
      "anim": "Talk",
      "tags": "[urgent, shouting]",
-     "text": "Atira, menino! Toma a espingarda!"
+     "text": "Atira, menino! Toma a espingarda!",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "anim",
+       "who": "vo",
+       "anim": "Wave"
+      },
+      {
+       "t": 0.6,
+       "acao": "maos",
+       "anim": "grab.R"
+      },
+      {
+       "t": 2.2,
+       "acao": "olhar_camera",
+       "who": "criatura"
+      },
+      {
+       "t": 2.2,
+       "acao": "sfx",
+       "som": "criatura_grito"
+      },
+      {
+       "t": 2.3,
+       "acao": "camera_olhar",
+       "who": "criatura",
+       "dur": 0.6
+      }
+     ]
     }
    ],
    "choice": {
@@ -511,7 +1491,52 @@
     "timeout": {
      "ending": "isca"
     }
-   }
+   },
+   "aguardar": 1.2,
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "camera",
+     "pos": [
+      0,
+      1.62,
+      2.4
+     ],
+     "olhar": [
+      0,
+      1.3,
+      -6.0
+     ],
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "camera_andar",
+     "pos": [
+      0,
+      1.62,
+      0
+     ],
+     "olhar": [
+      0,
+      1.3,
+      -6.0
+     ],
+     "dur": 2.0
+    },
+    {
+     "t": 0,
+     "acao": "entrar",
+     "who": "vo",
+     "de": [
+      0.3,
+      0,
+      2.6
+     ],
+     "dur": 2.0,
+     "fim": "Idle"
+    }
+   ]
   },
   "celeiro_tiro": {
    "location": "celeiro",
@@ -519,6 +1544,10 @@
     "center": {
      "char": "criatura",
      "anim": "hit"
+    },
+    "right": {
+     "char": "vo",
+     "anim": "Idle"
     }
    },
    "lines": [
@@ -527,19 +1556,137 @@
      "who": "sistema",
      "sfx": "tiro",
      "fx": "flicker",
-     "text": "O tiro ilumina o celeiro. A criatura grita."
+     "text": "O tiro ilumina o celeiro. A criatura grita.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "fx",
+       "tipo": "flash"
+      },
+      {
+       "t": 0,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.1
+      },
+      {
+       "t": 0.1,
+       "acao": "luz_ponto",
+       "pos": [
+        0,
+        1.4,
+        -0.6
+       ],
+       "cor": "#ffd080",
+       "energia": 3,
+       "raio": 6
+      },
+      {
+       "t": 0.4,
+       "acao": "anim",
+       "who": "criatura",
+       "anim": "hit"
+      }
+     ]
     },
     {
      "id": "al_celeiro_tiro_02",
      "who": "sistema",
      "sfx": "criatura_grito",
-     "text": "Ela sobe pelas vigas e foge pelo telhado... levando o seu avô junto."
+     "text": "Ela sobe pelas vigas e foge pelo telhado... levando o seu avô junto.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "andar",
+       "who": "criatura",
+       "por": [
+        0.6,
+        0,
+        2.2
+       ],
+       "dur": 0.8,
+       "anim": "run",
+       "fim": "idle",
+       "olhar_camera": false
+      },
+      {
+       "t": 0.9,
+       "acao": "andar",
+       "who": "criatura",
+       "por": [
+        0,
+        5.5,
+        0
+       ],
+       "dur": 1.4,
+       "anim": "run",
+       "fim": "run",
+       "olhar_camera": false
+      },
+      {
+       "t": 1.0,
+       "acao": "andar",
+       "who": "vo",
+       "por": [
+        0,
+        5.5,
+        -0.3
+       ],
+       "dur": 1.4,
+       "anim": "Run",
+       "fim": "Run",
+       "olhar_camera": false
+      },
+      {
+       "t": 0.8,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.6,
+        4.4,
+        -3.2
+       ],
+       "dur": 1.4
+      },
+      {
+       "t": 1.0,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.08
+      }
+     ]
     },
     {
      "id": "al_celeiro_tiro_03",
      "who": "vo",
      "tags": "[screaming, far away]",
-     "text": "CORRE PRA CASA! TRANCA A PORTA!"
+     "text": "CORRE PRA CASA! TRANCA A PORTA!",
+     "acoes": [
+      {
+       "t": 0.4,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        1.5,
+        6
+       ],
+       "dur": 0.6
+      },
+      {
+       "t": 1.0,
+       "acao": "camera_andar",
+       "pos": [
+        0,
+        1.62,
+        3.5
+       ],
+       "olhar": [
+        0,
+        1.5,
+        8
+       ],
+       "dur": 2.0
+      }
+     ]
     }
    ],
    "next": "espera"
@@ -553,12 +1700,104 @@
     {
      "id": "al_espera_01",
      "who": "sistema",
-     "text": "Você tranca a porta. Arrasta o armário. Apaga a lamparina."
+     "text": "Você tranca a porta. Arrasta o armário. Apaga a lamparina.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        2.0,
+        1.2,
+        -5.0
+       ],
+       "dur": 0.8
+      },
+      {
+       "t": 0.8,
+       "acao": "maos",
+       "anim": "grab.R"
+      },
+      {
+       "t": 1.4,
+       "acao": "camera_andar",
+       "pos": [
+        1.0,
+        1.62,
+        -1.0
+       ],
+       "olhar": [
+        2.6,
+        1.0,
+        -2.6
+       ],
+       "dur": 1.4
+      },
+      {
+       "t": 2.0,
+       "acao": "maos",
+       "anim": "grab.R"
+      },
+      {
+       "t": 3.0,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.3,
+        1.0,
+        -2.6
+       ],
+       "dur": 0.8
+      },
+      {
+       "t": 3.6,
+       "acao": "luz",
+       "ambiente": "#304038",
+       "energia": 0.3,
+       "neblina": "#030604",
+       "densidade": 0.045,
+       "fundo": "#000000",
+       "dur": 0.5
+      }
+     ]
     },
     {
      "id": "al_espera_02",
      "who": "sistema",
-     "text": "O relógio da cozinha parou às três horas. Lá fora, nenhum grilo."
+     "text": "O relógio da cozinha parou às três horas. Lá fora, nenhum grilo.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        -0.6,
+        2.2,
+        -4.85
+       ],
+       "dur": 1.0
+      },
+      {
+       "t": 0.6,
+       "acao": "texto3d",
+       "id": "relogio",
+       "texto": "03:00",
+       "pos": [
+        -0.6,
+        2.25,
+        -4.8
+       ],
+       "tamanho": 90,
+       "cor": "#ff3030"
+      },
+      {
+       "t": 2.6,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        1.6,
+        -4.9
+       ],
+       "dur": 1.4
+      }
+     ]
     }
    ],
    "next": "batidas"
@@ -577,24 +1816,120 @@
     {
      "id": "al_volta_sozinho_01",
      "who": "sistema",
-     "text": "Você entra sozinho. O Vô olha pra sua cara e entende tudo."
+     "text": "Você entra sozinho. O Vô olha pra sua cara e entende tudo.",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "andar",
+       "who": "vo",
+       "por": [
+        -0.2,
+        0,
+        0.5
+       ],
+       "dur": 1.2,
+       "fim": "Idle"
+      }
+     ]
     },
     {
      "id": "al_volta_sozinho_02",
      "who": "vo",
      "anim": "Talk",
      "tags": "[devastated, crying]",
-     "text": "A Lia... não. Não, não, não."
+     "text": "A Lia... não. Não, não, não.",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "andar",
+       "who": "vo",
+       "por": [
+        0.1,
+        0,
+        -0.6
+       ],
+       "dur": 1.2,
+       "fim": "Idle",
+       "olhar_camera": false
+      },
+      {
+       "t": 2.6,
+       "acao": "olhar_camera",
+       "who": "vo"
+      }
+     ]
     },
     {
      "id": "al_volta_sozinho_03",
      "who": "vo",
      "anim": "Talk",
      "tags": "[whispers, grave]",
-     "text": "Fica longe das janelas. Eles sempre devolvem o que levam. Só que nunca igual."
+     "text": "Fica longe das janelas. Eles sempre devolvem o que levam. Só que nunca igual.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        -3.0,
+        1.5,
+        -2.0
+       ],
+       "dur": 1.0
+      },
+      {
+       "t": 2.0,
+       "acao": "camera_olhar",
+       "who": "vo",
+       "dur": 0.8
+      }
+     ]
     }
    ],
-   "next": "batidas"
+   "next": "batidas",
+   "aguardar": 1.6,
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "camera",
+     "pos": [
+      0,
+      1.62,
+      2.9
+     ],
+     "olhar": [
+      0,
+      1.45,
+      -3.0
+     ],
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "camera_andar",
+     "pos": [
+      0,
+      1.62,
+      0.8
+     ],
+     "olhar": [
+      0,
+      1.45,
+      -3.0
+     ],
+     "dur": 1.8
+    },
+    {
+     "t": 0,
+     "acao": "sfx",
+     "som": "porta_abre",
+     "volume": -6
+    },
+    {
+     "t": 1.6,
+     "acao": "olhar_camera",
+     "who": "vo"
+    }
+   ]
   },
   "casa_volta_salva": {
    "location": "fazenda_casa",
@@ -603,7 +1938,7 @@
    "cast": {
     "left": {
      "char": "lia",
-     "anim": "Sit"
+     "anim": "Idle"
     },
     "right": {
      "char": "vo",
@@ -614,29 +1949,174 @@
     {
      "id": "al_volta_salva_01",
      "who": "sistema",
-     "text": "Vocês entram correndo. O Vô tranca a porta e te abraça."
+     "text": "Vocês entram correndo. O Vô tranca a porta e te abraça.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "andar",
+       "who": "vo",
+       "por": [
+        -0.5,
+        0,
+        1.1
+       ],
+       "dur": 1.0,
+       "anim": "Run",
+       "fim": "Idle"
+      },
+      {
+       "t": 1.0,
+       "acao": "camera_olhar",
+       "who": "vo",
+       "dur": 0.5
+      },
+      {
+       "t": 1.2,
+       "acao": "maos",
+       "anim": "grab.R"
+      }
+     ]
     },
     {
      "id": "al_volta_salva_02",
      "who": "sistema",
-     "text": "Pela primeira vez na vida, ele não tem cheiro de fumo de rolo."
+     "text": "Pela primeira vez na vida, ele não tem cheiro de fumo de rolo.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        -0.15
+       ],
+       "dur": 2.0
+      }
+     ]
     },
     {
      "id": "al_volta_salva_03",
      "who": "vo",
      "anim": "Talk",
      "tags": "[calm, too calm]",
-     "text": "Graças a Deus. Eu vi a luz descer. Sentem aí. Vou passar um café."
+     "text": "Graças a Deus. Eu vi a luz descer. Sentem aí. Vou passar um café.",
+     "acoes": [
+      {
+       "t": 1.4,
+       "acao": "anim",
+       "who": "vo",
+       "anim": "Walk"
+      },
+      {
+       "t": 1.4,
+       "acao": "mover",
+       "who": "vo",
+       "para": [
+        -2.0,
+        0,
+        -3.8
+       ],
+       "dur": 2.4
+      },
+      {
+       "t": 3.9,
+       "acao": "anim",
+       "who": "vo",
+       "anim": "Idle",
+       "fixo": true
+      },
+      {
+       "t": 1.6,
+       "acao": "camera_olhar",
+       "olhar": [
+        -1.6,
+        1.2,
+        -3.8
+       ],
+       "dur": 1.6
+      }
+     ]
     },
     {
      "id": "al_volta_salva_04",
      "who": "lia",
      "anim": "Sit",
      "tags": "[whispers, shaking]",
-     "text": "Café, às três da manhã? Desde quando o Vô faz café?"
+     "text": "Café, às três da manhã? Desde quando o Vô faz café?",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "lia",
+       "dur": 0.6
+      },
+      {
+       "t": 0.2,
+       "acao": "olhar_camera",
+       "who": "lia"
+      },
+      {
+       "t": 2.2,
+       "acao": "olhar_para",
+       "who": "lia",
+       "alvo": "vo"
+      }
+     ]
     }
    ],
-   "next": "batidas"
+   "next": "batidas",
+   "aguardar": 1.6,
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "camera",
+     "pos": [
+      0,
+      1.62,
+      2.9
+     ],
+     "olhar": [
+      0,
+      1.45,
+      -3.0
+     ],
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "camera_andar",
+     "pos": [
+      0,
+      1.62,
+      0.8
+     ],
+     "olhar": [
+      0,
+      1.45,
+      -3.0
+     ],
+     "dur": 1.8
+    },
+    {
+     "t": 0,
+     "acao": "sfx",
+     "som": "porta_abre",
+     "volume": -6
+    },
+    {
+     "t": 0,
+     "acao": "entrar",
+     "who": "lia",
+     "de": [
+      -0.3,
+      0,
+      3.2
+     ],
+     "dur": 1.8,
+     "anim": "Run",
+     "fim": "Idle"
+    }
+   ]
   },
   "batidas": {
    "location": "fazenda_casa",
@@ -647,7 +2127,55 @@
      "id": "al_batidas_01",
      "who": "sistema",
      "sfx": "batida_porta",
-     "text": "Três batidas na porta. Depois, mais três."
+     "text": "Três batidas na porta. Depois, mais três.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        2.0,
+        1.3,
+        -5.0
+       ],
+       "dur": 0.8
+      },
+      {
+       "t": 0.2,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.04
+      },
+      {
+       "t": 0.6,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.04
+      },
+      {
+       "t": 1.0,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.04
+      },
+      {
+       "t": 2.0,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.04
+      },
+      {
+       "t": 2.4,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.04
+      },
+      {
+       "t": 2.8,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.04
+      }
+     ]
     }
    ],
    "branch": [
@@ -681,60 +2209,179 @@
     {
      "id": "al_lias_01",
      "who": "sistema",
-     "text": "Uma Lia entra pela porta. Outra pula a janela da cozinha. As duas brilham levemente no escuro."
+     "text": "Uma Lia entra pela porta. Outra pula a janela da cozinha. As duas brilham levemente no escuro.",
+     "acoes": []
     },
     {
      "id": "al_lias_02",
      "who": "lia",
      "anim": "Talk",
      "tags": "[terrified, pleading]",
-     "text": "Não chega perto dela! Ela não sou eu!"
+     "text": "Não chega perto dela! Ela não sou eu!",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "lia",
+       "dur": 0.6
+      },
+      {
+       "t": 0.3,
+       "acao": "andar",
+       "who": "lia",
+       "por": [
+        -0.1,
+        0,
+        0.35
+       ],
+       "dur": 0.9,
+       "fim": "Idle"
+      }
+     ]
     },
     {
      "id": "al_lias_03",
      "who": "lia_copia",
      "anim": "Talk",
      "tags": "[terrified, pleading]",
-     "text": "Mentira! Eu voltei primeiro! Ela é a cópia!"
+     "text": "Mentira! Eu voltei primeiro! Ela é a cópia!",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "lia_copia",
+       "dur": 0.6
+      },
+      {
+       "t": 0.3,
+       "acao": "andar",
+       "who": "lia_copia",
+       "por": [
+        0.1,
+        0,
+        0.35
+       ],
+       "dur": 0.9,
+       "fim": "Idle"
+      }
+     ]
     },
     {
      "id": "al_lias_04a",
      "if": "com_lia",
      "who": "sistema",
-     "text": "A da esquerda esconde a mão enrolada na manga, sangrando. A da direita não tem nenhum arranhão."
+     "text": "A da esquerda esconde a mão enrolada na manga, sangrando. A da direita não tem nenhum arranhão.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        -0.55,
+        0.95,
+        -1.3
+       ],
+       "dur": 0.8
+      },
+      {
+       "t": 2.2,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.55,
+        0.95,
+        -1.3
+       ],
+       "dur": 0.8
+      }
+     ]
     },
     {
      "id": "al_lias_04b",
      "if": "not com_lia",
      "who": "sistema",
-     "text": "Mesma roupa. Mesma voz. Mesmo medo nos olhos."
+     "text": "Mesma roupa. Mesma voz. Mesmo medo nos olhos.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "lia",
+       "dur": 0.8
+      },
+      {
+       "t": 1.8,
+       "acao": "camera_olhar",
+       "who": "lia_copia",
+       "dur": 0.8
+      }
+     ]
     },
     {
      "id": "al_lias_05a",
      "if": "sabe_senha and not vo_levado",
      "who": "vo",
      "tags": "[shouting from another room]",
-     "text": "Pede a senha, menino! A senha!"
+     "text": "Pede a senha, menino! A senha!",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_voltar",
+       "dur": 0.6
+      }
+     ]
     },
     {
      "id": "al_lias_05b",
      "if": "vo_levado",
      "who": "sistema",
-     "text": "O Vô não está aqui pra te ajudar. Só você."
+     "text": "O Vô não está aqui pra te ajudar. Só você.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_voltar",
+       "dur": 0.6
+      }
+     ]
     },
     {
      "id": "al_lias_06",
      "who": "lia",
      "anim": "Talk",
      "tags": "[crying, pleading]",
-     "text": "Sou eu, primo. Por favor."
+     "text": "Sou eu, primo. Por favor.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "lia",
+       "dur": 0.5
+      }
+     ]
     },
     {
      "id": "al_lias_07",
      "who": "lia_copia",
      "anim": "Talk",
      "tags": "[crying, pleading]",
-     "text": "Sou eu, primo! Me escolhe, por favor!"
+     "text": "Sou eu, primo! Me escolhe, por favor!",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "lia_copia",
+       "dur": 0.5
+      },
+      {
+       "t": 0.2,
+       "acao": "andar",
+       "who": "lia_copia",
+       "por": [
+        0.05,
+        0,
+        0.3
+       ],
+       "dur": 0.8,
+       "fim": "Idle"
+      }
+     ]
     }
    ],
    "choice": {
@@ -764,7 +2411,88 @@
     "timeout": {
      "ending": "nenhuma_das_duas"
     }
-   }
+   },
+   "aguardar": 2.4,
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "entrar",
+     "who": "lia",
+     "de": [
+      -2.4,
+      0,
+      -0.3
+     ],
+     "dur": 2.2,
+     "anim": "Run",
+     "fim": "Idle"
+    },
+    {
+     "t": 0,
+     "acao": "entrar",
+     "who": "lia_copia",
+     "de": [
+      1.4,
+      0,
+      -3.3
+     ],
+     "dur": 2.4,
+     "anim": "Walk",
+     "fim": "Idle"
+    },
+    {
+     "t": 0,
+     "acao": "camera_olhar",
+     "olhar": [
+      2.0,
+      1.2,
+      -4.8
+     ],
+     "dur": 0.6
+    },
+    {
+     "t": 1.0,
+     "acao": "camera_olhar",
+     "olhar": [
+      -2.6,
+      1.3,
+      -2.0
+     ],
+     "dur": 0.8
+    },
+    {
+     "t": 2.0,
+     "acao": "camera_olhar",
+     "olhar": [
+      0,
+      1.45,
+      -3.0
+     ],
+     "dur": 0.8
+    },
+    {
+     "t": 0.2,
+     "acao": "sfx",
+     "som": "porta_abre",
+     "volume": -6
+    },
+    {
+     "t": 1.0,
+     "acao": "sfx",
+     "som": "vidro",
+     "volume": -6
+    },
+    {
+     "t": 0.2,
+     "acao": "luz",
+     "ambiente": "#4a6a58",
+     "energia": 0.55,
+     "neblina": "#0a1a10",
+     "densidade": 0.035,
+     "fundo": "#020604",
+     "dur": 1.5
+    }
+   ]
   },
   "senha_lias": {
    "location": "fazenda_casa",
@@ -782,20 +2510,80 @@
     {
      "id": "al_senha_lias_01",
      "who": "sistema",
-     "text": "Você pergunta a senha da família."
+     "text": "Você pergunta a senha da família.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_voltar",
+       "dur": 0.6
+      }
+     ]
     },
     {
      "id": "al_senha_lias_02",
      "who": "lia",
      "anim": "Talk",
      "tags": "[desperate, fast]",
-     "text": "Jabuticaba! É jabuticaba! O Vô fala isso desde que eu era pequena!"
+     "text": "Jabuticaba! É jabuticaba! O Vô fala isso desde que eu era pequena!",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "lia",
+       "dur": 0.5
+      },
+      {
+       "t": 0.2,
+       "acao": "andar",
+       "who": "lia",
+       "por": [
+        0.1,
+        0,
+        0.3
+       ],
+       "dur": 0.8,
+       "fim": "Idle"
+      }
+     ]
     },
     {
      "id": "al_senha_lias_03",
      "who": "sistema",
      "sfx": "ovni_zumbido",
-     "text": "A outra abre a boca. Não sai nenhuma palavra. Só um zumbido."
+     "text": "A outra abre a boca. Não sai nenhuma palavra. Só um zumbido.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "lia_copia",
+       "dur": 0.5
+      },
+      {
+       "t": 0.4,
+       "acao": "tremer",
+       "who": "lia_copia",
+       "dur": 2.0
+      },
+      {
+       "t": 0.6,
+       "acao": "luz_ponto",
+       "pos": [
+        0.6,
+        1.3,
+        -1.0
+       ],
+       "cor": "#40ff70",
+       "energia": 2.0,
+       "raio": 2.5,
+       "piscar": true
+      },
+      {
+       "t": 1.0,
+       "acao": "fx",
+       "tipo": "piscar",
+       "dur": 1.0
+      }
+     ]
     }
    ],
    "ending": "jabuticaba"
@@ -818,46 +2606,184 @@
      "id": "al_vos_01",
      "who": "sistema",
      "sfx": "porta_abre",
-     "text": "A porta se abre. É o Vô, com a espingarda, coberto de terra. O Vô que estava na cozinha para de mexer o café."
+     "text": "A porta se abre. É o Vô, com a espingarda, coberto de terra. O Vô que estava na cozinha para de mexer o café.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "entrar",
+       "who": "vo_copia",
+       "de": [
+        1.4,
+        0,
+        -3.3
+       ],
+       "dur": 2.4,
+       "fim": "Idle"
+      },
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        2.0,
+        1.2,
+        -4.8
+       ],
+       "dur": 0.6
+      },
+      {
+       "t": 2.4,
+       "acao": "camera_olhar",
+       "who": "vo_copia",
+       "dur": 0.8
+      },
+      {
+       "t": 3.6,
+       "acao": "olhar_camera",
+       "who": "vo"
+      },
+      {
+       "t": 3.8,
+       "acao": "camera_olhar",
+       "who": "vo",
+       "dur": 0.8
+      }
+     ]
     },
     {
      "id": "al_vos_02",
      "who": "vo_copia",
      "anim": "Talk",
      "tags": "[out of breath, old man, urgent]",
-     "text": "Esse aí não é seu avô! Eu passei a noite no celeiro caçando aquela coisa!"
+     "text": "Esse aí não é seu avô! Eu passei a noite no celeiro caçando aquela coisa!",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "vo_copia",
+       "dur": 0.6
+      }
+     ]
     },
     {
      "id": "al_vos_03",
      "who": "vo",
      "anim": "Talk",
      "tags": "[calm, sweet, old man]",
-     "text": "Não escuta ele, menino. Quem te abriu a porta fui eu."
+     "text": "Não escuta ele, menino. Quem te abriu a porta fui eu.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "vo",
+       "dur": 0.6
+      },
+      {
+       "t": 0.3,
+       "acao": "andar",
+       "who": "vo",
+       "por": [
+        1.3,
+        0,
+        2.4
+       ],
+       "dur": 2.0,
+       "fim": "Idle"
+      }
+     ]
     },
     {
      "id": "al_vos_04",
      "who": "sistema",
-     "text": "O Vô da porta acende um cigarro de palha com a mão tremendo."
+     "text": "O Vô da porta acende um cigarro de palha com a mão tremendo.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "vo_copia",
+       "dur": 0.6
+      },
+      {
+       "t": 0.8,
+       "acao": "luz_ponto",
+       "pos": [
+        0.75,
+        1.5,
+        -1.45
+       ],
+       "cor": "#ff9040",
+       "energia": 0.9,
+       "raio": 1.4,
+       "piscar": true
+      }
+     ]
     },
     {
      "id": "al_vos_05",
      "who": "lia",
      "tags": "[whispers, urgent]",
-     "text": "Pede a senha! O Vô sempre falou que a senha da família é jabuticaba!"
+     "text": "Pede a senha! O Vô sempre falou que a senha da família é jabuticaba!",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_voltar",
+       "dur": 0.8
+      }
+     ]
     },
     {
      "id": "al_vos_06",
      "who": "vo",
      "anim": "Talk",
      "tags": "[pleading]",
-     "text": "Vem cá, meu neto."
+     "text": "Vem cá, meu neto.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "vo",
+       "dur": 0.5
+      },
+      {
+       "t": 0.2,
+       "acao": "andar",
+       "who": "vo",
+       "por": [
+        0.15,
+        0,
+        0.5
+       ],
+       "dur": 1.0,
+       "fim": "Idle"
+      }
+     ]
     },
     {
      "id": "al_vos_07",
      "who": "vo_copia",
      "anim": "Talk",
      "tags": "[pleading, desperate]",
-     "text": "Sai de perto dele!"
+     "text": "Sai de perto dele!",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "vo_copia",
+       "dur": 0.4
+      },
+      {
+       "t": 0.1,
+       "acao": "andar",
+       "who": "vo_copia",
+       "por": [
+        -0.15,
+        0,
+        0.45
+       ],
+       "dur": 0.7,
+       "anim": "Run",
+       "fim": "Idle"
+      }
+     ]
     }
    ],
    "choice": {
@@ -886,7 +2812,32 @@
     "timeout": {
      "ending": "tres_da_manha"
     }
-   }
+   },
+   "aguardar": 0.6,
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo",
+     "para": [
+      -2.0,
+      0,
+      -3.9
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0.05,
+     "acao": "mover",
+     "who": "vo",
+     "para": [
+      -2.1,
+      0,
+      -4.4
+     ],
+     "dur": 0.01
+    }
+   ]
   },
   "senha_vos": {
    "location": "fazenda_casa",
@@ -906,25 +2857,99 @@
      "who": "vo",
      "anim": "Talk",
      "tags": "[calm]",
-     "text": "Jabuticaba."
+     "text": "Jabuticaba.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "vo",
+       "dur": 0.5
+      }
+     ]
     },
     {
      "id": "al_senha_vos_02",
      "who": "vo_copia",
      "anim": "Talk",
      "tags": "[out of breath]",
-     "text": "Jabuticaba!"
+     "text": "Jabuticaba!",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "vo_copia",
+       "dur": 0.4
+      }
+     ]
     },
     {
      "id": "al_senha_vos_03",
      "who": "sistema",
-     "text": "Os dois respondem ao mesmo tempo. Depois, os dois olham pra você."
+     "text": "Os dois respondem ao mesmo tempo. Depois, os dois olham pra você.",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "olhar_camera",
+       "who": "vo"
+      },
+      {
+       "t": 0.3,
+       "acao": "olhar_camera",
+       "who": "vo_copia"
+      },
+      {
+       "t": 0.4,
+       "acao": "camera_voltar",
+       "dur": 1.0
+      },
+      {
+       "t": 1.6,
+       "acao": "andar",
+       "who": "vo",
+       "por": [
+        0,
+        0,
+        0.3
+       ],
+       "dur": 1.0,
+       "fim": "Idle"
+      },
+      {
+       "t": 1.6,
+       "acao": "andar",
+       "who": "vo_copia",
+       "por": [
+        0,
+        0,
+        0.3
+       ],
+       "dur": 1.0,
+       "fim": "Idle"
+      }
+     ]
     },
     {
      "id": "al_senha_vos_04",
      "who": "lia",
      "tags": "[whispers, terrified]",
-     "text": "Primo... e você? Fala a senha."
+     "text": "Primo... e você? Fala a senha.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        -0.2
+       ],
+       "dur": 2.4
+      },
+      {
+       "t": 1.0,
+       "acao": "sfx",
+       "som": "coracao"
+      }
+     ]
     }
    ],
    "branch": [
