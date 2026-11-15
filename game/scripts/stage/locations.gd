@@ -692,7 +692,8 @@ static func _linha_trem(root: Node3D, cfg: Dictionary) -> void:
 	train.name = "trem"
 	train.position = Vector3(0, 0, -95.0)
 	root.add_child(train)
-	box(train, Vector3(3.0, 3.6, 18.0), Vector3(0, 2.0, 0), Color(0.2, 0.22, 0.25))
+	box(train, Vector3(3.0, 3.6, 18.0), Vector3(0, 2.0, 0), Color(0.42, 0.44, 0.48))
+	box(train, Vector3(3.05, 0.4, 18.1), Vector3(0, 1.0, 0), Color(0.75, 0.15, 0.1))
 	box(train, Vector3(2.6, 0.8, 0.1), Vector3(0, 2.6, 9.02), Color(0.1, 0.12, 0.15))
 	box(train, Vector3(0.5, 0.5, 0.1), Vector3(0, 3.4, 9.05), Color(1, 1, 0.9), 4.0)
 	var head := SpotLight3D.new()
@@ -703,6 +704,12 @@ static func _linha_trem(root: Node3D, cfg: Dictionary) -> void:
 	head.spot_angle = 22.0
 	head.rotate_object_local(Vector3.UP, PI)
 	train.add_child(head)
+	var front := OmniLight3D.new()  # ilumina os trilhos na frente do trem
+	front.position = Vector3(0, 2.0, 11.0)
+	front.light_color = Color(1, 0.95, 0.8)
+	front.light_energy = 3.0
+	front.omni_range = 12.0
+	train.add_child(front)
 	# chapéu do homem (nó "chapeu", escondido até o final do trem)
 	var hat := Node3D.new()
 	hat.name = "chapeu"
