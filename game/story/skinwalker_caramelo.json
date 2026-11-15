@@ -118,31 +118,135 @@
     {
      "id": "sk_inicio_01",
      "who": "sistema",
-     "text": "Faz três dias que o Caramelo sumiu. O Theo não dorme desde então."
+     "text": "Faz três dias que o Caramelo sumiu. O Theo não dorme desde então.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        -2.7,
+        0.6,
+        -4.6
+       ],
+       "dur": 1.5
+      },
+      {
+       "t": 3.2,
+       "acao": "camera_olhar",
+       "who": "theo",
+       "dur": 1.0
+      }
+     ]
     },
     {
      "id": "sk_inicio_02",
      "who": "theo",
      "text": "Ele vai voltar. Ele sempre volta.",
-     "tags": "[sad, hopeful, quiet]"
+     "tags": "[sad, hopeful, quiet]",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "andar",
+       "who": "theo",
+       "por": [
+        -0.5,
+        0,
+        -0.7
+       ],
+       "dur": 1.5,
+       "olhar_camera": false
+      }
+     ]
     },
     {
      "id": "sk_inicio_03",
      "who": "mae",
      "text": "Entra, filho. Amanhã a gente cola mais cartaz no bairro.",
-     "tags": "[tired, gentle]"
+     "tags": "[tired, gentle]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "mae",
+       "dur": 0.7
+      },
+      {
+       "t": 0.2,
+       "acao": "andar",
+       "who": "mae",
+       "por": [
+        -0.2,
+        0,
+        0.3
+       ],
+       "dur": 1.0,
+       "fim": "Idle"
+      }
+     ]
     },
     {
      "id": "sk_inicio_04",
      "who": "sistema",
      "text": "O portão range. Ninguém abriu o portão.",
-     "sfx": "portao_rangendo"
+     "sfx": "portao_rangendo",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        2.6,
+        1.0,
+        -9.3
+       ],
+       "dur": 1.0
+      },
+      {
+       "t": 0.4,
+       "acao": "andar",
+       "who": "theo",
+       "por": [
+        0.1,
+        0,
+        -0.05
+       ],
+       "dur": 0.4,
+       "olhar_camera": false
+      },
+      {
+       "t": 0.6,
+       "acao": "andar",
+       "who": "mae",
+       "por": [
+        0.05,
+        0,
+        -0.05
+       ],
+       "dur": 0.4,
+       "olhar_camera": false
+      }
+     ]
     },
     {
      "id": "sk_inicio_05",
      "who": "theo",
      "text": "CARAMELO!",
-     "tags": "[shouting, overjoyed]"
+     "tags": "[shouting, overjoyed]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "andar",
+       "who": "theo",
+       "por": [
+        0.5,
+        0,
+        -1.3
+       ],
+       "dur": 1.2,
+       "anim": "Run",
+       "fim": "Idle",
+       "olhar_camera": false
+      }
+     ]
     }
    ],
    "next": "volta"
@@ -185,35 +289,140 @@
     {
      "id": "sk_volta_01",
      "who": "sistema",
-     "text": "Ele está parado no meio do quintal. Sujo de terra. Molhado. Mas não choveu."
+     "text": "Ele está parado no meio do quintal. Sujo de terra. Molhado. Mas não choveu.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "caramelo_falso",
+       "dur": 1.0
+      }
+     ]
     },
     {
      "id": "sk_volta_02",
      "who": "sistema",
-     "text": "Ele não abana o rabo. Não late. Só olha para a casa."
+     "text": "Ele não abana o rabo. Não late. Só olha para a casa.",
+     "acoes": [
+      {
+       "t": 0.4,
+       "acao": "olhar_camera",
+       "who": "caramelo_falso"
+      },
+      {
+       "t": 0.4,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        -0.1,
+        -0.25
+       ],
+       "dur": 2.4
+      }
+     ]
     },
     {
      "id": "sk_volta_03",
      "who": "mae",
      "text": "Ué... cadê a coleira dele? A do guizinho?",
-     "tags": "[uneasy, confused]"
+     "tags": "[uneasy, confused]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "mae",
+       "dur": 0.6
+      },
+      {
+       "t": 0.2,
+       "acao": "andar",
+       "who": "mae",
+       "por": [
+        -0.2,
+        0,
+        -0.2
+       ],
+       "dur": 0.9,
+       "fim": "Idle",
+       "olhar_camera": false
+      }
+     ]
     },
     {
      "id": "sk_volta_04",
      "who": "sistema",
-     "text": "Tem mais uma coisa. Desde o atropelamento, o Caramelo mancava da pata de trás. Esse aí anda perfeito."
+     "text": "Tem mais uma coisa. Desde o atropelamento, o Caramelo mancava da pata de trás. Esse aí anda perfeito.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "caramelo_falso",
+       "dur": 0.6
+      },
+      {
+       "t": 0.6,
+       "acao": "andar",
+       "who": "caramelo_falso",
+       "por": [
+        -0.8,
+        0,
+        0.2
+       ],
+       "dur": 2.0,
+       "anim": "Dog1_Walk",
+       "fim": "Dog1_Idle"
+      }
+     ]
     },
     {
      "id": "sk_volta_05",
      "who": "theo",
      "text": "Deixa ele dormir comigo hoje! Por favor, por favor!",
-     "tags": "[pleading, happy, excited]"
+     "tags": "[pleading, happy, excited]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "olhar_camera",
+       "who": "theo"
+      },
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "theo",
+       "dur": 0.6
+      },
+      {
+       "t": 0.3,
+       "acao": "andar",
+       "who": "theo",
+       "por": [
+        0.2,
+        0,
+        0.4
+       ],
+       "dur": 1.0,
+       "fim": "Idle"
+      }
+     ]
     },
     {
      "id": "sk_volta_06",
      "who": "mae",
      "text": "Nem pensar. Sujo desse jeito, ele dorme na casinha.",
-     "tags": "[firm, uneasy]"
+     "tags": "[firm, uneasy]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "olhar_camera",
+       "who": "mae"
+      },
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "mae",
+       "dur": 0.6
+      }
+     ]
     }
    ],
    "choice": {
@@ -241,7 +450,67 @@
     "timeout": {
      "next": "theo_abre"
     }
-   }
+   },
+   "aguardar": 2.6,
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "entrar",
+     "who": "caramelo_falso",
+     "de": [
+      2.6,
+      0,
+      -6.9
+     ],
+     "dur": 4.5,
+     "anim": "Dog1_Walk",
+     "fim": "Dog1_Idle"
+    },
+    {
+     "t": 0,
+     "acao": "camera_olhar",
+     "olhar": [
+      2.0,
+      0.4,
+      -7.5
+     ],
+     "dur": 0
+    },
+    {
+     "t": 0.5,
+     "acao": "camera_olhar",
+     "olhar": [
+      0,
+      0.45,
+      -2.4
+     ],
+     "dur": 4.0
+    },
+    {
+     "t": 0.3,
+     "acao": "olhar_para",
+     "who": "theo",
+     "alvo": "caramelo_falso"
+    },
+    {
+     "t": 0.3,
+     "acao": "olhar_para",
+     "who": "mae",
+     "alvo": "caramelo_falso"
+    },
+    {
+     "t": 2.5,
+     "acao": "olhar_para",
+     "who": "theo",
+     "alvo": "caramelo_falso"
+    },
+    {
+     "t": 2.5,
+     "acao": "olhar_para",
+     "who": "mae",
+     "alvo": "caramelo_falso"
+    }
+   ]
   },
   "theo_abre": {
    "location": "quintal",
@@ -277,19 +546,85 @@
     {
      "id": "sk_theo_abre_01",
      "who": "sistema",
-     "text": "Você demora demais. O Theo abre a porta da cozinha."
+     "text": "Você demora demais. O Theo abre a porta da cozinha.",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "andar",
+       "who": "theo",
+       "por": [
+        0.6,
+        0,
+        2.6
+       ],
+       "dur": 1.6,
+       "anim": "Run",
+       "fim": "Idle",
+       "olhar_camera": false
+      },
+      {
+       "t": 1.0,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.6,
+        1.0,
+        2.2
+       ],
+       "dur": 1.0
+      }
+     ]
     },
     {
      "id": "sk_theo_abre_02",
      "who": "theo",
      "text": "Vem, Caramelo! Pode entrar!",
-     "tags": "[sweet, calling a dog]"
+     "tags": "[sweet, calling a dog]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "olhar_para",
+       "who": "theo",
+       "alvo": "caramelo_falso"
+      }
+     ]
     },
     {
      "id": "sk_theo_abre_03",
      "who": "sistema",
      "text": "Ele entra devagar. Como quem estava esperando ser chamado.",
-     "sfx": "stinger_hit"
+     "sfx": "stinger_hit",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "caramelo_falso",
+       "dur": 0.8
+      },
+      {
+       "t": 0.4,
+       "acao": "andar",
+       "who": "caramelo_falso",
+       "por": [
+        0.4,
+        0,
+        3.2
+       ],
+       "dur": 3.4,
+       "anim": "Dog1_Walk",
+       "fim": "Dog1_Idle",
+       "olhar_camera": false
+      },
+      {
+       "t": 2.4,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.5,
+        0.6,
+        2.0
+       ],
+       "dur": 1.2
+      }
+     ]
     }
    ],
    "next": "sala_noite"
@@ -298,17 +633,15 @@
    "location": "quintal",
    "camera": {
     "pos": [
-     0,
+     -0.8,
      1.4,
-     0.3
+     -0.4
     ],
     "olhar": [
-     0,
-     0.45,
-     -2.4
+     -2.4,
+     0.4,
+     -3.8
     ],
-    "slot_dist": 2.3,
-    "slot_spread": 0.55,
     "center_dist": 2.6
    },
    "cast": {
@@ -324,31 +657,109 @@
     {
      "id": "sk_casinha_01",
      "who": "sistema",
-     "text": "Você prende a corrente na coleira velha da casinha. Ele deixa. Não puxa. Não chora."
+     "text": "Você prende a corrente na coleira velha da casinha. Ele deixa. Não puxa. Não chora.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "caramelo_falso",
+       "dur": 0.8
+      },
+      {
+       "t": 0.8,
+       "acao": "maos",
+       "anim": "grab.L"
+      }
+     ]
     },
     {
      "id": "sk_casinha_02",
      "who": "sistema",
-     "text": "Você coloca ração. Ele nem cheira. Está olhando para a janela do quarto do Theo."
+     "text": "Você coloca ração. Ele nem cheira. Está olhando para a janela do quarto do Theo.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        -1.9,
+        0.05,
+        -3.7
+       ],
+       "dur": 0.8
+      },
+      {
+       "t": 0.6,
+       "acao": "maos",
+       "anim": "grab.R"
+      },
+      {
+       "t": 2.2,
+       "acao": "camera_olhar",
+       "who": "caramelo_falso",
+       "dur": 0.8
+      }
+     ]
     },
     {
      "id": "sk_casinha_03",
      "who": "pai",
      "text": "Achou o Caramelo? Graças a Deus. O Theo tava arrasado.",
      "sfx": "celular",
-     "tags": "[tired, relieved, night shift]"
+     "tags": "[tired, relieved, night shift]",
+     "acoes": [
+      {
+       "t": 0.4,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0.15,
+        0.2
+       ],
+       "dur": 1.0,
+       "olhar": [
+        -2.0,
+        0.6,
+        -3.4
+       ]
+      }
+     ]
     },
     {
      "id": "sk_casinha_04",
      "who": "pai",
      "text": "Olha... o Seu Bento passou aqui na guarita. Disse que viu um bicho andando em pé no terreno baldio. Alto. Com cara de cachorro.",
-     "tags": "[uneasy, lowering voice]"
+     "tags": "[uneasy, lowering voice]",
+     "acoes": [
+      {
+       "t": 0.6,
+       "acao": "camera_olhar",
+       "olhar": [
+        -4.5,
+        1.6,
+        -10.5
+       ],
+       "dur": 1.6
+      }
+     ]
     },
     {
      "id": "sk_casinha_05",
      "who": "pai",
      "text": "Deve ser cachaça. Tranca tudo e vai dormir, tá?",
-     "tags": "[forced laugh, worried]"
+     "tags": "[forced laugh, worried]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "caramelo_falso",
+       "dur": 1.0
+      },
+      {
+       "t": 0.4,
+       "acao": "olhar_camera",
+       "who": "caramelo_falso"
+      }
+     ]
     }
    ],
    "choice": {
@@ -390,25 +801,90 @@
      "id": "sk_bento_02",
      "who": "bento",
      "text": "Menino, o seu cachorro tá vivo. Tá preso na armadilha de tatu, lá no terreno baldio. Eu ouvi ele chorando.",
-     "tags": "[whispering, urgent, old man]"
+     "tags": "[whispering, urgent, old man]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "andar",
+       "who": "bento",
+       "por": [
+        0.1,
+        0,
+        0.3
+       ],
+       "dur": 1.0,
+       "fim": "Idle"
+      },
+      {
+       "t": 0.4,
+       "acao": "camera_olhar",
+       "who": "bento",
+       "dur": 0.8
+      }
+     ]
     },
     {
      "id": "sk_bento_03",
      "who": "bento",
      "text": "Isso que voltou pra sua casa não é ele. Os antigos chamavam de skinwalker. Bicho que veste a pele dos outros.",
-     "tags": "[scared, low voice]"
+     "tags": "[scared, low voice]",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "camera_olhar",
+       "olhar": [
+        -2.7,
+        0.6,
+        -4.6
+       ],
+       "dur": 1.0
+      },
+      {
+       "t": 2.8,
+       "acao": "camera_olhar",
+       "who": "bento",
+       "dur": 0.8
+      }
+     ]
     },
     {
      "id": "sk_bento_04",
      "who": "bento",
      "text": "Escuta bem. Não chama ele pra dentro. Não responde quando ele imitar alguém. E nunca, nunca olha no olho dele.",
-     "tags": "[serious, slow]"
+     "tags": "[serious, slow]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "andar",
+       "who": "bento",
+       "por": [
+        0.1,
+        0,
+        0.3
+       ],
+       "dur": 1.0,
+       "fim": "Idle"
+      }
+     ]
     },
     {
      "id": "sk_bento_05",
      "who": "bento",
      "text": "Toma. Sal grosso. Faz uma linha na porta. Ele não passa por cima.",
-     "tags": "[urgent whisper]"
+     "tags": "[urgent whisper]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "anim",
+       "who": "bento",
+       "anim": "Wave"
+      },
+      {
+       "t": 0.8,
+       "acao": "maos",
+       "anim": "grab.R"
+      }
+     ]
     }
    ],
    "choice": {
@@ -434,7 +910,44 @@
     "timeout": {
      "next": "meia_noite"
     }
-   }
+   },
+   "aguardar": 2.8,
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "entrar",
+     "who": "bento",
+     "de": [
+      3.2,
+      0,
+      -6.6
+     ],
+     "dur": 4.0,
+     "fim": "Idle"
+    },
+    {
+     "t": 0,
+     "acao": "sfx",
+     "som": "portao_rangendo",
+     "volume": -6
+    },
+    {
+     "t": 0,
+     "acao": "camera_olhar",
+     "olhar": [
+      2.6,
+      1.0,
+      -9.3
+     ],
+     "dur": 0.8
+    },
+    {
+     "t": 1.2,
+     "acao": "camera_olhar",
+     "who": "bento",
+     "dur": 2.8
+    }
+   ]
   },
   "sala_noite": {
    "location": "casa",
@@ -475,36 +988,167 @@
     {
      "id": "sk_sala_01",
      "who": "sistema",
-     "text": "Ele está sentado no meio da sala. Não deita. Não pisca."
+     "text": "Ele está sentado no meio da sala. Não deita. Não pisca.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "caramelo_falso",
+       "dur": 1.2
+      },
+      {
+       "t": 1.0,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        -0.25
+       ],
+       "dur": 2.4
+      }
+     ]
     },
     {
      "id": "sk_sala_02",
      "who": "theo",
      "text": "Mãe... ele tá sorrindo?",
-     "tags": "[whispering, unsure]"
+     "tags": "[whispering, unsure]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "olhar_para",
+       "who": "theo",
+       "alvo": "mae"
+      },
+      {
+       "t": 1.4,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        0.55,
+        -1.8
+       ],
+       "dur": 0.8
+      }
+     ]
     },
     {
      "id": "sk_sala_03",
      "who": "mae",
      "text": "Cachorro não sorri, Theo.",
-     "tags": "[nervous laugh]"
+     "tags": "[nervous laugh]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "olhar_para",
+       "who": "mae",
+       "alvo": "theo"
+      },
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "mae",
+       "dur": 0.7
+      }
+     ]
     },
     {
      "id": "sk_sala_04",
      "who": "mae",
      "text": "Vai chover. Vou tirar a roupa do varal. Já volto.",
-     "tags": "[hurried]"
+     "tags": "[hurried]",
+     "acoes": [
+      {
+       "t": 1.6,
+       "acao": "sair",
+       "who": "mae",
+       "para": [
+        -2.6,
+        0,
+        -2.2
+       ],
+       "dur": 2.2
+      },
+      {
+       "t": 1.8,
+       "acao": "camera_olhar",
+       "olhar": [
+        -2.6,
+        1.3,
+        -4.0
+       ],
+       "dur": 1.6
+      }
+     ]
     },
     {
      "id": "sk_sala_05",
      "who": "sistema",
-     "text": "A porta da cozinha bate. O Caramelo vira a cabeça devagar e acompanha os passos dela lá fora."
+     "text": "A porta da cozinha bate. O Caramelo vira a cabeça devagar e acompanha os passos dela lá fora.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "sfx",
+       "som": "porta_abre",
+       "volume": -4
+      },
+      {
+       "t": 0.3,
+       "acao": "camera_olhar",
+       "who": "caramelo_falso",
+       "dur": 0.8
+      },
+      {
+       "t": 0.8,
+       "acao": "andar",
+       "who": "caramelo_falso",
+       "por": [
+        -0.05,
+        0,
+        -0.03
+       ],
+       "dur": 1.8,
+       "anim": "Dog1_Sit_Loop",
+       "fim": "Dog1_Sit_Loop",
+       "olhar_camera": false
+      }
+     ]
     },
     {
      "id": "sk_sala_06",
      "who": "theo",
      "text": "Deixa ele dormir no meu quarto? Ele tá com frio.",
-     "tags": "[pleading, sleepy]"
+     "tags": "[pleading, sleepy]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "olhar_camera",
+       "who": "theo"
+      },
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "theo",
+       "dur": 0.6
+      },
+      {
+       "t": 0.3,
+       "acao": "andar",
+       "who": "theo",
+       "por": [
+        0.2,
+        0,
+        0.4
+       ],
+       "dur": 1.0,
+       "fim": "Idle"
+      },
+      {
+       "t": 1.4,
+       "acao": "olhar_camera",
+       "who": "caramelo_falso"
+      }
+     ]
     }
    ],
    "choice": {
@@ -553,39 +1197,140 @@
      "id": "sk_bento_liga_01",
      "who": "sistema",
      "text": "O telefone fixo toca. É o Seu Bento, o vizinho.",
-     "sfx": "celular"
+     "sfx": "celular",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        3.0,
+        1.0,
+        -1.6
+       ],
+       "dur": 1.0
+      },
+      {
+       "t": 1.2,
+       "acao": "maos",
+       "anim": "grab.R"
+      }
+     ]
     },
     {
      "id": "sk_bento_liga_02",
      "who": "bento",
      "text": "Menino, me escuta. Seu cachorro tá preso na armadilha do terreno baldio. Eu ouvi ele chorando agora há pouco.",
-     "tags": "[urgent whisper, old man]"
+     "tags": "[urgent whisper, old man]",
+     "acoes": [
+      {
+       "t": 0.4,
+       "acao": "camera_olhar",
+       "olhar": [
+        1.2,
+        1.3,
+        -2.6
+       ],
+       "dur": 2.0
+      }
+     ]
     },
     {
      "id": "sk_bento_liga_03",
      "who": "bento",
      "text": "Então o que tá aí dentro com vocês não é ele. É skinwalker. Bicho que veste a pele dos outros.",
-     "tags": "[terrified]"
+     "tags": "[terrified]",
+     "acoes": [
+      {
+       "t": 0.6,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        0.2
+       ],
+       "dur": 1.6
+      }
+     ]
     },
     {
      "id": "sk_bento_liga_04",
      "who": "bento",
      "text": "Ele já entrou? Meu Deus... Então não olha no olho dele. E não abre a porta pra ninguém. Pra ninguém!",
-     "tags": "[panicking]"
+     "tags": "[panicking]",
+     "acoes": [
+      {
+       "t": 0.8,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        0.5,
+        -1.8
+       ],
+       "dur": 1.2
+      }
+     ]
     },
     {
      "id": "sk_bento_liga_05",
      "who": "sistema",
      "text": "A linha cai. Na lavanderia, alguma coisa arranha a porta. Por dentro.",
      "sfx": "arranhao",
-     "if": "lavanderia"
+     "if": "lavanderia",
+     "acoes": [
+      {
+       "t": 0.6,
+       "acao": "camera_olhar",
+       "olhar": [
+        -3.0,
+        1.0,
+        -4.5
+       ],
+       "dur": 1.0
+      },
+      {
+       "t": 1.4,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.04
+      },
+      {
+       "t": 2.0,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.04
+      },
+      {
+       "t": 2.6,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.04
+      }
+     ]
     },
     {
      "id": "sk_bento_liga_06",
      "who": "sistema",
      "text": "A linha cai. No quarto do Theo, a luz do abajur se apaga.",
      "sfx": "linha_caiu",
-     "if": "not lavanderia"
+     "if": "not lavanderia",
+     "acoes": [
+      {
+       "t": 1.0,
+       "acao": "fx",
+       "tipo": "piscar",
+       "dur": 0.8
+      },
+      {
+       "t": 1.8,
+       "acao": "luz",
+       "ambiente": "#283040",
+       "energia": 0.3,
+       "neblina": "#04060a",
+       "densidade": 0.04,
+       "fundo": "#000000",
+       "dur": 0.4
+      }
+     ]
     }
    ],
    "next": "duas_maes"
@@ -609,36 +1354,167 @@
      "id": "sk_duas_01",
      "who": "sistema",
      "text": "Batidas na porta da cozinha.",
-     "sfx": "batida_porta"
+     "sfx": "batida_porta",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "mae_porta",
+       "dur": 0.8
+      },
+      {
+       "t": 0.3,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.04
+      },
+      {
+       "t": 0.7,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.04
+      },
+      {
+       "t": 1.1,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.04
+      }
+     ]
     },
     {
      "id": "sk_duas_02",
      "who": "mae_porta",
      "text": "Filho! Abre aqui! A porta bateu e eu fiquei trancada pra fora!",
-     "tags": "[shouting, cold, scared]"
+     "tags": "[shouting, cold, scared]",
+     "acoes": [
+      {
+       "t": 0.6,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.05
+      },
+      {
+       "t": 1.4,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.05
+      }
+     ]
     },
     {
      "id": "sk_duas_03",
      "who": "sistema",
-     "text": "Mas a sua mãe está bem aqui. No corredor. Atrás de você."
+     "text": "Mas a sua mãe está bem aqui. No corredor. Atrás de você.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "mostrar",
+       "who": "mae_falsa"
+      },
+      {
+       "t": 0,
+       "acao": "entrar",
+       "who": "mae_falsa",
+       "de": [
+        -0.4,
+        0,
+        3.4
+       ],
+       "dur": 2.6,
+       "fim": "Idle"
+      },
+      {
+       "t": 1.4,
+       "acao": "camera_olhar",
+       "who": "mae_falsa",
+       "dur": 1.0
+      }
+     ]
     },
     {
      "id": "sk_duas_04",
      "who": "mae_falsa",
      "text": "Não abre. Eu tô aqui, filho. Eu tava no banheiro esse tempo todo.",
-     "tags": "[whispering, calm]"
+     "tags": "[whispering, calm]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "andar",
+       "who": "mae_falsa",
+       "por": [
+        0.1,
+        0,
+        0.4
+       ],
+       "dur": 1.6,
+       "fim": "Idle"
+      }
+     ]
     },
     {
      "id": "sk_duas_05",
      "who": "mae_porta",
      "text": "Isso aí dentro não sou eu! Pelo amor de Deus, abre!",
-     "tags": "[desperate, crying]"
+     "tags": "[desperate, crying]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "mae_porta",
+       "dur": 0.5
+      },
+      {
+       "t": 0.4,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.06
+      },
+      {
+       "t": 0.9,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.06
+      },
+      {
+       "t": 1.4,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.06
+      },
+      {
+       "t": 1.9,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.06
+      }
+     ]
     },
     {
      "id": "sk_duas_06",
      "who": "mae_falsa",
      "text": "Lembra do que o Seu Bento falou. Não abre pra ninguém.",
-     "tags": "[sweet, too calm]"
+     "tags": "[sweet, too calm]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "mae_falsa",
+       "dur": 0.6
+      },
+      {
+       "t": 0.3,
+       "acao": "andar",
+       "who": "mae_falsa",
+       "por": [
+        0.1,
+        0,
+        0.3
+       ],
+       "dur": 1.6,
+       "fim": "Idle"
+      }
+     ]
     }
    ],
    "choice": {
@@ -663,7 +1539,14 @@
     "timeout": {
      "next": "abraco"
     }
-   }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "esconder",
+     "who": "mae_falsa"
+    }
+   ]
   },
   "abraco": {
    "location": "casa",
@@ -678,12 +1561,77 @@
      "id": "sk_abraco_01",
      "who": "mae_falsa",
      "text": "Isso. Fica aqui com a mamãe.",
-     "tags": "[sweet whisper]"
+     "tags": "[sweet whisper]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "mae_falsa",
+       "dur": 0.5
+      },
+      {
+       "t": 0.3,
+       "acao": "andar",
+       "who": "mae_falsa",
+       "por": [
+        0.2,
+        0,
+        1.0
+       ],
+       "dur": 2.0,
+       "fim": "Idle"
+      }
+     ]
     },
     {
      "id": "sk_abraco_02",
      "who": "sistema",
-     "text": "Ela te abraça por trás. Os braços dela são compridos demais."
+     "text": "Ela te abraça por trás. Os braços dela são compridos demais.",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "andar",
+       "who": "mae_falsa",
+       "por": [
+        0.4,
+        0,
+        2.4
+       ],
+       "dur": 1.3,
+       "olhar_camera": false
+      },
+      {
+       "t": 1.5,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.08
+      },
+      {
+       "t": 1.6,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        -0.1,
+        0
+       ],
+       "dur": 1.0,
+       "olhar": [
+        0,
+        2.4,
+        -2.0
+       ]
+      },
+      {
+       "t": 1.6,
+       "acao": "luz",
+       "ambiente": "#201820",
+       "energia": 0.25,
+       "neblina": "#040204",
+       "densidade": 0.05,
+       "fundo": "#000000",
+       "dur": 1.2
+      }
+     ]
     }
    ],
    "ending": "pele_de_mae"
@@ -706,25 +1654,148 @@
      "id": "sk_rev_01",
      "who": "sistema",
      "text": "Você abre. Sua mãe entra molhada de chuva, com a roupa do varal no braço.",
-     "sfx": "porta_abre"
+     "sfx": "porta_abre",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "maos",
+       "anim": "grab.R"
+      },
+      {
+       "t": 0.3,
+       "acao": "mostrar",
+       "who": "mae"
+      },
+      {
+       "t": 0.3,
+       "acao": "entrar",
+       "who": "mae",
+       "de": [
+        -2.6,
+        0,
+        4.3
+       ],
+       "dur": 2.0,
+       "anim": "Run",
+       "fim": "Idle"
+      },
+      {
+       "t": 0.4,
+       "acao": "camera_olhar",
+       "olhar": [
+        -1.6,
+        1.4,
+        1.0
+       ],
+       "dur": 0.8
+      },
+      {
+       "t": 1.8,
+       "acao": "camera_olhar",
+       "who": "mae",
+       "dur": 0.8
+      }
+     ]
     },
     {
      "id": "sk_rev_02",
      "who": "mae",
      "text": "SAI DE PERTO DELA!",
-     "tags": "[screaming, terrified]"
+     "tags": "[screaming, terrified]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "olhar_para",
+       "who": "mae",
+       "alvo": "mae_falsa"
+      },
+      {
+       "t": 0.2,
+       "acao": "andar",
+       "who": "mae",
+       "por": [
+        -0.15,
+        0,
+        0.3
+       ],
+       "dur": 0.6,
+       "anim": "Run",
+       "fim": "Idle",
+       "olhar_camera": false
+      },
+      {
+       "t": 0.9,
+       "acao": "olhar_para",
+       "who": "mae",
+       "alvo": "mae_falsa"
+      }
+     ]
     },
     {
      "id": "sk_rev_03",
      "who": "sistema",
      "text": "A outra mãe sorri. O pescoço dela estala. E continua virando.",
-     "sfx": "ossos"
+     "sfx": "ossos",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "mae_falsa",
+       "dur": 0.6
+      },
+      {
+       "t": 0.4,
+       "acao": "tremer",
+       "who": "mae_falsa",
+       "dur": 2.0
+      },
+      {
+       "t": 2.4,
+       "acao": "trocar",
+       "who": "mae_falsa",
+       "novo": "coisa",
+       "anim": "Dog1_Idle"
+      },
+      {
+       "t": 2.4,
+       "acao": "fx",
+       "tipo": "flash"
+      },
+      {
+       "t": 2.5,
+       "acao": "camera_olhar",
+       "olhar": [
+        -0.6,
+        2.0,
+        -2.4
+       ],
+       "dur": 1.0
+      }
+     ]
     },
     {
      "id": "sk_rev_04",
      "who": "sistema",
      "text": "Do quarto do Theo vem um grito. E um latido que não é de cachorro.",
-     "if": "theo_perigo"
+     "if": "theo_perigo",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        -3.0,
+        1.5,
+        -3.0
+       ],
+       "dur": 1.0
+      },
+      {
+       "t": 0.8,
+       "acao": "sfx",
+       "som": "latido",
+       "volume": -4
+      }
+     ]
     }
    ],
    "choice": {
@@ -747,7 +1818,14 @@
     "timeout": {
      "next": "fuga"
     }
-   }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "esconder",
+     "who": "mae"
+    }
+   ]
   },
   "fuga": {
    "location": "casa",
@@ -755,7 +1833,39 @@
     {
      "id": "sk_fuga_01",
      "who": "sistema",
-     "text": "Sua mãe te puxa pela cozinha. Vocês correm pela chuva até o carro. O motor demora três tentativas para pegar."
+     "text": "Sua mãe te puxa pela cozinha. Vocês correm pela chuva até o carro. O motor demora três tentativas para pegar.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "maos",
+       "anim": "grab.L"
+      },
+      {
+       "t": 0.2,
+       "acao": "camera_olhar",
+       "olhar": [
+        -2.0,
+        1.5,
+        4.0
+       ],
+       "dur": 0.6
+      },
+      {
+       "t": 0.8,
+       "acao": "camera_andar",
+       "pos": [
+        -2.0,
+        1.68,
+        3.4
+       ],
+       "olhar": [
+        -2.0,
+        1.5,
+        8.0
+       ],
+       "dur": 2.6
+      }
+     ]
     }
    ],
    "branch": [
@@ -774,7 +1884,19 @@
     {
      "id": "sk_fuga_st_01",
      "who": "sistema",
-     "text": "Só na estrada vocês percebem. O Theo ficou lá dentro."
+     "text": "Só na estrada vocês percebem. O Theo ficou lá dentro.",
+     "acoes": [
+      {
+       "t": 0.4,
+       "acao": "luz",
+       "ambiente": "#182030",
+       "energia": 0.3,
+       "neblina": "#02040a",
+       "densidade": 0.05,
+       "fundo": "#000000",
+       "dur": 2.0
+      }
+     ]
     }
    ],
    "ending": "theo_voltou"
@@ -785,7 +1907,19 @@
     {
      "id": "sk_fuga_f_01",
      "who": "sistema",
-     "text": "O Theo está no banco de trás, abraçado na sua mãe. Ninguém olha para a casa."
+     "text": "O Theo está no banco de trás, abraçado na sua mãe. Ninguém olha para a casa.",
+     "acoes": [
+      {
+       "t": 0.4,
+       "acao": "luz",
+       "ambiente": "#182030",
+       "energia": 0.3,
+       "neblina": "#02040a",
+       "densidade": 0.05,
+       "fundo": "#000000",
+       "dur": 2.0
+      }
+     ]
     }
    ],
    "ending": "fuga"
@@ -807,24 +1941,93 @@
     {
      "id": "sk_tq_01",
      "who": "sistema",
-     "text": "O Theo está encolhido no canto do quarto. Ao lado dele, de pé, uma coisa alta demais para o teto."
+     "text": "O Theo está encolhido no canto do quarto. Ao lado dele, de pé, uma coisa alta demais para o teto.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "theo",
+       "dur": 1.0
+      },
+      {
+       "t": 2.6,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        2.0,
+        -4.0
+       ],
+       "dur": 1.4
+      }
+     ]
     },
     {
      "id": "sk_tq_02",
      "who": "sistema",
-     "text": "Ela ainda veste o pelo do Caramelo. Como um casaco que não serve."
+     "text": "Ela ainda veste o pelo do Caramelo. Como um casaco que não serve.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "coisa",
+       "dur": 0.6
+      },
+      {
+       "t": 0.4,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        -0.2
+       ],
+       "dur": 2.4
+      }
+     ]
     },
     {
      "id": "sk_tq_03",
      "who": "theo",
      "text": "Ele falou com a sua voz. Ele chamou meu nome com a sua voz.",
-     "tags": "[crying, whispering]"
+     "tags": "[crying, whispering]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "theo",
+       "dur": 0.6
+      },
+      {
+       "t": 0.2,
+       "acao": "tremer",
+       "who": "theo",
+       "dur": 1.6
+      }
+     ]
     },
     {
      "id": "sk_tq_04",
      "who": "sistema",
      "text": "A cabeça dela vira na sua direção. Os olhos procuram os seus.",
-     "sfx": "rosnado_cao"
+     "sfx": "rosnado_cao",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "olhar_camera",
+       "who": "coisa"
+      },
+      {
+       "t": 0.2,
+       "acao": "camera_olhar",
+       "who": "coisa",
+       "dur": 0.6
+      },
+      {
+       "t": 0.4,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.06
+      }
+     ]
     }
    ],
    "choice": {
@@ -849,7 +2052,33 @@
      },
      "next": "banheiro"
     }
-   }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "theo",
+     "para": [
+      -2.0,
+      -0.35,
+      -3.2
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0.05,
+     "acao": "anim",
+     "who": "theo",
+     "anim": "Sit",
+     "fixo": true
+    },
+    {
+     "t": 0.1,
+     "acao": "olhar_para",
+     "who": "coisa",
+     "alvo": "theo"
+    }
+   ]
   },
   "banheiro": {
    "location": "casa",
@@ -869,22 +2098,129 @@
     {
      "id": "sk_ban_01",
      "who": "sistema",
-     "text": "Vocês se trancam no banheiro. Os três. Lá fora, a coisa anda pela casa imitando a voz de cada um de vocês."
+     "text": "Vocês se trancam no banheiro. Os três. Lá fora, a coisa anda pela casa imitando a voz de cada um de vocês.",
+     "acoes": [
+      {
+       "t": 2.4,
+       "acao": "sfx",
+       "som": "arranhao",
+       "volume": -6
+      },
+      {
+       "t": 2.6,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        1.2,
+        -4.0
+       ],
+       "dur": 1.2
+      }
+     ]
     },
     {
      "id": "sk_ban_02",
      "who": "mae",
      "text": "Ninguém fala. Ninguém responde.",
-     "tags": "[whispering, shaking]"
+     "tags": "[whispering, shaking]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "mae",
+       "dur": 0.6
+      }
+     ]
     },
     {
      "id": "sk_ban_03",
      "who": "sistema",
      "text": "Então tudo fica quieto. E no quintal, um latido. Depois outro. Igualzinho.",
-     "sfx": "latido"
+     "sfx": "latido",
+     "acoes": [
+      {
+       "t": 0.8,
+       "acao": "camera_olhar",
+       "olhar": [
+        -3.0,
+        1.6,
+        -2.0
+       ],
+       "dur": 1.2
+      },
+      {
+       "t": 1.0,
+       "acao": "olhar_para",
+       "who": "theo",
+       "alvo": "mae"
+      }
+     ]
     }
    ],
-   "next": "dois_caramelos"
+   "next": "dois_caramelos",
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#2a3448",
+     "energia": 0.4,
+     "neblina": "#04060a",
+     "densidade": 0.04,
+     "fundo": "#000000",
+     "dur": 0.1
+    },
+    {
+     "t": 0,
+     "acao": "camera_rel",
+     "por": [
+      0,
+      -0.6,
+      0.2
+     ],
+     "dur": 0,
+     "olhar": [
+      0,
+      0.6,
+      -2.4
+     ]
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "theo",
+     "para": [
+      -0.55,
+      -0.4,
+      -1.6
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "mae",
+     "para": [
+      0.55,
+      -0.4,
+      -1.6
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0.05,
+     "acao": "anim",
+     "who": "theo",
+     "anim": "Sit",
+     "fixo": true
+    },
+    {
+     "t": 0.05,
+     "acao": "anim",
+     "who": "mae",
+     "anim": "Sit",
+     "fixo": true
+    }
+   ]
   },
   "meia_noite": {
    "location": "casa",
@@ -893,6 +2229,10 @@
     "center": {
      "char": "theo_falso",
      "offscreen": "porta"
+    },
+    "left": {
+     "char": "theo",
+     "anim": "Sit"
     }
    },
    "lines": [
@@ -900,30 +2240,125 @@
      "id": "sk_mn_01",
      "who": "sistema",
      "text": "Arranhões na porta da cozinha. Longos. Pacientes.",
-     "sfx": "arranhao"
+     "sfx": "arranhao",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "theo_falso",
+       "dur": 1.0
+      },
+      {
+       "t": 0.6,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.03
+      },
+      {
+       "t": 1.2,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.03
+      },
+      {
+       "t": 1.8,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.03
+      }
+     ]
     },
     {
      "id": "sk_mn_02",
      "who": "theo_falso",
      "text": "Abre... tô com frio. Me deixa entrar.",
-     "tags": "[small voice, cold, whispering]"
+     "tags": "[small voice, cold, whispering]",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        -0.3
+       ],
+       "dur": 2.2
+      }
+     ]
     },
     {
      "id": "sk_mn_03",
      "who": "sistema",
-     "text": "É a voz do Theo. Mas o Theo está dormindo no sofá. Do seu lado."
+     "text": "É a voz do Theo. Mas o Theo está dormindo no sofá. Do seu lado.",
+     "acoes": [
+      {
+       "t": 0.8,
+       "acao": "camera_olhar",
+       "olhar": [
+        -3.0,
+        0.9,
+        -1.2
+       ],
+       "dur": 1.4
+      },
+      {
+       "t": 3.6,
+       "acao": "camera_olhar",
+       "who": "theo_falso",
+       "dur": 1.0
+      }
+     ]
     },
     {
      "id": "sk_mn_04",
      "who": "theo_falso",
      "text": "Por que você não abre? Você não gosta mais de mim?",
-     "tags": "[sad, whispering]"
+     "tags": "[sad, whispering]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "theo_falso",
+       "dur": 0.5
+      },
+      {
+       "t": 1.0,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.06
+      }
+     ]
     },
     {
      "id": "sk_mn_05",
      "who": "sistema",
      "text": "No chão, a linha de sal grosso atravessa a soleira de ponta a ponta.",
-     "if": "sal"
+     "if": "sal",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        0.06,
+        -2.4
+       ],
+       "dur": 1.0
+      },
+      {
+       "t": 0.4,
+       "acao": "texto3d",
+       "id": "sal",
+       "texto": "· · · · · · · · · · ·",
+       "pos": [
+        0,
+        0.08,
+        -2.6
+       ],
+       "tamanho": 40,
+       "cor": "#e8e8f0"
+      }
+     ]
     }
    ],
    "choice": {
@@ -942,7 +2377,38 @@
     "timeout": {
      "next": "janela"
     }
-   }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "theo",
+     "para": [
+      -3.4,
+      0.0,
+      -1.2
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0.05,
+     "acao": "mover",
+     "who": "theo",
+     "para": [
+      -3.0,
+      0.0,
+      -1.2
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0.1,
+     "acao": "anim",
+     "who": "theo",
+     "anim": "Sit",
+     "fixo": true
+    }
+   ]
   },
   "janela": {
    "location": "quintal",
@@ -957,24 +2423,91 @@
     {
      "id": "sk_jan_01",
      "who": "sistema",
-     "text": "No meio do quintal, em pé nas patas de trás, tem uma coisa alta demais. Vestindo o Caramelo."
+     "text": "No meio do quintal, em pé nas patas de trás, tem uma coisa alta demais. Vestindo o Caramelo.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        0.2,
+        -4.4
+       ],
+       "dur": 0
+      },
+      {
+       "t": 0.2,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        2.0,
+        -4.4
+       ],
+       "dur": 3.4
+      }
+     ]
     },
     {
      "id": "sk_jan_02",
      "who": "sistema",
-     "text": "A pele sobra nos ombros. As patas da frente balançam moles, como mangas vazias."
+     "text": "A pele sobra nos ombros. As patas da frente balançam moles, como mangas vazias.",
+     "acoes": [
+      {
+       "t": 0.4,
+       "acao": "tremer",
+       "who": "coisa",
+       "dur": 1.2
+      }
+     ]
     },
     {
      "id": "sk_jan_03",
      "who": "coisa",
      "text": "Abre... tô com frio...",
-     "tags": "[child voice, creepy whisper]"
+     "tags": "[child voice, creepy whisper]",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "andar",
+       "who": "coisa",
+       "por": [
+        0,
+        0,
+        0.9
+       ],
+       "dur": 2.2,
+       "anim": "Dog1_Walk",
+       "fim": "Dog1_Idle"
+      }
+     ]
     },
     {
      "id": "sk_jan_04",
      "who": "sistema",
      "text": "Ela levanta a cabeça. Para a janela. Para você.",
-     "sfx": "stinger_hit"
+     "sfx": "stinger_hit",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "olhar_camera",
+       "who": "coisa"
+      },
+      {
+       "t": 0.1,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        0.25
+       ],
+       "dur": 0.3,
+       "olhar": [
+        0,
+        1.9,
+        -3.4
+       ]
+      }
+     ]
     }
    ],
    "choice": {
@@ -1040,18 +2573,117 @@
      "id": "sk_dc_02",
      "who": "sistema",
      "text": "Os dois sujos. Os dois com sangue no pelo. Os dois com a coleira do guizinho.",
-     "sfx": "guizo"
+     "sfx": "guizo",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "caramelo_falso",
+       "dur": 0.8
+      },
+      {
+       "t": 2.2,
+       "acao": "camera_olhar",
+       "who": "caramelo",
+       "dur": 0.8
+      }
+     ]
     },
     {
      "id": "sk_dc_03",
      "who": "sistema",
-     "text": "Os dois mancam. O da esquerda, da pata da frente. O da direita, da pata de trás."
+     "text": "Os dois mancam. O da esquerda, da pata da frente. O da direita, da pata de trás.",
+     "acoes": [
+      {
+       "t": 0.6,
+       "acao": "camera_olhar",
+       "who": "caramelo_falso",
+       "dur": 0.6
+      },
+      {
+       "t": 0.8,
+       "acao": "andar",
+       "who": "caramelo_falso",
+       "por": [
+        0.12,
+        0,
+        0.25
+       ],
+       "dur": 1.4,
+       "anim": "Dog1_Walk",
+       "fim": "Dog1_Idle"
+      },
+      {
+       "t": 0.8,
+       "acao": "tremer",
+       "who": "caramelo_falso",
+       "dur": 1.2
+      },
+      {
+       "t": 2.8,
+       "acao": "camera_olhar",
+       "who": "caramelo",
+       "dur": 0.6
+      },
+      {
+       "t": 3.0,
+       "acao": "andar",
+       "who": "caramelo",
+       "por": [
+        -0.1,
+        0,
+        0.25
+       ],
+       "dur": 1.8,
+       "anim": "Dog1_Walk",
+       "fim": "Dog1_Idle"
+      },
+      {
+       "t": 3.0,
+       "acao": "tremer",
+       "who": "caramelo",
+       "dur": 1.6
+      }
+     ]
     },
     {
      "id": "sk_dc_04",
      "who": "sistema",
      "text": "Os dois choram baixinho. Os dois querem entrar.",
-     "sfx": "cachorro_choro"
+     "sfx": "cachorro_choro",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_voltar",
+       "dur": 0.8
+      },
+      {
+       "t": 0.4,
+       "acao": "anim",
+       "who": "caramelo_falso",
+       "anim": "Dog1_Sit_Start"
+      },
+      {
+       "t": 0.6,
+       "acao": "anim",
+       "who": "caramelo",
+       "anim": "Dog1_Sit_Start"
+      },
+      {
+       "t": 1.6,
+       "acao": "anim",
+       "who": "caramelo_falso",
+       "anim": "Dog1_Sit_Loop",
+       "fixo": true
+      },
+      {
+       "t": 1.8,
+       "acao": "anim",
+       "who": "caramelo",
+       "anim": "Dog1_Sit_Loop",
+       "fixo": true
+      }
+     ]
     }
    ],
    "choice": {
@@ -1076,7 +2708,36 @@
     "timeout": {
      "next": "dc_hesitou"
     }
-   }
+   },
+   "aguardar": 1.4,
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "entrar",
+     "who": "caramelo_falso",
+     "de": [
+      -0.4,
+      0,
+      -3.0
+     ],
+     "dur": 2.4,
+     "anim": "Dog1_Walk",
+     "fim": "Dog1_Idle"
+    },
+    {
+     "t": 0,
+     "acao": "entrar",
+     "who": "caramelo",
+     "de": [
+      0.5,
+      0,
+      -3.0
+     ],
+     "dur": 3.6,
+     "anim": "Dog1_Walk",
+     "fim": "Dog1_Idle"
+    }
+   ]
   },
   "dc_hesitou": {
    "location": "quintal",
@@ -1088,7 +2749,32 @@
     {
      "next": "porta_sozinha"
     }
-   ]
+   ],
+   "cast": {
+    "left": {
+     "char": "caramelo_falso",
+     "anim": "Dog1_Idle"
+    },
+    "right": {
+     "char": "caramelo",
+     "anim": "Dog1_Idle"
+    }
+   },
+   "camera": {
+    "pos": [
+     0,
+     1.25,
+     0.4
+    ],
+    "olhar": [
+     0,
+     0.3,
+     -2.0
+    ],
+    "slot_dist": 2.0,
+    "slot_spread": 0.48,
+    "center_dist": 2.3
+   }
   },
   "imovel": {
    "location": "quintal",
@@ -1096,10 +2782,52 @@
     {
      "id": "sk_imovel_01",
      "who": "sistema",
-     "text": "Você não chama nenhum dos dois. Eles também não se mexem. Ninguém pisca."
+     "text": "Você não chama nenhum dos dois. Eles também não se mexem. Ninguém pisca.",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        -0.15
+       ],
+       "dur": 3.0
+      },
+      {
+       "t": 1.5,
+       "acao": "sfx",
+       "som": "coracao"
+      }
+     ]
     }
    ],
-   "ending": "imovel"
+   "ending": "imovel",
+   "cast": {
+    "left": {
+     "char": "caramelo_falso",
+     "anim": "Dog1_Idle"
+    },
+    "right": {
+     "char": "caramelo",
+     "anim": "Dog1_Idle"
+    }
+   },
+   "camera": {
+    "pos": [
+     0,
+     1.25,
+     0.4
+    ],
+    "olhar": [
+     0,
+     0.3,
+     -2.0
+    ],
+    "slot_dist": 2.0,
+    "slot_spread": 0.48,
+    "center_dist": 2.3
+   }
   },
   "porta_sozinha": {
    "location": "quintal",
@@ -1107,10 +2835,57 @@
     {
      "id": "sk_porta_s_01",
      "who": "sistema",
-     "text": "Você não escolhe. Então um deles escolhe por você. E entra abanando o rabo."
+     "text": "Você não escolhe. Então um deles escolhe por você. E entra abanando o rabo.",
+     "acoes": [
+      {
+       "t": 1.0,
+       "acao": "anim",
+       "who": "caramelo_falso",
+       "anim": "Dog1_Idle_Tail_Wag"
+      },
+      {
+       "t": 1.4,
+       "acao": "andar",
+       "who": "caramelo_falso",
+       "por": [
+        0.3,
+        0,
+        2.0
+       ],
+       "dur": 2.4,
+       "anim": "Dog1_Walk",
+       "fim": "Dog1_Idle_Tail_Wag",
+       "olhar_camera": false
+      }
+     ]
     }
    ],
-   "ending": "o_outro_caramelo"
+   "ending": "o_outro_caramelo",
+   "cast": {
+    "left": {
+     "char": "caramelo_falso",
+     "anim": "Dog1_Idle"
+    },
+    "right": {
+     "char": "caramelo",
+     "anim": "Dog1_Idle"
+    }
+   },
+   "camera": {
+    "pos": [
+     0,
+     1.25,
+     0.4
+    ],
+    "olhar": [
+     0,
+     0.3,
+     -2.0
+    ],
+    "slot_dist": 2.0,
+    "slot_spread": 0.48,
+    "center_dist": 2.3
+   }
   },
   "real_escolhido": {
    "location": "quintal",
@@ -1145,13 +2920,77 @@
      "id": "sk_re_01",
      "who": "sistema",
      "text": "O Caramelo entra mancando, se vira para a porta e rosna. Pela primeira vez na vida, rosna.",
-     "sfx": "rosnado_cao"
+     "sfx": "rosnado_cao",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "andar",
+       "who": "caramelo",
+       "por": [
+        0,
+        0,
+        0.9
+       ],
+       "dur": 1.6,
+       "anim": "Dog1_Walk",
+       "fim": "Dog1_Bark",
+       "olhar_camera": false
+      },
+      {
+       "t": 1.8,
+       "acao": "olhar_para",
+       "who": "caramelo",
+       "alvo": "caramelo_falso"
+      },
+      {
+       "t": 0.4,
+       "acao": "camera_olhar",
+       "who": "caramelo",
+       "dur": 0.8
+      }
+     ]
     },
     {
      "id": "sk_re_02",
      "who": "sistema",
      "text": "O outro para de abanar o rabo. E se levanta. Nas patas de trás.",
-     "sfx": "ossos"
+     "sfx": "ossos",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "caramelo_falso",
+       "dur": 0.6
+      },
+      {
+       "t": 0.2,
+       "acao": "anim",
+       "who": "caramelo_falso",
+       "anim": "Dog1_Idle"
+      },
+      {
+       "t": 1.4,
+       "acao": "trocar",
+       "who": "caramelo_falso",
+       "novo": "coisa",
+       "anim": "Dog1_Idle"
+      },
+      {
+       "t": 1.4,
+       "acao": "fx",
+       "tipo": "flash"
+      },
+      {
+       "t": 1.5,
+       "acao": "camera_olhar",
+       "olhar": [
+        -0.48,
+        2.0,
+        -1.6
+       ],
+       "dur": 1.0
+      }
+     ]
     }
    ],
    "branch": [
@@ -1199,7 +3038,55 @@
      "id": "sk_luta_01",
      "who": "sistema",
      "text": "A coisa é três vezes maior que ele. O Caramelo não recua um passo.",
-     "sfx": "latido"
+     "sfx": "latido",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "olhar_para",
+       "who": "caramelo",
+       "alvo": "coisa"
+      },
+      {
+       "t": 0.3,
+       "acao": "andar",
+       "who": "coisa",
+       "por": [
+        0.3,
+        0,
+        0.4
+       ],
+       "dur": 1.5,
+       "anim": "Dog1_Walk",
+       "fim": "Dog1_Idle",
+       "olhar_camera": false
+      },
+      {
+       "t": 0.8,
+       "acao": "andar",
+       "who": "caramelo",
+       "por": [
+        -0.2,
+        0,
+        -0.2
+       ],
+       "dur": 0.6,
+       "anim": "Dog1_Run",
+       "fim": "Dog1_Bark",
+       "olhar_camera": false
+      },
+      {
+       "t": 1.6,
+       "acao": "olhar_para",
+       "who": "caramelo",
+       "alvo": "coisa"
+      },
+      {
+       "t": 1.8,
+       "acao": "tremer",
+       "who": "coisa",
+       "dur": 1.2
+      }
+     ]
     }
    ],
    "choice": {
@@ -1230,7 +3117,30 @@
     {
      "id": "sk_luta_t_01",
      "who": "sistema",
-     "text": "Sua mãe te puxa para dentro e tranca a porta. Lá fora, o Caramelo late até o sol nascer."
+     "text": "Sua mãe te puxa para dentro e tranca a porta. Lá fora, o Caramelo late até o sol nascer.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "maos",
+       "anim": "grab.L"
+      },
+      {
+       "t": 0.2,
+       "acao": "camera_andar",
+       "por": [
+        0,
+        0,
+        1.6
+       ],
+       "dur": 1.2
+      },
+      {
+       "t": 1.4,
+       "acao": "sfx",
+       "som": "porta_abre",
+       "volume": -4
+      }
+     ]
     }
    ],
    "ending": "bom_garoto"
@@ -1247,13 +3157,64 @@
     {
      "id": "sk_sal_01",
      "who": "sistema",
-     "text": "A coisa vem até a porta. E para. Bem em cima da linha de sal."
+     "text": "A coisa vem até a porta. E para. Bem em cima da linha de sal.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "texto3d",
+       "id": "sal",
+       "texto": "· · · · · · · · · · ·",
+       "pos": [
+        0,
+        0.05,
+        -1.1
+       ],
+       "tamanho": 40,
+       "cor": "#e8e8f0"
+      },
+      {
+       "t": 0.2,
+       "acao": "andar",
+       "who": "coisa",
+       "por": [
+        0,
+        0,
+        2.2
+       ],
+       "dur": 3.0,
+       "anim": "Dog1_Walk",
+       "fim": "Dog1_Idle"
+      },
+      {
+       "t": 0.4,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        1.8,
+        -2.2
+       ],
+       "dur": 3.0
+      }
+     ]
     },
     {
      "id": "sk_sal_02",
      "who": "coisa_mae",
      "text": "Filho... deixa a mamãe entrar...",
-     "tags": "[sweet, mother's voice, creepy whisper]"
+     "tags": "[sweet, mother's voice, creepy whisper]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "tremer",
+       "who": "coisa",
+       "dur": 1.6
+      },
+      {
+       "t": 0.2,
+       "acao": "olhar_camera",
+       "who": "coisa"
+      }
+     ]
     }
    ],
    "ending": "sal_grosso"
@@ -1270,12 +3231,62 @@
     {
      "id": "sk_mar_01",
      "who": "sistema",
-     "text": "Ela não ataca. Só olha pra você. Como olhou antes, quando você encarou."
+     "text": "Ela não ataca. Só olha pra você. Como olhou antes, quando você encarou.",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "andar",
+       "who": "coisa",
+       "por": [
+        0,
+        0,
+        1.6
+       ],
+       "dur": 3.0,
+       "anim": "Dog1_Walk",
+       "fim": "Dog1_Idle"
+      },
+      {
+       "t": 0.4,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        1.9,
+        -2.8
+       ],
+       "dur": 3.0
+      }
+     ]
     },
     {
      "id": "sk_mar_02",
      "who": "sistema",
-     "text": "E sorri. Com a sua boca."
+     "text": "E sorri. Com a sua boca.",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        -0.4
+       ],
+       "dur": 2.0,
+       "olhar": [
+        0,
+        1.95,
+        -2.6
+       ]
+      },
+      {
+       "t": 1.0,
+       "acao": "fx",
+       "tipo": "vermelho",
+       "de": 0.0,
+       "ate": 0.3,
+       "dur": 1.0
+      }
+     ]
     }
    ],
    "ending": "duas_vezes_voce"
