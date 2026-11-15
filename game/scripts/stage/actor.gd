@@ -85,29 +85,9 @@ func play(anim: String, blend := 0.25) -> void:
 ##   "em_pe": true        bicho de quatro patas levantado nas patas de trás
 ##   "olhos": "#ffe070"   olhos que brilham (modelos com "olhos" no MODEL_META)
 func _apply_options(key: String, def: Dictionary) -> void:
-	var meta: Dictionary = AssetLib.MODEL_META.get(key, {})
-	var tex_path: String = meta.get("tex", "")
-	var tex: Texture2D = null
-	if not tex_path.is_empty() and ResourceLoader.exists(tex_path):
-		tex = load(tex_path) as Texture2D
+	var meta: Dictionary = AssetLib.meta(key)
 	var pel = def.get("pelagem", "")
-	var ramp = AssetLib.PELAGENS.get(pel, null) if pel is String else pel
-	if tex != null or ramp != null:
-		for mi in model.find_children("*", "MeshInstance3D", true, false):
-			var m := mi as MeshInstance3D
-			for i in m.mesh.get_surface_count():
-				var mat := m.get_active_material(i) as ShaderMaterial
-				if mat == null:
-					continue
-				mat = mat.duplicate()
-				if tex != null:
-					mat.set_shader_parameter("albedo_tex", tex)
-					mat.set_shader_parameter("use_texture", true)
-				if ramp != null:
-					mat.set_shader_parameter("use_ramp", true)
-					mat.set_shader_parameter("ramp_dark", Color.html(ramp[0]))
-					mat.set_shader_parameter("ramp_light", Color.html(ramp[1]))
-				m.set_surface_override_material(i, mat)
+	_skin_materials(model, meta.get("tex", ""), AssetLib.PELAGENS.get(pel, null) if pel is String else pel)
 	var em_pe: bool = def.get("em_pe", false)
 	var rot := Vector3(deg_to_rad(80.0) if em_pe else 0.0, deg_to_rad(float(meta.get("rot_y", 0.0))), 0.0)
 	var altura := float(def.get("altura", meta.get("altura", 0.0)))
@@ -115,13 +95,75 @@ func _apply_options(key: String, def: Dictionary) -> void:
 		var ext := _bone_extent_y(Basis.from_euler(rot))
 		if ext.y - ext.x > 0.01:
 			var s := altura / (ext.y - ext.x)
-			model.scale = Vector3.ONE * s
+			var thin := float(meta.get("magro", 1.0))
+			model.scale = Vector3(s * thin, s, s * thin)
 			model.position.y = -ext.x * s
-			head_height = altura + (0.12 if not em_pe and meta.has("olhos") else 0.0)
+			head_height = altura + (0.12 if not em_pe and meta.has("olhos") else 0.0) + (0.35 if meta.has("anexos") else 0.0)
 	model.rotation = rot
 	_model_y0 = model.position.y
 	if def.has("olhos") and meta.has("olhos"):
-		_add_eyes(meta, Color.html(def["olhos"]))
+		_add_eyes_to_bone(meta, Color.html(def["olhos"]))
+	for anexo in meta.get("anexos", []):
+		_add_attachment(anexo, def)
+
+
+## Textura (para GLBs que vêm sem ela) e rampa de cor ("pelagem") num modelo.
+func _skin_materials(root: Node, tex_path: String, ramp) -> void:
+	var tex: Texture2D = null
+	if not tex_path.is_empty() and ResourceLoader.exists(tex_path):
+		tex = load(tex_path) as Texture2D
+	if tex == null and ramp == null:
+		return
+	for mi in root.find_children("*", "MeshInstance3D", true, false):
+		var m := mi as MeshInstance3D
+		for i in m.mesh.get_surface_count():
+			var mat := m.get_active_material(i) as ShaderMaterial
+			if mat == null:
+				continue
+			mat = mat.duplicate()
+			if tex != null:
+				mat.set_shader_parameter("albedo_tex", tex)
+				mat.set_shader_parameter("use_texture", true)
+			if ramp != null:
+				mat.set_shader_parameter("use_ramp", true)
+				mat.set_shader_parameter("ramp_dark", Color.html(ramp[0]))
+				mat.set_shader_parameter("ramp_light", Color.html(ramp[1]))
+			m.set_surface_override_material(i, mat)
+
+
+func _find_bone(bone_name: String) -> Array:
+	for sk in model.find_children("*", "Skeleton3D", true, false):
+		var skel := sk as Skeleton3D
+		var idx := skel.find_bone(bone_name)
+		if idx < 0:
+			idx = skel.find_bone(bone_name.replace(".", "_"))
+		if idx >= 0:
+			return [skel, idx]
+	return []
+
+
+## Modelo extra preso num osso (ex.: máscara de cabeça de cachorro).
+func _add_attachment(anexo: Dictionary, def: Dictionary) -> void:
+	var found := _find_bone(anexo.get("osso", ""))
+	if found.is_empty():
+		return
+	var skel: Skeleton3D = found[0]
+	var att := BoneAttachment3D.new()
+	att.bone_name = skel.get_bone_name(found[1])
+	skel.add_child(att)
+	var inst := AssetLib.spawn(AssetLib.model_path(anexo.get("model", "")), Vector3(0.2, 0.2, 0.2))
+	AssetLib.psxify(inst)
+	var pel = anexo.get("pelagem", "")
+	_skin_materials(inst, anexo.get("tex", ""), AssetLib.PELAGENS.get(pel, null) if pel is String else pel)
+	var holder := Node3D.new()
+	holder.position = anexo.get("pos", Vector3.ZERO)
+	var r: Vector3 = anexo.get("rot", Vector3.ZERO)
+	holder.rotation = Vector3(deg_to_rad(r.x), deg_to_rad(r.y), deg_to_rad(r.z))
+	holder.scale = Vector3.ONE * float(anexo.get("escala", 1.0))
+	holder.add_child(inst)
+	att.add_child(holder)
+	if def.has("olhos"):
+		_add_eye_meshes(holder, anexo.get("olhos", []), float(anexo.get("raio_olho", 0.02)), Color.html(def["olhos"]))
 
 
 ## Menor e maior altura dos ossos (pose de descanso) depois de girar o modelo.
@@ -142,22 +184,19 @@ func _bone_extent_y(rot: Basis) -> Vector2:
 	return out if out.x < out.y else Vector2(0, 0)
 
 
-func _add_eyes(meta: Dictionary, color: Color) -> void:
-	var skels := model.find_children("*", "Skeleton3D", true, false)
-	if skels.is_empty():
+func _add_eyes_to_bone(meta: Dictionary, color: Color) -> void:
+	var found := _find_bone(meta.get("osso_cabeca", ""))
+	if found.is_empty():
 		return
-	var skel := skels[0] as Skeleton3D
-	var bone_name: String = meta.get("osso_cabeca", "")
-	var idx := skel.find_bone(bone_name)
-	if idx < 0:
-		idx = skel.find_bone(bone_name.replace(".", "_"))
-	if idx < 0:
-		return
+	var skel: Skeleton3D = found[0]
 	var att := BoneAttachment3D.new()
-	att.bone_name = skel.get_bone_name(idx)
+	att.bone_name = skel.get_bone_name(found[1])
 	skel.add_child(att)
-	var r := float(meta.get("raio_olho", 0.02))
-	for p in meta.get("olhos", []):
+	_add_eye_meshes(att, meta.get("olhos", []), float(meta.get("raio_olho", 0.02)), color)
+
+
+func _add_eye_meshes(parent: Node3D, points: Array, r: float, color: Color) -> void:
+	for p in points:
 		var eye := MeshInstance3D.new()
 		var sph := SphereMesh.new()
 		sph.radius = r
@@ -167,7 +206,7 @@ func _add_eyes(meta: Dictionary, color: Color) -> void:
 		eye.mesh = sph
 		eye.position = p
 		eye.material_override = AssetLib.make_material(color, 4.0)
-		att.add_child(eye)
+		parent.add_child(eye)
 
 
 func set_plead(text: String) -> void:

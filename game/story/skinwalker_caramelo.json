@@ -81,11 +81,9 @@
   },
   "coisa": {
    "name": "",
-   "model": "dog",
-   "em_pe": true,
-   "altura": 2.15,
-   "pelagem": "morta",
-   "tint": "#c8b8a8",
+   "model": "skinwalker",
+   "altura": 1.7,
+   "tint": "#4a3c34",
    "olhos": "#fff0b8",
    "fx": "monstro"
   },
@@ -155,6 +153,11 @@
        ],
        "dur": 1.5,
        "olhar_camera": false
+      },
+      {
+       "t": 2.4,
+       "acao": "olhar_camera",
+       "who": "theo"
       }
      ]
     },
@@ -187,7 +190,7 @@
     {
      "id": "sk_inicio_04",
      "who": "sistema",
-     "text": "O portão range. Ninguém abriu o portão.",
+     "text": "O portão rangeu. E ninguém tinha aberto o portão.",
      "sfx": "portao_rangendo",
      "acoes": [
       {
@@ -343,8 +346,7 @@
         -0.2
        ],
        "dur": 0.9,
-       "fim": "Idle",
-       "olhar_camera": false
+       "fim": "Idle"
       }
      ]
     },
@@ -509,6 +511,16 @@
      "acao": "olhar_para",
      "who": "mae",
      "alvo": "caramelo_falso"
+    },
+    {
+     "t": 4.8,
+     "acao": "olhar_camera",
+     "who": "theo"
+    },
+    {
+     "t": 5.0,
+     "acao": "olhar_camera",
+     "who": "mae"
     }
    ]
   },
@@ -1029,6 +1041,11 @@
         -1.8
        ],
        "dur": 0.8
+      },
+      {
+       "t": 2.2,
+       "acao": "olhar_camera",
+       "who": "theo"
       }
      ]
     },
@@ -1049,6 +1066,11 @@
        "acao": "camera_olhar",
        "who": "mae",
        "dur": 0.7
+      },
+      {
+       "t": 1.6,
+       "acao": "olhar_camera",
+       "who": "mae"
       }
      ]
     },
@@ -1754,7 +1776,7 @@
        "acao": "trocar",
        "who": "mae_falsa",
        "novo": "coisa",
-       "anim": "Dog1_Idle"
+       "anim": "idle"
       },
       {
        "t": 2.4,
@@ -1770,6 +1792,11 @@
         -2.4
        ],
        "dur": 1.0
+      },
+      {
+       "t": 2.8,
+       "acao": "olhar_camera",
+       "who": "mae"
       }
      ]
     },
@@ -1934,7 +1961,7 @@
     },
     "center": {
      "char": "coisa",
-     "anim": "Dog1_Idle"
+     "anim": "idle"
     }
    },
    "lines": [
@@ -2153,6 +2180,11 @@
        "acao": "olhar_para",
        "who": "theo",
        "alvo": "mae"
+      },
+      {
+       "t": 2.6,
+       "acao": "olhar_camera",
+       "who": "theo"
       }
      ]
     }
@@ -2416,7 +2448,7 @@
    "cast": {
     "center": {
      "char": "coisa",
-     "anim": "Dog1_Idle"
+     "anim": "idle"
     }
    },
    "lines": [
@@ -2476,8 +2508,14 @@
         0.9
        ],
        "dur": 2.2,
-       "anim": "Dog1_Walk",
-       "fim": "Dog1_Idle"
+       "anim": "walk",
+       "fim": "idle"
+      },
+      {
+       "t": 2.4,
+       "acao": "anim",
+       "who": "coisa",
+       "anim": "attack"
       }
      ]
     },
@@ -2986,7 +3024,7 @@
        "acao": "trocar",
        "who": "caramelo_falso",
        "novo": "coisa",
-       "anim": "Dog1_Idle"
+       "anim": "idle"
       },
       {
        "t": 1.4,
@@ -3044,7 +3082,7 @@
    "cast": {
     "left": {
      "char": "coisa",
-     "anim": "Dog1_Idle"
+     "anim": "idle"
     },
     "right": {
      "char": "caramelo",
@@ -3074,8 +3112,8 @@
         0.4
        ],
        "dur": 1.5,
-       "anim": "Dog1_Walk",
-       "fim": "Dog1_Idle",
+       "anim": "walk",
+       "fim": "idle",
        "olhar_camera": false
       },
       {
@@ -3100,9 +3138,9 @@
       },
       {
        "t": 1.8,
-       "acao": "tremer",
+       "acao": "anim",
        "who": "coisa",
-       "dur": 1.2
+       "anim": "attack"
       }
      ]
     }
@@ -3168,7 +3206,7 @@
    "cast": {
     "center": {
      "char": "coisa",
-     "anim": "Dog1_Idle"
+     "anim": "idle"
     }
    },
    "lines": [
@@ -3200,8 +3238,8 @@
         2.2
        ],
        "dur": 3.0,
-       "anim": "Dog1_Walk",
-       "fim": "Dog1_Idle"
+       "anim": "walk",
+       "fim": "idle"
       },
       {
        "t": 0.4,
@@ -3242,7 +3280,7 @@
    "cast": {
     "center": {
      "char": "coisa",
-     "anim": "Dog1_Idle"
+     "anim": "idle"
     }
    },
    "lines": [
@@ -3261,8 +3299,8 @@
         1.6
        ],
        "dur": 3.0,
-       "anim": "Dog1_Walk",
-       "fim": "Dog1_Idle"
+       "anim": "walk",
+       "fim": "idle"
       },
       {
        "t": 0.4,
@@ -3370,7 +3408,7 @@
       "acao": "trocar",
       "who": "theo_falso",
       "novo": "coisa",
-      "anim": "Dog1_Idle"
+      "anim": "idle"
      },
      {
       "t": 3.6,
@@ -3532,7 +3570,7 @@
       "acao": "trocar",
       "who": "mae_falsa",
       "novo": "coisa",
-      "anim": "Dog1_Idle"
+      "anim": "idle"
      },
      {
       "t": 6.0,
@@ -3679,7 +3717,7 @@
       "acao": "trocar",
       "who": "caramelo_falso",
       "novo": "coisa",
-      "anim": "Dog1_Idle"
+      "anim": "idle"
      },
      {
       "t": 6.4,
@@ -4104,7 +4142,7 @@
     "cast": {
      "center": {
       "char": "coisa",
-      "anim": "Dog1_Idle"
+      "anim": "idle"
      }
     },
     "personagens": {

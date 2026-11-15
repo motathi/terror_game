@@ -162,7 +162,23 @@
     "Dog/DogGlb.glb",
     "Dog/BlackDog.png"
    ],
-   "flatten_prefix": "Dog/"
+   "flatten_prefix": "Dog/",
+   "post": "tools/dog_head.py",
+   "_obs": "Depois de baixar, tools/dog_head.py recorta a cabeça (dog_head.glb) usada como máscara do skinwalker. Derivado: também fica fora do git."
+  },
+  {
+   "id": "psx_creatures",
+   "url": "https://heyheythere.itch.io/psx-creatures-free",
+   "author": "heyheythere",
+   "license": "CC BY 4.0",
+   "commit": true,
+   "dest": "game/assets/third_party/psx_creatures",
+   "include": [
+    "psx-creatures-free/glb/zombie_woman.glb",
+    "psx-creatures-free/LICENSE.txt"
+   ],
+   "flatten_prefix": "psx-creatures-free/glb/",
+   "_obs": "Corpo do skinwalker (zumbi humanoide, animações idle/walk/attack/hit/death). Versionado (CC BY)."
   }
  ]
 }

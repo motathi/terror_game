@@ -67,14 +67,12 @@
       "cor": "#ff8a3a",
       "cena": {
         "location": "quintal",
-        "model": "dog",
-        "em_pe": true,
-        "altura": 2.1,
-        "pelagem": "morta",
-        "tint": "#c8b8a8",
+        "model": "skinwalker",
+        "altura": 1.7,
+        "tint": "#4a3c34",
         "olhos": "#fff0b8",
-        "anim": "Dog1_Idle",
-        "dist": 3.4,
+        "anim": "idle",
+        "dist": 3.2,
         "luz": "#ffa060"
       }
     },

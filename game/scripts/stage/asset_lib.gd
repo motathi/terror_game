@@ -20,6 +20,8 @@ const MODELS := {
 	"alien_shellback": TP + "psx_aliens/glb/drone.glb",
 	"alien_grey": TP + "alien_grey/Alien.fbx",
 	"dog": TP + "psx_dog/DogGlb.glb",
+	"dog_head": TP + "psx_dog/dog_head.glb",  # gerado por tools/dog_head.py
+	"skinwalker": TP + "psx_creatures/zombie_woman.glb",
 }
 
 ## Ajustes por modelo, aplicados pelo Actor:
@@ -29,13 +31,33 @@ const MODELS := {
 const MODEL_META := {
 	"dog": {
 		"tex": TP + "psx_dog/BlackDog.png",
-		"rot_y": 0.0,
+		"rot_y": 180.0,  # o GLB do cachorro olha para -Z
 		"altura": 0.72,
 		"osso_cabeca": "spine.011",
 		"olhos": [Vector3(-0.087, 0.228, 0.101), Vector3(0.087, 0.228, 0.101)],
 		"raio_olho": 0.034,
 	},
 }
+
+## O skinwalker: corpo humano alto e magro vestindo a cabeça do cachorro como
+## máscara (anexo preso no osso "Head"; posição ajustada no visualizador).
+const _DOG_EYES := [Vector3(-0.087, 0.228, 0.101), Vector3(0.087, 0.228, 0.101)]
+const SKINWALKER_META := {
+	"magro": 0.8,
+	"anexos": [{
+		"model": "dog_head", "osso": "Head",
+		"pos": Vector3(-0.0007, 0.1839, -0.0098), "rot": Vector3(54.61, 0.49, 0.35), "escala": 0.8,
+		"tex": TP + "psx_dog/BlackDog.png", "pelagem": "morta",
+		"olhos": _DOG_EYES, "raio_olho": 0.034,
+	}],
+}
+
+
+static func meta(key: String) -> Dictionary:
+	if key == "skinwalker":
+		return SKINWALKER_META
+	return MODEL_META.get(key, {})
+
 
 ## Pelagens para "pelagem" no personagem: [tom escuro, tom claro].
 const PELAGENS := {

@@ -12,6 +12,7 @@ import fnmatch
 import json
 import os
 import shutil
+import subprocess
 import sys
 import tempfile
 import zipfile
@@ -65,6 +66,8 @@ def main():
         dest = os.path.join(ROOT, pack["dest"])
         if os.path.isdir(dest) and os.listdir(dest) and not force:
             print(f"[ok]   {pack['id']} já existe")
+            if pack.get("post"):
+                subprocess.run([sys.executable, os.path.join(ROOT, pack["post"]), dest], check=True)
             continue
         print(f"[get]  {pack['id']}  ({pack['license']})")
         with tempfile.TemporaryDirectory() as tmp:
@@ -80,6 +83,8 @@ def main():
                     shutil.copyfile(src, os.path.join(dest, f))
                     total += 1
         print(f"       {total} arquivos -> {pack['dest']}")
+        if pack.get("post"):  # pós-processamento (ex.: recortar a cabeça do cachorro)
+            subprocess.run([sys.executable, os.path.join(ROOT, pack["post"]), dest], check=True)
     write_gitignore(packs)
 
 
