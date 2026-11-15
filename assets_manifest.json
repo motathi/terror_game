@@ -178,7 +178,7 @@
     "psx-creatures-free/LICENSE.txt"
    ],
    "flatten_prefix": "psx-creatures-free/glb/",
-   "_obs": "Corpo do skinwalker (zumbi humanoide, animações idle/walk/attack/hit/death). Versionado (CC BY)."
+   "_obs": "Corpo do skinwalker (zumbi humanoide, animações idle/walk/attack/hit/death). Versionado (CC BY), com a textura atlas.png embutida no GLB (o original aponta para ../textures/atlas.png)."
   }
  ]
 }
