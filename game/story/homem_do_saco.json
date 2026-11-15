@@ -2876,6 +2876,18 @@
      },
      {
       "t": 0,
+      "acao": "luz_ponto",
+      "pos": [
+       -1.5,
+       2.4,
+       -6.0
+      ],
+      "cor": "#c8d0ff",
+      "energia": 1.8,
+      "raio": 7.0
+     },
+     {
+      "t": 0,
       "acao": "sfx",
       "som": "trem_passando"
      },
@@ -3434,6 +3446,18 @@
       "densidade": 0.035,
       "fundo": "#020306",
       "dur": 0.1
+     },
+     {
+      "t": 0,
+      "acao": "luz_ponto",
+      "pos": [
+       0.4,
+       2.6,
+       -4.2
+      ],
+      "cor": "#ffd8a8",
+      "energia": 2.2,
+      "raio": 6.0
      },
      {
       "t": 0.5,
