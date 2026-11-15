@@ -305,6 +305,8 @@ func _run_step(s: Dictionary, chars: Dictionary) -> void:
 				stage.camera_look_point(_v(s["olhar"]), dur)
 		"camera_voltar":
 			stage.camera_back(dur)
+		"luz_no":
+			stage.tween_light(s.get("nome", ""), float(s.get("energia", 0.0)), dur)
 		"esconder":
 			stage.set_actor_visible(who, false)
 		"mostrar":

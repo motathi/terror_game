@@ -57,6 +57,14 @@ static func build(id: String, root: Node3D) -> Dictionary:
 			_quintal(root, cfg)
 		"avenida":
 			_avenida(root, cfg)
+		"festa":
+			_festa(root, cfg)
+		"linha_trem":
+			_linha_trem(root, cfg)
+		"ruazinha":
+			_ruazinha(root, cfg)
+		"barraco":
+			_barraco(root, cfg)
 		_:
 			push_warning("Locations: cenário desconhecido '%s'" % id)
 			box(root, Vector3(10, 0.1, 10), Vector3(0, -0.05, -3), Color(0.1, 0.1, 0.1))
@@ -560,6 +568,282 @@ static func _avenida(root: Node3D, cfg: Dictionary) -> void:
 	cfg["ambient_energy"] = 1.1
 
 
+# --- Homem do Saco -------------------------------------------------------------
+
+const _BANDEIRA_CORES := [Color(0.9, 0.15, 0.1), Color(1.0, 0.8, 0.1), Color(0.15, 0.45, 0.95), Color(0.2, 0.75, 0.3), Color(0.95, 0.4, 0.7)]
+
+
+## Fogueira de São João: lenha, chamas tremendo e luz laranja.
+static func fogueira(root: Node3D, pos: Vector3, s := 1.0) -> Node3D:
+	var f := Node3D.new()
+	f.position = pos
+	f.scale = Vector3.ONE * s
+	root.add_child(f)
+	for i in 6:
+		var lenha := box(f, Vector3(0.18, 0.18, 1.6), Vector3(0, 0.3 + i * 0.12, 0), Color(0.3, 0.18, 0.1))
+		lenha.rotation = Vector3(deg_to_rad(55), deg_to_rad(i * 60), 0)
+	for i in 5:
+		var fl := box(f, Vector3(0.5 - i * 0.07, 0.6, 0.5 - i * 0.07), Vector3(randf_range(-0.15, 0.15), 0.6 + i * 0.3, randf_range(-0.15, 0.15)),
+			Color(1.0, 0.55 - i * 0.08, 0.1), 3.0)
+		fl.add_child(Flame.new(i))
+	var l := omni(f, Vector3(0, 1.4, 0), Color(1.0, 0.5, 0.15), 3.2, 14.0)
+	l.add_child(Flicker.new(0.35, 9.0))
+	return f
+
+
+static func _festa(root: Node3D, cfg: Dictionary) -> void:
+	# Quermesse de São João numa praça do interior: chão de terra, fogueira,
+	# bandeirinhas, barraquinhas e a igreja ao fundo.
+	box(root, Vector3(40, 0.1, 40), Vector3(0, -0.05, -10), Color(0.32, 0.22, 0.14))
+	fogueira(root, Vector3(2.6, 0, -9.0), 1.2)
+	for z in [-3.0, -6.5, -10.0, -13.5]:
+		box(root, Vector3(13, 0.01, 0.01), Vector3(0, 3.3, z), Color(0.2, 0.2, 0.2))
+		for i in 30:
+			var b := box(root, Vector3(0.2, 0.2, 0.01), Vector3(-6.4 + i * 0.44, 3.18 - absf(sin(i * 0.21)) * 0.25, z), _BANDEIRA_CORES[posmod(i + int(z), 5)], 0.6)
+			b.rotation.z = deg_to_rad(45)
+		for i in 6:
+			box(root, Vector3(0.08, 0.08, 0.08), Vector3(-5.5 + i * 2.2, 3.1, z), Color(1.0, 0.85, 0.5), 3.0)
+	var stalls := [[Vector3(-5.2, 0, -4.5), "PESCARIA", Color(0.8, 0.15, 0.1)], [Vector3(-5.2, 0, -10.0), "PAMONHA", Color(0.2, 0.5, 0.2)],
+		[Vector3(5.4, 0, -4.0), "QUENTÃO", Color(0.15, 0.3, 0.8)], [Vector3(5.4, 0, -14.0), "CORREIO ELEGANTE", Color(0.8, 0.5, 0.1)]]
+	for st in stalls:
+		var p: Vector3 = st[0]
+		var face := -1.0 if p.x > 0 else 1.0
+		box(root, Vector3(1.2, 1.0, 2.2), p + Vector3(0, 0.5, 0), Color(0.45, 0.3, 0.16))
+		box(root, Vector3(1.6, 0.06, 2.6), p + Vector3(face * 0.25, 2.2, 0), st[2])
+		for z in [-1.1, 1.1]:
+			box(root, Vector3(0.08, 2.2, 0.08), p + Vector3(face * 0.55, 1.1, z), Color(0.4, 0.28, 0.15))
+		var placa := Label3D.new()
+		placa.text = st[1]
+		placa.font_size = 36
+		placa.pixel_size = 0.005
+		placa.modulate = Color(1, 0.95, 0.8)
+		placa.outline_size = 8
+		placa.position = p + Vector3(face * 0.7, 1.9, 0)
+		placa.rotation.y = deg_to_rad(90 * face)
+		placa.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+		root.add_child(placa)
+		omni(root, p + Vector3(face * 0.6, 1.8, 0), Color(1.0, 0.75, 0.4), 1.4, 5.0)
+	# igreja ao fundo
+	box(root, Vector3(8, 6, 1), Vector3(0, 3, -24), Color(0.75, 0.72, 0.62))
+	box(root, Vector3(2.4, 4, 1.2), Vector3(0, 8, -24), Color(0.75, 0.72, 0.62))
+	box(root, Vector3(0.15, 1.2, 0.15), Vector3(0, 10.6, -24), Color(0.85, 0.8, 0.6))
+	box(root, Vector3(0.7, 0.15, 0.15), Vector3(0, 10.8, -24), Color(0.85, 0.8, 0.6))
+	box(root, Vector3(1.6, 2.8, 0.05), Vector3(0, 1.4, -23.47), Color(1.0, 0.7, 0.35), 1.6)
+	omni(root, Vector3(0, 2.0, -22.5), Color(1.0, 0.7, 0.35), 1.6, 8.0)
+	# saída escura para o atalho da linha do trem (esquerda)
+	box(root, Vector3(1.4, 1.6, 0.1), Vector3(-7.5, 0.8, -7.0), Color(0.25, 0.2, 0.15))
+	var moon := DirectionalLight3D.new()
+	moon.light_color = Color(0.5, 0.55, 0.85)
+	moon.light_energy = 0.35
+	moon.rotation_degrees = Vector3(-40, 150, 0)
+	root.add_child(moon)
+	cfg["camera_pos"] = Vector3(0, 1.35, 0)
+	cfg["camera_look"] = Vector3(0, 1.25, -5.0)
+	cfg["slot_dist"] = 2.4
+	cfg["center_dist"] = 8.0
+	cfg["fog_density"] = 0.025
+	cfg["fog_color"] = Color(0.1, 0.06, 0.05)
+	cfg["ambient"] = Color(0.55, 0.45, 0.45)
+	cfg["ambient_energy"] = 0.7
+
+
+static func _linha_trem(root: Node3D, cfg: Dictionary) -> void:
+	# Atalho pela linha do trem, no terreno baldio: trilhos, mato alto, um
+	# sinal vermelho, o barraco do velho e o trem (nó "trem", fora de cena).
+	box(root, Vector3(40, 0.1, 110), Vector3(0, -0.05, -35), Color(0.12, 0.13, 0.08))
+	box(root, Vector3(3.2, 0.16, 110), Vector3(0, 0.05, -35), Color(0.3, 0.29, 0.27))
+	for i in 160:
+		box(root, Vector3(2.4, 0.09, 0.22), Vector3(0, 0.16, 12.0 - i * 0.6), Color(0.28, 0.18, 0.1))
+	for x in [-0.72, 0.72]:
+		box(root, Vector3(0.08, 0.12, 110), Vector3(x, 0.24, -35), Color(0.55, 0.55, 0.6), 0.25)
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 404
+	for side in [-1, 1]:
+		for i in 140:
+			var h := rng.randf_range(0.6, 1.5)
+			var g := box(root, Vector3(0.1, h, 0.1), Vector3(side * rng.randf_range(2.0, 9.0), h * 0.5, rng.randf_range(-70.0, 10.0)),
+				Color(0.3, 0.32, 0.12).darkened(rng.randf() * 0.5))
+			g.rotation.z = rng.randf_range(-0.25, 0.25)
+		for i in 7:
+			var z := 8.0 - i * 15.0
+			box(root, Vector3(0.18, 6.0, 0.18), Vector3(side * 3.2, 3.0, z), Color(0.25, 0.2, 0.15))
+			box(root, Vector3(1.4, 0.1, 0.1), Vector3(side * 3.2, 5.6, z), Color(0.25, 0.2, 0.15))
+	# sinal vermelho
+	box(root, Vector3(0.15, 3.2, 0.15), Vector3(2.2, 1.6, -20.0), Color(0.2, 0.2, 0.2))
+	box(root, Vector3(0.3, 0.3, 0.15), Vector3(2.2, 3.1, -19.95), Color(1.0, 0.1, 0.05), 3.0)
+	var sig := omni(root, Vector3(2.2, 3.0, -19.5), Color(1.0, 0.1, 0.05), 1.4, 6.0)
+	sig.add_child(Pulse.new(0.5, 1.0))
+	# barraco do velho
+	var shack := Node3D.new()
+	shack.position = Vector3(-5.0, 0, -26.0)
+	shack.rotation.y = deg_to_rad(20)
+	root.add_child(shack)
+	box(shack, Vector3(3.2, 2.4, 3.0), Vector3(0, 1.2, 0), Color(0.25, 0.18, 0.12))
+	var rf := box(shack, Vector3(3.6, 0.1, 3.4), Vector3(0, 2.6, 0), Color(0.3, 0.3, 0.32))
+	rf.rotation.x = deg_to_rad(8)
+	box(shack, Vector3(0.6, 0.5, 0.05), Vector3(0.8, 1.5, 1.52), Color(1.0, 0.75, 0.35), 1.0)
+	box(shack, Vector3(0.8, 1.8, 0.05), Vector3(-0.6, 0.9, 1.52), Color(0.05, 0.04, 0.03))
+	omni(shack, Vector3(0.8, 1.5, 2.2), Color(1.0, 0.7, 0.35), 0.8, 4.0)
+	# luz da cidade e da festa lá longe
+	box(root, Vector3(60, 4, 1), Vector3(0, 1.0, -85), Color(1.0, 0.55, 0.25), 0.6)
+	omni(root, Vector3(0, 3.0, 14.0), Color(1.0, 0.55, 0.2), 1.4, 16.0)  # festa, atrás de você
+	# o trem (passa pela cena com "no": nome "trem")
+	var train := Node3D.new()
+	train.name = "trem"
+	train.position = Vector3(0, 0, -95.0)
+	root.add_child(train)
+	box(train, Vector3(3.0, 3.6, 18.0), Vector3(0, 2.0, 0), Color(0.2, 0.22, 0.25))
+	box(train, Vector3(2.6, 0.8, 0.1), Vector3(0, 2.6, 9.02), Color(0.1, 0.12, 0.15))
+	box(train, Vector3(0.5, 0.5, 0.1), Vector3(0, 3.4, 9.05), Color(1, 1, 0.9), 4.0)
+	var head := SpotLight3D.new()
+	head.position = Vector3(0, 3.0, 9.3)
+	head.light_color = Color(1, 0.95, 0.8)
+	head.light_energy = 6.0
+	head.spot_range = 40.0
+	head.spot_angle = 22.0
+	head.rotate_object_local(Vector3.UP, PI)
+	train.add_child(head)
+	# chapéu do homem (nó "chapeu", escondido até o final do trem)
+	var hat := Node3D.new()
+	hat.name = "chapeu"
+	hat.position = Vector3(0, -5, -4.0)
+	root.add_child(hat)
+	var brim := MeshInstance3D.new()
+	var cm := CylinderMesh.new()
+	cm.top_radius = 0.3
+	cm.bottom_radius = 0.3
+	cm.height = 0.03
+	brim.mesh = cm
+	brim.material_override = AssetLib.make_material(Color(0.1, 0.08, 0.06))
+	hat.add_child(brim)
+	var crown := MeshInstance3D.new()
+	var cm2 := CylinderMesh.new()
+	cm2.top_radius = 0.15
+	cm2.bottom_radius = 0.17
+	cm2.height = 0.22
+	crown.mesh = cm2
+	crown.position.y = 0.12
+	crown.material_override = AssetLib.make_material(Color(0.1, 0.08, 0.06))
+	hat.add_child(crown)
+	var moonl := DirectionalLight3D.new()
+	moonl.light_color = Color(0.5, 0.6, 0.95)
+	moonl.light_energy = 0.7
+	moonl.rotation_degrees = Vector3(-35, 160, 0)
+	root.add_child(moonl)
+	cfg["camera_pos"] = Vector3(0, 1.5, 0)
+	cfg["camera_look"] = Vector3(0, 1.1, -6.0)
+	cfg["floor_y"] = 0.16
+	cfg["slot_dist"] = 2.4
+	cfg["center_dist"] = 7.0
+	cfg["fog_density"] = 0.03
+	cfg["fog_color"] = Color(0.04, 0.05, 0.08)
+	cfg["ambient"] = Color(0.4, 0.45, 0.6)
+	cfg["ambient_energy"] = 0.75
+
+
+static func _ruazinha(root: Node3D, cfg: Dictionary) -> void:
+	# Rua estreita de cidade pequena: casinhas, muros baixos e postes
+	# ("poste_1".."poste_6") que a história apaga um por um.
+	box(root, Vector3(6, 0.1, 95), Vector3(0, -0.05, -20), Color(0.2, 0.2, 0.21))
+	for side in [-1, 1]:
+		box(root, Vector3(1.6, 0.2, 95), Vector3(side * 3.8, 0.1, -20), Color(0.42, 0.4, 0.37))
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 77
+	var pastel := [Color(0.85, 0.7, 0.55), Color(0.6, 0.75, 0.7), Color(0.85, 0.6, 0.6), Color(0.75, 0.75, 0.55), Color(0.65, 0.65, 0.8)]
+	for side in [-1, 1]:
+		for i in 11:
+			var z := 21.0 - i * 7.5
+			var c: Color = pastel[(i + (2 if side > 0 else 0)) % 5]
+			box(root, Vector3(5.5, 3.2, 6.8), Vector3(side * 7.5, 1.6, z), c.darkened(0.45))
+			box(root, Vector3(6, 0.3, 7.4), Vector3(side * 7.5, 3.3, z), Color(0.45, 0.2, 0.15))
+			box(root, Vector3(0.05, 1.8, 0.9), Vector3(side * 4.73, 0.9, z + 1.6), Color(0.3, 0.2, 0.12))
+			if rng.randf() < 0.45:
+				box(root, Vector3(0.05, 0.8, 1.0), Vector3(side * 4.73, 1.5, z - 1.2), Color(1.0, 0.8, 0.45), 1.3)
+	for i in 6:
+		var z := 18.0 - i * 8.0  # três postes atrás de você, três à frente
+		var side := -1 if i % 2 == 0 else 1
+		box(root, Vector3(0.14, 5.0, 0.14), Vector3(side * 3.3, 2.5, z), Color(0.3, 0.3, 0.3))
+		box(root, Vector3(0.5, 0.12, 0.25), Vector3(side * 3.0, 4.95, z), Color(1.0, 0.85, 0.5), 2.0)
+		var l := omni(root, Vector3(side * 2.9, 4.5, z), Color(1.0, 0.8, 0.45), 2.0, 9.0)
+		l.name = "poste_%d" % (i + 1)
+	omni(root, Vector3(0, 3.0, 12.0), Color(1.0, 0.55, 0.2), 1.6, 14.0)  # a festa, atrás
+	var moon := DirectionalLight3D.new()
+	moon.light_color = Color(0.5, 0.55, 0.85)
+	moon.light_energy = 0.4
+	moon.rotation_degrees = Vector3(-40, 160, 0)
+	root.add_child(moon)
+	cfg["camera_pos"] = Vector3(0, 1.35, 0)
+	cfg["camera_look"] = Vector3(0, 1.15, -8.0)
+	cfg["slot_dist"] = 2.4
+	cfg["center_dist"] = 10.0
+	cfg["fog_density"] = 0.03
+	cfg["fog_color"] = Color(0.05, 0.05, 0.08)
+	cfg["ambient"] = Color(0.45, 0.45, 0.6)
+	cfg["ambient_energy"] = 0.6
+
+
+static func _barraco(root: Node3D, cfg: Dictionary) -> void:
+	# Dentro do barraco do velho: tábuas, chão de terra, velas e sacos
+	# pendurados nas vigas, alguns ainda se mexendo.
+	var wood := Color(0.3, 0.2, 0.12)
+	box(root, Vector3(6, 0.1, 7), Vector3(0, -0.05, -1.5), Color(0.25, 0.18, 0.11))
+	box(root, Vector3(6, 0.1, 7), Vector3(0, 2.9, -1.5), wood.darkened(0.4))
+	for i in 12:
+		box(root, Vector3(0.48, 2.9, 0.1), Vector3(-2.75 + i * 0.5, 1.45, -5.0), wood.darkened(0.1 * (i % 3)))
+	for side in [-1, 1]:
+		for i in 14:
+			box(root, Vector3(0.1, 2.9, 0.48), Vector3(side * 3.0, 1.45, 2.0 - i * 0.5), wood.darkened(0.1 * (i % 3)))
+	for z in [-0.5, -2.5, -4.2]:
+		box(root, Vector3(6, 0.18, 0.18), Vector3(0, 2.55, z), wood.darkened(0.3))
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 13
+	for i in 16:
+		var x := rng.randf_range(-2.6, 2.6)
+		var z: float = [-0.5, -2.5, -4.2][i % 3]
+		if absf(x) < 1.0 and z > -1.0:
+			continue
+		var h := rng.randf_range(0.5, 0.9)
+		var hang := Node3D.new()
+		hang.position = Vector3(x, 2.5, z)
+		root.add_child(hang)
+		box(hang, Vector3(0.03, 0.6, 0.03), Vector3(0, -0.3, 0), Color(0.6, 0.5, 0.35))
+		var sack := MeshInstance3D.new()
+		var sm := SphereMesh.new()
+		sm.radius = 0.5
+		sm.height = 1.0
+		sm.radial_segments = 8
+		sm.rings = 5
+		sack.mesh = sm
+		sack.scale = Vector3(0.4, h, 0.36)
+		sack.position = Vector3(0, -0.6 - h * 0.5, 0)
+		sack.material_override = AssetLib.make_material(Color(0.5, 0.4, 0.26).darkened(rng.randf() * 0.3))
+		hang.add_child(sack)
+		hang.add_child(SwingY.new(rng.randf_range(0.03, 0.12), rng.randf_range(0.6, 1.4)))
+	# mesa com velas, brinquedos e sapatinhos no chão
+	box(root, Vector3(1.4, 0.08, 0.8), Vector3(1.8, 0.8, -3.6), wood)
+	for lx in [-0.6, 0.6]:
+		box(root, Vector3(0.07, 0.8, 0.07), Vector3(1.8 + lx, 0.4, -3.6), wood.darkened(0.2))
+	for i in 3:
+		box(root, Vector3(0.05, 0.18 + i * 0.05, 0.05), Vector3(1.5 + i * 0.25, 0.92 + i * 0.025, -3.6), Color(0.95, 0.9, 0.8))
+		box(root, Vector3(0.03, 0.04, 0.03), Vector3(1.5 + i * 0.25, 1.02 + i * 0.05, -3.6), Color(1.0, 0.7, 0.3), 3.0)
+	var candle := omni(root, Vector3(1.8, 1.3, -3.4), Color(1.0, 0.65, 0.3), 1.8, 6.0)
+	candle.add_child(Flicker.new(0.4, 10.0))
+	for i in 7:
+		var toy := box(root, Vector3(0.14, 0.08, 0.24), Vector3(rng.randf_range(-2.4, 2.4), 0.04, rng.randf_range(-4.5, -1.5)),
+			_BANDEIRA_CORES[i % 5].darkened(0.3))
+		toy.rotation.y = rng.randf() * TAU
+	omni(root, Vector3(0, 2.2, 1.6), Color(0.45, 0.5, 0.8), 0.6, 5.0)  # luar pela porta
+	cfg["camera_pos"] = Vector3(0, 1.35, 1.0)
+	cfg["camera_look"] = Vector3(0, 0.6, -2.0)
+	cfg["slot_dist"] = 2.2
+	cfg["slot_spread"] = 0.65
+	cfg["center_dist"] = 3.6
+	cfg["fog_density"] = 0.05
+	cfg["fog_color"] = Color(0.05, 0.03, 0.02)
+	cfg["ambient"] = Color(0.5, 0.4, 0.35)
+	cfg["ambient_energy"] = 0.5
+
+
 static func _quintal(root: Node3D, cfg: Dictionary) -> void:
 	# Quintal de casa no interior, à noite: muro de bloco, portão, casinha do
 	# Caramelo, varal, mangueira e o poste da rua do outro lado do muro.
@@ -856,6 +1140,37 @@ class Flicker extends Node:
 		var n := sin(_t) * sin(_t * 2.31) * sin(_t * 0.53)
 		var off := 1.0 if randf() > 0.015 * amount * speed else 0.0
 		light.light_energy = _base * clampf(1.0 - amount * 0.5 + n * amount * 0.5, 0.0, 2.0) * off
+
+
+## Chama da fogueira: cresce e encolhe sem parar.
+class Flame extends Node:
+	var _t := 0.0
+
+	func _init(phase := 0) -> void:
+		_t = phase * 1.3
+
+	func _process(delta: float) -> void:
+		_t += delta * 7.0
+		var n := get_parent() as Node3D
+		if n:
+			n.scale = Vector3(1.0 + sin(_t * 1.3) * 0.15, 1.0 + sin(_t) * 0.3, 1.0 + cos(_t * 1.1) * 0.15)
+
+
+## Saco pendurado balançando na corda.
+class SwingY extends Node:
+	var amount := 0.08
+	var speed := 1.0
+	var _t := randf() * 10.0
+
+	func _init(p_amount := 0.08, p_speed := 1.0) -> void:
+		amount = p_amount
+		speed = p_speed
+
+	func _process(delta: float) -> void:
+		_t += delta * speed
+		var n := get_parent() as Node3D
+		if n:
+			n.rotation = Vector3(sin(_t) * amount, 0, cos(_t * 1.3) * amount)
 
 
 ## Coluna de fumaça: blocos escuros subindo e se abrindo, em loop.

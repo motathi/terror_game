@@ -624,6 +624,16 @@ func set_actor_visible(char_id: String, v: bool) -> void:
 		a.visible = v
 
 
+## Liga/desliga (energia) uma luz do cenário pelo nome (ex.: postes apagando).
+func tween_light(node_name: String, energy: float, dur: float) -> void:
+	var l := _location_root.find_child(node_name, true, false) as Light3D
+	if l:
+		for c in l.get_children():
+			if c.get_script() != null:
+				c.queue_free()  # tira o pisca-pisca para a luz obedecer
+		create_tween().tween_property(l, "light_energy", energy, maxf(dur, 0.01))
+
+
 ## Move um nó do cenário pelo nome (ex.: portas do elevador).
 func move_location_node(node_name: String, to: Vector3, dur: float) -> void:
 	var n := _location_root.find_child(node_name, true, false) as Node3D

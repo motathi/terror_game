@@ -31,6 +31,9 @@ Uma campanha = um arquivo em `game/story/`. Valide sempre com `python3 tools/sto
 | `pelagem` | recolore a textura: `caramelo`, `morta`, `cinza` ou `["#escuro", "#claro"]` |
 | `em_pe` | `true` = bicho de quatro patas de pé nas patas de trás |
 | `olhos` | cor dos olhos brilhando (modelos com olhos mapeados, ex.: `dog`) |
+| `magro` | afina o corpo (escala nos lados, ex.: 0.85) |
+| `anexos` | peças presas em ossos: `{"osso": "Head", "forma": "cilindro"/"caixa"/"esfera", "tamanho": [..], "pos": [..], "rot": [..], "cor": "#hex", "emissao": 0, "piscar": 0.0, "balanca": true}` (chapéu, saco nas costas, luzinha do tênis) |
+| `luzinha` | com `"offscreen": "saco"` no elenco: o saco pisca vermelho/azul por dentro |
 
 Modelos: além dos humanos, `dog` (PSX Dog, animações `Dog1_Idle`, `Dog1_Idle_Tail_Wag`, `Dog1_Walk`, `Dog1_Run`, `Dog1_Bark`, `Dog1_Sit_Start`, `Dog1_Sit_Loop`, `Dog1_Lay_Start`, `Dog1_Lay_Loop`).
 
@@ -39,7 +42,7 @@ Opcional no topo do arquivo: `"musica_cenarios": {"casa": "skin_casa"}` e `"sons
 ## Nó
 ```jsonc
 "patricia": {
-  "location": "escada",                  // escritorio | escritorio_escuro | escada | garagem | carro | rua | casa | campo | fazenda_casa | celeiro | elevador | quintal
+  "location": "escada",                  // escritorio | escritorio_escuro | escada | garagem | carro | rua | casa | campo | fazenda_casa | celeiro | elevador | quintal | avenida | festa | linha_trem | ruazinha | barraco
   "title_card": "21:30",                 // opcional: cartela no topo da tela
   "camera": { "pos": [0,1.3,0.4], "olhar": [0,0.3,-2], "slot_dist": 2.0 },  // opcional: câmera só deste nó (bom p/ cachorros)
   "ambience": "tensao",                  // opcional: troca o som ambiente
@@ -50,6 +53,7 @@ Opcional no topo do arquivo: `"musica_cenarios": {"casa": "skin_casa"}` e `"sons
     "center":{ "char": "zumbi", "anim": "ZombieIdle", "facing": "away" },
     "phone": { "char": "marina" }        // fala pelo celular (voz com filtro)
     // "right": { "char": "bia", "offscreen": "porta" }  -> só uma porta com o nome
+    // "left":  { "char": "saco_davi", "offscreen": "saco" } -> um saco de estopa no chão
   },
   "lines": [
     { "id": "patricia_02",               // ÚNICO: vira o nome do arquivo de voz
@@ -101,6 +105,7 @@ Offsets (`de`, `para`, `por`) são relativos à câmera: x = direita, y = cima, 
 | `camera` / `camera_voltar` | câmera para posição absoluta / volta à câmera do nó |
 | `maos` | mão estica (`grab.L` / `grab.R`); `maos_cor` tinge as mãos (ex.: sangue) |
 | `texto3d` | texto no mundo (tela do celular, relógio); mesmo `id` substitui, texto vazio apaga |
+| `luz_no` | muda a energia de uma luz do cenário pelo nome (`nome`, `energia`, `dur`; ex.: postes apagando) |
 | `sfx`, `luz`, `luz_ponto`, `no`, `fx` | som, luz do ambiente, luz pontual, mover nó do cenário, efeitos (`flash`, `tremor`, `piscar`, `vermelho`, `apagar`, `acender`, `chuvisco`) |
 
 As mesmas ações valem nas cinemáticas dos finais (`"passos"`).

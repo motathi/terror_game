@@ -79,18 +79,84 @@
     {
       "id": "homem_do_saco",
       "titulo": "HOMEM DO SACO",
-      "subtitulo": "Em breve",
-      "chamada": "Ele usa a voz de quem você ama para você abrir a porta.",
-      "status": "em_breve",
+      "subtitulo": "Capítulo 1 — Véspera de São João",
+      "chamada": "A fogueira está apagando. Criança que ainda estiver na rua vai pro saco. E o seu irmão quer pegar o atalho.",
+      "status": "disponivel",
       "cor": "#c8a060",
       "cena": {
-        "location": "rua",
-        "model": "zombie_retro",
-        "anim": "",
-        "tint": "#0a0908",
-        "dist": 2.8,
+        "location": "ruazinha",
+        "model": "office_worker",
+        "tint": "#2c2622",
+        "altura": 1.95,
+        "magro": 0.85,
+        "anexos": [
+          {
+            "osso": "Head",
+            "forma": "cilindro",
+            "tamanho": [
+              0.26,
+              0,
+              0.025
+            ],
+            "pos": [
+              0,
+              0.28,
+              0.01
+            ],
+            "cor": "#14100c"
+          },
+          {
+            "osso": "Head",
+            "forma": "cilindro",
+            "tamanho": [
+              0.14,
+              0,
+              0.24
+            ],
+            "pos": [
+              0,
+              0.4,
+              0.01
+            ],
+            "cor": "#14100c"
+          },
+          {
+            "osso": "Chest",
+            "forma": "esfera",
+            "tamanho": [
+              0.62,
+              0.82,
+              0.55
+            ],
+            "pos": [
+              0.1,
+              0.1,
+              -0.38
+            ],
+            "cor": "#7a6440",
+            "balanca": true
+          },
+          {
+            "osso": "Chest",
+            "forma": "cilindro",
+            "tamanho": [
+              0.07,
+              0,
+              0.22
+            ],
+            "pos": [
+              0.06,
+              0.56,
+              -0.3
+            ],
+            "cor": "#5a4830"
+          }
+        ],
+        "anim": "Idle",
+        "dist": 3.4,
         "luz": "#ffb060"
-      }
+      },
+      "path": "res://story/homem_do_saco.json"
     },
     {
       "id": "casa_abandonada",

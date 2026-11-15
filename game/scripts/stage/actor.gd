@@ -31,6 +31,11 @@ func setup(id: String, def: Dictionary, slot_def: Dictionary, title_font: Font, 
 		model = _build_door()
 		add_child(model)
 		head_height = 2.3
+	elif offscreen == "saco":
+		# Alguém (ou alguma coisa) dentro de um saco de estopa no chão.
+		model = _build_sack(def.get("luzinha", false))
+		add_child(model)
+		head_height = 0.95
 	else:
 		var path := AssetLib.model_path(def.get("model", ""))
 		model = AssetLib.spawn(path, Vector3.ONE, "human")
@@ -95,7 +100,7 @@ func _apply_options(key: String, def: Dictionary) -> void:
 		var ext := _bone_extent_y(Basis.from_euler(rot))
 		if ext.y - ext.x > 0.01:
 			var s := altura / (ext.y - ext.x)
-			var thin := float(meta.get("magro", 1.0))
+			var thin := float(def.get("magro", meta.get("magro", 1.0)))
 			model.scale = Vector3(s * thin, s, s * thin)
 			model.position.y = -ext.x * s
 			head_height = altura + (0.12 if not em_pe and meta.has("olhos") else 0.0) + (0.35 if meta.has("anexos") else 0.0)
@@ -103,7 +108,7 @@ func _apply_options(key: String, def: Dictionary) -> void:
 	_model_y0 = model.position.y
 	if def.has("olhos") and meta.has("olhos"):
 		_add_eyes_to_bone(meta, Color.html(def["olhos"]))
-	for anexo in meta.get("anexos", []):
+	for anexo in meta.get("anexos", []) + def.get("anexos", []):
 		_add_attachment(anexo, def)
 
 
@@ -131,6 +136,123 @@ func _skin_materials(root: Node, tex_path: String, ramp) -> void:
 			m.set_surface_override_material(i, mat)
 
 
+func _vec(v) -> Vector3:
+	if v is Vector3:
+		return v
+	if v is Array and v.size() >= 3:
+		return Vector3(float(v[0]), float(v[1]), float(v[2]))
+	return Vector3.ZERO
+
+
+## Forma simples para anexos: chapéu, saco, luzinha do tênis...
+## {"forma": "caixa"|"esfera"|"cilindro", "tamanho": [x,y,z] (cilindro: [raio, -, altura]),
+##  "cor": "#hex", "emissao": 0, "piscar": 0.0 (fase), "balanca": true}
+func _primitive(a: Dictionary) -> Node3D:
+	var mi := MeshInstance3D.new()
+	var t := _vec(a.get("tamanho", [0.1, 0.1, 0.1]))
+	match a.get("forma", "caixa"):
+		"esfera":
+			var m := SphereMesh.new()
+			m.radius = 0.5
+			m.height = 1.0
+			m.radial_segments = 8
+			m.rings = 5
+			mi.mesh = m
+			mi.scale = t
+		"cilindro":
+			var c := CylinderMesh.new()
+			c.top_radius = t.x
+			c.bottom_radius = t.x
+			c.height = t.z
+			c.radial_segments = 10
+			mi.mesh = c
+		_:
+			var b := BoxMesh.new()
+			b.size = t
+			mi.mesh = b
+	mi.material_override = AssetLib.make_material(Color.html(a.get("cor", "#ffffff")), float(a.get("emissao", 0.0)))
+	if a.has("piscar"):
+		mi.add_child(_Blinker.new(float(a["piscar"])))
+	if a.get("balanca", false):
+		mi.add_child(_Wobble.new())
+	var n := Node3D.new()
+	n.add_child(mi)
+	return n
+
+
+class _Blinker extends Node:
+	var _t := 0.0
+
+	func _init(phase := 0.0) -> void:
+		_t = phase
+
+	func _process(delta: float) -> void:
+		_t += delta * 2.2
+		var n := get_parent() as Node3D
+		if n:
+			n.visible = fmod(_t, 1.0) < 0.5
+
+
+class _Wobble extends Node:
+	var _t := randf() * 10.0
+	var _base := Vector3.ZERO
+	var _init_done := false
+
+	func _process(delta: float) -> void:
+		var n := get_parent() as Node3D
+		if n == null:
+			return
+		if not _init_done:
+			_base = n.rotation
+			_init_done = true
+		_t += delta
+		n.rotation = _base + Vector3(sin(_t * 1.7) * 0.08, 0, sin(_t * 2.3) * 0.1)
+
+
+func _build_sack(light: bool) -> Node3D:
+	var sack := Node3D.new()
+	var body := MeshInstance3D.new()
+	var sph := SphereMesh.new()
+	sph.radius = 0.5
+	sph.height = 1.0
+	sph.radial_segments = 8
+	sph.rings = 5
+	body.mesh = sph
+	body.scale = Vector3(0.55, 0.7, 0.5)
+	body.position = Vector3(0, 0.34, 0)
+	body.material_override = AssetLib.make_material(Color(0.5, 0.4, 0.26))
+	body.add_child(_Wobble.new())
+	sack.add_child(body)
+	var neck := MeshInstance3D.new()
+	var nb := CylinderMesh.new()
+	nb.top_radius = 0.06
+	nb.bottom_radius = 0.1
+	nb.height = 0.18
+	neck.mesh = nb
+	neck.position = Vector3(0, 0.74, 0)
+	neck.material_override = AssetLib.make_material(Color(0.42, 0.33, 0.2))
+	sack.add_child(neck)
+	if light:
+		# tênis de luzinha piscando através da estopa
+		for i in 2:
+			var l := MeshInstance3D.new()
+			var lb := BoxMesh.new()
+			lb.size = Vector3(0.07, 0.04, 0.02)
+			l.mesh = lb
+			l.position = Vector3(-0.06 + 0.12 * i, 0.12, 0.26)
+			l.material_override = AssetLib.make_material(Color(1.0, 0.15, 0.1) if i == 0 else Color(0.2, 0.4, 1.0), 4.0)
+			l.add_child(_Blinker.new(0.5 * i))
+			sack.add_child(l)
+		var glow := OmniLight3D.new()
+		glow.light_color = Color(1.0, 0.3, 0.3)
+		glow.light_energy = 0.4
+		glow.omni_range = 0.9
+		glow.position = Vector3(0, 0.15, 0.35)
+		glow.add_child(_Blinker.new(0.0))
+		sack.add_child(glow)
+	return sack
+
+
 func _find_bone(bone_name: String) -> Array:
 	for sk in model.find_children("*", "Skeleton3D", true, false):
 		var skel := sk as Skeleton3D
@@ -151,13 +273,17 @@ func _add_attachment(anexo: Dictionary, def: Dictionary) -> void:
 	var att := BoneAttachment3D.new()
 	att.bone_name = skel.get_bone_name(found[1])
 	skel.add_child(att)
-	var inst := AssetLib.spawn(AssetLib.model_path(anexo.get("model", "")), Vector3(0.2, 0.2, 0.2))
-	AssetLib.psxify(inst)
-	var pel = anexo.get("pelagem", "")
-	_skin_materials(inst, anexo.get("tex", ""), AssetLib.PELAGENS.get(pel, null) if pel is String else pel)
+	var inst: Node3D
+	if anexo.has("forma"):
+		inst = _primitive(anexo)
+	else:
+		inst = AssetLib.spawn(AssetLib.model_path(anexo.get("model", "")), Vector3(0.2, 0.2, 0.2))
+		AssetLib.psxify(inst)
+		var pel = anexo.get("pelagem", "")
+		_skin_materials(inst, anexo.get("tex", ""), AssetLib.PELAGENS.get(pel, null) if pel is String else pel)
 	var holder := Node3D.new()
-	holder.position = anexo.get("pos", Vector3.ZERO)
-	var r: Vector3 = anexo.get("rot", Vector3.ZERO)
+	holder.position = _vec(anexo.get("pos", Vector3.ZERO))
+	var r: Vector3 = _vec(anexo.get("rot", Vector3.ZERO))
 	holder.rotation = Vector3(deg_to_rad(r.x), deg_to_rad(r.y), deg_to_rad(r.z))
 	holder.scale = Vector3.ONE * float(anexo.get("escala", 1.0))
 	holder.add_child(inst)

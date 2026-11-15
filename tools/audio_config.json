@@ -227,6 +227,92 @@
     "speed": 1.0
    },
    "_obs": "Voice Design bloqueia vozes infantis; usa a voz pronta Jessica, a mesma da Bia."
+  },
+  "homem": {
+   "voice_id": "N2lVS1w4EtoT3dr4eOWO",
+   "description": "Very old Brazilian Portuguese man, deep raspy and cracked voice, speaks slowly in an eerie sing-song whisper, like an old storyteller humming a folk song by the fire, countryside accent.",
+   "settings": {
+    "stability": 0.45,
+    "similarity_boost": 0.8,
+    "style": 0.45,
+    "speed": 0.9
+   },
+   "_obs": "voz pronta \"Callum\" (limite de vozes personalizadas atingido)"
+  },
+  "lurdes": {
+   "voice_id": "pFZP5JQG7iQjIQuC4Bku",
+   "description": "Old Brazilian Portuguese woman, about 75, from a small town in the countryside, devout churchgoer, soft trembling voice, protective and superstitious, speaks in a worried whisper.",
+   "settings": {
+    "stability": 0.45,
+    "similarity_boost": 0.8,
+    "style": 0.35,
+    "speed": 0.95
+   },
+   "_obs": "voz pronta \"Lily\" (limite de vozes personalizadas atingido)"
+  },
+  "davi": {
+   "voice_id": "cgSgspJ2msm6clMCkdW9",
+   "description": "Young Brazilian Portuguese boy, about 7 years old, sweet voice.",
+   "settings": {
+    "stability": 0.4,
+    "similarity_boost": 0.75,
+    "style": 0.4,
+    "speed": 1.0
+   },
+   "_obs": "voz pronta Jessica (Voice Design bloqueia vozes infantis)"
+  },
+  "saco_falso": {
+   "voice_id": "cgSgspJ2msm6clMCkdW9",
+   "description": "Young Brazilian Portuguese boy, about 7 years old, sweet voice.",
+   "settings": {
+    "stability": 0.4,
+    "similarity_boost": 0.75,
+    "style": 0.4,
+    "speed": 1.0
+   },
+   "_obs": "voz pronta Jessica (Voice Design bloqueia vozes infantis)"
+  },
+  "saco_davi": {
+   "voice_id": "cgSgspJ2msm6clMCkdW9",
+   "description": "Young Brazilian Portuguese boy, about 7 years old, sweet voice.",
+   "settings": {
+    "stability": 0.4,
+    "similarity_boost": 0.75,
+    "style": 0.4,
+    "speed": 1.0
+   },
+   "_obs": "voz pronta Jessica (Voice Design bloqueia vozes infantis)"
+  },
+  "saco_trilho": {
+   "voice_id": "cgSgspJ2msm6clMCkdW9",
+   "description": "Young Brazilian Portuguese boy, about 7 years old, sweet voice.",
+   "settings": {
+    "stability": 0.4,
+    "similarity_boost": 0.75,
+    "style": 0.4,
+    "speed": 1.0
+   },
+   "_obs": "voz pronta Jessica (Voice Design bloqueia vozes infantis)"
+  },
+  "mae_hs": {
+   "voice_id": "RnJZQDPCA6pFZf2UtFek",
+   "description": "Brazilian Portuguese woman, around 40, accountant, frightened and breathless, voice trembling, on the verge of crying.",
+   "settings": {
+    "stability": 0.3,
+    "similarity_boost": 0.75,
+    "style": 0.5,
+    "speed": 1.0
+   }
+  },
+  "mae_falsa_hs": {
+   "voice_id": "RnJZQDPCA6pFZf2UtFek",
+   "description": "Brazilian Portuguese woman, around 40, accountant, frightened and breathless, voice trembling, on the verge of crying.",
+   "settings": {
+    "stability": 0.3,
+    "similarity_boost": 0.75,
+    "style": 0.5,
+    "speed": 1.0
+   }
   }
  },
  "sfx": {
@@ -359,6 +445,30 @@
    "motor": {
     "prompt": "old car engine cranking twice, then starting and revving, echoing in an underground parking garage",
     "duration": 3.5
+   },
+   "saco_arrastando": {
+    "prompt": "heavy burlap sack being dragged slowly over railway gravel at night, something inside it shifting",
+    "duration": 3.0
+   },
+   "trem_apito": {
+    "prompt": "loud old freight train horn blowing in the distance at night, approaching",
+    "duration": 3.0
+   },
+   "trem_passando": {
+    "prompt": "freight train rushing past very close at high speed, loud rumbling wheels on rails, wind",
+    "duration": 4.0
+   },
+   "fogos": {
+    "prompt": "festa junina firecrackers and rockets popping in the distance at night",
+    "duration": 2.5
+   },
+   "choro_crianca": {
+    "prompt": "muffled small child crying softly from inside a cloth sack",
+    "duration": 3.0
+   },
+   "cascalho_passos": {
+    "prompt": "slow heavy footsteps crunching on gravel outside a wooden shack, approaching",
+    "duration": 3.0
    }
   }
  },
@@ -399,6 +509,18 @@
    },
    "quintal_noite": {
     "prompt": "backyard at night in a small Brazilian countryside town, crickets, soft wind in a mango tree, clothes flapping on a clothesline, very distant dog barking",
+    "duration": 15
+   },
+   "festa_noite": {
+    "prompt": "festa junina at night in a small Brazilian town square, accordion forro music in the distance, crowd chatter, crackling bonfire, occasional firecrackers",
+    "duration": 15
+   },
+   "linha_noite": {
+    "prompt": "railway tracks through an empty field at night, crickets, wind in tall dry grass, very distant festival music fading",
+    "duration": 15
+   },
+   "barraco_noite": {
+    "prompt": "inside an old wooden shack at night, creaking wood, ropes creaking as sacks sway, dripping, faint muffled whimpers",
     "duration": 15
    }
   }
@@ -477,8 +599,25 @@
    "skin_caca": {
     "prompt": "Frantic horror chase score, pounding low drums, screeching atonal strings, animalistic growling textures, panic, instrumental, seamless loop",
     "duration": 40
+   },
+   "hs_festa": {
+    "prompt": "Eerie Brazilian festa junina score, slow detuned accordion and triangle playing a forro melody that slowly goes out of tune, distant and dreamlike, unsettling, instrumental, seamless loop",
+    "duration": 40
+   },
+   "hs_tensao": {
+    "prompt": "Creeping horror score, sparse detuned accordion notes over low cellos, slow dragging percussion like a heavy sack, dread at night in a small town, instrumental, seamless loop",
+    "duration": 40
+   },
+   "hs_caca": {
+    "prompt": "Frantic horror chase score, pounding drums, frantic accordion stabs and screeching strings, panic, instrumental, seamless loop",
+    "duration": 40
+   },
+   "hs_barraco": {
+    "prompt": "Creepy music box lullaby slightly out of tune with a low drone and wooden creaks, children's nursery rhyme turned sinister, instrumental, seamless loop",
+    "duration": 40
    }
   }
  },
- "_doc_copias": "mae_porta/mae_falsa/coisa_mae = voz da mae; theo_falso/coisa = voz do theo (o efeito 'errado'/'monstro' é aplicado pelo ffmpeg)."
+ "_doc_copias": "mae_porta/mae_falsa/coisa_mae = voz da mae; theo_falso/coisa = voz do theo (o efeito 'errado'/'monstro' é aplicado pelo ffmpeg).",
+ "_doc_hs": "Homem do Saco: mãe = voz da Patrícia (personagens mae_hs/mae_falsa_hs no JSON)."
 }

@@ -261,7 +261,7 @@ func _select(i: int, animate := true) -> void:
 	stage.location_cfg["slots"] = {"center": Vector3(0, floor_y, -dist)}
 	stage.set_camera(Vector3(0, 1.2 + floor_y, 0), Vector3(0, -0.2 + floor_y, -dist))
 	var def := {"name": "", "model": cena.get("model", "zombie_student")}
-	for k in ["tint", "pelagem", "em_pe", "altura", "olhos"]:
+	for k in ["tint", "pelagem", "em_pe", "altura", "olhos", "anexos", "magro"]:
 		if cena.has(k):
 			def[k] = cena[k]
 	var chars := {c["id"]: def}

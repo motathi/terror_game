@@ -1,0 +1,3660 @@
+{
+ "id": "homem_do_saco",
+ "title": "Homem do Saco — Capítulo 1: Véspera de São João",
+ "start": "inicio",
+ "musica_cenarios": {
+  "festa": "hs_festa",
+  "linha_trem": "hs_tensao",
+  "ruazinha": "hs_tensao",
+  "barraco": "hs_barraco",
+  "casa": "hs_tensao"
+ },
+ "sons_cenarios": {
+  "festa": [
+   "fogos"
+  ],
+  "linha_trem": [
+   "saco_arrastando",
+   "trem_apito"
+  ],
+  "ruazinha": [
+   "latido_longe",
+   "saco_arrastando"
+  ],
+  "barraco": [
+   "choro_crianca"
+  ],
+  "casa": [
+   "batida_porta",
+   "saco_arrastando"
+  ]
+ },
+ "vars": {
+  "tocha": false,
+  "culpa": 0,
+  "hesitou": 0
+ },
+ "characters": {
+  "sistema": {
+   "name": "",
+   "voiced": true
+  },
+  "davi": {
+   "name": "Davi",
+   "model": "office_worker",
+   "tint": "#e8d0b0",
+   "altura": 1.12,
+   "anexos": [
+    {
+     "osso": "Head",
+     "forma": "cilindro",
+     "tamanho": [
+      0.2,
+      0,
+      0.025
+     ],
+     "pos": [
+      0,
+      0.27,
+      0.01
+     ],
+     "cor": "#d8b860"
+    },
+    {
+     "osso": "Head",
+     "forma": "cilindro",
+     "tamanho": [
+      0.1,
+      0,
+      0.11
+     ],
+     "pos": [
+      0,
+      0.33,
+      0.01
+     ],
+     "cor": "#d0ac50"
+    },
+    {
+     "osso": "LeftFoot",
+     "forma": "caixa",
+     "tamanho": [
+      0.04,
+      0.025,
+      0.04
+     ],
+     "pos": [
+      0.035,
+      -0.0528,
+      0.0578
+     ],
+     "cor": "#ff2020",
+     "emissao": 4.0,
+     "piscar": 0.0
+    },
+    {
+     "osso": "LeftFoot",
+     "forma": "caixa",
+     "tamanho": [
+      0.04,
+      0.025,
+      0.04
+     ],
+     "pos": [
+      -0.035,
+      -0.0528,
+      0.0578
+     ],
+     "cor": "#2a5cff",
+     "emissao": 4.0,
+     "piscar": 0.5
+    },
+    {
+     "osso": "RightFoot",
+     "forma": "caixa",
+     "tamanho": [
+      0.04,
+      0.025,
+      0.04
+     ],
+     "pos": [
+      -0.035,
+      -0.0528,
+      0.0578
+     ],
+     "cor": "#ff2020",
+     "emissao": 4.0,
+     "piscar": 0.0
+    },
+    {
+     "osso": "RightFoot",
+     "forma": "caixa",
+     "tamanho": [
+      0.04,
+      0.025,
+      0.04
+     ],
+     "pos": [
+      0.035,
+      -0.0528,
+      0.0578
+     ],
+     "cor": "#2a5cff",
+     "emissao": 4.0,
+     "piscar": 0.5
+    }
+   ]
+  },
+  "lurdes": {
+   "name": "Dona Lurdes",
+   "model": "nurse",
+   "tint": "#a89aa0",
+   "altura": 1.5
+  },
+  "homem": {
+   "name": "",
+   "model": "office_worker",
+   "tint": "#2c2622",
+   "altura": 1.95,
+   "magro": 0.85,
+   "anexos": [
+    {
+     "osso": "Head",
+     "forma": "cilindro",
+     "tamanho": [
+      0.26,
+      0,
+      0.025
+     ],
+     "pos": [
+      0,
+      0.28,
+      0.01
+     ],
+     "cor": "#14100c"
+    },
+    {
+     "osso": "Head",
+     "forma": "cilindro",
+     "tamanho": [
+      0.14,
+      0,
+      0.24
+     ],
+     "pos": [
+      0,
+      0.4,
+      0.01
+     ],
+     "cor": "#14100c"
+    },
+    {
+     "osso": "Chest",
+     "forma": "esfera",
+     "tamanho": [
+      0.62,
+      0.82,
+      0.55
+     ],
+     "pos": [
+      0.1,
+      0.1,
+      -0.38
+     ],
+     "cor": "#7a6440",
+     "balanca": true
+    },
+    {
+     "osso": "Chest",
+     "forma": "cilindro",
+     "tamanho": [
+      0.07,
+      0,
+      0.22
+     ],
+     "pos": [
+      0.06,
+      0.56,
+      -0.3
+     ],
+     "cor": "#5a4830"
+    }
+   ]
+  },
+  "mae_hs": {
+   "name": "Mãe",
+   "bus": "Phone"
+  },
+  "mae_falsa_hs": {
+   "name": "Mãe",
+   "bus": "Muffled",
+   "fx": "errado_abafado"
+  },
+  "saco_falso": {
+   "name": "Saco",
+   "fx": "errado_abafado"
+  },
+  "saco_davi": {
+   "name": "Saco",
+   "bus": "Muffled",
+   "luzinha": true
+  },
+  "saco_trilho": {
+   "name": "Saco",
+   "fx": "errado_abafado"
+  }
+ },
+ "nodes": {
+  "inicio": {
+   "location": "festa",
+   "title_card": "VÉSPERA DE SÃO JOÃO · 21:40",
+   "ambience": "festa_noite",
+   "cast": {
+    "left": {
+     "char": "davi",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "lurdes",
+     "anim": "Idle"
+    },
+    "center": {
+     "char": "homem",
+     "anim": "Idle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "esconder",
+     "who": "homem"
+    }
+   ],
+   "lines": [
+    {
+     "id": "hs_inicio_01",
+     "who": "sistema",
+     "text": "Véspera de São João. A mãe pediu uma coisa só: às dez horas, os dois em casa.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        3.2,
+        -6.5
+       ],
+       "dur": 0
+      },
+      {
+       "t": 0.3,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        1.3,
+        -5.0
+       ],
+       "dur": 2.6
+      },
+      {
+       "t": 0.6,
+       "acao": "sfx",
+       "som": "fogos",
+       "volume": -8
+      }
+     ]
+    },
+    {
+     "id": "hs_inicio_02",
+     "who": "davi",
+     "text": "Olha meu tênis novo! Ele pisca quando eu pulo!",
+     "tags": "[excited child, happy]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        -0.6,
+        0.3,
+        -2.4
+       ],
+       "dur": 0.6
+      },
+      {
+       "t": 0.4,
+       "acao": "andar",
+       "who": "davi",
+       "por": [
+        0,
+        0.25,
+        0
+       ],
+       "dur": 0.18,
+       "anim": "Idle",
+       "fim": "Idle"
+      },
+      {
+       "t": 0.6,
+       "acao": "andar",
+       "who": "davi",
+       "por": [
+        0,
+        -0.25,
+        0
+       ],
+       "dur": 0.18,
+       "anim": "Idle",
+       "fim": "Idle"
+      },
+      {
+       "t": 1.0,
+       "acao": "andar",
+       "who": "davi",
+       "por": [
+        0,
+        0.25,
+        0
+       ],
+       "dur": 0.18,
+       "anim": "Idle",
+       "fim": "Idle"
+      },
+      {
+       "t": 1.2,
+       "acao": "andar",
+       "who": "davi",
+       "por": [
+        0,
+        -0.25,
+        0
+       ],
+       "dur": 0.18,
+       "anim": "Idle",
+       "fim": "Idle"
+      },
+      {
+       "t": 2.0,
+       "acao": "camera_olhar",
+       "who": "davi",
+       "dur": 0.8
+      }
+     ]
+    },
+    {
+     "id": "hs_inicio_03",
+     "who": "lurdes",
+     "text": "Vão pra casa, crianças. Hoje é noite dele.",
+     "tags": "[old woman, worried whisper]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "lurdes",
+       "dur": 0.6
+      },
+      {
+       "t": 0.2,
+       "acao": "andar",
+       "who": "lurdes",
+       "por": [
+        -0.15,
+        0,
+        0.3
+       ],
+       "dur": 1.0,
+       "fim": "Idle"
+      }
+     ]
+    },
+    {
+     "id": "hs_inicio_04",
+     "who": "davi",
+     "text": "Dele quem, dona Lurdes?",
+     "tags": "[curious child]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "olhar_para",
+       "who": "davi",
+       "alvo": "lurdes"
+      },
+      {
+       "t": 1.6,
+       "acao": "olhar_camera",
+       "who": "davi"
+      }
+     ]
+    },
+    {
+     "id": "hs_inicio_05",
+     "who": "lurdes",
+     "text": "Do Homem do Saco. Ele recolhe as crianças que ainda estão na rua quando a fogueira apaga.",
+     "tags": "[whispering, scared, slow]",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "andar",
+       "who": "lurdes",
+       "por": [
+        -0.1,
+        0,
+        0.3
+       ],
+       "dur": 1.2,
+       "fim": "Idle"
+      }
+     ]
+    },
+    {
+     "id": "hs_inicio_06",
+     "who": "sistema",
+     "text": "Do outro lado da praça, perto da fogueira, um homem alto, de chapéu. Com um saco nas costas. O saco se mexe.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "mostrar",
+       "who": "homem"
+      },
+      {
+       "t": 0.2,
+       "acao": "camera_olhar",
+       "who": "homem",
+       "dur": 1.6
+      },
+      {
+       "t": 1.8,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        -0.25
+       ],
+       "dur": 2.4,
+       "olhar": [
+        0,
+        1.6,
+        -8.0
+       ]
+      }
+     ]
+    },
+    {
+     "id": "hs_inicio_07",
+     "who": "davi",
+     "text": "Vamos pelo atalho da linha do trem? É bem mais rápido!",
+     "tags": "[pleading, excited child]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "davi",
+       "dur": 0.6
+      },
+      {
+       "t": 0.3,
+       "acao": "andar",
+       "who": "davi",
+       "por": [
+        -0.5,
+        0,
+        0
+       ],
+       "dur": 0.9,
+       "olhar_camera": false
+      },
+      {
+       "t": 1.6,
+       "acao": "olhar_camera",
+       "who": "davi"
+      }
+     ]
+    },
+    {
+     "id": "hs_inicio_08",
+     "who": "lurdes",
+     "text": "Pela rua iluminada. Pela rua, ouviu?",
+     "tags": "[firm, scared]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "lurdes",
+       "dur": 0.6
+      },
+      {
+       "t": 0.5,
+       "acao": "anim",
+       "who": "homem",
+       "anim": "Walk"
+      },
+      {
+       "t": 0.5,
+       "acao": "andar",
+       "who": "homem",
+       "por": [
+        0,
+        0,
+        1.2
+       ],
+       "dur": 3.0,
+       "anim": "Walk",
+       "fim": "Idle"
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "Por onde vocês vão?",
+    "timer": 8,
+    "plead": {
+     "davi": "Atalho!",
+     "lurdes": "Pela rua"
+    },
+    "options": [
+     {
+      "text": "Pelo atalho da linha do trem",
+      "who": "davi",
+      "next": "linha"
+     },
+     {
+      "text": "Pela rua iluminada",
+      "who": "lurdes",
+      "next": "ruazinha"
+     }
+    ],
+    "timeout": {
+     "next": "davi_corre"
+    }
+   }
+  },
+  "davi_corre": {
+   "location": "festa",
+   "lines": [
+    {
+     "id": "hs_davi_corre_01",
+     "who": "sistema",
+     "text": "Você demora pra responder. O Davi sai correndo para o atalho, piscando no escuro.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "sair",
+       "who": "davi",
+       "para": [
+        -6.5,
+        0,
+        -3.5
+       ],
+       "dur": 2.2,
+       "anim": "Run"
+      },
+      {
+       "t": 0.4,
+       "acao": "camera_olhar",
+       "olhar": [
+        -7.0,
+        1.0,
+        -6.0
+       ],
+       "dur": 1.0
+      },
+      {
+       "t": 1.4,
+       "acao": "camera_andar",
+       "por": [
+        -1.4,
+        0,
+        -1.0
+       ],
+       "dur": 2.0,
+       "olhar": [
+        -7.5,
+        1.0,
+        -7.0
+       ]
+      }
+     ]
+    }
+   ],
+   "next": "linha"
+  },
+  "linha": {
+   "location": "linha_trem",
+   "title_card": "LINHA DO TREM · 21:58",
+   "ambience": "linha_noite",
+   "cast": {
+    "left": {
+     "char": "davi",
+     "anim": "Walk"
+    },
+    "center": {
+     "char": "homem",
+     "anim": "Idle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "esconder",
+     "who": "homem"
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "homem",
+     "para": [
+      0,
+      0.16,
+      12.0
+     ],
+     "dur": 0.01
+    }
+   ],
+   "lines": [
+    {
+     "id": "hs_linha_01",
+     "who": "sistema",
+     "text": "Os trilhos brilham com a lua. O barulho da festa vai ficando para trás.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_andar",
+       "por": [
+        0,
+        0,
+        -2.4
+       ],
+       "dur": 3.5
+      },
+      {
+       "t": 0,
+       "acao": "andar",
+       "who": "davi",
+       "por": [
+        0,
+        0,
+        -2.6
+       ],
+       "dur": 3.5,
+       "anim": "Walk",
+       "fim": "Idle",
+       "olhar_camera": false
+      }
+     ]
+    },
+    {
+     "id": "hs_linha_02",
+     "who": "davi",
+     "text": "Pisa só nos dormentes, igual o pai ensinou.",
+     "tags": "[child, proud, whispering]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "olhar_camera",
+       "who": "davi"
+      },
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        -0.6,
+        0.3,
+        -4.6
+       ],
+       "dur": 0.8
+      },
+      {
+       "t": 1.8,
+       "acao": "camera_olhar",
+       "who": "davi",
+       "dur": 0.6
+      }
+     ]
+    },
+    {
+     "id": "hs_linha_03",
+     "who": "sistema",
+     "text": "Atrás de vocês, no cascalho, um barulho. Alguma coisa pesada sendo arrastada.",
+     "sfx": "saco_arrastando",
+     "acoes": [
+      {
+       "t": 0.6,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        1.3,
+        8.0
+       ],
+       "dur": 1.4
+      },
+      {
+       "t": 0.8,
+       "acao": "olhar_para",
+       "who": "davi",
+       "alvo": "homem"
+      }
+     ]
+    },
+    {
+     "id": "hs_linha_04",
+     "who": "sistema",
+     "text": "É o homem de chapéu. Ele não corre. Ele nunca precisa correr.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "mostrar",
+       "who": "homem"
+      },
+      {
+       "t": 0,
+       "acao": "anim",
+       "who": "homem",
+       "anim": "Walk"
+      },
+      {
+       "t": 0,
+       "acao": "mover",
+       "who": "homem",
+       "para": [
+        0,
+        0.16,
+        6.5
+       ],
+       "dur": 4.0
+      },
+      {
+       "t": 4.0,
+       "acao": "anim",
+       "who": "homem",
+       "anim": "Idle",
+       "fixo": true
+      },
+      {
+       "t": 0.3,
+       "acao": "camera_olhar",
+       "who": "homem",
+       "dur": 1.0
+      }
+     ]
+    },
+    {
+     "id": "hs_linha_05",
+     "who": "homem",
+     "text": "Criança na rua depois da fogueira... vai pro saco... vai pro saco...",
+     "tags": "[old man singing a slow creepy lullaby, raspy whisper]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "olhar_camera",
+       "who": "homem"
+      },
+      {
+       "t": 0.4,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        -0.2
+       ],
+       "dur": 2.4,
+       "olhar": [
+        0,
+        1.8,
+        6.5
+       ]
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "Ele está chegando.",
+    "timer": 6,
+    "options": [
+     {
+      "text": "Correr pelos trilhos",
+      "next": "trem"
+     },
+     {
+      "text": "Se esconder no mato",
+      "who": "davi",
+      "next": "mato"
+     }
+    ],
+    "timeout": {
+     "next": "pego"
+    }
+   }
+  },
+  "trem": {
+   "location": "linha_trem",
+   "music": "hs_caca",
+   "cast": {
+    "left": {
+     "char": "davi",
+     "anim": "Run"
+    },
+    "center": {
+     "char": "homem",
+     "anim": "Walk"
+    }
+   },
+   "lines": [
+    {
+     "id": "hs_trem_01",
+     "who": "sistema",
+     "text": "Vocês correm. Uma luz no fim dos trilhos. O apito do trem.",
+     "sfx": "trem_apito",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        1.5,
+        -30.0
+       ],
+       "dur": 0.6
+      },
+      {
+       "t": 0.7,
+       "acao": "camera_andar",
+       "por": [
+        0,
+        0,
+        -3.5
+       ],
+       "dur": 2.4
+      },
+      {
+       "t": 0.4,
+       "acao": "andar",
+       "who": "davi",
+       "por": [
+        0.2,
+        0,
+        -4.0
+       ],
+       "dur": 2.6,
+       "anim": "Run",
+       "fim": "Run",
+       "olhar_camera": false
+      },
+      {
+       "t": 0.5,
+       "acao": "no",
+       "nome": "trem",
+       "para": [
+        0,
+        0,
+        -45.0
+       ],
+       "dur": 3.0
+      }
+     ]
+    },
+    {
+     "id": "hs_trem_02",
+     "who": "davi",
+     "text": "O trem! PULA!",
+     "tags": "[screaming child]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "olhar_camera",
+       "who": "davi"
+      },
+      {
+       "t": 0,
+       "acao": "no",
+       "nome": "trem",
+       "para": [
+        0,
+        0,
+        -26.0
+       ],
+       "dur": 2.5
+      },
+      {
+       "t": 0.4,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.06
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "O trem na frente. Ele atrás.",
+    "timer": 5,
+    "plead": {
+     "davi": "Me puxa!"
+    },
+    "options": [
+     {
+      "text": "Pular pro barranco puxando o Davi",
+      "who": "davi",
+      "ending": "o_trem"
+     },
+     {
+      "text": "Pular sozinho",
+      "ending": "irmao_perdido"
+     }
+    ],
+    "timeout": {
+     "next": "pego"
+    }
+   }
+  },
+  "mato": {
+   "location": "linha_trem",
+   "cast": {
+    "left": {
+     "char": "davi",
+     "anim": "Idle"
+    },
+    "center": {
+     "char": "homem",
+     "anim": "Walk"
+    },
+    "right": {
+     "char": "saco_trilho",
+     "offscreen": "saco"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "esconder",
+     "who": "saco_trilho"
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "saco_trilho",
+     "para": [
+      0.1,
+      0.16,
+      -2.6
+     ],
+     "dur": 0.01
+    }
+   ],
+   "lines": [
+    {
+     "id": "hs_mato_01",
+     "who": "sistema",
+     "text": "Vocês se jogam no mato alto. O capim é mais alto que o Davi.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_rel",
+       "por": [
+        -2.2,
+        -0.75,
+        0.3
+       ],
+       "dur": 0.7,
+       "olhar": [
+        0,
+        0.5,
+        2.0
+       ]
+      },
+      {
+       "t": 0,
+       "acao": "mover",
+       "who": "davi",
+       "para": [
+        -2.7,
+        0.16,
+        -0.4
+       ],
+       "dur": 0.5
+      },
+      {
+       "t": 0.55,
+       "acao": "anim",
+       "who": "davi",
+       "anim": "Sit",
+       "fixo": true
+      },
+      {
+       "t": 0.6,
+       "acao": "olhar_camera",
+       "who": "davi"
+      }
+     ]
+    },
+    {
+     "id": "hs_mato_02",
+     "who": "sistema",
+     "text": "O homem passa pelos trilhos, devagar. O saco nas costas dele chora baixinho.",
+     "sfx": "choro_crianca",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "anim",
+       "who": "homem",
+       "anim": "Walk"
+      },
+      {
+       "t": 0,
+       "acao": "mover",
+       "who": "homem",
+       "para": [
+        0,
+        0.16,
+        -2.2
+       ],
+       "dur": 5.0
+      },
+      {
+       "t": 0.2,
+       "acao": "camera_olhar",
+       "who": "homem",
+       "dur": 1.0
+      },
+      {
+       "t": 2.4,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        1.4,
+        -1.0
+       ],
+       "dur": 2.0
+      }
+     ]
+    },
+    {
+     "id": "hs_mato_03",
+     "who": "sistema",
+     "text": "Ele larga um saco no meio dos trilhos. E some no escuro.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "mostrar",
+       "who": "saco_trilho"
+      },
+      {
+       "t": 0.2,
+       "acao": "sair",
+       "who": "homem",
+       "para": [
+        0,
+        0,
+        -9.0
+       ],
+       "dur": 3.0
+      },
+      {
+       "t": 0.2,
+       "acao": "camera_olhar",
+       "who": "saco_trilho",
+       "dur": 1.0
+      }
+     ]
+    },
+    {
+     "id": "hs_mato_04",
+     "who": "saco_trilho",
+     "text": "Me ajuda... eu tô preso aqui dentro...",
+     "tags": "[small child voice, crying, muffled]",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "tremer",
+       "who": "saco_trilho",
+       "dur": 1.5
+      }
+     ]
+    },
+    {
+     "id": "hs_mato_05",
+     "who": "davi",
+     "text": "Tem uma criança ali! A gente tem que ajudar!",
+     "tags": "[urgent whisper, child]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "davi",
+       "dur": 0.5
+      },
+      {
+       "t": 0.6,
+       "acao": "olhar_para",
+       "who": "davi",
+       "alvo": "saco_trilho"
+      },
+      {
+       "t": 2.2,
+       "acao": "olhar_camera",
+       "who": "davi"
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "Pode ser uma armadilha.",
+    "timer": 7,
+    "plead": {
+     "saco_trilho": "Me ajuda",
+     "davi": "Vamos!"
+    },
+    "options": [
+     {
+      "text": "Abrir o saco",
+      "who": "saco_trilho",
+      "ending": "voz_no_saco"
+     },
+     {
+      "text": "Segurar o Davi e ficar quieto",
+      "who": "davi",
+      "next": "mato_quieto"
+     }
+    ],
+    "timeout": {
+     "next": "pego"
+    }
+   }
+  },
+  "mato_quieto": {
+   "location": "linha_trem",
+   "lines": [
+    {
+     "id": "hs_mato_quieto_01",
+     "who": "sistema",
+     "text": "Você tapa a boca do Davi. O saco para de chorar. E começa a rir.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "maos",
+       "anim": "grab.L"
+      },
+      {
+       "t": 1.6,
+       "acao": "tremer",
+       "who": "saco_trilho",
+       "dur": 2.0
+      },
+      {
+       "t": 1.6,
+       "acao": "sfx",
+       "som": "choro_crianca",
+       "volume": -10
+      }
+     ]
+    },
+    {
+     "id": "hs_mato_quieto_02",
+     "who": "sistema",
+     "text": "O homem volta, pega o saco e vai embora pelos trilhos. Vocês correm pra casa sem olhar pra trás.",
+     "acoes": [
+      {
+       "t": 0.5,
+       "acao": "esconder",
+       "who": "saco_trilho"
+      },
+      {
+       "t": 1.0,
+       "acao": "camera_andar",
+       "por": [
+        0,
+        0.75,
+        3.0
+       ],
+       "dur": 3.0,
+       "olhar": [
+        0,
+        1.4,
+        12.0
+       ]
+      }
+     ]
+    }
+   ],
+   "next": "casa"
+  },
+  "pego": {
+   "location": "linha_trem",
+   "music": "hs_caca",
+   "cast": {
+    "left": {
+     "char": "davi",
+     "anim": "Idle"
+    },
+    "center": {
+     "char": "homem",
+     "anim": "Idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "hs_pego_01",
+     "who": "sistema",
+     "text": "Uma mão enorme agarra o Davi pela gola da camisa.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "anim",
+       "who": "homem",
+       "anim": "Run"
+      },
+      {
+       "t": 0,
+       "acao": "mover",
+       "who": "homem",
+       "para": [
+        -0.3,
+        0.16,
+        -1.6
+       ],
+       "dur": 0.7
+      },
+      {
+       "t": 0.8,
+       "acao": "anim",
+       "who": "homem",
+       "anim": "Idle",
+       "fixo": true
+      },
+      {
+       "t": 0.8,
+       "acao": "olhar_para",
+       "who": "homem",
+       "alvo": "davi"
+      },
+      {
+       "t": 0.6,
+       "acao": "maos",
+       "anim": "grab.L"
+      },
+      {
+       "t": 0.9,
+       "acao": "tremer",
+       "who": "davi",
+       "dur": 1.5
+      },
+      {
+       "t": 0.4,
+       "acao": "camera_olhar",
+       "who": "davi",
+       "dur": 0.6
+      }
+     ]
+    },
+    {
+     "id": "hs_pego_02",
+     "who": "davi",
+     "text": "ME SOLTA! ME AJUDA!",
+     "tags": "[screaming child, terrified]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "andar",
+       "who": "davi",
+       "por": [
+        0,
+        0.45,
+        0
+       ],
+       "dur": 0.4,
+       "anim": "Run",
+       "fim": "Run"
+      },
+      {
+       "t": 0,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.08
+      }
+     ]
+    },
+    {
+     "id": "hs_pego_03",
+     "who": "sistema",
+     "text": "Ele enfia o Davi no saco. O saco pisca. Vermelho. Azul. E vai embora pelos trilhos, na direção do barraco.",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "esconder",
+       "who": "davi"
+      },
+      {
+       "t": 0.3,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.06
+      },
+      {
+       "t": 1.2,
+       "acao": "sair",
+       "who": "homem",
+       "para": [
+        -3.5,
+        0,
+        -11.0
+       ],
+       "dur": 6.0
+      },
+      {
+       "t": 1.6,
+       "acao": "camera_olhar",
+       "olhar": [
+        -5.0,
+        1.2,
+        -26.0
+       ],
+       "dur": 2.4
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "Ele está levando o Davi.",
+    "timer": 6,
+    "options": [
+     {
+      "text": "Correr atrás dele até o barraco",
+      "next": "barraco"
+     },
+     {
+      "text": "Voltar pra festa pedir ajuda",
+      "next": "festa_volta"
+     }
+    ],
+    "timeout": {
+     "next": "quieto_branch"
+    }
+   }
+  },
+  "quieto_branch": {
+   "location": "linha_trem",
+   "branch": [
+    {
+     "if": "hesitou >= 2",
+     "next": "quieto_fim"
+    },
+    {
+     "next": "festa_volta"
+    }
+   ]
+  },
+  "quieto_fim": {
+   "location": "linha_trem",
+   "lines": [
+    {
+     "id": "hs_quieto_fim_01",
+     "who": "sistema",
+     "text": "Você não consegue se mexer. Ele percebe. E volta.",
+     "acoes": [
+      {
+       "t": 0.5,
+       "acao": "camera_olhar",
+       "olhar": [
+        -1.0,
+        1.6,
+        -6.0
+       ],
+       "dur": 2.0
+      }
+     ]
+    }
+   ],
+   "ending": "quieto"
+  },
+  "festa_volta": {
+   "location": "festa",
+   "music": "hs_caca",
+   "cast": {
+    "right": {
+     "char": "lurdes",
+     "anim": "Idle"
+    },
+    "center": {
+     "char": "homem",
+     "anim": "Idle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "esconder",
+     "who": "homem"
+    },
+    {
+     "t": 0,
+     "acao": "camera",
+     "pos": [
+      -5.5,
+      1.35,
+      -5.0
+     ],
+     "olhar": [
+      0,
+      1.2,
+      -2.0
+     ],
+     "dur": 0
+    }
+   ],
+   "lines": [
+    {
+     "id": "hs_fv_01",
+     "who": "sistema",
+     "text": "Você volta correndo para a festa, sem ar.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_andar",
+       "pos": [
+        0,
+        1.35,
+        0
+       ],
+       "olhar": [
+        0,
+        1.25,
+        -5.0
+       ],
+       "dur": 2.2
+      }
+     ]
+    },
+    {
+     "id": "hs_fv_02",
+     "who": "lurdes",
+     "text": "Pra perto da fogueira! Ele não chega perto do fogo!",
+     "tags": "[shouting, old woman]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "lurdes",
+       "dur": 0.5
+      },
+      {
+       "t": 0.2,
+       "acao": "anim",
+       "who": "lurdes",
+       "anim": "Wave"
+      },
+      {
+       "t": 0.5,
+       "acao": "camera_olhar",
+       "olhar": [
+        2.6,
+        1.2,
+        -9.0
+       ],
+       "dur": 1.4
+      }
+     ]
+    },
+    {
+     "id": "hs_fv_03",
+     "who": "sistema",
+     "text": "Na beira da luz, o homem para. O saco nas costas dele chora com a voz do Davi.",
+     "sfx": "choro_crianca",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "mostrar",
+       "who": "homem"
+      },
+      {
+       "t": 0,
+       "acao": "mover",
+       "who": "homem",
+       "para": [
+        -4.5,
+        0,
+        -11.0
+       ],
+       "dur": 0.01
+      },
+      {
+       "t": 0.2,
+       "acao": "camera_olhar",
+       "who": "homem",
+       "dur": 1.4
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "A fogueira está apagando.",
+    "timer": 7,
+    "options": [
+     {
+      "text": "Ficar na fogueira até amanhecer",
+      "ending": "irmao_perdido"
+     },
+     {
+      "text": "Pegar um tição e ir atrás dele",
+      "set": {
+       "tocha": true
+      },
+      "next": "barraco"
+     }
+    ],
+    "timeout": {
+     "ending": "irmao_perdido"
+    }
+   }
+  },
+  "ruazinha": {
+   "location": "ruazinha",
+   "title_card": "RUA DAS FLORES · 22:04",
+   "cast": {
+    "left": {
+     "char": "davi",
+     "anim": "Walk"
+    },
+    "center": {
+     "char": "homem",
+     "anim": "Idle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "esconder",
+     "who": "homem"
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "homem",
+     "para": [
+      0,
+      0,
+      16.0
+     ],
+     "dur": 0.01
+    }
+   ],
+   "lines": [
+    {
+     "id": "hs_rua_01",
+     "who": "sistema",
+     "text": "A rua iluminada é mais longa. Os postes zumbem. A festa vai ficando para trás.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_andar",
+       "por": [
+        0,
+        0,
+        -3.0
+       ],
+       "dur": 4.0
+      },
+      {
+       "t": 0,
+       "acao": "andar",
+       "who": "davi",
+       "por": [
+        0,
+        0,
+        -3.2
+       ],
+       "dur": 4.0,
+       "anim": "Walk",
+       "fim": "Idle",
+       "olhar_camera": false
+      }
+     ]
+    },
+    {
+     "id": "hs_rua_02",
+     "who": "sistema",
+     "text": "Lá atrás, um poste se apaga.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "luz_no",
+       "nome": "poste_1",
+       "energia": 0,
+       "dur": 0.15
+      },
+      {
+       "t": 0.3,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        1.5,
+        12.0
+       ],
+       "dur": 1.2
+      },
+      {
+       "t": 0.8,
+       "acao": "mostrar",
+       "who": "homem"
+      }
+     ]
+    },
+    {
+     "id": "hs_rua_03",
+     "who": "davi",
+     "text": "Ele tá seguindo a gente?",
+     "tags": "[scared whisper, child]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "olhar_camera",
+       "who": "davi"
+      },
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "davi",
+       "dur": 0.6
+      }
+     ]
+    },
+    {
+     "id": "hs_rua_04",
+     "who": "sistema",
+     "text": "A cada poste que apaga, o homem de chapéu está um poste mais perto.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        1.5,
+        10.0
+       ],
+       "dur": 0.6
+      },
+      {
+       "t": 1.0,
+       "acao": "luz_no",
+       "nome": "poste_2",
+       "energia": 0,
+       "dur": 0.1
+      },
+      {
+       "t": 1.1,
+       "acao": "mover",
+       "who": "homem",
+       "para": [
+        0,
+        0,
+        9.5
+       ],
+       "dur": 0.01
+      },
+      {
+       "t": 1.4,
+       "acao": "olhar_camera",
+       "who": "homem"
+      }
+     ]
+    },
+    {
+     "id": "hs_rua_05",
+     "who": "homem",
+     "text": "Criança na rua... depois da fogueira...",
+     "tags": "[old man, creepy sing-song whisper]",
+     "acoes": [
+      {
+       "t": 0.6,
+       "acao": "luz_no",
+       "nome": "poste_3",
+       "energia": 0,
+       "dur": 0.1
+      },
+      {
+       "t": 0.7,
+       "acao": "mover",
+       "who": "homem",
+       "para": [
+        0,
+        0,
+        4.0
+       ],
+       "dur": 0.01
+      },
+      {
+       "t": 0.8,
+       "acao": "olhar_camera",
+       "who": "homem"
+      },
+      {
+       "t": 0.8,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.05
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "Ele está a um poste de distância.",
+    "timer": 6,
+    "plead": {
+     "davi": "Corre!"
+    },
+    "options": [
+     {
+      "text": "Correr pra casa",
+      "who": "davi",
+      "next": "casa"
+     },
+     {
+      "text": "Cortar pela praça, até a fogueira",
+      "next": "fogueira_juntos"
+     }
+    ],
+    "timeout": {
+     "next": "pego_rua"
+    }
+   }
+  },
+  "pego_rua": {
+   "location": "ruazinha",
+   "music": "hs_caca",
+   "cast": {
+    "left": {
+     "char": "davi",
+     "anim": "Idle"
+    },
+    "center": {
+     "char": "homem",
+     "anim": "Idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "hs_pego_rua_01",
+     "who": "sistema",
+     "text": "A luz do último poste apaga. Quando volta, o Davi não está mais do seu lado.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "luz_no",
+       "nome": "poste_4",
+       "energia": 0,
+       "dur": 0.1
+      },
+      {
+       "t": 0.1,
+       "acao": "fx",
+       "tipo": "apagar",
+       "dur": 0.2
+      },
+      {
+       "t": 0.4,
+       "acao": "esconder",
+       "who": "davi"
+      },
+      {
+       "t": 0.6,
+       "acao": "fx",
+       "tipo": "acender",
+       "dur": 0.6
+      },
+      {
+       "t": 1.0,
+       "acao": "camera_olhar",
+       "olhar": [
+        -0.6,
+        0.6,
+        -2.0
+       ],
+       "dur": 0.8
+      }
+     ]
+    },
+    {
+     "id": "hs_pego_rua_02",
+     "who": "sistema",
+     "text": "No fim da rua, o homem vai embora. O saco nas costas pisca. Vermelho. Azul.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "mover",
+       "who": "homem",
+       "para": [
+        0.6,
+        0,
+        -14.0
+       ],
+       "dur": 0.01
+      },
+      {
+       "t": 0.1,
+       "acao": "anim",
+       "who": "homem",
+       "anim": "Walk"
+      },
+      {
+       "t": 0.2,
+       "acao": "sair",
+       "who": "homem",
+       "para": [
+        0,
+        0,
+        -10.0
+       ],
+       "dur": 5.0
+      },
+      {
+       "t": 0.2,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        1.2,
+        -16.0
+       ],
+       "dur": 1.2
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "Ele está levando o Davi.",
+    "timer": 6,
+    "options": [
+     {
+      "text": "Correr atrás dele",
+      "next": "barraco"
+     },
+     {
+      "text": "Voltar pra festa pedir ajuda",
+      "next": "festa_volta"
+     }
+    ],
+    "timeout": {
+     "next": "quieto_branch"
+    }
+   }
+  },
+  "fogueira_juntos": {
+   "location": "festa",
+   "cast": {
+    "left": {
+     "char": "davi",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "lurdes",
+     "anim": "Idle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "camera",
+     "pos": [
+      5.0,
+      1.35,
+      -4.0
+     ],
+     "olhar": [
+      2.6,
+      1.0,
+      -9.0
+     ],
+     "dur": 0
+    }
+   ],
+   "lines": [
+    {
+     "id": "hs_fj_01",
+     "who": "sistema",
+     "text": "Vocês atravessam a praça correndo até a fogueira. A Dona Lurdes abraça os dois.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_andar",
+       "pos": [
+        1.2,
+        1.35,
+        -5.6
+       ],
+       "olhar": [
+        2.6,
+        0.9,
+        -9.0
+       ],
+       "dur": 2.4
+      },
+      {
+       "t": 0.4,
+       "acao": "entrar",
+       "who": "davi",
+       "de": [
+        2.0,
+        0,
+        2.0
+       ],
+       "dur": 2.0,
+       "anim": "Run",
+       "fim": "Idle"
+      }
+     ]
+    },
+    {
+     "id": "hs_fj_02",
+     "who": "lurdes",
+     "text": "Fiquem aqui. Perto do fogo ele não chega.",
+     "tags": "[old woman, protective whisper]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "lurdes",
+       "dur": 0.6
+      }
+     ]
+    }
+   ],
+   "ending": "fogueira"
+  },
+  "casa": {
+   "location": "casa",
+   "title_card": "CASA · 22:21",
+   "music": "hs_tensao",
+   "cast": {
+    "left": {
+     "char": "davi",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "mae_falsa_hs",
+     "offscreen": "porta"
+    },
+    "phone": {
+     "char": "mae_hs"
+    }
+   },
+   "lines": [
+    {
+     "id": "hs_casa_01",
+     "who": "sistema",
+     "text": "Vocês trancam a porta. O Davi ainda está ofegante, o tênis piscando no escuro.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "maos",
+       "anim": "grab.R"
+      },
+      {
+       "t": 0.8,
+       "acao": "camera_olhar",
+       "olhar": [
+        -0.6,
+        0.3,
+        -2.4
+       ],
+       "dur": 1.0
+      },
+      {
+       "t": 2.4,
+       "acao": "camera_olhar",
+       "who": "davi",
+       "dur": 0.8
+      }
+     ]
+    },
+    {
+     "id": "hs_casa_02",
+     "who": "mae_hs",
+     "text": "Filhos? Tô presa na festa, o carro não pega. Chego em uma hora. Não abram a porta pra ninguém!",
+     "sfx": "celular",
+     "tags": "[worried mother, on the phone, noisy party background]"
+    },
+    {
+     "id": "hs_casa_03",
+     "who": "sistema",
+     "text": "Cinco minutos depois. Três batidas na porta.",
+     "sfx": "batida_porta",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "mae_falsa_hs",
+       "dur": 0.8
+      },
+      {
+       "t": 0.2,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.04
+      },
+      {
+       "t": 0.6,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.04
+      },
+      {
+       "t": 1.0,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.04
+      }
+     ]
+    },
+    {
+     "id": "hs_casa_04",
+     "who": "mae_falsa_hs",
+     "text": "Filhos, abre aqui! Sou eu, a mãe! Esqueci a chave!",
+     "tags": "[cheerful mother, slightly too sweet]"
+    },
+    {
+     "id": "hs_casa_05",
+     "who": "davi",
+     "text": "É a mãe! Ela chegou!",
+     "tags": "[happy child]",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "andar",
+       "who": "davi",
+       "por": [
+        0.5,
+        0,
+        -0.7
+       ],
+       "dur": 1.2,
+       "anim": "Run",
+       "fim": "Idle",
+       "olhar_camera": false
+      }
+     ]
+    },
+    {
+     "id": "hs_casa_06",
+     "who": "sistema",
+     "text": "Mas a mãe acabou de ligar. Da festa. Do outro lado da cidade.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "davi",
+       "dur": 0.6
+      },
+      {
+       "t": 1.2,
+       "acao": "olhar_camera",
+       "who": "davi"
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "Quem está na porta?",
+    "timer": 7,
+    "plead": {
+     "davi": "Abre!",
+     "mae_falsa_hs": "Abre, filho"
+    },
+    "options": [
+     {
+      "text": "Abrir a porta",
+      "who": "mae_falsa_hs",
+      "ending": "porta_aberta"
+     },
+     {
+      "text": "Segurar o Davi longe da porta",
+      "who": "davi",
+      "next": "casa_madrugada"
+     }
+    ],
+    "timeout": {
+     "next": "davi_abre"
+    }
+   }
+  },
+  "davi_abre": {
+   "location": "casa",
+   "lines": [
+    {
+     "id": "hs_davi_abre_01",
+     "who": "sistema",
+     "text": "Você hesita. O Davi destranca a porta.",
+     "sfx": "porta_abre",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "andar",
+       "who": "davi",
+       "por": [
+        0.4,
+        0,
+        -0.5
+       ],
+       "dur": 0.8,
+       "anim": "Run",
+       "fim": "Idle",
+       "olhar_camera": false
+      }
+     ]
+    }
+   ],
+   "ending": "porta_aberta"
+  },
+  "casa_madrugada": {
+   "location": "casa",
+   "lines": [
+    {
+     "id": "hs_madrugada_01",
+     "who": "sistema",
+     "text": "Você abraça o Davi no chão da sala. As batidas continuam até as três da manhã. Depois, silêncio.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "maos",
+       "anim": "grab.L"
+      },
+      {
+       "t": 0.4,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        -0.6,
+        0.3
+       ],
+       "dur": 1.0,
+       "olhar": [
+        0.6,
+        1.0,
+        -2.4
+       ]
+      },
+      {
+       "t": 1.6,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.03
+      },
+      {
+       "t": 2.4,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.03
+      },
+      {
+       "t": 3.2,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.03
+      }
+     ]
+    }
+   ],
+   "ending": "amanhecer"
+  },
+  "barraco": {
+   "location": "barraco",
+   "title_card": "O BARRACO",
+   "ambience": "barraco_noite",
+   "cast": {
+    "left": {
+     "char": "saco_falso",
+     "offscreen": "saco"
+    },
+    "right": {
+     "char": "saco_davi",
+     "offscreen": "saco"
+    }
+   },
+   "aguardar": 1.6,
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "camera",
+     "pos": [
+      0,
+      1.35,
+      3.0
+     ],
+     "olhar": [
+      0,
+      1.2,
+      -2.0
+     ],
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "camera_andar",
+     "pos": [
+      0,
+      1.35,
+      1.0
+     ],
+     "olhar": [
+      0,
+      1.0,
+      -2.0
+     ],
+     "dur": 1.8
+    },
+    {
+     "t": 0,
+     "acao": "sfx",
+     "som": "porta_abre",
+     "volume": -6
+    }
+   ],
+   "lines": [
+    {
+     "id": "hs_barraco_01",
+     "who": "sistema",
+     "text": "Lá dentro, sacos pendurados no teto. Dezenas. Alguns ainda se mexem.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.4,
+        2.0,
+        -2.5
+       ],
+       "dur": 1.6
+      },
+      {
+       "t": 3.0,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        0.6,
+        -2.0
+       ],
+       "dur": 1.2
+      }
+     ]
+    },
+    {
+     "id": "hs_barraco_02",
+     "who": "sistema",
+     "text": "A chama do tição treme na sua mão.",
+     "if": "tocha",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "luz_ponto",
+       "pos": [
+        0.35,
+        1.1,
+        0.7
+       ],
+       "cor": "#ff8a30",
+       "energia": 2.2,
+       "raio": 5.0,
+       "piscar": true
+      }
+     ]
+    },
+    {
+     "id": "hs_barraco_03",
+     "who": "sistema",
+     "text": "No chão, na sua frente, dois sacos. Os dois chamam o seu nome. Com a voz do Davi.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        0.4,
+        -1.2
+       ],
+       "dur": 1.0
+      }
+     ]
+    },
+    {
+     "id": "hs_barraco_04",
+     "who": "saco_falso",
+     "text": "Sou eu! Me tira daqui! Rápido!",
+     "tags": "[child voice, desperate, muffled]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "saco_falso",
+       "dur": 0.5
+      },
+      {
+       "t": 0.2,
+       "acao": "tremer",
+       "who": "saco_falso",
+       "dur": 1.2
+      }
+     ]
+    },
+    {
+     "id": "hs_barraco_05",
+     "who": "saco_davi",
+     "text": "Não abre esse! Eu tô aqui! Sou eu!",
+     "tags": "[child voice, crying, desperate]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "saco_davi",
+       "dur": 0.5
+      },
+      {
+       "t": 0.2,
+       "acao": "tremer",
+       "who": "saco_davi",
+       "dur": 1.2
+      }
+     ]
+    },
+    {
+     "id": "hs_barraco_06",
+     "who": "sistema",
+     "text": "No escuro, um dos sacos pisca. Vermelho. Azul. Vermelho.",
+     "acoes": [
+      {
+       "t": 0.4,
+       "acao": "camera_voltar",
+       "dur": 1.0
+      }
+     ]
+    },
+    {
+     "id": "hs_barraco_07",
+     "who": "sistema",
+     "text": "Lá fora, passos no cascalho. Ele está voltando.",
+     "sfx": "cascalho_passos",
+     "acoes": [
+      {
+       "t": 0.4,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        1.3,
+        4.0
+       ],
+       "dur": 0.8
+      },
+      {
+       "t": 2.2,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        0.5,
+        -1.2
+       ],
+       "dur": 0.8
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "Qual saco é o Davi?",
+    "timer": 8,
+    "plead": {
+     "saco_falso": "Me tira!",
+     "saco_davi": "Sou eu!"
+    },
+    "options": [
+     {
+      "text": "Abrir o saco da esquerda",
+      "who": "saco_falso",
+      "ending": "saco_errado"
+     },
+     {
+      "text": "Abrir o saco da direita",
+      "who": "saco_davi",
+      "ending": "tenis_de_luzinha"
+     },
+     {
+      "text": "Entrar no saco no lugar dele",
+      "ending": "no_lugar_dele"
+     }
+    ],
+    "timeout": {
+     "ending": "dentro_do_saco"
+    }
+   }
+  }
+ },
+ "endings": {
+  "dentro_do_saco": {
+   "title": "Dentro do Saco",
+   "kind": "morte",
+   "text": "A estopa tem cheiro de terra e de fogueira apagada. Lá dentro, no escuro, outras crianças respiram baixinho.",
+   "cinematica": {
+    "location": "barraco",
+    "camera": {
+     "pos": [
+      0,
+      1.35,
+      1.0
+     ],
+     "olhar": [
+      0,
+      1.2,
+      -2.0
+     ]
+    },
+    "slots": {
+     "center": [
+      0,
+      0,
+      -2.6
+     ]
+    },
+    "cast": {
+     "center": {
+      "char": "homem",
+      "anim": "Walk"
+     }
+    },
+    "dur": 10.5,
+    "narrar": 0.8,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#5a4a40",
+      "energia": 0.45,
+      "neblina": "#0a0604",
+      "densidade": 0.05,
+      "fundo": "#020100",
+      "dur": 0.1
+     },
+     {
+      "t": 0.2,
+      "acao": "mover",
+      "who": "homem",
+      "para": [
+       0,
+       0,
+       0.0
+      ],
+      "dur": 3.0
+     },
+     {
+      "t": 3.2,
+      "acao": "anim",
+      "who": "homem",
+      "anim": "Idle"
+     },
+     {
+      "t": 3.2,
+      "acao": "olhar_camera",
+      "who": "homem"
+     },
+     {
+      "t": 3.4,
+      "acao": "camera_olhar",
+      "olhar": [
+       0,
+       2.4,
+       0.0
+      ],
+      "dur": 1.2
+     },
+     {
+      "t": 5.0,
+      "acao": "fx",
+      "tipo": "tremor",
+      "forca": 0.1
+     },
+     {
+      "t": 5.2,
+      "acao": "luz",
+      "ambiente": "#4a3418",
+      "energia": 0.25,
+      "neblina": "#1a1006",
+      "densidade": 0.12,
+      "fundo": "#100802",
+      "dur": 0.6
+     },
+     {
+      "t": 5.2,
+      "acao": "fx",
+      "tipo": "chuvisco",
+      "de": 0.0,
+      "ate": 0.5,
+      "dur": 0.8
+     },
+     {
+      "t": 9.4,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.9
+     }
+    ]
+   }
+  },
+  "porta_aberta": {
+   "title": "Porta Aberta",
+   "kind": "morte",
+   "text": "Era a voz da sua mãe. Era o sorriso da sua mãe. Mas o chapéu não era dela.",
+   "cinematica": {
+    "location": "casa",
+    "camera": {
+     "pos": [
+      0,
+      1.35,
+      0.6
+     ],
+     "olhar": [
+      0,
+      1.4,
+      -3.0
+     ]
+    },
+    "slots": {
+     "center": [
+      0,
+      0.06,
+      -2.4
+     ]
+    },
+    "cast": {
+     "center": {
+      "char": "mae_falsa_hs",
+      "offscreen": "porta"
+     }
+    },
+    "dur": 10.5,
+    "narrar": 0.8,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#303848",
+      "energia": 0.4,
+      "neblina": "#06080c",
+      "densidade": 0.04,
+      "fundo": "#020304",
+      "dur": 0.1
+     },
+     {
+      "t": 1.4,
+      "acao": "sfx",
+      "som": "porta_abre"
+     },
+     {
+      "t": 1.8,
+      "acao": "trocar",
+      "who": "mae_falsa_hs",
+      "novo": "homem",
+      "anim": "Idle"
+     },
+     {
+      "t": 1.8,
+      "acao": "fx",
+      "tipo": "flash"
+     },
+     {
+      "t": 2.4,
+      "acao": "anim",
+      "who": "homem",
+      "anim": "Walk"
+     },
+     {
+      "t": 2.4,
+      "acao": "mover",
+      "who": "homem",
+      "para": [
+       0,
+       0.06,
+       -0.9
+      ],
+      "dur": 2.6
+     },
+     {
+      "t": 2.4,
+      "acao": "camera",
+      "pos": [
+       0,
+       1.3,
+       0.7
+      ],
+      "olhar": [
+       0,
+       2.4,
+       -1.0
+      ],
+      "dur": 2.6
+     },
+     {
+      "t": 5.0,
+      "acao": "anim",
+      "who": "homem",
+      "anim": "Idle"
+     },
+     {
+      "t": 6.6,
+      "acao": "fx",
+      "tipo": "vermelho",
+      "de": 0.0,
+      "ate": 0.8,
+      "dur": 0.6
+     },
+     {
+      "t": 6.8,
+      "acao": "fx",
+      "tipo": "tremor",
+      "forca": 0.1
+     },
+     {
+      "t": 9.4,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.9
+     }
+    ]
+   }
+  },
+  "voz_no_saco": {
+   "title": "A Voz no Saco",
+   "kind": "morte",
+   "text": "O saco estava vazio. A voz vinha de trás de você.",
+   "cinematica": {
+    "location": "linha_trem",
+    "camera": {
+     "pos": [
+      0,
+      1.5,
+      0.5
+     ],
+     "olhar": [
+      0,
+      0.4,
+      -2.4
+     ]
+    },
+    "slots": {
+     "left": [
+      0,
+      0.16,
+      -2.2
+     ],
+     "center": [
+      0.3,
+      0.16,
+      1.8
+     ]
+    },
+    "cast": {
+     "left": {
+      "char": "saco_trilho",
+      "offscreen": "saco"
+     },
+     "center": {
+      "char": "homem",
+      "anim": "Idle"
+     }
+    },
+    "dur": 10.5,
+    "narrar": 0.8,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#404a68",
+      "energia": 0.55,
+      "neblina": "#05070c",
+      "densidade": 0.035,
+      "fundo": "#020306",
+      "dur": 0.1
+     },
+     {
+      "t": 0.3,
+      "acao": "camera_andar",
+      "pos": [
+       0,
+       1.1,
+       -1.2
+      ],
+      "olhar": [
+       0,
+       0.3,
+       -2.2
+      ],
+      "dur": 1.8
+     },
+     {
+      "t": 2.2,
+      "acao": "maos",
+      "anim": "grab.R"
+     },
+     {
+      "t": 2.4,
+      "acao": "esconder",
+      "who": "saco_trilho"
+     },
+     {
+      "t": 3.2,
+      "acao": "sfx",
+      "som": "saco_arrastando"
+     },
+     {
+      "t": 3.6,
+      "acao": "camera",
+      "pos": [
+       0,
+       1.1,
+       -1.2
+      ],
+      "olhar": [
+       0.3,
+       2.2,
+       1.8
+      ],
+      "dur": 1.0
+     },
+     {
+      "t": 4.6,
+      "acao": "olhar_camera",
+      "who": "homem"
+     },
+     {
+      "t": 4.6,
+      "acao": "fx",
+      "tipo": "flash"
+     },
+     {
+      "t": 6.4,
+      "acao": "fx",
+      "tipo": "vermelho",
+      "de": 0.0,
+      "ate": 0.8,
+      "dur": 0.6
+     },
+     {
+      "t": 9.4,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.9
+     }
+    ]
+   }
+  },
+  "o_trem": {
+   "title": "O Trem das Dez",
+   "kind": "sobreviveu",
+   "text": "O trem passou entre vocês e ele. Quando o último vagão foi embora, só sobrou o chapéu, rodando no meio dos trilhos.",
+   "cinematica": {
+    "location": "linha_trem",
+    "camera": {
+     "pos": [
+      -3.0,
+      1.0,
+      -6.0
+     ],
+     "olhar": [
+      0,
+      1.4,
+      -6.0
+     ]
+    },
+    "slots": {
+     "left": [
+      -3.3,
+      0.0,
+      -7.4
+     ],
+     "center": [
+      2.4,
+      0.16,
+      -6.0
+     ]
+    },
+    "cast": {
+     "left": {
+      "char": "davi",
+      "anim": "Sit"
+     },
+     "center": {
+      "char": "homem",
+      "anim": "Idle"
+     }
+    },
+    "dur": 11.5,
+    "narrar": 0.6,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#404a68",
+      "energia": 0.55,
+      "neblina": "#05070c",
+      "densidade": 0.035,
+      "fundo": "#020306",
+      "dur": 0.1
+     },
+     {
+      "t": 0,
+      "acao": "sfx",
+      "som": "trem_passando"
+     },
+     {
+      "t": 0.4,
+      "acao": "no",
+      "nome": "trem",
+      "para": [
+       0,
+       0,
+       -40.0
+      ],
+      "dur": 0.01
+     },
+     {
+      "t": 0.5,
+      "acao": "no",
+      "nome": "trem",
+      "para": [
+       0,
+       0,
+       40.0
+      ],
+      "dur": 3.4
+     },
+     {
+      "t": 1.8,
+      "acao": "esconder",
+      "who": "homem"
+     },
+     {
+      "t": 1.0,
+      "acao": "fx",
+      "tipo": "tremor",
+      "forca": 0.08
+     },
+     {
+      "t": 4.0,
+      "acao": "no",
+      "nome": "chapeu",
+      "para": [
+       0.4,
+       0.3,
+       -6.0
+      ],
+      "dur": 0.01
+     },
+     {
+      "t": 4.2,
+      "acao": "camera",
+      "pos": [
+       -2.6,
+       1.0,
+       -6.0
+      ],
+      "olhar": [
+       0.4,
+       0.3,
+       -6.0
+      ],
+      "dur": 1.6
+     },
+     {
+      "t": 4.2,
+      "acao": "no",
+      "nome": "chapeu",
+      "para": [
+       0.2,
+       0.3,
+       -6.2
+      ],
+      "dur": 4.0
+     },
+     {
+      "t": 10.4,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.9
+     }
+    ]
+   }
+  },
+  "tenis_de_luzinha": {
+   "title": "Tênis de Luzinha",
+   "kind": "sobreviveu",
+   "text": "Você abriu o saco que piscava. O Davi saiu chorando, com o tênis ainda aceso. Vocês correram pelos trilhos até o dia nascer.",
+   "cinematica": {
+    "location": "linha_trem",
+    "camera": {
+     "pos": [
+      0,
+      1.5,
+      0.5
+     ],
+     "olhar": [
+      0,
+      0.9,
+      -4.0
+     ]
+    },
+    "slots": {
+     "left": [
+      -0.3,
+      0.16,
+      -2.0
+     ]
+    },
+    "cast": {
+     "left": {
+      "char": "davi",
+      "anim": "Walk"
+     }
+    },
+    "dur": 11.5,
+    "narrar": 0.6,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#404a68",
+      "energia": 0.55,
+      "neblina": "#05070c",
+      "densidade": 0.035,
+      "fundo": "#020306",
+      "dur": 0.1
+     },
+     {
+      "t": 0.6,
+      "acao": "luz",
+      "ambiente": "#ffbe90",
+      "energia": 0.95,
+      "neblina": "#a07058",
+      "densidade": 0.025,
+      "fundo": "#d09068",
+      "dur": 6.0
+     },
+     {
+      "t": 0.4,
+      "acao": "andar",
+      "who": "davi",
+      "por": [
+       0,
+       0,
+       -6.0
+      ],
+      "dur": 7.0,
+      "anim": "Walk",
+      "fim": "Idle",
+      "olhar_camera": false
+     },
+     {
+      "t": 0.4,
+      "acao": "camera_andar",
+      "por": [
+       0,
+       0,
+       -5.4
+      ],
+      "dur": 7.0
+     },
+     {
+      "t": 4.0,
+      "acao": "camera_olhar",
+      "olhar": [
+       -0.3,
+       0.3,
+       -6.0
+      ],
+      "dur": 1.2
+     },
+     {
+      "t": 6.0,
+      "acao": "camera_olhar",
+      "olhar": [
+       0,
+       1.4,
+       -12.0
+      ],
+      "dur": 1.6
+     },
+     {
+      "t": 7.6,
+      "acao": "olhar_camera",
+      "who": "davi"
+     },
+     {
+      "t": 10.4,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.9
+     }
+    ]
+   }
+  },
+  "saco_errado": {
+   "title": "O Saco Errado",
+   "kind": "morte",
+   "text": "O saco da esquerda estava quente. Lá dentro, encolhido, o velho sorria. Ele só estava esperando você abrir.",
+   "cinematica": {
+    "location": "barraco",
+    "camera": {
+     "pos": [
+      0,
+      1.35,
+      1.0
+     ],
+     "olhar": [
+      -0.65,
+      0.4,
+      -1.2
+     ]
+    },
+    "slots": {
+     "left": [
+      -0.65,
+      0,
+      -1.2
+     ],
+     "right": [
+      0.65,
+      0,
+      -1.2
+     ]
+    },
+    "cast": {
+     "left": {
+      "char": "saco_falso",
+      "offscreen": "saco"
+     },
+     "right": {
+      "char": "saco_davi",
+      "offscreen": "saco"
+     }
+    },
+    "dur": 10.5,
+    "narrar": 0.8,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#5a4a40",
+      "energia": 0.45,
+      "neblina": "#0a0604",
+      "densidade": 0.05,
+      "fundo": "#020100",
+      "dur": 0.1
+     },
+     {
+      "t": 0.6,
+      "acao": "maos",
+      "anim": "grab.L"
+     },
+     {
+      "t": 1.4,
+      "acao": "tremer",
+      "who": "saco_falso",
+      "dur": 1.2
+     },
+     {
+      "t": 2.8,
+      "acao": "trocar",
+      "who": "saco_falso",
+      "novo": "homem",
+      "anim": "Idle"
+     },
+     {
+      "t": 2.8,
+      "acao": "fx",
+      "tipo": "flash"
+     },
+     {
+      "t": 2.9,
+      "acao": "camera",
+      "pos": [
+       0,
+       1.2,
+       1.2
+      ],
+      "olhar": [
+       -0.65,
+       2.3,
+       -1.2
+      ],
+      "dur": 1.4
+     },
+     {
+      "t": 4.4,
+      "acao": "olhar_camera",
+      "who": "homem"
+     },
+     {
+      "t": 6.0,
+      "acao": "fx",
+      "tipo": "vermelho",
+      "de": 0.0,
+      "ate": 0.8,
+      "dur": 0.6
+     },
+     {
+      "t": 9.4,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.9
+     }
+    ]
+   }
+  },
+  "irmao_perdido": {
+   "title": "Irmão Perdido",
+   "kind": "agridoce",
+   "text": "Você sobreviveu. O Davi nunca mais foi visto. Mas toda véspera de São João, alguém bate na sua porta pedindo pra entrar. Com a voz dele.",
+   "cinematica": {
+    "location": "ruazinha",
+    "camera": {
+     "pos": [
+      0,
+      1.35,
+      0
+     ],
+     "olhar": [
+      -3.2,
+      2.2,
+      -6.0
+     ]
+    },
+    "slots": {
+     "center": [
+      0.3,
+      0,
+      -26.0
+     ]
+    },
+    "cast": {
+     "center": {
+      "char": "homem",
+      "anim": "Idle"
+     }
+    },
+    "dur": 11.5,
+    "narrar": 0.6,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#8090a8",
+      "energia": 0.7,
+      "neblina": "#202430",
+      "densidade": 0.02,
+      "fundo": "#303848",
+      "dur": 0.1
+     },
+     {
+      "t": 0,
+      "acao": "texto3d",
+      "id": "cartaz",
+      "texto": "DESAPARECIDO\nDAVI, 7 ANOS",
+      "pos": [
+       -3.15,
+       2.2,
+       -6.0
+      ],
+      "tamanho": 40,
+      "cor": "#f0e8d8"
+     },
+     {
+      "t": 4.0,
+      "acao": "camera",
+      "pos": [
+       0,
+       1.35,
+       0
+      ],
+      "olhar": [
+       0.3,
+       1.2,
+       -26.0
+      ],
+      "dur": 2.0
+     },
+     {
+      "t": 6.0,
+      "acao": "anim",
+      "who": "homem",
+      "anim": "Walk"
+     },
+     {
+      "t": 6.0,
+      "acao": "sair",
+      "who": "homem",
+      "para": [
+       0,
+       0,
+       -8.0
+      ],
+      "dur": 4.0
+     },
+     {
+      "t": 7.0,
+      "acao": "sfx",
+      "som": "choro_crianca",
+      "volume": -10
+     },
+     {
+      "t": 10.4,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.9
+     }
+    ]
+   }
+  },
+  "fogueira": {
+   "title": "Perto do Fogo",
+   "kind": "sobreviveu",
+   "text": "Vocês passaram a noite inteira perto da fogueira. O homem ficou na beira da luz até as brasas apagarem. Com o primeiro raio de sol, ele foi embora.",
+   "cinematica": {
+    "location": "festa",
+    "camera": {
+     "pos": [
+      1.0,
+      1.3,
+      -5.2
+     ],
+     "olhar": [
+      -4.5,
+      1.4,
+      -12.0
+     ]
+    },
+    "slots": {
+     "left": [
+      1.6,
+      0,
+      -7.4
+     ],
+     "center": [
+      -4.5,
+      0,
+      -12.0
+     ]
+    },
+    "cast": {
+     "left": {
+      "char": "davi",
+      "anim": "Sit"
+     },
+     "center": {
+      "char": "homem",
+      "anim": "Idle"
+     }
+    },
+    "dur": 11.5,
+    "narrar": 0.6,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#404a68",
+      "energia": 0.55,
+      "neblina": "#05070c",
+      "densidade": 0.035,
+      "fundo": "#020306",
+      "dur": 0.1
+     },
+     {
+      "t": 4.0,
+      "acao": "luz",
+      "ambiente": "#ffbe90",
+      "energia": 0.95,
+      "neblina": "#a07058",
+      "densidade": 0.025,
+      "fundo": "#d09068",
+      "dur": 4.0
+     },
+     {
+      "t": 5.0,
+      "acao": "anim",
+      "who": "homem",
+      "anim": "Walk"
+     },
+     {
+      "t": 5.0,
+      "acao": "sair",
+      "who": "homem",
+      "para": [
+       -6.0,
+       0,
+       -6.0
+      ],
+      "dur": 4.0
+     },
+     {
+      "t": 7.5,
+      "acao": "camera",
+      "pos": [
+       1.0,
+       1.3,
+       -5.2
+      ],
+      "olhar": [
+       1.6,
+       0.6,
+       -7.4
+      ],
+      "dur": 2.0
+     },
+     {
+      "t": 10.4,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.9
+     }
+    ]
+   }
+  },
+  "no_lugar_dele": {
+   "title": "No Lugar Dele",
+   "kind": "secreto",
+   "text": "O Davi voltou para casa. Você não. Hoje, quando a fogueira apaga, é você quem carrega o saco.",
+   "cinematica": {
+    "location": "ruazinha",
+    "camera": {
+     "pos": [
+      0.8,
+      1.35,
+      -2.0
+     ],
+     "olhar": [
+      0,
+      1.4,
+      -6.0
+     ]
+    },
+    "slots": {
+     "center": [
+      0,
+      0,
+      -5.0
+     ]
+    },
+    "cast": {
+     "center": {
+      "char": "homem",
+      "anim": "Idle"
+     }
+    },
+    "dur": 11.5,
+    "narrar": 0.6,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#404a68",
+      "energia": 0.55,
+      "neblina": "#05070c",
+      "densidade": 0.035,
+      "fundo": "#020306",
+      "dur": 0.1
+     },
+     {
+      "t": 0.5,
+      "acao": "olhar_camera",
+      "who": "homem"
+     },
+     {
+      "t": 2.5,
+      "acao": "anim",
+      "who": "homem",
+      "anim": "Walk"
+     },
+     {
+      "t": 2.5,
+      "acao": "sair",
+      "who": "homem",
+      "para": [
+       0,
+       0,
+       -14.0
+      ],
+      "dur": 7.0
+     },
+     {
+      "t": 4.0,
+      "acao": "luz_no",
+      "nome": "poste_4",
+      "energia": 0,
+      "dur": 0.1
+     },
+     {
+      "t": 6.0,
+      "acao": "luz_no",
+      "nome": "poste_5",
+      "energia": 0,
+      "dur": 0.1
+     },
+     {
+      "t": 8.0,
+      "acao": "luz_no",
+      "nome": "poste_6",
+      "energia": 0,
+      "dur": 0.1
+     },
+     {
+      "t": 10.4,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.9
+     }
+    ]
+   }
+  },
+  "quieto": {
+   "title": "Criança Quieta",
+   "kind": "secreto",
+   "text": "Ele gosta de criança quieta. Por isso ele volta. Toda noite. Só pra ver você parado.",
+   "cinematica": {
+    "location": "linha_trem",
+    "camera": {
+     "pos": [
+      0,
+      1.5,
+      0
+     ],
+     "olhar": [
+      0,
+      1.4,
+      -4.0
+     ]
+    },
+    "slots": {
+     "center": [
+      1.6,
+      0.16,
+      -3.0
+     ]
+    },
+    "cast": {
+     "center": {
+      "char": "homem",
+      "anim": "Walk"
+     }
+    },
+    "dur": 11.5,
+    "narrar": 0.6,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#404a68",
+      "energia": 0.55,
+      "neblina": "#05070c",
+      "densidade": 0.035,
+      "fundo": "#020306",
+      "dur": 0.1
+     },
+     {
+      "t": 0.2,
+      "acao": "mover",
+      "who": "homem",
+      "para": [
+       1.4,
+       0.16,
+       -0.6
+      ],
+      "dur": 2.0
+     },
+     {
+      "t": 2.2,
+      "acao": "mover",
+      "who": "homem",
+      "para": [
+       -1.2,
+       0.16,
+       -0.8
+      ],
+      "dur": 2.0
+     },
+     {
+      "t": 4.2,
+      "acao": "mover",
+      "who": "homem",
+      "para": [
+       0,
+       0.16,
+       -0.9
+      ],
+      "dur": 1.2
+     },
+     {
+      "t": 5.4,
+      "acao": "anim",
+      "who": "homem",
+      "anim": "Idle"
+     },
+     {
+      "t": 5.4,
+      "acao": "olhar_camera",
+      "who": "homem"
+     },
+     {
+      "t": 5.6,
+      "acao": "camera_olhar",
+      "olhar": [
+       0,
+       2.0,
+       -0.9
+      ],
+      "dur": 1.6
+     },
+     {
+      "t": 8.0,
+      "acao": "fx",
+      "tipo": "vermelho",
+      "de": 0.0,
+      "ate": 0.4,
+      "dur": 1.0
+     },
+     {
+      "t": 10.4,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.9
+     }
+    ]
+   }
+  },
+  "amanhecer": {
+   "title": "Chapéu na Maçaneta",
+   "kind": "sobreviveu",
+   "text": "Vocês não abriram. De manhã, a mãe encontrou um saco vazio na porta. E um chapéu velho pendurado na maçaneta.",
+   "cinematica": {
+    "location": "casa",
+    "camera": {
+     "pos": [
+      0,
+      1.4,
+      0.6
+     ],
+     "olhar": [
+      0,
+      0.8,
+      -3.0
+     ]
+    },
+    "slots": {
+     "center": [
+      0,
+      0.06,
+      -2.6
+     ],
+     "left": [
+      0.2,
+      0.06,
+      -1.9
+     ]
+    },
+    "cast": {
+     "center": {
+      "char": "mae_falsa_hs",
+      "offscreen": "porta"
+     },
+     "left": {
+      "char": "saco_trilho",
+      "offscreen": "saco"
+     }
+    },
+    "dur": 11.0,
+    "narrar": 0.6,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#ffbe90",
+      "energia": 0.95,
+      "neblina": "#a07058",
+      "densidade": 0.025,
+      "fundo": "#d09068",
+      "dur": 0.1
+     },
+     {
+      "t": 0.2,
+      "acao": "luz_ponto",
+      "pos": [
+       0,
+       1.6,
+       -1.2
+      ],
+      "cor": "#ffd0a0",
+      "energia": 1.6,
+      "raio": 5.0
+     },
+     {
+      "t": 1.0,
+      "acao": "camera_andar",
+      "pos": [
+       0,
+       1.4,
+       -0.4
+      ],
+      "olhar": [
+       0.2,
+       0.3,
+       -1.9
+      ],
+      "dur": 3.0
+     },
+     {
+      "t": 5.0,
+      "acao": "camera_olhar",
+      "olhar": [
+       0.36,
+       1.0,
+       -2.55
+      ],
+      "dur": 1.6
+     },
+     {
+      "t": 10.0,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.9
+     }
+    ]
+   }
+  }
+ }
+}
