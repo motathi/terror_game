@@ -1991,7 +1991,7 @@
     {
      "id": "sk_tq_02",
      "who": "sistema",
-     "text": "Ela ainda veste o pelo do Caramelo. Como um casaco que não serve.",
+     "text": "Ela usa a cabeça do Caramelo por cima da própria. Como uma máscara que não serve.",
      "acoes": [
       {
        "t": 0,
@@ -2455,7 +2455,7 @@
     {
      "id": "sk_jan_01",
      "who": "sistema",
-     "text": "No meio do quintal, em pé nas patas de trás, tem uma coisa alta demais. Vestindo o Caramelo.",
+     "text": "No meio do quintal, de pé, tem uma coisa alta demais. Magra demais. Com a cabeça do Caramelo por cima do rosto.",
      "acoes": [
       {
        "t": 0,
@@ -2482,7 +2482,7 @@
     {
      "id": "sk_jan_02",
      "who": "sistema",
-     "text": "A pele sobra nos ombros. As patas da frente balançam moles, como mangas vazias.",
+     "text": "Os braços são compridos e finos. O pelo do Caramelo cobre a cabeça dela como um capuz.",
      "acoes": [
       {
        "t": 0.4,
@@ -2991,7 +2991,7 @@
     {
      "id": "sk_re_02",
      "who": "sistema",
-     "text": "O outro para de abanar o rabo. E se levanta. Nas patas de trás.",
+     "text": "O outro para de abanar o rabo. O corpo estala, se estica e fica de pé. Alto demais.",
      "sfx": "ossos",
      "acoes": [
       {
