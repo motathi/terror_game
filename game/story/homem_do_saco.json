@@ -1192,6 +1192,27 @@
   },
   "mato_quieto": {
    "location": "linha_trem",
+   "cast": {
+    "left": {
+     "char": "davi",
+     "anim": "Sit"
+    },
+    "center": {
+     "char": "homem",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "saco_trilho",
+     "offscreen": "saco"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "esconder",
+     "who": "homem"
+    }
+   ],
    "lines": [
     {
      "id": "hs_mato_quieto_01",
@@ -1233,19 +1254,69 @@
      "text": "O homem volta, pega o saco e vai embora pelos trilhos. Vocês correm pra casa sem olhar pra trás.",
      "acoes": [
       {
-       "t": 0.5,
+       "t": 0,
+       "acao": "mover",
+       "who": "homem",
+       "para": [
+        0,
+        0.16,
+        -8.0
+       ],
+       "dur": 0.01
+      },
+      {
+       "t": 0.05,
+       "acao": "mostrar",
+       "who": "homem"
+      },
+      {
+       "t": 0.1,
+       "acao": "anim",
+       "who": "homem",
+       "anim": "Walk"
+      },
+      {
+       "t": 0.1,
+       "acao": "mover",
+       "who": "homem",
+       "para": [
+        0.2,
+        0.16,
+        -3.2
+       ],
+       "dur": 2.2
+      },
+      {
+       "t": 0.2,
+       "acao": "camera_olhar",
+       "who": "homem",
+       "dur": 0.8
+      },
+      {
+       "t": 2.3,
        "acao": "esconder",
        "who": "saco_trilho"
       },
       {
-       "t": 1.0,
+       "t": 2.4,
+       "acao": "sair",
+       "who": "homem",
+       "para": [
+        0,
+        0,
+        -9.0
+       ],
+       "dur": 3.0
+      },
+      {
+       "t": 3.6,
        "acao": "camera_andar",
        "por": [
         0,
         0.75,
         3.0
        ],
-       "dur": 3.0,
+       "dur": 2.6,
        "olhar": [
         0,
         1.4,
