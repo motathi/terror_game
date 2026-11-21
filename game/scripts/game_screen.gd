@@ -68,6 +68,11 @@ func _run() -> void:
 		await _show_ending(e)
 		return
 	var current := runner.start_node()
+	# capítulo escolhido no menu
+	if not GameState.start_chapter_node.is_empty() and runner.story["nodes"].has(GameState.start_chapter_node):
+		current = GameState.start_chapter_node
+	GameState.start_chapter_node = ""
+	var chapters: Array = runner.story.get("capitulos", [])
 	if not GameState.debug_start_node.is_empty() and runner.story["nodes"].has(GameState.debug_start_node):
 		current = GameState.debug_start_node
 		GameState.debug_start_node = ""
@@ -75,6 +80,9 @@ func _run() -> void:
 			runner.vars[k] = GameState.debug_vars[k]
 		GameState.debug_vars = {}
 	while true:
+		for ch in chapters:
+			if ch.get("no", "") == current:
+				GameState.unlock_chapter(runner.campaign_id, current)  # chegou: dá para começar daqui pelo menu
 		var node := runner.enter_node(current)
 		if node.is_empty():
 			return

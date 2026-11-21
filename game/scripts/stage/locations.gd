@@ -439,7 +439,7 @@ static func _casa(root: Node3D, cfg: Dictionary) -> void:
 	prop(root, HOUSE + "props/painting3.glb", Vector3(0.2, 1.8, -5.85), 0)
 	prop(root, HOUSE + "props/lamp.glb", Vector3(-3.4, 0, 0.2), 0)
 	# vidro da janela (o Capítulo 2 quebra: "no" leva "janela_vidro" embora e traz "janela_cacos")
-	var vidro := glass_pane(root, Vector3(0.03, 1.25, 1.75), Vector3(-3.92, 1.6, -4.0), Color(0.55, 0.65, 0.8, 0.22))
+	var vidro := glass_pane(root, Vector3(0.03, 1.75, 1.44), Vector3(-3.92, 2.025, -4.0), Color(0.55, 0.65, 0.8, 0.2))
 	vidro.name = "janela_vidro"
 	var cacos := Node3D.new()
 	cacos.name = "janela_cacos"
@@ -452,7 +452,7 @@ static func _casa(root: Node3D, cfg: Dictionary) -> void:
 			Vector3(crng.randf_range(-3.8, -2.4), 0.07, crng.randf_range(-4.9, -3.1)), Color(0.7, 0.8, 0.95, 0.5))
 		c.rotation.y = crng.randf() * TAU
 	for i in 3:  # pontas que ficaram presas no caixilho
-		var ponta := glass_pane(cacos, Vector3(0.03, 0.35, 0.25), Vector3(-3.92, 1.1 + i * 0.4, -4.75 + i * 0.6), Color(0.55, 0.65, 0.8, 0.3))
+		var ponta := glass_pane(cacos, Vector3(0.03, 0.35, 0.25), Vector3(-3.92, 1.3 + i * 0.55, -4.55 + i * 0.5), Color(0.55, 0.65, 0.8, 0.3))
 		ponta.rotation.x = 0.3 * (i - 1)
 	# luar entrando pela janela
 	var moon := SpotLight3D.new()

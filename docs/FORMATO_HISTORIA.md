@@ -131,6 +131,9 @@ As mesmas ações valem nas cinemáticas dos finais (`"passos"`).
 }
 ```
 
+## Capítulos
+`"capitulos": [{"no": "inicio", "titulo": "CAPÍTULO 1 — SURTO"}, {"no": "c2_inicio", "titulo": "CAPÍTULO 2 — FUGA"}]` no topo da história. Quando o jogador chega ao nó de um capítulo, ele fica liberado (salvo no aparelho) e o botão JOGAR passa a perguntar por qual capítulo começar. Começando pelo capítulo, as variáveis têm o valor inicial de `vars`: escreva o primeiro nó do capítulo para funcionar assim (ex.: no Capítulo 2 a Marina está viva, porque `marina_infectada` começa `false`).
+
 ## Mão amputada (persistente)
 `"maos_ocultas": { "esquerda": "sem_braco" }` no topo da história: em toda cena, a mão daquele lado da tela some enquanto a condição valer.
 

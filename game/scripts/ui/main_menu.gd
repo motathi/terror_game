@@ -349,6 +349,48 @@ func _on_play() -> void:
 		return
 	GameState.current_campaign = c["path"]
 	GameState.save()
+	# capítulos já alcançados: deixa escolher por onde começar
+	var runner := StoryRunner.new()
+	var open_chapters: Array = []
+	if runner.load_file(c["path"]):
+		for ch in runner.story.get("capitulos", []):
+			if open_chapters.is_empty() or GameState.is_chapter_unlocked(runner.campaign_id, ch.get("no", "")):
+				open_chapters.append(ch)
+	if open_chapters.size() > 1:
+		_chapter_picker(open_chapters)
+		return
+	_start_game("")
+
+
+func _chapter_picker(chapters: Array) -> void:
+	var dim := ColorRect.new()
+	dim.color = Color(0, 0, 0, 0.82)
+	UI.full_rect(dim)
+	add_child(dim)
+	var box := VBoxContainer.new()
+	box.anchor_left = 0.08
+	box.anchor_right = 0.92
+	box.anchor_top = 0.5
+	box.anchor_bottom = 0.5
+	box.grow_vertical = Control.GROW_DIRECTION_BOTH
+	box.add_theme_constant_override("separation", 22)
+	dim.add_child(box)
+	box.add_child(UI.label("ESCOLHA O CAPÍTULO", 44, UI.RED, true))
+	for i in chapters.size():
+		var ch: Dictionary = chapters[i]
+		var b := UI.button(ch.get("titulo", "CAPÍTULO %d" % (i + 1)), 36)
+		b.custom_minimum_size.y = 108
+		var node_id: String = "" if i == 0 else ch.get("no", "")
+		b.pressed.connect(func(): _start_game(node_id))
+		box.add_child(b)
+	var back := UI.button("VOLTAR", 30, UI.DIM)
+	back.custom_minimum_size.y = 80
+	back.pressed.connect(dim.queue_free)
+	box.add_child(back)
+
+
+func _start_game(chapter_node: String) -> void:
+	GameState.start_chapter_node = chapter_node
 	Audio.play_sfx("stinger_hit")
 	stage.scare_flash()
 	get_tree().change_scene_to_file("res://scenes/game.tscn")

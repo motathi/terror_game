@@ -7314,9 +7314,9 @@
           "acao": "mover",
           "who": "zumbi_janela",
           "para": [
-            -4.75,
+            -4.2,
             0.06,
-            -4.0
+            -4.15
           ],
           "dur": 0.01
         },
@@ -7334,6 +7334,18 @@
           "densidade": 0.025,
           "fundo": "#000000",
           "dur": 0
+        },
+        {
+          "t": 0,
+          "acao": "luz_ponto",
+          "pos": [
+            -5.2,
+            2.4,
+            -4.0
+          ],
+          "cor": "#8aa8ff",
+          "energia": 1.6,
+          "raio": 2.6
         }
       ],
       "lines": [
@@ -7426,7 +7438,7 @@
               "acao": "camera_olhar",
               "olhar": [
                 -3.9,
-                1.6,
+                1.75,
                 -4.0
               ],
               "dur": 1.6
@@ -7523,9 +7535,9 @@
           "acao": "mover",
           "who": "zumbi_janela",
           "para": [
-            -4.75,
+            -4.2,
             0.06,
-            -4.0
+            -4.15
           ],
           "dur": 0.01
         },
@@ -7556,7 +7568,7 @@
               "acao": "camera_olhar",
               "olhar": [
                 -3.9,
-                1.55,
+                1.75,
                 -4.0
               ],
               "dur": 0.5
@@ -7572,7 +7584,7 @@
               "dur": 2.5,
               "olhar": [
                 -3.9,
-                1.55,
+                1.75,
                 -4.0
               ]
             },
@@ -7829,9 +7841,9 @@
           "acao": "mover",
           "who": "filha",
           "para": [
-            -0.45,
+            -0.2,
             0.06,
-            -4.5
+            -5.0
           ],
           "dur": 0.01
         },
@@ -7870,12 +7882,24 @@
         {
           "t": 0,
           "acao": "luz",
-          "ambiente": "#2a3248",
-          "energia": 0.45,
+          "ambiente": "#34405c",
+          "energia": 0.65,
           "neblina": "#05060a",
           "densidade": 0.03,
           "fundo": "#000000",
           "dur": 0
+        },
+        {
+          "t": 0,
+          "acao": "luz_ponto",
+          "pos": [
+            -2.6,
+            2.2,
+            -2.6
+          ],
+          "cor": "#8aa8ff",
+          "energia": 1.3,
+          "raio": 4.5
         }
       ],
       "lines": [
@@ -8037,9 +8061,9 @@
           "acao": "mover",
           "who": "filha",
           "para": [
-            -0.45,
+            -0.2,
             0.06,
-            -4.5
+            -5.0
           ],
           "dur": 0.01
         },
@@ -8185,9 +8209,9 @@
           "acao": "mover",
           "who": "filha",
           "para": [
-            -0.45,
+            -0.2,
             0.06,
-            -4.5
+            -5.0
           ],
           "dur": 0.01
         },
@@ -8521,9 +8545,9 @@
           "acao": "mover",
           "who": "filha",
           "para": [
-            -0.45,
+            -0.2,
             0.06,
-            -4.5
+            -5.0
           ],
           "dur": 0.01
         },
@@ -8847,9 +8871,9 @@
           "acao": "mover",
           "who": "filha",
           "para": [
-            -0.45,
+            -0.2,
             0.06,
-            -4.5
+            -5.0
           ],
           "dur": 0.01
         },
@@ -9268,6 +9292,18 @@
           "cor": "#ffd8a0",
           "energia": 2.2,
           "raio": 9
+        },
+        {
+          "t": 0,
+          "acao": "luz_ponto",
+          "pos": [
+            -1.2,
+            1.6,
+            -5.2
+          ],
+          "cor": "#c8d0ff",
+          "energia": 2.5,
+          "raio": 5
         }
       ],
       "lines": [
@@ -15059,5 +15095,15 @@
   },
   "maos_ocultas": {
     "esquerda": "sem_braco"
-  }
+  },
+  "capitulos": [
+    {
+      "no": "inicio",
+      "titulo": "CAPÍTULO 1 — SURTO"
+    },
+    {
+      "no": "c2_inicio",
+      "titulo": "CAPÍTULO 2 — FUGA"
+    }
+  ]
 }

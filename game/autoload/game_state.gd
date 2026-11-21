@@ -11,6 +11,10 @@ const CAMPAIGNS_PATH := "res://story/campanhas.json"
 var campaigns: Array = []
 var current_campaign: String = "res://story/cap1_surto.json"
 var discovered_endings: Dictionary = {}  # "campanha/final" -> {"time": unix}
+## Capítulos alcançados (liberam começar direto neles pelo menu): "campanha" -> [nó, ...]
+var unlocked_chapters: Dictionary = {}
+## Capítulo escolhido no menu: a partida começa neste nó (vazio = início da história).
+var start_chapter_node := ""
 var settings: Dictionary = {
 	"auto_advance": true,
 	"text_speed": 45.0,  # caracteres por segundo
@@ -89,6 +93,19 @@ func count_discovered(campaign_id: String) -> int:
 	return n
 
 
+func unlock_chapter(campaign_id: String, node_id: String) -> void:
+	var list: Array = unlocked_chapters.get(campaign_id, [])
+	if node_id in list:
+		return
+	list.append(node_id)
+	unlocked_chapters[campaign_id] = list
+	save()
+
+
+func is_chapter_unlocked(campaign_id: String, node_id: String) -> bool:
+	return node_id in unlocked_chapters.get(campaign_id, [])
+
+
 func save() -> void:
 	var f := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if f == null:
@@ -97,6 +114,7 @@ func save() -> void:
 	f.store_string(JSON.stringify({
 		"version": SAVE_VERSION,
 		"endings": discovered_endings,
+		"chapters": unlocked_chapters,
 		"settings": settings,
 	}, "\t"))
 
@@ -108,6 +126,7 @@ func load_save() -> void:
 	if typeof(data) != TYPE_DICTIONARY:
 		return
 	discovered_endings = data.get("endings", {})
+	unlocked_chapters = data.get("chapters", {})
 	var s: Dictionary = data.get("settings", {})
 	for k in s:
 		settings[k] = s[k]
