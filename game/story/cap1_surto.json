@@ -5353,26 +5353,42 @@
       "som": "grito_zumbi"
      },
      {
-      "t": 2.45,
-      "acao": "esconder",
-      "who": "patricia_z"
+      "t": 2.5,
+      "acao": "mover",
+      "who": "patricia_z",
+      "para": [
+       0,
+       0.1,
+       0.1
+      ],
+      "dur": 0.45
      },
      {
-      "t": 2.45,
+      "t": 2.55,
       "acao": "susto",
-      "who": "patricia_z",
-      "anim": "Idle",
-      "de": 1.1,
-      "ate": 0.38,
-      "rapido": 0.12,
-      "segura": 0.5,
-      "som": "susto_grito"
+      "som": "susto_grito",
+      "flash": true
      },
      {
       "t": 2.7,
       "acao": "fx",
       "tipo": "tremor",
       "forca": 0.2
+     },
+     {
+      "t": 2.8,
+      "acao": "camera",
+      "pos": [
+       0.35,
+       0.85,
+       0.45
+      ],
+      "olhar": [
+       1.2,
+       0.1,
+       -1.0
+      ],
+      "dur": 0.35
      },
      {
       "t": 2.8,
