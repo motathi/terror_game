@@ -68,11 +68,13 @@ game/                      projeto Godot
   autoload/                GameState (save/finais) e Audio (vozes/efeitos/ambiente)
   shaders/                 psx_lit (tremido + textura afim) e psx_post (dither + granulado)
   audio/vo|sfx|amb/        saída do ElevenLabs
+  assets/models/           modelos feitos no projeto (d20.glb, gerado pelo Blender)
   assets/third_party/      pacotes PSX (ver assets_manifest.json)
 tools/
   fetch_assets.py          baixa os pacotes do itch.io listados no manifesto
   itch_fetch.py            baixador de assets gratuitos do itch.io
   elevenlabs_gen.py        pipeline de vozes e efeitos
   story_check.py           validador e simulador de caminhos
+  blender/make_d20.py      modela o d20 no Blender (pip install bpy) e exporta d20.glb + faces
 docs/ARQUITETURA.md        por que Godot e como as peças se encaixam
 ```

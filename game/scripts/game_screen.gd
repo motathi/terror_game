@@ -71,6 +71,9 @@ func _run() -> void:
 	if not GameState.debug_start_node.is_empty() and runner.story["nodes"].has(GameState.debug_start_node):
 		current = GameState.debug_start_node
 		GameState.debug_start_node = ""
+		for k in GameState.debug_vars:
+			runner.vars[k] = GameState.debug_vars[k]
+		GameState.debug_vars = {}
 	while true:
 		var node := runner.enter_node(current)
 		if node.is_empty():

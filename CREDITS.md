@@ -26,6 +26,6 @@ Coloque esta lista na tela de créditos do jogo. **Obrigatório:** a linha do pa
 | [PSX Dog](https://mcsteeg.itch.io/psx-dog) | MCSTEEG | Uso comercial livre; proibido redistribuir os arquivos | Não (fetch_assets) |
 | [Low Poly Alien Character](https://normal-sleep.itch.io/low-poly-alien-character) | Normal Sleep | Uso livre em jogos (crédito apreciado) | Não (fetch_assets) |
 | [VT323](https://fonts.google.com/specimen/VT323) | Peter Hull | SIL OFL 1.1 | Sim |
-| [Silkscreen](https://fonts.google.com/specimen/Silkscreen) | Jason Kottke | SIL OFL 1.1 | Sim |
+| [Silkscreen](https://fonts.google.com/specimen/Silkscreen) | Jason Kottke | SIL OFL 1.1 | Sim (também nos números do d20) |
 
 Vozes, efeitos e ambientes gerados com ElevenLabs.

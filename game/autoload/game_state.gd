@@ -25,6 +25,8 @@ var settings: Dictionary = {
 var debug_start_node := ""
 ## Atalho de teste: ...?final=<id_do_final> mostra direto a cinemática do final.
 var debug_ending := ""
+## Atalho de teste: ...?vars=viu_marina:true,culpa:2 define variáveis da história ao abrir com ?cena=.
+var debug_vars := {}
 
 
 func _ready() -> void:
@@ -35,6 +37,14 @@ func _ready() -> void:
 		debug_start_node = str(q) if q != null else ""
 		var fq = JavaScriptBridge.eval("new URLSearchParams(window.location.search).get('final') || ''", true)
 		debug_ending = str(fq) if fq != null else ""
+		var vq = JavaScriptBridge.eval("new URLSearchParams(window.location.search).get('vars') || ''", true)
+		for pair in str(vq if vq != null else "").split(",", false):
+			var kv: PackedStringArray = str(pair).split(":")
+			if kv.size() == 2:
+				if kv[1] == "true" or kv[1] == "false":
+					debug_vars[kv[0]] = kv[1] == "true"
+				else:
+					debug_vars[kv[0]] = kv[1].to_int()
 		var camp = JavaScriptBridge.eval("new URLSearchParams(window.location.search).get('campanha') || ''", true)
 		for i in campaigns.size():
 			if str(camp) != "" and campaigns[i].get("id", "") == str(camp) and campaigns[i].has("path"):

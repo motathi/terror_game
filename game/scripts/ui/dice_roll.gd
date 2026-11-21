@@ -12,6 +12,8 @@ signal tapped
 const UI := preload("res://scripts/ui/ui_kit.gd")
 const GOLD := Color(0.86, 0.68, 0.32)
 const GREEN := Color(0.45, 0.9, 0.45)
+const ROLL_TIME := 1.35
+
 
 var _dice: Array = []
 var _title: Label
@@ -64,8 +66,7 @@ func run(parent: Node, info: Dictionary) -> bool:
 	create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT).tween_property(_result, "scale", Vector2.ONE, 0.35)
 	for d in _dice:
 		if not d.dim:
-			d.color = GREEN if success else UI.RED
-			d.queue_redraw()
+			d.show_result(success)
 	Audio.play_sfx("dado_sucesso" if success else "dado_falha")
 	_hint.text = "toque para continuar"
 	await _wait_tap(5.0)
@@ -109,9 +110,7 @@ func _build(info: Dictionary) -> void:
 	box.add_child(row)
 	var two: bool = info.get("vantagem", false) or info.get("desvantagem", false)
 	for i in (2 if two else 1):
-		var d := _Die.new()
-		d.custom_minimum_size = Vector2(380, 380) if not two else Vector2(300, 300)
-		d.font = UI.title_font()
+		var d := _Die3D.new(300 if two else 420)
 		row.add_child(d)
 		_dice.append(d)
 	if two:
@@ -137,23 +136,9 @@ func _roll(n: int) -> Array:
 	var vals := []
 	for i in n:
 		vals.append(randi_range(1, 20))
-	var t := 0.0
-	var step := 0.04
-	while t < 1.4:
-		for i in n:
-			var d: _Die = _dice[i]
-			d.value = randi_range(1, 20)
-			d.spin = randf_range(-0.6, 0.6)
-			d.queue_redraw()
-		await get_tree().create_timer(step).timeout
-		t += step
-		step = minf(step * 1.12, 0.16)
-	for i in n:
-		var d: _Die = _dice[i]
-		d.value = vals[i]
-		d.spin = 0.0
-		d.pop = 1.25
-		d.queue_redraw()
+	for i in n:  # os dois dados rolam juntos, o segundo para um pouco depois
+		_dice[i].roll(vals[i], ROLL_TIME + 0.2 * i)
+	await get_tree().create_timer(ROLL_TIME + 0.2 * (n - 1) + _Die3D.SETTLE + 0.1).timeout
 	return vals
 
 
@@ -191,47 +176,106 @@ func _process(delta: float) -> void:
 		_hint.modulate.a = 0.55 + 0.45 * sin(_t * 4.0)
 
 
-## Um d20 visto de frente: hexágono com o triângulo central e as faces em volta.
-class _Die extends Control:
-	var value := 0  # 0 = ainda não rolou ("?")
-	var color := Color(0.86, 0.68, 0.32)
-	var dim := false
-	var spin := 0.0
-	var pop := 1.0
-	var font: Font
+## O d20 modelado no Blender (tools/blender/make_d20.py), renderizado num
+## SubViewport próprio em baixa resolução, com o mesmo visual PSX do jogo.
+## Gira devagar esperando o toque, rola, quica e para com o número sorteado de frente.
+class _Die3D extends SubViewportContainer:
+	const D20 := preload("res://assets/models/d20.glb")
+	const Faces := preload("res://scripts/ui/d20_faces.gd")
+	const SETTLE := 0.45
+
+	var dim := false:
+		set(v):
+			dim = v
+			modulate = Color(0.38, 0.38, 0.38) if v else Color.WHITE
+	var model: Node3D
+	var _rim: OmniLight3D
+	var _spin := Vector3.ZERO  # eixo * velocidade (rad/s)
+	var _idle := true
+
+	func _init(px: int) -> void:
+		custom_minimum_size = Vector2(px, px)
+		stretch = true
+		stretch_shrink = 2  # pixels grandes, como o resto do jogo
+		texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var vp := SubViewport.new()
+		vp.own_world_3d = true
+		vp.transparent_bg = true
+		vp.msaa_3d = Viewport.MSAA_DISABLED
+		add_child(vp)
+		var env := Environment.new()
+		env.background_mode = Environment.BG_CLEAR_COLOR
+		env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+		env.ambient_light_color = Color(0.42, 0.36, 0.4)
+		env.ambient_light_energy = 0.7
+		var we := WorldEnvironment.new()
+		we.environment = env
+		vp.add_child(we)
+		var cam := Camera3D.new()
+		cam.position = Vector3(0, 0, 4.4)
+		cam.fov = 34.0
+		vp.add_child(cam)
+		var key := DirectionalLight3D.new()
+		key.rotation_degrees = Vector3(-38, 28, 0)
+		key.light_energy = 1.25
+		key.light_color = Color(1.0, 0.94, 0.86)
+		vp.add_child(key)
+		var fill := OmniLight3D.new()  # vela de baixo, quente
+		fill.position = Vector3(-1.4, -1.6, 2.2)
+		fill.light_color = Color(1.0, 0.55, 0.25)
+		fill.light_energy = 1.2
+		fill.omni_range = 5.0
+		vp.add_child(fill)
+		_rim = OmniLight3D.new()  # acende verde/vermelho no resultado
+		_rim.position = Vector3(1.5, 1.3, 1.8)
+		_rim.light_energy = 0.0
+		_rim.omni_range = 5.0
+		vp.add_child(_rim)
+		model = D20.instantiate()
+		model.rotation = Vector3(randf() * TAU, randf() * TAU, randf() * TAU)
+		vp.add_child(model)
 
 	func _process(delta: float) -> void:
-		if pop > 1.0:
-			pop = move_toward(pop, 1.0, delta * 1.5)
-			queue_redraw()
+		if model == null:
+			return
+		if _idle:
+			model.rotate(Vector3(0.3, 1.0, 0.15).normalized(), delta * 0.7)
+		elif _spin.length() > 0.001:
+			model.rotate(_spin.normalized(), _spin.length() * delta)
+		model.transform.basis = model.transform.basis.orthonormalized()
 
-	func _draw() -> void:
-		var c := size * 0.5
-		var r := minf(size.x, size.y) * 0.46 * pop
-		var col: Color = color.darkened(0.55) if dim else color
-		var hexa := PackedVector2Array()
-		for k in 6:
-			var a := deg_to_rad(-90 + 60 * k) + spin
-			hexa.append(c + Vector2(cos(a), sin(a)) * r)
-		var tri := PackedVector2Array()
-		for k in 3:
-			var a := deg_to_rad(-90 + 120 * k) + spin
-			tri.append(c + Vector2(cos(a), sin(a)) * r * 0.58)
-		draw_colored_polygon(hexa, Color(0.08, 0.05, 0.05, 0.95))
-		draw_colored_polygon(tri, col.darkened(0.35))
-		var outline := hexa.duplicate()
-		outline.append(hexa[0])
-		draw_polyline(outline, col, 5.0)
-		var t2 := tri.duplicate()
-		t2.append(tri[0])
-		draw_polyline(t2, col, 4.0)
-		for j in 3:  # arestas das faces em volta do triângulo central
-			draw_line(hexa[2 * j], tri[j], col, 3.0)
-			draw_line(hexa[2 * j + 1], tri[j], col, 3.0)
-			draw_line(hexa[2 * j + 1], tri[(j + 1) % 3], col, 3.0)
-		if font:
-			var txt := str(value) if value > 0 else "?"
-			var fs := int(r * 0.62)
-			var w := font.get_string_size(txt, HORIZONTAL_ALIGNMENT_CENTER, -1, fs).x
-			draw_string(font, c + Vector2(-w * 0.5, fs * 0.36), txt, HORIZONTAL_ALIGNMENT_LEFT, -1, fs,
-				Color(0.4, 0.4, 0.4) if dim else Color(1, 0.97, 0.9))
+	## Rola por `dur` segundos e para com `value` virado para a câmera.
+	func roll(value: int, dur: float) -> void:
+		_idle = false
+		var axis := Vector3(randf_range(-1, 1), randf_range(-1, 1), randf_range(-1, 1)).normalized()
+		var speed := randf_range(17.0, 23.0)
+		_spin = axis * speed
+		var tw := create_tween()
+		tw.tween_method(func(k: float) -> void: _spin = axis * k, speed, 2.5, dur).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		var hop := create_tween()  # quica duas vezes
+		for h in [0.42, 0.16]:
+			hop.tween_property(model, "position:y", h, dur * 0.16).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+			hop.tween_property(model, "position:y", 0.0, dur * 0.16).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+		await tw.finished
+		_spin = Vector3.ZERO
+		var q0 := model.quaternion
+		var q1 := _face_quat(value)
+		var settle := create_tween()
+		settle.tween_method(func(k: float) -> void: model.quaternion = q0.slerp(q1, k), 0.0, 1.0, SETTLE).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+
+	## Rotação que deixa a face `value` de frente, com o número em pé
+	## (e uma leve inclinação para o dado não parecer chapado).
+	func _face_quat(value: int) -> Quaternion:
+		var f: Array = Faces.FACES[value]
+		var n: Vector3 = f[0]
+		var up: Vector3 = f[1]
+		var local := Basis(up.cross(n), up, n)  # colunas: direita, cima, normal
+		var r := Basis(Vector3.RIGHT, deg_to_rad(-9.0)) * Basis(Vector3.UP, deg_to_rad(6.0)) * local.transposed()
+		return r.get_rotation_quaternion()
+
+	func show_result(ok: bool) -> void:
+		_rim.light_color = Color(0.35, 1.0, 0.45) if ok else Color(1.0, 0.12, 0.08)
+		create_tween().tween_property(_rim, "light_energy", 2.6, 0.25)
+		model.scale = Vector3.ONE * 1.16
+		create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT).tween_property(model, "scale", Vector3.ONE, 0.35)
