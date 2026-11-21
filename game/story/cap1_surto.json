@@ -1185,6 +1185,7 @@
        "ate": 0.4,
        "rapido": 0.1,
        "segura": 0.9,
+       "inclinar": 38,
        "som": "susto_grito"
       },
       {
@@ -1412,6 +1413,7 @@
        "de_cima": 1.8,
        "rapido": 0.2,
        "segura": 0.7,
+       "inclinar": 38,
        "som": "susto_grito"
       },
       {

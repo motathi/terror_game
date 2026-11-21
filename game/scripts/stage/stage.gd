@@ -309,6 +309,7 @@ func scare_flash() -> void:
 ##   rapido   duração do bote em s (0.14)
 ##   segura   quanto tempo fica tremendo na sua cara (0.8)
 ##   depois   "sumir" (corte seco para o preto) ou "recuar"
+##   inclinar graus que o corpo pende para trás, para o rosto encarar a câmera (20)
 func jumpscare(char_id: String, def: Dictionary, o: Dictionary) -> void:
 	var a := Actor.new()
 	_actors_root.add_child(a)
@@ -352,6 +353,8 @@ func _scare_place(k: float, a: Actor, o: Dictionary, face: float, head: Array, j
 	var local := Vector3(float(o.get("lado", 0.0)) * (1.0 - k), float(o.get("de_cima", 0.0)) * (1.0 - k), -dist)
 	var target := _cam_base.origin + _cam_base.basis * local + Vector3.DOWN * (0.04 * k)
 	_face_point(a, _cam_base.origin)
+	# inclina o corpo para trás: o ataque projeta a cabeça e, de perto, mostraria o topo dela
+	a.rotate_object_local(Vector3.RIGHT, -deg_to_rad(float(o.get("inclinar", 20.0))))
 	var off := Vector3(0, face, 0)
 	if not head.is_empty():
 		var skel: Skeleton3D = head[0]
