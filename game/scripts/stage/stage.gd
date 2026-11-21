@@ -315,43 +315,65 @@ func jumpscare(char_id: String, def: Dictionary, o: Dictionary) -> void:
 	a.setup(char_id, def, {"anim": o.get("anim", "ZombieAttack")}, title_font, body_font)
 	a.set_name_visible(false)
 	a._current_anim = ""
-	a.play(o.get("anim", "ZombieAttack"), 0.0)  # sem transição: nada de pose T no primeiro quadro
-	if a.anim_player:
-		a.anim_player.advance(0.0)  # aplica a pose já neste quadro
+	a.play(o.get("anim", "ZombieAttack"), 0.0)  # sem transição
 	a.key.light_energy = 1.8
 	a.key.omni_range = 3.0
+	a.visible = false  # dois quadros escondido: a animação assenta (nada de pose T)
 	_cine_extra.append(a)
+	var head := _head_bone(a)
 	var face := _face_height(a)
 	var recuar: bool = o.get("depois", "sumir") == "recuar"
+	_scare_place(0.0, a, o, face, head)
+	await get_tree().process_frame
+	await get_tree().process_frame
+	if not is_instance_valid(a):
+		return
+	a.visible = true
 	# posição presa ao referencial da câmera: se a câmera anda, o monstro vem junto
-	_scare_place(0.0, a, o, face)
 	var tw := create_tween()
-	tw.tween_method(_scare_place.bind(a, o, face), 0.0, 1.0, maxf(float(o.get("rapido", 0.14)), 0.02)) \
+	tw.tween_method(_scare_place.bind(a, o, face, head), 0.0, 1.0, maxf(float(o.get("rapido", 0.14)), 0.02)) \
 		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	tw.tween_callback(scare_impact.bind(true))
-	tw.tween_method(_scare_hold.bind(a, o, face), 0.0, 1.0, maxf(float(o.get("segura", 0.8)), 0.05))
+	tw.tween_method(_scare_hold.bind(a, o, face, head), 0.0, 1.0, maxf(float(o.get("segura", 0.8)), 0.05))
 	if recuar:
-		tw.tween_method(_scare_place.bind(a, o, face), 1.0, 0.0, 0.3).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+		tw.tween_method(_scare_place.bind(a, o, face, head), 1.0, 0.0, 0.3).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	else:
 		tw.tween_callback(post_tween.bind("blackout", 0.0, 1.0, 0.04))
 		tw.tween_interval(0.1)
 	tw.tween_callback(_scare_end.bind(a, not recuar))
 
 
-## k = 0 no começo do bote (longe), 1 na sua cara.
-func _scare_place(k: float, a: Actor, o: Dictionary, face: float, jitter := Vector3.ZERO) -> void:
+## k = 0 no começo do bote (longe), 1 na sua cara. Com o osso da cabeça, o rosto
+## fica no centro mesmo quando a animação de ataque abaixa ou projeta a cabeça.
+func _scare_place(k: float, a: Actor, o: Dictionary, face: float, head: Array, jitter := Vector3.ZERO) -> void:
 	if not is_instance_valid(a):
 		return
 	var dist := lerpf(float(o.get("de", 2.2)), float(o.get("ate", 0.5)), k)
 	var local := Vector3(float(o.get("lado", 0.0)) * (1.0 - k), float(o.get("de_cima", 0.0)) * (1.0 - k), -dist)
-	var p := _cam_base.origin + _cam_base.basis * local
-	p.y -= face + 0.04 * k
-	a.global_position = p + jitter
+	var target := _cam_base.origin + _cam_base.basis * local + Vector3.DOWN * (0.04 * k)
 	_face_point(a, _cam_base.origin)
+	var off := Vector3(0, face, 0)
+	if not head.is_empty():
+		var skel: Skeleton3D = head[0]
+		off = skel.global_transform * skel.get_bone_global_pose(head[1]).origin - a.global_position
+		off.y += 0.07
+		if off.length() > 3.0 or off.y < 0.3:  # esqueleto com escala estranha: usa a altura medida
+			off = Vector3(0, face, 0)
+	a.global_position = target - off + jitter
 
 
-func _scare_hold(k: float, a: Actor, o: Dictionary, face: float) -> void:
-	_scare_place(1.0, a, o, face, Vector3(sin(k * 97.0), cos(k * 71.0), 0.0) * 0.014)
+func _scare_hold(k: float, a: Actor, o: Dictionary, face: float, head: Array) -> void:
+	_scare_place(1.0, a, o, face, head, Vector3(sin(k * 97.0), cos(k * 71.0), 0.0) * 0.014)
+
+
+func _head_bone(a: Actor) -> Array:
+	for sk in a.model.find_children("*", "Skeleton3D", true, false):
+		var skel := sk as Skeleton3D
+		for i in skel.get_bone_count():
+			var bn := skel.get_bone_name(i).to_lower()
+			if bn.contains("head") and not bn.contains("end") and not bn.contains("top"):
+				return [skel, i]
+	return []
 
 
 ## O impacto do susto: tranco na câmera, mãos recuando e (opcional) flash vermelho.
