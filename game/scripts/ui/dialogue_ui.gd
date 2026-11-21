@@ -212,7 +212,8 @@ func present_choice(prompt: String, options: PackedStringArray, timer: float, go
 	for i in options.size():
 		# opções com teste de dado ficam douradas (estilo Baldur's Gate)
 		var is_test: bool = i < gold.size() and gold[i]
-		var b := UI.button(options[i], 40, Color(0.92, 0.74, 0.36) if is_test else UI.WHITE)
+		var col: Color = Color(0.92, 0.74, 0.36) if is_test else UI.WHITE
+		var b := UI.button(options[i], 40, col)
 		b.pressed.connect(_finish_choice.bind(i))
 		_buttons_box.add_child(b)
 	_time_total = timer if GameState.settings.get("timers", true) else 0.0

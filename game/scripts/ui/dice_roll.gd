@@ -33,7 +33,7 @@ func run(parent: Node, info: Dictionary) -> bool:
 	Audio.play_sfx("ui_select")
 	_hint.text = "toque para rolar"
 	await _wait_tap(7.0)
-	var rolls := await _roll(_dice.size())
+	var rolls: Array = await _roll(_dice.size())
 	var used: int = rolls[0]
 	if _dice.size() == 2:
 		used = maxi(rolls[0], rolls[1]) if info.get("vantagem", false) else mini(rolls[0], rolls[1])
@@ -173,7 +173,7 @@ func _wait_timeout(id: int) -> void:
 
 
 func _gui_input(event: InputEvent) -> void:
-	var pressed := (event is InputEventScreenTouch and event.pressed) or (event is InputEventMouseButton and event.pressed)
+	var pressed: bool = (event is InputEventScreenTouch and event.pressed) or (event is InputEventMouseButton and event.pressed)
 	if pressed and _waiting:
 		accept_event()
 		tapped.emit()
@@ -202,7 +202,7 @@ class _Die extends Control:
 	func _draw() -> void:
 		var c := size * 0.5
 		var r := minf(size.x, size.y) * 0.46 * pop
-		var col := color.darkened(0.55) if dim else color
+		var col: Color = color.darkened(0.55) if dim else color
 		var hexa := PackedVector2Array()
 		for k in 6:
 			var a := deg_to_rad(-90 + 60 * k) + spin
