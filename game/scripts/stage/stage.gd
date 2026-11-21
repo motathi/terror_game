@@ -317,28 +317,37 @@ func jumpscare(char_id: String, def: Dictionary, o: Dictionary) -> void:
 	a.key.light_energy = 1.8
 	a.key.omni_range = 3.0
 	_cine_extra.append(a)
-	var origin := _cam_base.origin
-	var fwd := -_cam_base.basis.z
 	var face := _face_height(a)
-	var start := origin + fwd * float(o.get("de", 2.2)) + _cam_base.basis.x * float(o.get("lado", 0.0)) \
-		+ Vector3.UP * float(o.get("de_cima", 0.0))
-	var end := origin + fwd * float(o.get("ate", 0.5))
-	start.y -= face
-	end.y -= face + 0.04
-	a.global_position = start
-	_face_point(a, origin)
 	var recuar: bool = o.get("depois", "sumir") == "recuar"
+	# posição presa ao referencial da câmera: se a câmera anda, o monstro vem junto
+	_scare_place(0.0, a, o, face)
 	var tw := create_tween()
-	tw.tween_property(a, "global_position", end, maxf(float(o.get("rapido", 0.14)), 0.02)) \
+	tw.tween_method(_scare_place.bind(a, o, face), 0.0, 1.0, maxf(float(o.get("rapido", 0.14)), 0.02)) \
 		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	tw.tween_callback(scare_impact.bind(true))
-	tw.tween_method(_scare_jitter.bind(a, end), 0.0, 1.0, maxf(float(o.get("segura", 0.8)), 0.05))
+	tw.tween_method(_scare_hold.bind(a, o, face), 0.0, 1.0, maxf(float(o.get("segura", 0.8)), 0.05))
 	if recuar:
-		tw.tween_property(a, "global_position", start, 0.3).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+		tw.tween_method(_scare_place.bind(a, o, face), 1.0, 0.0, 0.3).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	else:
 		tw.tween_callback(post_tween.bind("blackout", 0.0, 1.0, 0.04))
 		tw.tween_interval(0.1)
 	tw.tween_callback(_scare_end.bind(a, not recuar))
+
+
+## k = 0 no começo do bote (longe), 1 na sua cara.
+func _scare_place(k: float, a: Actor, o: Dictionary, face: float, jitter := Vector3.ZERO) -> void:
+	if not is_instance_valid(a):
+		return
+	var dist := lerpf(float(o.get("de", 2.2)), float(o.get("ate", 0.5)), k)
+	var local := Vector3(float(o.get("lado", 0.0)) * (1.0 - k), float(o.get("de_cima", 0.0)) * (1.0 - k), -dist)
+	var p := _cam_base.origin + _cam_base.basis * local
+	p.y -= face + 0.04 * k
+	a.global_position = p + jitter
+	_face_point(a, _cam_base.origin)
+
+
+func _scare_hold(k: float, a: Actor, o: Dictionary, face: float) -> void:
+	_scare_place(1.0, a, o, face, Vector3(sin(k * 97.0), cos(k * 71.0), 0.0) * 0.014)
 
 
 ## O impacto do susto: tranco na câmera, mãos recuando e (opcional) flash vermelho.
@@ -356,11 +365,6 @@ func flinch_hands() -> void:
 		var tw := create_tween().set_trans(Tween.TRANS_QUAD)
 		tw.tween_property(pv, "position", Vector3(0, 0.07, 0.06), 0.08).set_ease(Tween.EASE_OUT)
 		tw.tween_property(pv, "position", Vector3.ZERO, 0.6).set_ease(Tween.EASE_IN_OUT)
-
-
-func _scare_jitter(k: float, a: Actor, at: Vector3) -> void:
-	if is_instance_valid(a):
-		a.global_position = at + Vector3(sin(k * 97.0), cos(k * 71.0), 0.0) * 0.014
 
 
 func _scare_end(a: Actor, fade_in: bool) -> void:
