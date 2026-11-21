@@ -6634,6 +6634,10 @@
     "left": {
      "char": "zumbi",
      "anim": "ZombieAttack"
+    },
+    "right": {
+     "char": "rafael",
+     "anim": "Run"
     }
    },
    "acoes": [
@@ -6652,6 +6656,22 @@
      "t": 0,
      "acao": "olhar_camera",
      "who": "zumbi"
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "rafael",
+     "para": [
+      0.3,
+      0,
+      -2.6
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "esconder",
+     "who": "rafael"
     },
     {
      "t": 0,
@@ -6844,6 +6864,29 @@
         -0.64
        ],
        "dur": 1.2
+      },
+      {
+       "t": 1.0,
+       "acao": "mostrar",
+       "who": "rafael"
+      },
+      {
+       "t": 1.0,
+       "acao": "entrar",
+       "who": "rafael",
+       "de": [
+        2.0,
+        0,
+        0
+       ],
+       "dur": 1.2,
+       "anim": "Run",
+       "fim": "Idle"
+      },
+      {
+       "t": 3.0,
+       "acao": "maos",
+       "anim": "grab.R"
       }
      ]
     }
