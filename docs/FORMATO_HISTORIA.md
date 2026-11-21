@@ -135,6 +135,7 @@ As mesmas ações valem nas cinemáticas dos finais (`"passos"`).
 ## Teste de dado (estilo Baldur's Gate)
 Uma opção pode virar um teste de dado. Para o jogador é simples: a opção aparece em dourado como `[DADO]  texto` e a tela pede "Tire N ou mais" no d20. Esse N é calculado da CD menos o atributo e os modificadores da cena (nada disso aparece na tela; serve para ajustar a dificuldade). N fica entre 2 e 20.
 - O 20 natural sempre passa e o 1 natural sempre falha.
+- Se der errado, o jogador pode rolar uma segunda vez (botões ROLAR DE NOVO / ACEITAR); a segunda rolagem vale.
 - Com vantagem rolam dois dados e vale o maior; com desvantagem, vale o menor.
 
 ```jsonc

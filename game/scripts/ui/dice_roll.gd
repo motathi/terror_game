@@ -9,6 +9,7 @@ extends Control
 ## info = {"alvo": 12, "vantagem": bool, "desvantagem": bool}  (StoryRunner.test_info)
 
 signal tapped
+signal choice(again: bool)
 
 const UI := preload("res://scripts/ui/ui_kit.gd")
 const GOLD := Color(0.86, 0.68, 0.32)
@@ -25,6 +26,11 @@ var _hint: Label
 var _t := 0.0
 var _waiting := false
 var _wait_id := 0
+var _box: VBoxContainer
+var _choosing := false
+var _choice_id := 0
+var _btn_again: Control
+var _btn_accept: Control
 
 
 func run(parent: Node, info: Dictionary) -> int:
@@ -35,36 +41,50 @@ func run(parent: Node, info: Dictionary) -> int:
 	Audio.play_sfx("ui_select")
 	_hint.text = "toque para rolar"
 	await _wait_tap(7.0)
-	_hint.text = ""
-	var rolls: Array = await _roll(_dice.size())
-	var used: int = rolls[0]
-	if _dice.size() == 2:
-		used = maxi(rolls[0], rolls[1]) if info.get("vantagem", false) else mini(rolls[0], rolls[1])
-		for i in 2:
-			if rolls[i] != used or (i == 1 and rolls[0] == rolls[1]):
-				_dice[i].dim = true
 	var alvo := int(info.get("alvo", 10))
-	var success := used >= alvo
-	var label := "SUCESSO" if success else "FALHA"
-	if used == 20:
-		success = true
-		label = "SUCESSO CRÍTICO"
-	elif used == 1:
-		success = false
-		label = "FALHA CRÍTICA"
-	print("[dado] %s: precisa de %d, tirou %d -> %s" % [info.get("nome", ""), alvo, used, label])
-	_total.text = "Tirou %d" % used
-	_total.visible = true
-	_result.text = label
-	_result.add_theme_color_override("font_color", GREEN if success else UI.RED)
-	_result.visible = true
-	_result.scale = Vector2(1.6, 1.6)
-	_result.pivot_offset = _result.size * 0.5
-	create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT).tween_property(_result, "scale", Vector2.ONE, 0.35)
-	for d in _dice:
-		if not d.dim:
-			d.show_result(success)
-	Audio.play_sfx("dado_sucesso" if success else "dado_falha")
+	var used := 0
+	var success := false
+	var attempt := 0
+	while true:
+		attempt += 1
+		_hint.text = ""
+		_total.visible = false
+		_result.visible = false
+		for d in _dice:
+			d.reset()
+		var rolls: Array = await _roll(_dice.size())
+		used = rolls[0]
+		if _dice.size() == 2:
+			used = maxi(rolls[0], rolls[1]) if info.get("vantagem", false) else mini(rolls[0], rolls[1])
+			for i in 2:
+				if rolls[i] != used or (i == 1 and rolls[0] == rolls[1]):
+					_dice[i].dim = true
+		success = used >= alvo
+		var label := "SUCESSO" if success else "FALHA"
+		if used == 20:
+			success = true
+			label = "SUCESSO CRÍTICO"
+		elif used == 1:
+			success = false
+			label = "FALHA CRÍTICA"
+		print("[dado] %s: precisa de %d, tirou %d -> %s (tentativa %d)" % [info.get("nome", ""), alvo, used, label, attempt])
+		_total.text = "Tirou %d" % used
+		_total.visible = true
+		_result.text = label
+		_result.add_theme_color_override("font_color", GREEN if success else UI.RED)
+		_result.visible = true
+		_result.scale = Vector2(1.6, 1.6)
+		_result.pivot_offset = _result.size * 0.5
+		create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT).tween_property(_result, "scale", Vector2.ONE, 0.35)
+		for d in _dice:
+			if not d.dim:
+				d.show_result(success)
+		Audio.play_sfx("dado_sucesso" if success else "dado_falha")
+		if success or attempt >= 2:
+			break
+		# deu errado: uma segunda chance
+		if not await _ask_reroll():
+			break
 	_hint.text = "toque para continuar"
 	await _wait_tap(5.0)
 	var tw := create_tween()
@@ -100,6 +120,7 @@ func _build(info: Dictionary) -> void:
 	box.add_theme_constant_override("separation", 18)
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(box)
+	_box = box
 	_title = UI.label("ROLE O DADO", 52, GOLD, true)
 	box.add_child(_title)
 	_dc = UI.label("Tire %d ou mais" % int(info.get("alvo", 10)), 50, UI.WHITE)
@@ -152,6 +173,44 @@ func _wait_timeout(id: int) -> void:
 		tapped.emit()
 
 
+## Depois de uma falha: "ROLAR DE NOVO" ou "ACEITAR" (8 s sem tocar = aceitar).
+func _ask_reroll() -> bool:
+	_hint.text = "Você tem mais uma chance"
+	var row := HBoxContainer.new()
+	row.alignment = BoxContainer.ALIGNMENT_CENTER
+	row.add_theme_constant_override("separation", 24)
+	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_btn_again = _make_btn("ROLAR DE NOVO", GOLD)
+	_btn_accept = _make_btn("ACEITAR", UI.DIM)
+	row.add_child(_btn_again)
+	row.add_child(_btn_accept)
+	_box.add_child(row)
+	_box.move_child(row, _hint.get_index())
+	_choosing = true
+	_choice_id += 1
+	get_tree().create_timer(8.0).timeout.connect(_choice_timeout.bind(_choice_id))
+	var again: bool = await choice
+	row.queue_free()
+	return again
+
+
+func _make_btn(text: String, col: Color) -> PanelContainer:
+	var p := PanelContainer.new()
+	p.add_theme_stylebox_override("panel", UI.panel_style(Color(0.08, 0.06, 0.05, 0.95), 14, col))
+	p.custom_minimum_size = Vector2(300, 96)
+	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var l := UI.label(text, 34, col, true)
+	l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	p.add_child(l)
+	return p
+
+
+func _choice_timeout(id: int) -> void:
+	if _choosing and id == _choice_id:
+		_choosing = false
+		choice.emit(false)
+
+
 ## O overlay cobre a tela toda: qualquer toque (ou clique/tecla) conta, mesmo que
 ## a GUI ainda esteja presa ao botão da escolha que acabou de sumir.
 func _input(event: InputEvent) -> void:
@@ -161,6 +220,19 @@ func _input(event: InputEvent) -> void:
 	if not pressed:
 		return
 	get_viewport().set_input_as_handled()
+	if _choosing:
+		var pos := Vector2(-1, -1)
+		if event is InputEventScreenTouch:
+			pos = (event as InputEventScreenTouch).position
+		elif event is InputEventMouseButton:
+			pos = (event as InputEventMouseButton).position
+		if _btn_again.get_global_rect().has_point(pos):
+			_choosing = false
+			choice.emit(true)
+		elif _btn_accept.get_global_rect().has_point(pos):
+			_choosing = false
+			choice.emit(false)
+		return
 	if _waiting:
 		tapped.emit()
 
@@ -268,6 +340,13 @@ class _Die3D extends SubViewportContainer:
 		var local := Basis(up.cross(n), up, n)  # colunas: direita, cima, normal
 		var r := Basis(Vector3.RIGHT, deg_to_rad(-9.0)) * Basis(Vector3.UP, deg_to_rad(6.0)) * local.transposed()
 		return r.get_rotation_quaternion()
+
+	func reset() -> void:
+		dim = false
+		if _rim:
+			_rim.light_energy = 0.0
+		if model:
+			model.scale = Vector3.ONE
 
 	func show_result(ok: bool) -> void:
 		_rim.light_color = Color(0.35, 1.0, 0.45) if ok else Color(1.0, 0.12, 0.08)
