@@ -15,7 +15,10 @@
   "mordido": false,
   "atraso": 0,
   "culpa": 0,
-  "hesitou": 0
+  "hesitou": 0,
+  "viu_mordida_patricia": false,
+  "viu_mordida_rafael": false,
+  "viu_marina": false
  },
  "characters": {
   "sistema": {
@@ -1071,7 +1074,22 @@
       "set": {
        "atraso": "=atraso + 2"
       },
-      "next": "rua_sozinho"
+      "teste": {
+       "atributo": "furtividade",
+       "cd": 13,
+       "mods": [
+        {
+         "valor": -1,
+         "texto": "Vidro estilhaçado no chão"
+        }
+       ],
+       "sucesso": {
+        "next": "rua_sozinho"
+       },
+       "falha": {
+        "next": "ficar_barulho"
+       }
+      }
      }
     ],
     "timeout": {
@@ -1753,12 +1771,34 @@
    ],
    "choice": {
     "prompt": "Quem você escuta?",
-    "timer": 7,
+    "timer": 9,
     "plead": {
      "patricia": "Me leva",
      "rafael": "Deixa ela"
     },
     "options": [
+     {
+      "text": "Examinar o braço dela",
+      "teste": {
+       "atributo": "percepcao",
+       "cd": 12,
+       "mods": [
+        {
+         "valor": -1,
+         "texto": "Escada escura"
+        }
+       ],
+       "sucesso": {
+        "set": {
+         "viu_mordida_patricia": true
+        },
+        "next": "patricia_exame_ok"
+       },
+       "falha": {
+        "next": "patricia_exame_falha"
+       }
+      }
+     },
      {
       "text": "Levar a Patrícia",
       "who": "patricia",
@@ -2022,7 +2062,23 @@
     "options": [
      {
       "text": "Correr até o carro agora",
-      "next": "garagem_correr"
+      "teste": {
+       "atributo": "agilidade",
+       "cd": 12,
+       "mods": [
+        {
+         "if": "patricia",
+         "valor": -3,
+         "texto": "A Patrícia está ferida"
+        }
+       ],
+       "sucesso": {
+        "next": "carro_entrar"
+       },
+       "falha": {
+        "next": "garagem_correr"
+       }
+      }
      },
      {
       "text": "Esperar ele se afastar",
@@ -2107,7 +2163,7 @@
      "next": "garagem_lenta"
     },
     {
-     "next": "carro_entrar"
+     "next": "garagem_tropeco"
     }
    ]
   },
@@ -2778,11 +2834,33 @@
    ],
    "choice": {
     "prompt": "Rafael ou sua família?",
-    "timer": 7,
+    "timer": 9,
     "plead": {
      "rafael": "Me leva"
     },
     "options": [
+     {
+      "text": "Olhar o braço do Rafael",
+      "teste": {
+       "atributo": "percepcao",
+       "cd": 11,
+       "mods": [
+        {
+         "valor": -1,
+         "texto": "Ele esconde embaixo da jaqueta"
+        }
+       ],
+       "sucesso": {
+        "set": {
+         "viu_mordida_rafael": true
+        },
+        "next": "carro_rafael_exame_ok"
+       },
+       "falha": {
+        "next": "carro_rafael_exame_falha"
+       }
+      }
+     },
      {
       "text": "Levar Rafael pra casa",
       "who": "rafael",
@@ -3017,18 +3095,48 @@
    ],
    "choice": {
     "prompt": "Ele está vindo!",
-    "timer": 5,
+    "timer": 7,
     "options": [
      {
       "text": "Se esconder embaixo de um carro",
       "set": {
        "atraso": "=atraso + 1"
       },
-      "next": "casa_chegada"
+      "teste": {
+       "atributo": "furtividade",
+       "cd": 11,
+       "mods": [
+        {
+         "valor": 1,
+         "texto": "Carros por toda parte"
+        }
+       ],
+       "sucesso": {
+        "next": "casa_chegada"
+       },
+       "falha": {
+        "next": "rua_arranhao"
+       }
+      }
      },
      {
       "text": "Correr pela avenida",
-      "next": "rua_arranhao"
+      "teste": {
+       "atributo": "agilidade",
+       "cd": 14,
+       "mods": [
+        {
+         "valor": -1,
+         "texto": "Seis quilômetros a pé"
+        }
+       ],
+       "sucesso": {
+        "next": "casa_chegada"
+       },
+       "falha": {
+        "next": "rua_arranhao"
+       }
+      }
      }
     ],
     "timeout": {
@@ -3549,12 +3657,35 @@
    ],
    "choice": {
     "prompt": "Quem você abraça primeiro?",
-    "timer": 8,
+    "timer": 10,
     "plead": {
      "marina": "Me abraça",
      "bia": "Vem pra cá"
     },
     "options": [
+     {
+      "text": "Observar a Marina antes de chegar perto",
+      "teste": {
+       "atributo": "percepcao",
+       "cd": 13,
+       "mods": [
+        {
+         "valor": -2,
+         "texto": "A sala está escura"
+        }
+       ],
+       "vantagem": "viu_mordida_patricia or viu_mordida_rafael",
+       "sucesso": {
+        "set": {
+         "viu_marina": true
+        },
+        "next": "marina_exame_ok"
+       },
+       "falha": {
+        "next": "marina_exame_falha"
+       }
+      }
+     },
      {
       "text": "Abraçar a Marina",
       "who": "marina",
@@ -3994,6 +4125,686 @@
      "dur": 6.0
     }
    ]
+  },
+  "garagem_tropeco": {
+   "location": "garagem",
+   "music": "perseguicao",
+   "cast": {
+    "center": {
+     "char": "zumbi",
+     "anim": "ZombieWalk"
+    },
+    "right": {
+     "char": "rafael",
+     "anim": "Run"
+    }
+   },
+   "lines": [
+    {
+     "id": "garagem_tropeco_01",
+     "who": "sistema",
+     "text": "Você escorrega numa poça de óleo. O barulho ecoa pelo subsolo inteiro. O garoto se vira.",
+     "sfx": "grito_zumbi",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.08
+      },
+      {
+       "t": 0.1,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        -0.5,
+        0
+       ],
+       "dur": 0.3,
+       "olhar": [
+        0,
+        0.6,
+        -4.0
+       ]
+      },
+      {
+       "t": 1.4,
+       "acao": "olhar_camera",
+       "who": "zumbi"
+      },
+      {
+       "t": 1.6,
+       "acao": "andar",
+       "who": "zumbi",
+       "por": [
+        0,
+        0,
+        2.0
+       ],
+       "dur": 2.0,
+       "anim": "ZombieWalk",
+       "fim": "ZombieAttack"
+      }
+     ]
+    },
+    {
+     "id": "garagem_tropeco_02",
+     "who": "sistema",
+     "text": "O Rafael te puxa pelo braço. Vocês chegam ao carro com ele logo atrás.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "maos",
+       "anim": "grab.R"
+      },
+      {
+       "t": 0.2,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0.5,
+        0
+       ],
+       "dur": 0.4,
+       "olhar": [
+        1.5,
+        1.2,
+        -8.0
+       ]
+      },
+      {
+       "t": 0.8,
+       "acao": "camera_andar",
+       "pos": [
+        2.0,
+        1.62,
+        -9.0
+       ],
+       "olhar": [
+        2.4,
+        1.0,
+        -14.5
+       ],
+       "dur": 2.2
+      }
+     ]
+    }
+   ],
+   "next": "carro_entrar"
+  },
+  "patricia_exame_ok": {
+   "location": "escada",
+   "camera": {
+    "pos": [
+     0,
+     1.62,
+     0
+    ],
+    "olhar": [
+     0,
+     0.75,
+     -3.0
+    ]
+   },
+   "cast": {
+    "left": {
+     "char": "patricia",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "rafael",
+     "anim": "Idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "patricia_exame_ok_01",
+     "who": "sistema",
+     "text": "Você puxa a manga dela. Marcas de dente, em arco, fundas. Não é corte. É mordida.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "maos",
+       "anim": "grab.L"
+      },
+      {
+       "t": 0.3,
+       "acao": "camera_olhar",
+       "olhar": [
+        -0.4,
+        0.3,
+        -2.1
+       ],
+       "dur": 0.6
+      },
+      {
+       "t": 1.0,
+       "acao": "tremer",
+       "who": "patricia",
+       "dur": 1.0
+      }
+     ]
+    },
+    {
+     "id": "patricia_exame_ok_02",
+     "who": "patricia",
+     "text": "Por favor... eu ainda sou eu. Eu ainda sou eu.",
+     "tags": "[crying, begging, whisper]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "patricia",
+       "dur": 0.6
+      }
+     ]
+    }
+   ],
+   "next": "patricia_decisao"
+  },
+  "patricia_exame_falha": {
+   "location": "escada",
+   "camera": {
+    "pos": [
+     0,
+     1.62,
+     0
+    ],
+    "olhar": [
+     0,
+     0.75,
+     -3.0
+    ]
+   },
+   "cast": {
+    "left": {
+     "char": "patricia",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "rafael",
+     "anim": "Idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "patricia_exame_falha_01",
+     "who": "sistema",
+     "text": "Ela puxa o braço antes que você consiga ver direito. Está escuro demais.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "maos",
+       "anim": "grab.L"
+      },
+      {
+       "t": 0.2,
+       "acao": "andar",
+       "who": "patricia",
+       "por": [
+        -0.15,
+        0,
+        -0.2
+       ],
+       "dur": 0.5,
+       "fim": "Idle"
+      },
+      {
+       "t": 0.4,
+       "acao": "camera_olhar",
+       "who": "patricia",
+       "dur": 0.6
+      }
+     ]
+    },
+    {
+     "id": "patricia_exame_falha_02",
+     "who": "patricia",
+     "text": "É um corte! Já falei que é um corte!",
+     "tags": "[defensive, scared, shouting]"
+    }
+   ],
+   "next": "patricia_decisao"
+  },
+  "patricia_decisao": {
+   "location": "escada",
+   "camera": {
+    "pos": [
+     0,
+     1.62,
+     0
+    ],
+    "olhar": [
+     0,
+     0.75,
+     -3.0
+    ]
+   },
+   "cast": {
+    "left": {
+     "char": "patricia",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "rafael",
+     "anim": "Idle"
+    }
+   },
+   "choice": {
+    "prompt": "Quem você escuta?",
+    "timer": 7,
+    "plead": {
+     "patricia": "Me leva",
+     "rafael": "Deixa ela"
+    },
+    "options": [
+     {
+      "text": "Levar a Patrícia",
+      "who": "patricia",
+      "set": {
+       "patricia": true
+      },
+      "next": "garagem"
+     },
+     {
+      "text": "Deixar a Patrícia na escada",
+      "who": "rafael",
+      "set": {
+       "culpa": "=culpa + 1"
+      },
+      "next": "patricia_deixada"
+     }
+    ],
+    "timeout": {
+     "set": {
+      "culpa": "=culpa + 1"
+     },
+     "next": "patricia_deixada"
+    }
+   }
+  },
+  "ficar_barulho": {
+   "location": "escritorio_escuro",
+   "cast": {
+    "left": {
+     "char": "jorge",
+     "anim": "Sit"
+    }
+   },
+   "lines": [
+    {
+     "id": "ficar_barulho_01",
+     "who": "sistema",
+     "text": "Seu pé acerta um caco de vidro. O barulho corta o silêncio. As batidas voltam. Mais fortes.",
+     "sfx": "batidas_vidro",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.06
+      },
+      {
+       "t": 0.6,
+       "acao": "camera_olhar",
+       "olhar": [
+        -4.8,
+        1.0,
+        -2.5
+       ],
+       "dur": 0.8
+      },
+      {
+       "t": 1.4,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.05
+      },
+      {
+       "t": 2.0,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.05
+      },
+      {
+       "t": 2.6,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.05
+      }
+     ]
+    },
+    {
+     "id": "ficar_barulho_02",
+     "who": "jorge",
+     "text": "Volta aqui. Abaixa. Agora a gente espera.",
+     "tags": "[urgent whisper, firm]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "jorge",
+       "dur": 0.6
+      }
+     ]
+    }
+   ],
+   "next": "esperar"
+  },
+  "carro_rafael_exame_ok": {
+   "location": "carro",
+   "cast": {
+    "right": {
+     "char": "rafael",
+     "anim": "Sit"
+    }
+   },
+   "lines": [
+    {
+     "id": "carro_rafael_exame_ok_01",
+     "who": "sistema",
+     "text": "A jaqueta escorrega. A mordida no ombro já está preta nas bordas. As veias em volta, cinzas.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "rafael",
+       "dur": 0.5
+      },
+      {
+       "t": 0.6,
+       "acao": "tremer",
+       "who": "rafael",
+       "dur": 1.2
+      }
+     ]
+    },
+    {
+     "id": "carro_rafael_exame_ok_02",
+     "who": "rafael",
+     "text": "Eu sei. Eu sei o que parece. Só... não me deixa sozinho.",
+     "tags": "[weak, sweating, scared]"
+    }
+   ],
+   "next": "carro_rafael_decisao"
+  },
+  "carro_rafael_exame_falha": {
+   "location": "carro",
+   "cast": {
+    "right": {
+     "char": "rafael",
+     "anim": "Sit"
+    }
+   },
+   "lines": [
+    {
+     "id": "carro_rafael_exame_falha_01",
+     "who": "sistema",
+     "text": "Ele vira o corpo para a janela e puxa a jaqueta. Você não consegue ver nada.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "rafael",
+       "dur": 0.5
+      },
+      {
+       "t": 0.4,
+       "acao": "andar",
+       "who": "rafael",
+       "por": [
+        0.08,
+        0,
+        0
+       ],
+       "dur": 0.5,
+       "anim": "Sit",
+       "fim": "Sit",
+       "olhar_camera": false
+      }
+     ]
+    },
+    {
+     "id": "carro_rafael_exame_falha_02",
+     "who": "rafael",
+     "text": "Não é nada. Sério. Para de me olhar assim.",
+     "tags": "[defensive, nervous]",
+     "acoes": [
+      {
+       "t": 1.6,
+       "acao": "olhar_camera",
+       "who": "rafael"
+      }
+     ]
+    }
+   ],
+   "next": "carro_rafael_decisao"
+  },
+  "carro_rafael_decisao": {
+   "location": "carro",
+   "cast": {
+    "right": {
+     "char": "rafael",
+     "anim": "Sit"
+    }
+   },
+   "choice": {
+    "prompt": "Rafael ou sua família?",
+    "timer": 7,
+    "plead": {
+     "rafael": "Me leva"
+    },
+    "options": [
+     {
+      "text": "Levar Rafael pra casa",
+      "who": "rafael",
+      "set": {
+       "rafael_em_casa": true
+      },
+      "next": "casa_chegada"
+     },
+     {
+      "text": "Deixar Rafael no posto de gasolina",
+      "set": {
+       "culpa": "=culpa + 1"
+      },
+      "next": "posto"
+     }
+    ],
+    "timeout": {
+     "set": {
+      "rafael_em_casa": true
+     },
+     "next": "nao_disse_nao"
+    }
+   }
+  },
+  "marina_exame_ok": {
+   "location": "casa",
+   "camera": {
+    "pos": [
+     0,
+     1.68,
+     0.6
+    ],
+    "olhar": [
+     0,
+     1.45,
+     -3.0
+    ]
+   },
+   "cast": {
+    "left": {
+     "char": "marina",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "bia",
+     "offscreen": "porta"
+    }
+   },
+   "lines": [
+    {
+     "id": "marina_exame_ok_inf",
+     "who": "sistema",
+     "text": "A luz da TV bate no rosto dela. Os olhos estão leitosos. Tem sangue seco no queixo. Não é mais a Marina.",
+     "if": "marina_infectada",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "marina",
+       "dur": 0.8
+      },
+      {
+       "t": 0.4,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        -0.15
+       ],
+       "dur": 2.0
+      },
+      {
+       "t": 2.0,
+       "acao": "tremer",
+       "who": "marina",
+       "dur": 1.0
+      }
+     ]
+    },
+    {
+     "id": "marina_exame_ok_bem",
+     "who": "sistema",
+     "text": "A luz da TV bate no rosto dela. Ela está chorando, tremendo, com a faca ainda na mão. Mas são os olhos dela. É ela.",
+     "if": "not marina_infectada",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "marina",
+       "dur": 0.8
+      },
+      {
+       "t": 0.4,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        -0.15
+       ],
+       "dur": 2.0
+      }
+     ]
+    }
+   ],
+   "next": "casa_final_decisao"
+  },
+  "marina_exame_falha": {
+   "location": "casa",
+   "camera": {
+    "pos": [
+     0,
+     1.68,
+     0.6
+    ],
+    "olhar": [
+     0,
+     1.45,
+     -3.0
+    ]
+   },
+   "cast": {
+    "left": {
+     "char": "marina",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "bia",
+     "offscreen": "porta"
+    }
+   },
+   "lines": [
+    {
+     "id": "marina_exame_falha_01",
+     "who": "sistema",
+     "text": "A tela da TV pisca e apaga. No escuro, você só vê o contorno dela, parada, esperando.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "fx",
+       "tipo": "piscar",
+       "dur": 0.8
+      },
+      {
+       "t": 0.8,
+       "acao": "luz",
+       "ambiente": "#202838",
+       "energia": 0.25,
+       "neblina": "#03040a",
+       "densidade": 0.05,
+       "fundo": "#000000",
+       "dur": 0.4
+      },
+      {
+       "t": 0.4,
+       "acao": "camera_olhar",
+       "who": "marina",
+       "dur": 0.8
+      }
+     ]
+    }
+   ],
+   "next": "casa_final_decisao"
+  },
+  "casa_final_decisao": {
+   "location": "casa",
+   "camera": {
+    "pos": [
+     0,
+     1.68,
+     0.6
+    ],
+    "olhar": [
+     0,
+     1.45,
+     -3.0
+    ]
+   },
+   "cast": {
+    "left": {
+     "char": "marina",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "bia",
+     "offscreen": "porta"
+    }
+   },
+   "choice": {
+    "prompt": "Quem você abraça primeiro?",
+    "timer": 7,
+    "plead": {
+     "marina": "Me abraça",
+     "bia": "Vem pra cá"
+    },
+    "options": [
+     {
+      "text": "Abraçar a Marina",
+      "who": "marina",
+      "next": "abracar_marina"
+     },
+     {
+      "text": "Ir até o quarto da Bia",
+      "who": "bia",
+      "next": "ir_bia"
+     }
+    ],
+    "timeout": {
+     "next": "abracar_marina"
+    }
+   }
   }
  },
  "endings": {
@@ -5334,6 +6145,20 @@
      }
     ]
    }
+  }
+ },
+ "atributos": {
+  "agilidade": {
+   "nome": "Agilidade",
+   "valor": 1
+  },
+  "percepcao": {
+   "nome": "Percepção",
+   "valor": 2
+  },
+  "furtividade": {
+   "nome": "Furtividade",
+   "valor": 0
   }
  }
 }

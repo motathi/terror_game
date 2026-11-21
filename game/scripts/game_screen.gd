@@ -10,6 +10,7 @@ const Stage := preload("res://scripts/stage/stage.gd")
 const DialogueUI := preload("res://scripts/ui/dialogue_ui.gd")
 const UI := preload("res://scripts/ui/ui_kit.gd")
 const POST_SHADER := preload("res://shaders/psx_post.gdshader")
+const DiceRoll := preload("res://scripts/ui/dice_roll.gd")
 
 ## 1/4 da resolução da tela: 720x1280 -> 180x320 (bem PS1).
 const PIXEL_SHRINK := 4
@@ -166,14 +167,21 @@ func _do_choice(node: Dictionary) -> Dictionary:
 	var choice: Dictionary = node["choice"]
 	_current_choice_options = runner.available_options(choice)
 	var labels: PackedStringArray = []
+	var gold: Array = []
 	for o in _current_choice_options:
-		labels.append(o["text"])
+		if o.has("teste"):
+			var info := runner.test_info(o["teste"])
+			labels.append("[%s · CD %d]  %s" % [String(info["nome"]).to_upper(), info["cd"], o["text"]])
+			gold.append(true)
+		else:
+			labels.append(o["text"])
+			gold.append(false)
 	stage.set_pleads(choice.get("plead", {}))
 	stage.shake(0.02)
 	var timer: float = choice.get("timer", 0.0)
 	if timer > 0.0 and GameState.settings.get("timers", true):
 		Audio.start_choice_tension()
-	var idx: int = await ui.present_choice(choice.get("prompt", ""), labels, timer)
+	var idx: int = await ui.present_choice(choice.get("prompt", ""), labels, timer, gold)
 	Audio.stop_choice_tension()
 	stage.clear_pleads()
 	if idx < 0:
@@ -183,6 +191,10 @@ func _do_choice(node: Dictionary) -> Dictionary:
 	if opt.has("who"):
 		stage.reach_towards(opt["who"])
 	await get_tree().create_timer(0.35).timeout
+	if opt.has("teste"):
+		# teste de dado: o resultado decide para onde a história vai
+		var ok: bool = await DiceRoll.new().run(ui.get_parent(), runner.test_info(opt["teste"]))
+		return runner.resolve_test(opt, ok)
 	return runner.choose(opt)
 
 

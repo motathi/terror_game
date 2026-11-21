@@ -126,6 +126,31 @@ As mesmas ações valem nas cinemáticas dos finais (`"passos"`).
 }
 ```
 
+## Teste de dado (estilo Baldur's Gate)
+Uma opção pode virar um teste: o jogador rola um d20, soma os modificadores e precisa alcançar a Classe de Dificuldade (CD).
+- O 20 natural sempre passa e o 1 natural sempre falha.
+- Com vantagem rolam dois dados e vale o maior; com desvantagem, vale o menor.
+- O botão aparece dourado como `[AGILIDADE · CD 12]  texto`.
+
+```jsonc
+"atributos": {                                       // no topo da história: base de cada atributo
+  "agilidade": { "nome": "Agilidade", "valor": 1 },
+  "percepcao": { "nome": "Percepção", "valor": 2 }
+},
+...
+{ "text": "Correr até o carro agora",
+  "set": {},                                          // aplicado antes do resultado, nos dois casos
+  "teste": {
+    "atributo": "agilidade", "cd": 12,
+    "mods": [ { "if": "patricia", "valor": -3, "texto": "A Patrícia está ferida" },
+              { "valor": 1, "texto": "Carros por toda parte" } ],   // sem "if" = sempre
+    "vantagem": "viu_mordida_rafael",                  // expressão (opcional); também "desvantagem"
+    "sucesso": { "set": {}, "next": "carro_entrar" },  // next ou ending
+    "falha":   { "next": "garagem_correr" }
+  } }
+```
+O `story_check.py` segue os dois resultados de cada teste.
+
 ## Condições e `set`
 - Condições usam a sintaxe de expressão do Godot: `and`, `or`, `not`, `==`, `>=`, `+`...
 - Em `set`, um texto que começa com `=` é uma expressão: `"culpa": "=culpa + 1"`, `"marina_infectada": "=marina_saiu"`.

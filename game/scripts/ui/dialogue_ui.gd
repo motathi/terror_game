@@ -204,13 +204,15 @@ func hide_subtitle() -> void:
 # --- escolhas --------------------------------------------------------------------
 
 ## Retorna o índice escolhido ou -1 se o tempo acabou.
-func present_choice(prompt: String, options: PackedStringArray, timer: float) -> int:
+func present_choice(prompt: String, options: PackedStringArray, timer: float, gold: Array = []) -> int:
 	hide_subtitle()
 	for c in _buttons_box.get_children():
 		c.queue_free()
 	_prompt.text = prompt
 	for i in options.size():
-		var b := UI.button(options[i])
+		# opções com teste de dado ficam douradas (estilo Baldur's Gate)
+		var is_test: bool = i < gold.size() and gold[i]
+		var b := UI.button(options[i], 40, Color(0.92, 0.74, 0.36) if is_test else UI.WHITE)
 		b.pressed.connect(_finish_choice.bind(i))
 		_buttons_box.add_child(b)
 	_time_total = timer if GameState.settings.get("timers", true) else 0.0

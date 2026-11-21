@@ -3,7 +3,7 @@
 Jogo de terror de escolhas em primeira pessoa, no formato dos vídeos "escolha-me / pick your partner" do TikTok e Instagram: você vê pelos olhos do personagem, duas pessoas (ou coisas) imploram para você escolher uma delas, o tempo está acabando, e cada decisão leva a um dos vários finais. Visual low poly estilo PS1, vozes geradas com ElevenLabs.
 
 **Campanhas** (menu em carrossel, definidas em `game/story/campanhas.json`):
-- **Zumbi — Capítulo 1: Surto** (jogável): escritório, notícias de ataques, sua família em casa. 10 finais.
+- **Zumbi — Capítulo 1: Surto** (jogável): escritório, notícias de ataques, sua família em casa. 10 finais. Algumas escolhas pedem um teste de dado (d20 + atributo contra a Classe de Dificuldade, como em Baldur's Gate).
 - **Alien — Capítulo 1: Visitantes** (jogável): sítio do avô no interior, luzes sobre o milharal, quem volta não é igual. 10 finais. Momento-chave: duas Lias idênticas implorando "a outra é a cópia".
 - **Skinwalker — Capítulo 1: Caramelo** (jogável): o cachorro da família some por três dias e volta diferente. Ele não late, não manca e imita vozes. 10 finais. Momentos-chave: duas mães (uma do lado de fora da porta) e dois Caramelos implorando para entrar.
 - **Homem do Saco — Capítulo 1: Véspera de São João** (jogável): a fogueira está apagando e você precisa levar seu irmão Davi para casa. Atalho pela linha do trem ou rua iluminada; voz da mãe na porta; dois sacos chamando seu nome no barraco do velho. 11 finais.

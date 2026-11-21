@@ -469,6 +469,18 @@
    "cascalho_passos": {
     "prompt": "slow heavy footsteps crunching on gravel outside a wooden shack, approaching",
     "duration": 3.0
+   },
+   "dado_rolando": {
+    "prompt": "a single heavy resin twenty-sided die rolling and tumbling across a wooden table, clattering, then stopping",
+    "duration": 1.6
+   },
+   "dado_sucesso": {
+    "prompt": "short triumphant fantasy chime, bright magical shimmer with a low warm drum hit, success",
+    "duration": 1.5
+   },
+   "dado_falha": {
+    "prompt": "short ominous dark fantasy failure sting, low descending cello and a dull thud",
+    "duration": 1.5
    }
   }
  },

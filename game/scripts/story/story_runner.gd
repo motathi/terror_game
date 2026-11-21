@@ -90,6 +90,31 @@ func choose(option: Dictionary) -> Dictionary:
 	return _target(option)
 
 
+## Teste de dado numa opção ("teste"): calcula o que entra na rolagem.
+## Retorna {"nome", "cd", "mods": [{"texto", "valor"}], "vantagem", "desvantagem"}.
+func test_info(t: Dictionary) -> Dictionary:
+	var key: String = t.get("atributo", "")
+	var a: Dictionary = story.get("atributos", {}).get(key, {})
+	var nome: String = a.get("nome", key.capitalize())
+	var mods: Array = []
+	if not a.is_empty():
+		mods.append({"texto": nome, "valor": int(a.get("valor", 0))})
+	for m in t.get("mods", []):
+		if not m.has("if") or eval_condition(m["if"]):
+			mods.append({"texto": m.get("texto", ""), "valor": int(m.get("valor", 0))})
+	var adv: bool = t.has("vantagem") and eval_condition(t["vantagem"])
+	var dis: bool = t.has("desvantagem") and eval_condition(t["desvantagem"])
+	return {"nome": nome, "cd": int(t.get("cd", 10)), "mods": mods, "vantagem": adv and not dis, "desvantagem": dis and not adv}
+
+
+## Depois da rolagem: aplica o "set" da opção e o do resultado ("sucesso"/"falha").
+func resolve_test(option: Dictionary, success: bool) -> Dictionary:
+	apply_set(option.get("set", {}))
+	var out: Dictionary = option["teste"].get("sucesso" if success else "falha", {})
+	apply_set(out.get("set", {}))
+	return _target(out)
+
+
 func timeout(choice: Dictionary) -> Dictionary:
 	vars["hesitou"] = int(vars.get("hesitou", 0)) + 1
 	var t: Dictionary = choice.get("timeout", {})

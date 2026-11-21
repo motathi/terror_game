@@ -83,10 +83,28 @@ def check(story):
         ch = n.get("choice")
         if ch:
             for i, o in enumerate(ch["options"]):
-                ref(o, f"{nid}/opção[{i}]")
-                check_set(o.get("set"), f"{nid}/opção[{i}]")
+                where = f"{nid}/opção[{i}]"
+                if "teste" in o:  # teste de dado: os dois resultados precisam levar a algum lugar
+                    t = o["teste"]
+                    if t.get("atributo") not in story.get("atributos", {}):
+                        errors.append(f"{where}: atributo desconhecido '{t.get('atributo')}'")
+                    for res in ("sucesso", "falha"):
+                        if res not in t:
+                            errors.append(f"{where}: teste sem '{res}'")
+                            continue
+                        ref(t[res], f"{where}/{res}")
+                        check_set(t[res].get("set"), f"{where}/{res}")
+                    for m in t.get("mods", []):
+                        if "if" in m:
+                            check_expr(m["if"], f"{where}/mod")
+                    for k in ("vantagem", "desvantagem"):
+                        if k in t:
+                            check_expr(t[k], f"{where}/{k}")
+                else:
+                    ref(o, where)
+                check_set(o.get("set"), where)
                 if "if" in o:
-                    check_expr(o["if"], f"{nid}/opção[{i}]")
+                    check_expr(o["if"], where)
             if ch.get("timer"):
                 if "timeout" not in ch:
                     errors.append(f"{nid}: choice com timer precisa de 'timeout'")
@@ -128,7 +146,17 @@ def walk(story):
                     break
         else:
             ch = n["choice"]
-            outs = [(o, o["text"]) for o in ch["options"] if "if" not in o or evaluate(o["if"], state)]
+            outs = []
+            for o in ch["options"]:
+                if "if" in o and not evaluate(o["if"], state):
+                    continue
+                if "teste" in o:  # os dois resultados do dado
+                    for res in ("sucesso", "falha"):
+                        r = o["teste"][res]
+                        merged = dict(r, set={**(o.get("set") or {}), **(r.get("set") or {})})
+                        outs.append((merged, f"{o['text']} 🎲{res}"))
+                else:
+                    outs.append((o, o["text"]))
             if ch.get("timer"):
                 outs.append((dict(ch["timeout"], _timeout=True), "⏱ tempo esgotado"))
             for o, label in outs:
