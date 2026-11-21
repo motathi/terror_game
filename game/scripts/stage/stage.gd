@@ -357,7 +357,9 @@ func _scare_place(k: float, a: Actor, o: Dictionary, face: float, head: Array, j
 	var target := _cam_base.origin + _cam_base.basis * local + Vector3.DOWN * (0.04 * k)
 	_face_point(a, _cam_base.origin)
 	# inclina o corpo para trás: o ataque projeta a cabeça e, de perto, mostraria o topo dela
-	a.rotate_object_local(Vector3.RIGHT, -deg_to_rad(float(o.get("inclinar", 20.0))))
+	# + a inclinação da câmera: olhando para baixo, o rosto precisa olhar para cima
+	var cam_pitch := rad_to_deg(asin(clampf(-(-_cam_base.basis.z).y, -1.0, 1.0)))
+	a.rotate_object_local(Vector3.RIGHT, -deg_to_rad(float(o.get("inclinar", 20.0)) + maxf(cam_pitch, 0.0)))
 	var off := Vector3(0, face, 0)
 	if not head.is_empty():
 		var skel: Skeleton3D = head[0]
