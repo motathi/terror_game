@@ -181,6 +181,124 @@ def walk(story):
     return results
 
 
+def _outs(story, nid, state):
+    """Saídas de um nó: lista de (alvo, estado) onde alvo = ("next", id) ou ("ending", id)."""
+    n = story["nodes"][nid]
+    state = dict(state)
+    apply_set(n.get("set"), state)
+    if "ending" in n:
+        return [(("ending", n["ending"]), state)]
+    if "next" in n:
+        return [(("next", n["next"]), state)]
+    if "branch" in n:
+        for b in n["branch"]:
+            if "if" not in b or evaluate(b["if"], state):
+                return [(("ending", b["ending"]) if "ending" in b else ("next", b["next"]), state)]
+        return []
+    ch = n["choice"]
+    opts = []
+    for o in ch["options"]:
+        if "if" in o and not evaluate(o["if"], state):
+            continue
+        if "teste" in o:
+            for res in ("sucesso", "falha", "sucesso_critico", "falha_critica"):
+                if res in o["teste"]:
+                    r = o["teste"][res]
+                    opts.append(dict(r, set={**(o.get("set") or {}), **(r.get("set") or {})}))
+        else:
+            opts.append(o)
+    if ch.get("timer"):
+        opts.append(dict(ch["timeout"], _timeout=True))
+    out = []
+    for o in opts:
+        s = dict(state)
+        if o.get("_timeout"):
+            s["hesitou"] = s.get("hesitou", 0) + 1
+        apply_set(o.get("set"), s)
+        out.append((("ending", o["ending"]) if "ending" in o else ("next", o["next"]), s))
+    return out
+
+
+def _live_vars(story):
+    """Para cada nó: variáveis que ainda podem decidir o caminho dali para a frente
+    (condições de branch/opção e expressões de "set" do nó e dos sucessores)."""
+    nodes = story["nodes"]
+    reads, succ = {}, {}
+    for nid, n in nodes.items():
+        r, nx = set(), set()
+
+        def add_set(sets):
+            for v in (sets or {}).values():
+                if isinstance(v, str) and v.startswith("="):
+                    r.update(expr_vars(v[1:]))
+
+        def target(t):
+            add_set(t.get("set"))
+            if "next" in t:
+                nx.add(t["next"])
+
+        add_set(n.get("set"))
+        if "next" in n:
+            nx.add(n["next"])
+        for b in n.get("branch", []):
+            if "if" in b:
+                r.update(expr_vars(b["if"]))
+            target(b)
+        ch = n.get("choice")
+        if ch:
+            for o in ch["options"]:
+                if "if" in o:
+                    r.update(expr_vars(o["if"]))
+                add_set(o.get("set"))
+                if "teste" in o:
+                    for res in ("sucesso", "falha", "sucesso_critico", "falha_critica"):
+                        if res in o["teste"]:
+                            target(o["teste"][res])
+                else:
+                    target(o)
+            if "timeout" in ch:
+                target(ch["timeout"])
+                r.add("hesitou")
+        reads[nid], succ[nid] = r, nx
+    live = {k: set(v) for k, v in reads.items()}
+    changed = True
+    while changed:
+        changed = False
+        for nid in nodes:
+            before = len(live[nid])
+            for m in succ[nid]:
+                live[nid] |= live.get(m, set())
+            changed |= len(live[nid]) != before
+    return live
+
+
+def count_paths(story):
+    """Mesma regra do walk(), mas memorizando (nó, estado): conta caminhos sem enumerá-los."""
+    sys.setrecursionlimit(10000)
+    memo = {}
+    visited = set()
+    live = _live_vars(story)
+
+    def go(nid, state, depth=0):
+        if depth > 400:
+            raise RuntimeError("loop infinito? em " + nid)
+        # só as variáveis que ainda podem mudar o caminho daqui para a frente entram na chave
+        key = (nid, tuple(sorted((k, v) for k, v in state.items() if k in live[nid])))
+        if key in memo:
+            return memo[key]
+        visited.add(nid)
+        total = Counter()
+        for (kind, target), s in _outs(story, nid, state):
+            if kind == "ending":
+                total[target] += 1
+            else:
+                total.update(go(target, s, depth + 1))
+        memo[key] = total
+        return total
+
+    return go(story["start"], dict(story["vars"])), visited
+
+
 def main():
     if len(sys.argv) < 2:
         print(__doc__)
@@ -194,14 +312,17 @@ def main():
     if errors:
         sys.exit(1)
 
-    results = walk(story)
-    visited = {p.split("[")[0] for _, path, _ in results for p in path}
+    if "--paths" in sys.argv:
+        results = walk(story)
+        visited = {p.split("[")[0] for _, path, _ in results for p in path}
+        per_end = Counter(e for e, _, _ in results)
+    else:
+        per_end, visited = count_paths(story)
     for nid in story["nodes"]:
         if nid not in visited:
             print("AVISO: nó inalcançável:", nid)
-    per_end = Counter(e for e, _, _ in results)
     lines = sum(len(n.get("lines", [])) for n in story["nodes"].values())
-    print(f"\n{story['title']}: {len(story['nodes'])} nós, {lines} falas, {len(results)} caminhos possíveis\n")
+    print(f"\n{story['title']}: {len(story['nodes'])} nós, {lines} falas, {sum(per_end.values())} caminhos possíveis\n")
     for eid, e in story["endings"].items():
         c = per_end.get(eid, 0)
         flag = "" if c else "   <-- INALCANÇÁVEL"

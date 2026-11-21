@@ -130,6 +130,8 @@ func _start_timeline(steps: Array) -> void:
 	sorted.sort_custom(func(a, b): return float(a.get("t", 0.0)) < float(b.get("t", 0.0)))
 	var rest: Array = []
 	for st in sorted:
+		if st.has("if") and not runner.eval_condition(st["if"]):
+			continue  # ação condicional: "if" igual ao das falas
 		if float(st.get("t", 0.0)) <= 0.0:
 			_run_step(st, chars)
 		else:

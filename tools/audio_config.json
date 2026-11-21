@@ -1,686 +1,739 @@
 {
- "_doc": "Configuração do pipeline ElevenLabs (tools/elevenlabs_gen.py). voice_id vazio = rode 'design' e 'save' para criar a voz, ou cole o id de uma voz da Voice Library.",
- "tts": {
-  "model_id": "eleven_v4",
-  "fallback_model_id": "eleven_v3",
-  "language_code": "pt",
-  "output_format": "mp3_44100_128",
-  "locale_dir": "pt_BR"
- },
- "voice_design": {
-  "model_id": "eleven_ttv_v3",
-  "preview_text": "Por favor, me escuta. A gente não tem muito tempo. Se você sair por aquela porta agora, talvez nunca mais volte. Eu tô pedindo... fica comigo."
- },
- "voices": {
-  "rafael": {
-   "voice_id": "mikcNEedKFPFrco9o6sm",
-   "description": "Brazilian Portuguese man, early 30s, office worker from São Paulo, nervous and fast-talking, slightly hoarse, natural and casual, close microphone.",
-   "settings": {
-    "stability": 0.4,
-    "similarity_boost": 0.8,
-    "style": 0.3,
-    "speed": 1.05
-   }
+  "_doc": "Configuração do pipeline ElevenLabs (tools/elevenlabs_gen.py). voice_id vazio = rode 'design' e 'save' para criar a voz, ou cole o id de uma voz da Voice Library.",
+  "tts": {
+    "model_id": "eleven_v4",
+    "fallback_model_id": "eleven_v3",
+    "language_code": "pt",
+    "output_format": "mp3_44100_128",
+    "locale_dir": "pt_BR"
   },
-  "jorge": {
-   "voice_id": "8NeRlCCse6i5GAk5sJq4",
-   "description": "Brazilian Portuguese man, late 50s, building security guard, deep gravelly voice, tired but firm, working-class Rio accent.",
-   "settings": {
-    "stability": 0.5,
-    "similarity_boost": 0.8,
-    "style": 0.2,
-    "speed": 0.95
-   }
+  "voice_design": {
+    "model_id": "eleven_ttv_v3",
+    "preview_text": "Por favor, me escuta. A gente não tem muito tempo. Se você sair por aquela porta agora, talvez nunca mais volte. Eu tô pedindo... fica comigo."
   },
-  "patricia": {
-   "voice_id": "RnJZQDPCA6pFZf2UtFek",
-   "description": "Brazilian Portuguese woman, around 40, accountant, frightened and breathless, voice trembling, on the verge of crying.",
-   "settings": {
-    "stability": 0.3,
-    "similarity_boost": 0.75,
-    "style": 0.5,
-    "speed": 1.0
-   }
+  "voices": {
+    "rafael": {
+      "voice_id": "mikcNEedKFPFrco9o6sm",
+      "description": "Brazilian Portuguese man, early 30s, office worker from São Paulo, nervous and fast-talking, slightly hoarse, natural and casual, close microphone.",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.8,
+        "style": 0.3,
+        "speed": 1.05
+      }
+    },
+    "jorge": {
+      "voice_id": "8NeRlCCse6i5GAk5sJq4",
+      "description": "Brazilian Portuguese man, late 50s, building security guard, deep gravelly voice, tired but firm, working-class Rio accent.",
+      "settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.8,
+        "style": 0.2,
+        "speed": 0.95
+      }
+    },
+    "patricia": {
+      "voice_id": "RnJZQDPCA6pFZf2UtFek",
+      "description": "Brazilian Portuguese woman, around 40, accountant, frightened and breathless, voice trembling, on the verge of crying.",
+      "settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.0
+      }
+    },
+    "marina": {
+      "voice_id": "a4aEyYAzO2RmAzSEeYLV",
+      "description": "Brazilian Portuguese woman, mid 30s, nurse and mother, warm and soft voice, calm under pressure, intimate tone as if speaking to her husband.",
+      "settings": {
+        "stability": 0.45,
+        "similarity_boost": 0.8,
+        "style": 0.35,
+        "speed": 1.0
+      }
+    },
+    "bia": {
+      "voice_id": "cgSgspJ2msm6clMCkdW9",
+      "description": "Little girl's voice speaking Brazilian Portuguese, about 7 years old, sweet, scared, whispering.",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.75,
+        "style": 0.4,
+        "speed": 1.0
+      },
+      "_obs": "Voice Design bloqueia vozes infantis. Usando a voz pronta \"Jessica\" (jovem, suave) da biblioteca; troque o voice_id se quiser."
+    },
+    "tv": {
+      "voice_id": "2nAf3WkLSGIi4nMdpgjU",
+      "description": "Brazilian Portuguese TV news anchor, male, 45, formal broadcast voice, clear diction, becoming increasingly alarmed.",
+      "settings": {
+        "stability": 0.55,
+        "similarity_boost": 0.8,
+        "style": 0.2,
+        "speed": 1.0
+      }
+    },
+    "sistema": {
+      "voice_id": "5VPn2gBWXLhkXcnVhj1e",
+      "description": "Deep, low, gravelly male narrator voice speaking Brazilian Portuguese, around 55 years old, slow and ominous delivery like a horror movie trailer or true-crime documentary narrator, rich bass, calm and menacing, studio quality.",
+      "settings": {
+        "stability": 0.55,
+        "similarity_boost": 0.8,
+        "style": 0.35,
+        "speed": 0.92
+      },
+      "default_tags": "[slow, low, ominous narration]"
+    },
+    "vo": {
+      "voice_id": "FWfDaMSFTOF6KaXlM56F",
+      "description": "Old Brazilian Portuguese man, 75 years old, farmer from the countryside of Minas Gerais, strong caipira accent, raspy smoker's voice, warm but stern, slow speech.",
+      "settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.8,
+        "style": 0.3,
+        "speed": 0.95
+      }
+    },
+    "lia": {
+      "voice_id": "Ln9LboxiF0avKx2yPHYJ",
+      "description": "Young Brazilian Portuguese woman, 19 years old, energetic and curious, slightly nasal, speaks fast when excited, terrified at times, natural casual tone.",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.8,
+        "style": 0.4,
+        "speed": 1.05
+      }
+    },
+    "radio": {
+      "voice_id": "2nAf3WkLSGIi4nMdpgjU",
+      "description": "Brazilian Portuguese TV news anchor, male, 45, formal broadcast voice, clear diction, becoming increasingly alarmed.",
+      "settings": {
+        "stability": 0.55,
+        "similarity_boost": 0.8,
+        "style": 0.2,
+        "speed": 1.0
+      }
+    },
+    "lia_copia": {
+      "voice_id": "Ln9LboxiF0avKx2yPHYJ",
+      "description": "Young Brazilian Portuguese woman, 19 years old, energetic and curious, slightly nasal, speaks fast when excited, terrified at times, natural casual tone.",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.8,
+        "style": 0.4,
+        "speed": 1.05
+      }
+    },
+    "vo_copia": {
+      "voice_id": "FWfDaMSFTOF6KaXlM56F",
+      "description": "Old Brazilian Portuguese man, 75 years old, farmer from the countryside of Minas Gerais, strong caipira accent, raspy smoker's voice, warm but stern, slow speech.",
+      "settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.8,
+        "style": 0.3,
+        "speed": 0.95
+      }
+    },
+    "mae": {
+      "voice_id": "vA0uCpG3bW9rYS8usI2M",
+      "description": "Brazilian Portuguese woman, mid 40s, nursing technician and mother from the countryside of São Paulo state, warm but tired voice, slightly hoarse, protective and firm, natural casual tone.",
+      "settings": {
+        "stability": 0.45,
+        "similarity_boost": 0.8,
+        "style": 0.35,
+        "speed": 1.0
+      }
+    },
+    "bento": {
+      "voice_id": "HB84M8qzHUqaGXwaRcSj",
+      "description": "Old Brazilian Portuguese man, 80 years old, born in the backlands of Bahia, northeastern accent, raspy and trembling voice, superstitious, speaks in an urgent low whisper as if afraid of being heard.",
+      "settings": {
+        "stability": 0.45,
+        "similarity_boost": 0.8,
+        "style": 0.35,
+        "speed": 0.95
+      }
+    },
+    "pai": {
+      "voice_id": "8NeRlCCse6i5GAk5sJq4",
+      "description": "Brazilian Portuguese man, late 50s, building security guard, deep gravelly voice, tired but firm, working-class Rio accent.",
+      "settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.8,
+        "style": 0.2,
+        "speed": 0.95
+      },
+      "_obs": "mesma voz do Jorge (vigia noturno)"
+    },
+    "theo": {
+      "voice_id": "cgSgspJ2msm6clMCkdW9",
+      "description": "Young boy's voice speaking Brazilian Portuguese, about 9 years old, sweet and scared.",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.75,
+        "style": 0.4,
+        "speed": 1.0
+      },
+      "_obs": "Voice Design bloqueia vozes infantis; usa a voz pronta Jessica, a mesma da Bia."
+    },
+    "theo_falso": {
+      "voice_id": "cgSgspJ2msm6clMCkdW9",
+      "description": "Young boy's voice speaking Brazilian Portuguese, about 9 years old, sweet and scared.",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.75,
+        "style": 0.4,
+        "speed": 1.0
+      },
+      "_obs": "Voice Design bloqueia vozes infantis; usa a voz pronta Jessica, a mesma da Bia."
+    },
+    "mae_porta": {
+      "voice_id": "vA0uCpG3bW9rYS8usI2M",
+      "description": "Brazilian Portuguese woman, mid 40s, nursing technician and mother from the countryside of São Paulo state, warm but tired voice, slightly hoarse, protective and firm, natural casual tone.",
+      "settings": {
+        "stability": 0.45,
+        "similarity_boost": 0.8,
+        "style": 0.35,
+        "speed": 1.0
+      }
+    },
+    "mae_falsa": {
+      "voice_id": "vA0uCpG3bW9rYS8usI2M",
+      "description": "Brazilian Portuguese woman, mid 40s, nursing technician and mother from the countryside of São Paulo state, warm but tired voice, slightly hoarse, protective and firm, natural casual tone.",
+      "settings": {
+        "stability": 0.45,
+        "similarity_boost": 0.8,
+        "style": 0.35,
+        "speed": 1.0
+      }
+    },
+    "coisa_mae": {
+      "voice_id": "vA0uCpG3bW9rYS8usI2M",
+      "description": "Brazilian Portuguese woman, mid 40s, nursing technician and mother from the countryside of São Paulo state, warm but tired voice, slightly hoarse, protective and firm, natural casual tone.",
+      "settings": {
+        "stability": 0.45,
+        "similarity_boost": 0.8,
+        "style": 0.35,
+        "speed": 1.0
+      }
+    },
+    "coisa": {
+      "voice_id": "cgSgspJ2msm6clMCkdW9",
+      "description": "Young boy's voice speaking Brazilian Portuguese, about 9 years old, sweet and scared.",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.75,
+        "style": 0.4,
+        "speed": 1.0
+      },
+      "_obs": "Voice Design bloqueia vozes infantis; usa a voz pronta Jessica, a mesma da Bia."
+    },
+    "homem": {
+      "voice_id": "N2lVS1w4EtoT3dr4eOWO",
+      "description": "Very old Brazilian Portuguese man, deep raspy and cracked voice, speaks slowly in an eerie sing-song whisper, like an old storyteller humming a folk song by the fire, countryside accent.",
+      "settings": {
+        "stability": 0.45,
+        "similarity_boost": 0.8,
+        "style": 0.45,
+        "speed": 0.9
+      },
+      "_obs": "voz pronta \"Callum\" (limite de vozes personalizadas atingido)"
+    },
+    "lurdes": {
+      "voice_id": "pFZP5JQG7iQjIQuC4Bku",
+      "description": "Old Brazilian Portuguese woman, about 75, from a small town in the countryside, devout churchgoer, soft trembling voice, protective and superstitious, speaks in a worried whisper.",
+      "settings": {
+        "stability": 0.45,
+        "similarity_boost": 0.8,
+        "style": 0.35,
+        "speed": 0.95
+      },
+      "_obs": "voz pronta \"Lily\" (limite de vozes personalizadas atingido)"
+    },
+    "davi": {
+      "voice_id": "cgSgspJ2msm6clMCkdW9",
+      "description": "Young Brazilian Portuguese boy, about 7 years old, sweet voice.",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.75,
+        "style": 0.4,
+        "speed": 1.0
+      },
+      "_obs": "voz pronta Jessica (Voice Design bloqueia vozes infantis)"
+    },
+    "saco_falso": {
+      "voice_id": "cgSgspJ2msm6clMCkdW9",
+      "description": "Young Brazilian Portuguese boy, about 7 years old, sweet voice.",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.75,
+        "style": 0.4,
+        "speed": 1.0
+      },
+      "_obs": "voz pronta Jessica (Voice Design bloqueia vozes infantis)"
+    },
+    "saco_davi": {
+      "voice_id": "cgSgspJ2msm6clMCkdW9",
+      "description": "Young Brazilian Portuguese boy, about 7 years old, sweet voice.",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.75,
+        "style": 0.4,
+        "speed": 1.0
+      },
+      "_obs": "voz pronta Jessica (Voice Design bloqueia vozes infantis)"
+    },
+    "saco_trilho": {
+      "voice_id": "cgSgspJ2msm6clMCkdW9",
+      "description": "Young Brazilian Portuguese boy, about 7 years old, sweet voice.",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.75,
+        "style": 0.4,
+        "speed": 1.0
+      },
+      "_obs": "voz pronta Jessica (Voice Design bloqueia vozes infantis)"
+    },
+    "mae_hs": {
+      "voice_id": "RnJZQDPCA6pFZf2UtFek",
+      "description": "Brazilian Portuguese woman, around 40, accountant, frightened and breathless, voice trembling, on the verge of crying.",
+      "settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.0
+      }
+    },
+    "mae_falsa_hs": {
+      "voice_id": "RnJZQDPCA6pFZf2UtFek",
+      "description": "Brazilian Portuguese woman, around 40, accountant, frightened and breathless, voice trembling, on the verge of crying.",
+      "settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.0
+      }
+    },
+    "enfermeira": {
+      "voice_id": "EXAVITQu4vr4xnSDxMaL",
+      "description": "Brazilian Portuguese nurse in her 40s, exhausted after a night of horror, firm and grim, speaking low through a glass door.",
+      "settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.8,
+        "style": 0.3,
+        "speed": 0.98
+      },
+      "_obs": "voz pronta \"Sarah\" (limite de vozes personalizadas atingido)"
+    },
+    "filha": {
+      "voice_id": "cgSgspJ2msm6clMCkdW9",
+      "description": "Little girl's voice speaking Brazilian Portuguese, about 7 years old, sweet, scared, whispering.",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.75,
+        "style": 0.4,
+        "speed": 1.0
+      },
+      "_obs": "a Bia fora do quarto (Capítulo 2): mesma voz, sem o efeito de porta"
+    },
+    "interfone": {
+      "voice_id": "pqHfZKP75CvOlQylNhV4",
+      "description": "Brazilian Portuguese man, about 60, wealthy condominium manager, cold and suspicious, speaking through an intercom.",
+      "settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.8,
+        "style": 0.3,
+        "speed": 0.98
+      },
+      "_obs": "voz pronta \"Bill\" (limite de vozes personalizadas atingido)"
+    },
+    "henrique": {
+      "voice_id": "pqHfZKP75CvOlQylNhV4",
+      "description": "Brazilian Portuguese man, about 60, wealthy condominium manager, cold and suspicious, speaking through an intercom.",
+      "settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.8,
+        "style": 0.3,
+        "speed": 0.98
+      },
+      "_obs": "o síndico em pessoa; mesma voz do interfone"
+    }
   },
-  "marina": {
-   "voice_id": "a4aEyYAzO2RmAzSEeYLV",
-   "description": "Brazilian Portuguese woman, mid 30s, nurse and mother, warm and soft voice, calm under pressure, intimate tone as if speaking to her husband.",
-   "settings": {
-    "stability": 0.45,
-    "similarity_boost": 0.8,
-    "style": 0.35,
-    "speed": 1.0
-   }
+  "sfx": {
+    "model_id": "eleven_text_to_sound_v3",
+    "items": {
+      "celular": {
+        "prompt": "smartphone vibrating twice on a wooden office desk",
+        "duration": 1.5
+      },
+      "linha_caiu": {
+        "prompt": "phone call disconnected, three short busy tone beeps",
+        "duration": 2.0
+      },
+      "stinger_hit": {
+        "prompt": "sudden horror movie stinger, dissonant orchestral string hit",
+        "duration": 2.0
+      },
+      "stinger_boom": {
+        "prompt": "deep cinematic horror impact boom with long dark reverb tail",
+        "duration": 4.0
+      },
+      "grito": {
+        "prompt": "distant terrified human scream echoing down an office building corridor",
+        "duration": 3.0
+      },
+      "grito_zumbi": {
+        "prompt": "zombie shriek, guttural and wet, close to the listener",
+        "duration": 2.5
+      },
+      "gemido": {
+        "prompt": "low raspy zombie moan in a concrete underground parking garage, echo",
+        "duration": 4.0
+      },
+      "rosnado": {
+        "prompt": "aggressive zombie growl and snarl, close, animalistic",
+        "duration": 2.5
+      },
+      "batidas_vidro": {
+        "prompt": "hands banging repeatedly on a glass office door, muffled, relentless",
+        "duration": 5.0
+      },
+      "passos": {
+        "prompt": "two people running down a concrete emergency stairwell, footsteps echoing",
+        "duration": 4.0
+      },
+      "elevador_ding": {
+        "prompt": "old elevator arrival chime ding in an empty building",
+        "duration": 2.0
+      },
+      "porta_abre": {
+        "prompt": "wooden door slowly creaking open in a silent house, horror",
+        "duration": 3.0
+      },
+      "coracao": {
+        "prompt": "slow heavy heartbeat, tense, close",
+        "duration": 4.0
+      },
+      "longe_grito": {
+        "prompt": "distant terrified scream echoing between city buildings at night",
+        "duration": 4.0
+      },
+      "sirene": {
+        "prompt": "distant police siren passing by in an empty city at night",
+        "duration": 4.0
+      },
+      "helicoptero": {
+        "prompt": "helicopter flying low overhead and fading away",
+        "duration": 4.0
+      },
+      "vidro": {
+        "prompt": "glass window shattering in the distance, echo",
+        "duration": 4.0
+      },
+      "batida_porta": {
+        "prompt": "heavy fists pounding on a wooden door in another room, muffled",
+        "duration": 4.0
+      },
+      "rosnado_longe": {
+        "prompt": "zombie growl far away in the dark, reverb",
+        "duration": 4.0
+      },
+      "ovni_zumbido": {
+        "prompt": "UFO low electronic humming drone swelling and fading, eerie sci-fi",
+        "duration": 4.0
+      },
+      "criatura_grito": {
+        "prompt": "alien creature shriek with insect-like clicking mandibles, close, horror",
+        "duration": 2.5
+      },
+      "tiro": {
+        "prompt": "single old shotgun blast inside a wooden barn, loud, echo",
+        "duration": 2.0
+      },
+      "guizo": {
+        "prompt": "small brass bell on a dog collar jingling softly as a dog walks, quiet night",
+        "duration": 2.0
+      },
+      "arranhao": {
+        "prompt": "dog claws slowly scratching a wooden door from the other side, long deliberate scratches, quiet house",
+        "duration": 4.0
+      },
+      "cachorro_choro": {
+        "prompt": "dog whimpering and whining softly outside a door at night, sad and pleading",
+        "duration": 3.0
+      },
+      "latido": {
+        "prompt": "single deep dog bark outside at night in a backyard, slight echo",
+        "duration": 1.5
+      },
+      "latido_longe": {
+        "prompt": "distant dog barking in a quiet countryside neighborhood at night, echo",
+        "duration": 3.0
+      },
+      "rosnado_cao": {
+        "prompt": "low menacing dog growl, close, aggressive and deep",
+        "duration": 2.5
+      },
+      "ossos": {
+        "prompt": "bones cracking and joints popping, wet stretching of skin, creature contorting, horror",
+        "duration": 2.5
+      },
+      "uivo_humano": {
+        "prompt": "unnatural howl that starts like a dog and turns into a human scream, distant, night, horror",
+        "duration": 4.0
+      },
+      "portao_rangendo": {
+        "prompt": "old metal gate slowly creaking open in a backyard at night",
+        "duration": 2.5
+      },
+      "motor": {
+        "prompt": "old car engine cranking twice, then starting and revving, echoing in an underground parking garage",
+        "duration": 3.5
+      },
+      "saco_arrastando": {
+        "prompt": "heavy burlap sack being dragged slowly over railway gravel at night, something inside it shifting",
+        "duration": 3.0
+      },
+      "trem_apito": {
+        "prompt": "loud old freight train horn blowing in the distance at night, approaching",
+        "duration": 3.0
+      },
+      "trem_passando": {
+        "prompt": "freight train rushing past very close at high speed, loud rumbling wheels on rails, wind",
+        "duration": 4.0
+      },
+      "fogos": {
+        "prompt": "festa junina firecrackers and rockets popping in the distance at night",
+        "duration": 2.5
+      },
+      "choro_crianca": {
+        "prompt": "muffled small child crying softly from inside a cloth sack",
+        "duration": 3.0
+      },
+      "cascalho_passos": {
+        "prompt": "slow heavy footsteps crunching on gravel outside a wooden shack, approaching",
+        "duration": 3.0
+      },
+      "dado_rolando": {
+        "prompt": "a single heavy resin twenty-sided die rolling and tumbling across a wooden table, clattering, then stopping",
+        "duration": 1.6
+      },
+      "dado_sucesso": {
+        "prompt": "short triumphant fantasy chime, bright magical shimmer with a low warm drum hit, success",
+        "duration": 1.5
+      },
+      "dado_falha": {
+        "prompt": "short ominous dark fantasy failure sting, low descending cello and a dull thud",
+        "duration": 1.5
+      },
+      "susto_grito": {
+        "prompt": "horror movie jumpscare: a zombie screaming right into the listener's face, sudden violent orchestral string stab and deep bass impact, harsh and distorted, extremely close",
+        "duration": 2.0
+      },
+      "susto_alarme": {
+        "prompt": "car alarm suddenly blaring very loud in an empty concrete underground parking garage, echoing, startling",
+        "duration": 3.0
+      },
+      "susto_queda": {
+        "prompt": "sudden loud crash in a dark kitchen, pots and plates falling and shattering on a tile floor, startling, close",
+        "duration": 2.0
+      },
+      "corte": {
+        "prompt": "heavy fire axe chopping through flesh and bone with a wet crunch, close, horror",
+        "duration": 1.5
+      },
+      "susto_vidro": {
+        "prompt": "a zombie violently slamming its face and hands against a glass door right in front of the listener, loud glass bang and rattle, with a guttural shriek",
+        "duration": 2.0
+      },
+      "susto_alien": {
+        "prompt": "horror jumpscare: an alien creature screeching right into the listener's face, metallic insect-like scream with a violent dissonant synth stab and a deep bass hit, extremely close",
+        "duration": 2.0
+      },
+      "celeiro_queda": {
+        "prompt": "a heavy carcass suddenly falling from the barn rafters onto the wooden floor with a wet thud, dust and creaking wood, startling",
+        "duration": 2.0
+      },
+      "susto_skin": {
+        "prompt": "horror jumpscare: a creature roaring right into the listener's face, a dog bark that twists into a human scream, with a violent dissonant string stab and deep bass hit, extremely close",
+        "duration": 2.0
+      },
+      "susto_saco": {
+        "prompt": "horror jumpscare: an old man shrieking with a raspy wet voice right into the listener's face, burlap sack rustling, violent dissonant string stab and deep bass hit, extremely close",
+        "duration": 2.0
+      },
+      "risada_saco": {
+        "prompt": "muffled small child giggling from inside a burlap sack, slowly turning into a deep old man laughing, creepy, close, quiet night",
+        "duration": 3.5
+      },
+      "motor_falhando": {
+        "prompt": "old car engine sputtering, coughing and dying out of fuel, then silence",
+        "duration": 4.0
+      },
+      "porta_aco": {
+        "prompt": "rusty metal roll-up shop shutter door being pulled down fast, loud rattling steel",
+        "duration": 2.5
+      },
+      "interfone": {
+        "prompt": "apartment intercom buzzer button pressed, harsh electronic buzz followed by static hiss",
+        "duration": 2.0
+      },
+      "galao": {
+        "prompt": "gasoline being poured from a plastic jerrycan into a car fuel tank, glugging liquid",
+        "duration": 4.0
+      },
+      "galo": {
+        "prompt": "a rooster crowing at dawn in the distant countryside, birds chirping",
+        "duration": 4.0
+      }
+    }
   },
-  "bia": {
-   "voice_id": "cgSgspJ2msm6clMCkdW9",
-   "description": "Little girl's voice speaking Brazilian Portuguese, about 7 years old, sweet, scared, whispering.",
-   "settings": {
-    "stability": 0.4,
-    "similarity_boost": 0.75,
-    "style": 0.4,
-    "speed": 1.0
-   },
-   "_obs": "Voice Design bloqueia vozes infantis. Usando a voz pronta \"Jessica\" (jovem, suave) da biblioteca; troque o voice_id se quiser."
+  "ambience": {
+    "model_id": "eleven_text_to_sound_v3",
+    "items": {
+      "escritorio": {
+        "prompt": "quiet office ambience, air conditioning hum, distant keyboard typing, muffled television news in the background",
+        "duration": 15
+      },
+      "tensao": {
+        "prompt": "dark horror drone ambience, low rumble and subtle dissonant tension",
+        "duration": 15
+      },
+      "garagem": {
+        "prompt": "underground parking garage at night, buzzing fluorescent lamp, dripping water, distant echoes",
+        "duration": 15
+      },
+      "carro": {
+        "prompt": "inside a moving car at night, engine hum, road noise, distant police sirens",
+        "duration": 15
+      },
+      "rua": {
+        "prompt": "empty city street at night, wind, distant sirens, faraway screams, buzzing street lamp",
+        "duration": 15
+      },
+      "casa": {
+        "prompt": "silent house at night, clock ticking, refrigerator hum, faint wind outside",
+        "duration": 15
+      },
+      "escolha": {
+        "prompt": "tense ticking clock with a low pulsing heartbeat bass and a rising eerie tone, horror countdown",
+        "duration": 12
+      },
+      "milharal": {
+        "prompt": "cornfield at night, wind rustling through tall corn stalks, crickets, distant low electronic hum",
+        "duration": 15
+      },
+      "quintal_noite": {
+        "prompt": "backyard at night in a small Brazilian countryside town, crickets, soft wind in a mango tree, clothes flapping on a clothesline, very distant dog barking",
+        "duration": 15
+      },
+      "festa_noite": {
+        "prompt": "festa junina at night in a small Brazilian town square, accordion forro music in the distance, crowd chatter, crackling bonfire, occasional firecrackers",
+        "duration": 15
+      },
+      "linha_noite": {
+        "prompt": "railway tracks through an empty field at night, crickets, wind in tall dry grass, very distant festival music fading",
+        "duration": 15
+      },
+      "barraco_noite": {
+        "prompt": "inside an old wooden shack at night, creaking wood, ropes creaking as sacks sway, dripping, faint muffled whimpers",
+        "duration": 15
+      }
+    }
   },
-  "tv": {
-   "voice_id": "2nAf3WkLSGIi4nMdpgjU",
-   "description": "Brazilian Portuguese TV news anchor, male, 45, formal broadcast voice, clear diction, becoming increasingly alarmed.",
-   "settings": {
-    "stability": 0.55,
-    "similarity_boost": 0.8,
-    "style": 0.2,
-    "speed": 1.0
-   }
+  "music": {
+    "model_id": "music_v2_5",
+    "items": {
+      "tema": {
+        "prompt": "Haunting horror main theme, slow detuned music box melody over a deep dark drone, cavernous reverb, eerie and sad, instrumental, seamless loop",
+        "duration": 40
+      },
+      "inquietacao": {
+        "prompt": "Subtle unsettling ambient film score, soft cold synth pads, faint clock ticking, quiet unease before a disaster, minimal, instrumental, seamless loop",
+        "duration": 40
+      },
+      "tensao": {
+        "prompt": "Dark horror film score, slow unsettling drone with low cellos, distant detuned piano notes, subtle metallic scrapes, creeping dread, no drums, cinematic, instrumental, seamless loop",
+        "duration": 30
+      },
+      "espera": {
+        "prompt": "Slow creeping dread horror score, low string clusters, distant muffled thuds, sparse and very dark, night siege, instrumental, seamless loop",
+        "duration": 40
+      },
+      "suspense": {
+        "prompt": "Stealth horror suspense score, slow pulsing sub-bass heartbeat rhythm, high eerie violin harmonics, holding your breath, instrumental, seamless loop",
+        "duration": 40
+      },
+      "perseguicao": {
+        "prompt": "Intense horror chase music, fast pounding taiko percussion, aggressive staccato strings, brass stabs, panic and terror, instrumental, seamless loop",
+        "duration": 40
+      },
+      "estrada": {
+        "prompt": "Dark night driving synth score, steady low analog pulse, melancholic synth melody, apocalyptic city burning, tension, instrumental, seamless loop",
+        "duration": 40
+      },
+      "casa": {
+        "prompt": "Creepy lullaby horror score, slow detuned child's music box and soft piano, airy whisper-like pads, sinister and sad, instrumental, seamless loop",
+        "duration": 45
+      },
+      "final_morte": {
+        "prompt": "Horror death ending cue, dissonant orchestral swell building into a deep boom, then a dark lingering drone fading out, instrumental",
+        "duration": 25
+      },
+      "final_vivo": {
+        "prompt": "Melancholic hopeful ending cue, solo piano and soft warm strings, survivors at dawn after a nightmare, bittersweet, instrumental",
+        "duration": 35
+      },
+      "final_triste": {
+        "prompt": "Tragic horror ending cue, slow cello lament and lonely piano, distant rain, grief, instrumental",
+        "duration": 35
+      },
+      "alien_milharal": {
+        "prompt": "Eerie sci-fi horror ambient score, wavering theremin tones, deep sub-bass hum, night crickets fading, mysterious lights in the sky over a cornfield, instrumental, seamless loop",
+        "duration": 40
+      },
+      "alien_casa": {
+        "prompt": "Claustrophobic sci-fi horror drone, low electrical hum, distant radio static, slow pulsing synth, dread inside an old farmhouse at night, instrumental, seamless loop",
+        "duration": 40
+      },
+      "alien_final": {
+        "prompt": "Tense sci-fi horror confrontation score, dissonant detuned synths, shimmering alien tones, rising tension, heartbeat-like pulse, something is wrong, instrumental, seamless loop",
+        "duration": 40
+      },
+      "skin_quintal": {
+        "prompt": "Eerie rural night horror score, sparse plucked acoustic guitar harmonics, low droning cello, distant wind, uneasy and lonely, something watching from the dark, instrumental, seamless loop",
+        "duration": 40
+      },
+      "skin_casa": {
+        "prompt": "Quiet domestic horror score, soft detuned piano notes, low warm drone that slowly turns cold, faint creaks, unease inside a family home at night, instrumental, seamless loop",
+        "duration": 40
+      },
+      "skin_tensao": {
+        "prompt": "Slow dread horror score, deep breathing-like synth swells, scraping strings, irregular low thumps like footsteps, a predator imitating voices, instrumental, seamless loop",
+        "duration": 40
+      },
+      "skin_caca": {
+        "prompt": "Frantic horror chase score, pounding low drums, screeching atonal strings, animalistic growling textures, panic, instrumental, seamless loop",
+        "duration": 40
+      },
+      "hs_festa": {
+        "prompt": "Eerie Brazilian festa junina score, slow detuned accordion and triangle playing a forro melody that slowly goes out of tune, distant and dreamlike, unsettling, instrumental, seamless loop",
+        "duration": 40
+      },
+      "hs_tensao": {
+        "prompt": "Creeping horror score, sparse detuned accordion notes over low cellos, slow dragging percussion like a heavy sack, dread at night in a small town, instrumental, seamless loop",
+        "duration": 40
+      },
+      "hs_caca": {
+        "prompt": "Frantic horror chase score, pounding drums, frantic accordion stabs and screeching strings, panic, instrumental, seamless loop",
+        "duration": 40
+      },
+      "hs_barraco": {
+        "prompt": "Creepy music box lullaby slightly out of tune with a low drone and wooden creaks, children's nursery rhyme turned sinister, instrumental, seamless loop",
+        "duration": 40
+      }
+    }
   },
-  "sistema": {
-   "voice_id": "5VPn2gBWXLhkXcnVhj1e",
-   "description": "Deep, low, gravelly male narrator voice speaking Brazilian Portuguese, around 55 years old, slow and ominous delivery like a horror movie trailer or true-crime documentary narrator, rich bass, calm and menacing, studio quality.",
-   "settings": {
-    "stability": 0.55,
-    "similarity_boost": 0.8,
-    "style": 0.35,
-    "speed": 0.92
-   },
-   "default_tags": "[slow, low, ominous narration]"
-  },
-  "vo": {
-   "voice_id": "FWfDaMSFTOF6KaXlM56F",
-   "description": "Old Brazilian Portuguese man, 75 years old, farmer from the countryside of Minas Gerais, strong caipira accent, raspy smoker's voice, warm but stern, slow speech.",
-   "settings": {
-    "stability": 0.5,
-    "similarity_boost": 0.8,
-    "style": 0.3,
-    "speed": 0.95
-   }
-  },
-  "lia": {
-   "voice_id": "Ln9LboxiF0avKx2yPHYJ",
-   "description": "Young Brazilian Portuguese woman, 19 years old, energetic and curious, slightly nasal, speaks fast when excited, terrified at times, natural casual tone.",
-   "settings": {
-    "stability": 0.4,
-    "similarity_boost": 0.8,
-    "style": 0.4,
-    "speed": 1.05
-   }
-  },
-  "radio": {
-   "voice_id": "2nAf3WkLSGIi4nMdpgjU",
-   "description": "Brazilian Portuguese TV news anchor, male, 45, formal broadcast voice, clear diction, becoming increasingly alarmed.",
-   "settings": {
-    "stability": 0.55,
-    "similarity_boost": 0.8,
-    "style": 0.2,
-    "speed": 1.0
-   }
-  },
-  "lia_copia": {
-   "voice_id": "Ln9LboxiF0avKx2yPHYJ",
-   "description": "Young Brazilian Portuguese woman, 19 years old, energetic and curious, slightly nasal, speaks fast when excited, terrified at times, natural casual tone.",
-   "settings": {
-    "stability": 0.4,
-    "similarity_boost": 0.8,
-    "style": 0.4,
-    "speed": 1.05
-   }
-  },
-  "vo_copia": {
-   "voice_id": "FWfDaMSFTOF6KaXlM56F",
-   "description": "Old Brazilian Portuguese man, 75 years old, farmer from the countryside of Minas Gerais, strong caipira accent, raspy smoker's voice, warm but stern, slow speech.",
-   "settings": {
-    "stability": 0.5,
-    "similarity_boost": 0.8,
-    "style": 0.3,
-    "speed": 0.95
-   }
-  },
-  "mae": {
-   "voice_id": "vA0uCpG3bW9rYS8usI2M",
-   "description": "Brazilian Portuguese woman, mid 40s, nursing technician and mother from the countryside of São Paulo state, warm but tired voice, slightly hoarse, protective and firm, natural casual tone.",
-   "settings": {
-    "stability": 0.45,
-    "similarity_boost": 0.8,
-    "style": 0.35,
-    "speed": 1.0
-   }
-  },
-  "bento": {
-   "voice_id": "HB84M8qzHUqaGXwaRcSj",
-   "description": "Old Brazilian Portuguese man, 80 years old, born in the backlands of Bahia, northeastern accent, raspy and trembling voice, superstitious, speaks in an urgent low whisper as if afraid of being heard.",
-   "settings": {
-    "stability": 0.45,
-    "similarity_boost": 0.8,
-    "style": 0.35,
-    "speed": 0.95
-   }
-  },
-  "pai": {
-   "voice_id": "8NeRlCCse6i5GAk5sJq4",
-   "description": "Brazilian Portuguese man, late 50s, building security guard, deep gravelly voice, tired but firm, working-class Rio accent.",
-   "settings": {
-    "stability": 0.5,
-    "similarity_boost": 0.8,
-    "style": 0.2,
-    "speed": 0.95
-   },
-   "_obs": "mesma voz do Jorge (vigia noturno)"
-  },
-  "theo": {
-   "voice_id": "cgSgspJ2msm6clMCkdW9",
-   "description": "Young boy's voice speaking Brazilian Portuguese, about 9 years old, sweet and scared.",
-   "settings": {
-    "stability": 0.4,
-    "similarity_boost": 0.75,
-    "style": 0.4,
-    "speed": 1.0
-   },
-   "_obs": "Voice Design bloqueia vozes infantis; usa a voz pronta Jessica, a mesma da Bia."
-  },
-  "theo_falso": {
-   "voice_id": "cgSgspJ2msm6clMCkdW9",
-   "description": "Young boy's voice speaking Brazilian Portuguese, about 9 years old, sweet and scared.",
-   "settings": {
-    "stability": 0.4,
-    "similarity_boost": 0.75,
-    "style": 0.4,
-    "speed": 1.0
-   },
-   "_obs": "Voice Design bloqueia vozes infantis; usa a voz pronta Jessica, a mesma da Bia."
-  },
-  "mae_porta": {
-   "voice_id": "vA0uCpG3bW9rYS8usI2M",
-   "description": "Brazilian Portuguese woman, mid 40s, nursing technician and mother from the countryside of São Paulo state, warm but tired voice, slightly hoarse, protective and firm, natural casual tone.",
-   "settings": {
-    "stability": 0.45,
-    "similarity_boost": 0.8,
-    "style": 0.35,
-    "speed": 1.0
-   }
-  },
-  "mae_falsa": {
-   "voice_id": "vA0uCpG3bW9rYS8usI2M",
-   "description": "Brazilian Portuguese woman, mid 40s, nursing technician and mother from the countryside of São Paulo state, warm but tired voice, slightly hoarse, protective and firm, natural casual tone.",
-   "settings": {
-    "stability": 0.45,
-    "similarity_boost": 0.8,
-    "style": 0.35,
-    "speed": 1.0
-   }
-  },
-  "coisa_mae": {
-   "voice_id": "vA0uCpG3bW9rYS8usI2M",
-   "description": "Brazilian Portuguese woman, mid 40s, nursing technician and mother from the countryside of São Paulo state, warm but tired voice, slightly hoarse, protective and firm, natural casual tone.",
-   "settings": {
-    "stability": 0.45,
-    "similarity_boost": 0.8,
-    "style": 0.35,
-    "speed": 1.0
-   }
-  },
-  "coisa": {
-   "voice_id": "cgSgspJ2msm6clMCkdW9",
-   "description": "Young boy's voice speaking Brazilian Portuguese, about 9 years old, sweet and scared.",
-   "settings": {
-    "stability": 0.4,
-    "similarity_boost": 0.75,
-    "style": 0.4,
-    "speed": 1.0
-   },
-   "_obs": "Voice Design bloqueia vozes infantis; usa a voz pronta Jessica, a mesma da Bia."
-  },
-  "homem": {
-   "voice_id": "N2lVS1w4EtoT3dr4eOWO",
-   "description": "Very old Brazilian Portuguese man, deep raspy and cracked voice, speaks slowly in an eerie sing-song whisper, like an old storyteller humming a folk song by the fire, countryside accent.",
-   "settings": {
-    "stability": 0.45,
-    "similarity_boost": 0.8,
-    "style": 0.45,
-    "speed": 0.9
-   },
-   "_obs": "voz pronta \"Callum\" (limite de vozes personalizadas atingido)"
-  },
-  "lurdes": {
-   "voice_id": "pFZP5JQG7iQjIQuC4Bku",
-   "description": "Old Brazilian Portuguese woman, about 75, from a small town in the countryside, devout churchgoer, soft trembling voice, protective and superstitious, speaks in a worried whisper.",
-   "settings": {
-    "stability": 0.45,
-    "similarity_boost": 0.8,
-    "style": 0.35,
-    "speed": 0.95
-   },
-   "_obs": "voz pronta \"Lily\" (limite de vozes personalizadas atingido)"
-  },
-  "davi": {
-   "voice_id": "cgSgspJ2msm6clMCkdW9",
-   "description": "Young Brazilian Portuguese boy, about 7 years old, sweet voice.",
-   "settings": {
-    "stability": 0.4,
-    "similarity_boost": 0.75,
-    "style": 0.4,
-    "speed": 1.0
-   },
-   "_obs": "voz pronta Jessica (Voice Design bloqueia vozes infantis)"
-  },
-  "saco_falso": {
-   "voice_id": "cgSgspJ2msm6clMCkdW9",
-   "description": "Young Brazilian Portuguese boy, about 7 years old, sweet voice.",
-   "settings": {
-    "stability": 0.4,
-    "similarity_boost": 0.75,
-    "style": 0.4,
-    "speed": 1.0
-   },
-   "_obs": "voz pronta Jessica (Voice Design bloqueia vozes infantis)"
-  },
-  "saco_davi": {
-   "voice_id": "cgSgspJ2msm6clMCkdW9",
-   "description": "Young Brazilian Portuguese boy, about 7 years old, sweet voice.",
-   "settings": {
-    "stability": 0.4,
-    "similarity_boost": 0.75,
-    "style": 0.4,
-    "speed": 1.0
-   },
-   "_obs": "voz pronta Jessica (Voice Design bloqueia vozes infantis)"
-  },
-  "saco_trilho": {
-   "voice_id": "cgSgspJ2msm6clMCkdW9",
-   "description": "Young Brazilian Portuguese boy, about 7 years old, sweet voice.",
-   "settings": {
-    "stability": 0.4,
-    "similarity_boost": 0.75,
-    "style": 0.4,
-    "speed": 1.0
-   },
-   "_obs": "voz pronta Jessica (Voice Design bloqueia vozes infantis)"
-  },
-  "mae_hs": {
-   "voice_id": "RnJZQDPCA6pFZf2UtFek",
-   "description": "Brazilian Portuguese woman, around 40, accountant, frightened and breathless, voice trembling, on the verge of crying.",
-   "settings": {
-    "stability": 0.3,
-    "similarity_boost": 0.75,
-    "style": 0.5,
-    "speed": 1.0
-   }
-  },
-  "mae_falsa_hs": {
-   "voice_id": "RnJZQDPCA6pFZf2UtFek",
-   "description": "Brazilian Portuguese woman, around 40, accountant, frightened and breathless, voice trembling, on the verge of crying.",
-   "settings": {
-    "stability": 0.3,
-    "similarity_boost": 0.75,
-    "style": 0.5,
-    "speed": 1.0
-   }
-  },
-  "enfermeira": {
-   "voice_id": "EXAVITQu4vr4xnSDxMaL",
-   "description": "Brazilian Portuguese nurse in her 40s, exhausted after a night of horror, firm and grim, speaking low through a glass door.",
-   "settings": {
-    "stability": 0.5,
-    "similarity_boost": 0.8,
-    "style": 0.3,
-    "speed": 0.98
-   },
-   "_obs": "voz pronta \"Sarah\" (limite de vozes personalizadas atingido)"
-  }
- },
- "sfx": {
-  "model_id": "eleven_text_to_sound_v3",
-  "items": {
-   "celular": {
-    "prompt": "smartphone vibrating twice on a wooden office desk",
-    "duration": 1.5
-   },
-   "linha_caiu": {
-    "prompt": "phone call disconnected, three short busy tone beeps",
-    "duration": 2.0
-   },
-   "stinger_hit": {
-    "prompt": "sudden horror movie stinger, dissonant orchestral string hit",
-    "duration": 2.0
-   },
-   "stinger_boom": {
-    "prompt": "deep cinematic horror impact boom with long dark reverb tail",
-    "duration": 4.0
-   },
-   "grito": {
-    "prompt": "distant terrified human scream echoing down an office building corridor",
-    "duration": 3.0
-   },
-   "grito_zumbi": {
-    "prompt": "zombie shriek, guttural and wet, close to the listener",
-    "duration": 2.5
-   },
-   "gemido": {
-    "prompt": "low raspy zombie moan in a concrete underground parking garage, echo",
-    "duration": 4.0
-   },
-   "rosnado": {
-    "prompt": "aggressive zombie growl and snarl, close, animalistic",
-    "duration": 2.5
-   },
-   "batidas_vidro": {
-    "prompt": "hands banging repeatedly on a glass office door, muffled, relentless",
-    "duration": 5.0
-   },
-   "passos": {
-    "prompt": "two people running down a concrete emergency stairwell, footsteps echoing",
-    "duration": 4.0
-   },
-   "elevador_ding": {
-    "prompt": "old elevator arrival chime ding in an empty building",
-    "duration": 2.0
-   },
-   "porta_abre": {
-    "prompt": "wooden door slowly creaking open in a silent house, horror",
-    "duration": 3.0
-   },
-   "coracao": {
-    "prompt": "slow heavy heartbeat, tense, close",
-    "duration": 4.0
-   },
-   "longe_grito": {
-    "prompt": "distant terrified scream echoing between city buildings at night",
-    "duration": 4.0
-   },
-   "sirene": {
-    "prompt": "distant police siren passing by in an empty city at night",
-    "duration": 4.0
-   },
-   "helicoptero": {
-    "prompt": "helicopter flying low overhead and fading away",
-    "duration": 4.0
-   },
-   "vidro": {
-    "prompt": "glass window shattering in the distance, echo",
-    "duration": 4.0
-   },
-   "batida_porta": {
-    "prompt": "heavy fists pounding on a wooden door in another room, muffled",
-    "duration": 4.0
-   },
-   "rosnado_longe": {
-    "prompt": "zombie growl far away in the dark, reverb",
-    "duration": 4.0
-   },
-   "ovni_zumbido": {
-    "prompt": "UFO low electronic humming drone swelling and fading, eerie sci-fi",
-    "duration": 4.0
-   },
-   "criatura_grito": {
-    "prompt": "alien creature shriek with insect-like clicking mandibles, close, horror",
-    "duration": 2.5
-   },
-   "tiro": {
-    "prompt": "single old shotgun blast inside a wooden barn, loud, echo",
-    "duration": 2.0
-   },
-   "guizo": {
-    "prompt": "small brass bell on a dog collar jingling softly as a dog walks, quiet night",
-    "duration": 2.0
-   },
-   "arranhao": {
-    "prompt": "dog claws slowly scratching a wooden door from the other side, long deliberate scratches, quiet house",
-    "duration": 4.0
-   },
-   "cachorro_choro": {
-    "prompt": "dog whimpering and whining softly outside a door at night, sad and pleading",
-    "duration": 3.0
-   },
-   "latido": {
-    "prompt": "single deep dog bark outside at night in a backyard, slight echo",
-    "duration": 1.5
-   },
-   "latido_longe": {
-    "prompt": "distant dog barking in a quiet countryside neighborhood at night, echo",
-    "duration": 3.0
-   },
-   "rosnado_cao": {
-    "prompt": "low menacing dog growl, close, aggressive and deep",
-    "duration": 2.5
-   },
-   "ossos": {
-    "prompt": "bones cracking and joints popping, wet stretching of skin, creature contorting, horror",
-    "duration": 2.5
-   },
-   "uivo_humano": {
-    "prompt": "unnatural howl that starts like a dog and turns into a human scream, distant, night, horror",
-    "duration": 4.0
-   },
-   "portao_rangendo": {
-    "prompt": "old metal gate slowly creaking open in a backyard at night",
-    "duration": 2.5
-   },
-   "motor": {
-    "prompt": "old car engine cranking twice, then starting and revving, echoing in an underground parking garage",
-    "duration": 3.5
-   },
-   "saco_arrastando": {
-    "prompt": "heavy burlap sack being dragged slowly over railway gravel at night, something inside it shifting",
-    "duration": 3.0
-   },
-   "trem_apito": {
-    "prompt": "loud old freight train horn blowing in the distance at night, approaching",
-    "duration": 3.0
-   },
-   "trem_passando": {
-    "prompt": "freight train rushing past very close at high speed, loud rumbling wheels on rails, wind",
-    "duration": 4.0
-   },
-   "fogos": {
-    "prompt": "festa junina firecrackers and rockets popping in the distance at night",
-    "duration": 2.5
-   },
-   "choro_crianca": {
-    "prompt": "muffled small child crying softly from inside a cloth sack",
-    "duration": 3.0
-   },
-   "cascalho_passos": {
-    "prompt": "slow heavy footsteps crunching on gravel outside a wooden shack, approaching",
-    "duration": 3.0
-   },
-   "dado_rolando": {
-    "prompt": "a single heavy resin twenty-sided die rolling and tumbling across a wooden table, clattering, then stopping",
-    "duration": 1.6
-   },
-   "dado_sucesso": {
-    "prompt": "short triumphant fantasy chime, bright magical shimmer with a low warm drum hit, success",
-    "duration": 1.5
-   },
-   "dado_falha": {
-    "prompt": "short ominous dark fantasy failure sting, low descending cello and a dull thud",
-    "duration": 1.5
-   },
-   "susto_grito": {
-    "prompt": "horror movie jumpscare: a zombie screaming right into the listener's face, sudden violent orchestral string stab and deep bass impact, harsh and distorted, extremely close",
-    "duration": 2.0
-   },
-   "susto_alarme": {
-    "prompt": "car alarm suddenly blaring very loud in an empty concrete underground parking garage, echoing, startling",
-    "duration": 3.0
-   },
-   "susto_queda": {
-    "prompt": "sudden loud crash in a dark kitchen, pots and plates falling and shattering on a tile floor, startling, close",
-    "duration": 2.0
-   },
-   "corte": {
-    "prompt": "heavy fire axe chopping through flesh and bone with a wet crunch, close, horror",
-    "duration": 1.5
-   },
-   "susto_vidro": {
-    "prompt": "a zombie violently slamming its face and hands against a glass door right in front of the listener, loud glass bang and rattle, with a guttural shriek",
-    "duration": 2.0
-   },
-   "susto_alien": {
-    "prompt": "horror jumpscare: an alien creature screeching right into the listener's face, metallic insect-like scream with a violent dissonant synth stab and a deep bass hit, extremely close",
-    "duration": 2.0
-   },
-   "celeiro_queda": {
-    "prompt": "a heavy carcass suddenly falling from the barn rafters onto the wooden floor with a wet thud, dust and creaking wood, startling",
-    "duration": 2.0
-   },
-   "susto_skin": {
-    "prompt": "horror jumpscare: a creature roaring right into the listener's face, a dog bark that twists into a human scream, with a violent dissonant string stab and deep bass hit, extremely close",
-    "duration": 2.0
-   },
-   "susto_saco": {
-    "prompt": "horror jumpscare: an old man shrieking with a raspy wet voice right into the listener's face, burlap sack rustling, violent dissonant string stab and deep bass hit, extremely close",
-    "duration": 2.0
-   },
-   "risada_saco": {
-    "prompt": "muffled small child giggling from inside a burlap sack, slowly turning into a deep old man laughing, creepy, close, quiet night",
-    "duration": 3.5
-   }
-  }
- },
- "ambience": {
-  "model_id": "eleven_text_to_sound_v3",
-  "items": {
-   "escritorio": {
-    "prompt": "quiet office ambience, air conditioning hum, distant keyboard typing, muffled television news in the background",
-    "duration": 15
-   },
-   "tensao": {
-    "prompt": "dark horror drone ambience, low rumble and subtle dissonant tension",
-    "duration": 15
-   },
-   "garagem": {
-    "prompt": "underground parking garage at night, buzzing fluorescent lamp, dripping water, distant echoes",
-    "duration": 15
-   },
-   "carro": {
-    "prompt": "inside a moving car at night, engine hum, road noise, distant police sirens",
-    "duration": 15
-   },
-   "rua": {
-    "prompt": "empty city street at night, wind, distant sirens, faraway screams, buzzing street lamp",
-    "duration": 15
-   },
-   "casa": {
-    "prompt": "silent house at night, clock ticking, refrigerator hum, faint wind outside",
-    "duration": 15
-   },
-   "escolha": {
-    "prompt": "tense ticking clock with a low pulsing heartbeat bass and a rising eerie tone, horror countdown",
-    "duration": 12
-   },
-   "milharal": {
-    "prompt": "cornfield at night, wind rustling through tall corn stalks, crickets, distant low electronic hum",
-    "duration": 15
-   },
-   "quintal_noite": {
-    "prompt": "backyard at night in a small Brazilian countryside town, crickets, soft wind in a mango tree, clothes flapping on a clothesline, very distant dog barking",
-    "duration": 15
-   },
-   "festa_noite": {
-    "prompt": "festa junina at night in a small Brazilian town square, accordion forro music in the distance, crowd chatter, crackling bonfire, occasional firecrackers",
-    "duration": 15
-   },
-   "linha_noite": {
-    "prompt": "railway tracks through an empty field at night, crickets, wind in tall dry grass, very distant festival music fading",
-    "duration": 15
-   },
-   "barraco_noite": {
-    "prompt": "inside an old wooden shack at night, creaking wood, ropes creaking as sacks sway, dripping, faint muffled whimpers",
-    "duration": 15
-   }
-  }
- },
- "music": {
-  "model_id": "music_v2_5",
-  "items": {
-   "tema": {
-    "prompt": "Haunting horror main theme, slow detuned music box melody over a deep dark drone, cavernous reverb, eerie and sad, instrumental, seamless loop",
-    "duration": 40
-   },
-   "inquietacao": {
-    "prompt": "Subtle unsettling ambient film score, soft cold synth pads, faint clock ticking, quiet unease before a disaster, minimal, instrumental, seamless loop",
-    "duration": 40
-   },
-   "tensao": {
-    "prompt": "Dark horror film score, slow unsettling drone with low cellos, distant detuned piano notes, subtle metallic scrapes, creeping dread, no drums, cinematic, instrumental, seamless loop",
-    "duration": 30
-   },
-   "espera": {
-    "prompt": "Slow creeping dread horror score, low string clusters, distant muffled thuds, sparse and very dark, night siege, instrumental, seamless loop",
-    "duration": 40
-   },
-   "suspense": {
-    "prompt": "Stealth horror suspense score, slow pulsing sub-bass heartbeat rhythm, high eerie violin harmonics, holding your breath, instrumental, seamless loop",
-    "duration": 40
-   },
-   "perseguicao": {
-    "prompt": "Intense horror chase music, fast pounding taiko percussion, aggressive staccato strings, brass stabs, panic and terror, instrumental, seamless loop",
-    "duration": 40
-   },
-   "estrada": {
-    "prompt": "Dark night driving synth score, steady low analog pulse, melancholic synth melody, apocalyptic city burning, tension, instrumental, seamless loop",
-    "duration": 40
-   },
-   "casa": {
-    "prompt": "Creepy lullaby horror score, slow detuned child's music box and soft piano, airy whisper-like pads, sinister and sad, instrumental, seamless loop",
-    "duration": 45
-   },
-   "final_morte": {
-    "prompt": "Horror death ending cue, dissonant orchestral swell building into a deep boom, then a dark lingering drone fading out, instrumental",
-    "duration": 25
-   },
-   "final_vivo": {
-    "prompt": "Melancholic hopeful ending cue, solo piano and soft warm strings, survivors at dawn after a nightmare, bittersweet, instrumental",
-    "duration": 35
-   },
-   "final_triste": {
-    "prompt": "Tragic horror ending cue, slow cello lament and lonely piano, distant rain, grief, instrumental",
-    "duration": 35
-   },
-   "alien_milharal": {
-    "prompt": "Eerie sci-fi horror ambient score, wavering theremin tones, deep sub-bass hum, night crickets fading, mysterious lights in the sky over a cornfield, instrumental, seamless loop",
-    "duration": 40
-   },
-   "alien_casa": {
-    "prompt": "Claustrophobic sci-fi horror drone, low electrical hum, distant radio static, slow pulsing synth, dread inside an old farmhouse at night, instrumental, seamless loop",
-    "duration": 40
-   },
-   "alien_final": {
-    "prompt": "Tense sci-fi horror confrontation score, dissonant detuned synths, shimmering alien tones, rising tension, heartbeat-like pulse, something is wrong, instrumental, seamless loop",
-    "duration": 40
-   },
-   "skin_quintal": {
-    "prompt": "Eerie rural night horror score, sparse plucked acoustic guitar harmonics, low droning cello, distant wind, uneasy and lonely, something watching from the dark, instrumental, seamless loop",
-    "duration": 40
-   },
-   "skin_casa": {
-    "prompt": "Quiet domestic horror score, soft detuned piano notes, low warm drone that slowly turns cold, faint creaks, unease inside a family home at night, instrumental, seamless loop",
-    "duration": 40
-   },
-   "skin_tensao": {
-    "prompt": "Slow dread horror score, deep breathing-like synth swells, scraping strings, irregular low thumps like footsteps, a predator imitating voices, instrumental, seamless loop",
-    "duration": 40
-   },
-   "skin_caca": {
-    "prompt": "Frantic horror chase score, pounding low drums, screeching atonal strings, animalistic growling textures, panic, instrumental, seamless loop",
-    "duration": 40
-   },
-   "hs_festa": {
-    "prompt": "Eerie Brazilian festa junina score, slow detuned accordion and triangle playing a forro melody that slowly goes out of tune, distant and dreamlike, unsettling, instrumental, seamless loop",
-    "duration": 40
-   },
-   "hs_tensao": {
-    "prompt": "Creeping horror score, sparse detuned accordion notes over low cellos, slow dragging percussion like a heavy sack, dread at night in a small town, instrumental, seamless loop",
-    "duration": 40
-   },
-   "hs_caca": {
-    "prompt": "Frantic horror chase score, pounding drums, frantic accordion stabs and screeching strings, panic, instrumental, seamless loop",
-    "duration": 40
-   },
-   "hs_barraco": {
-    "prompt": "Creepy music box lullaby slightly out of tune with a low drone and wooden creaks, children's nursery rhyme turned sinister, instrumental, seamless loop",
-    "duration": 40
-   }
-  }
- },
- "_doc_copias": "mae_porta/mae_falsa/coisa_mae = voz da mae; theo_falso/coisa = voz do theo (o efeito 'errado'/'monstro' é aplicado pelo ffmpeg).",
- "_doc_hs": "Homem do Saco: mãe = voz da Patrícia (personagens mae_hs/mae_falsa_hs no JSON)."
+  "_doc_copias": "mae_porta/mae_falsa/coisa_mae = voz da mae; theo_falso/coisa = voz do theo (o efeito 'errado'/'monstro' é aplicado pelo ffmpeg).",
+  "_doc_hs": "Homem do Saco: mãe = voz da Patrícia (personagens mae_hs/mae_falsa_hs no JSON)."
 }

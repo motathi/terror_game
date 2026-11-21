@@ -69,6 +69,12 @@ static func build(id: String, root: Node3D) -> Dictionary:
 			_hospital(root, cfg)
 		"terreno":
 			_terreno(root, cfg)
+		"condominio":
+			_condominio(root, cfg)
+		"mercadinho":
+			_mercadinho(root, cfg)
+		"estrada":
+			_estrada(root, cfg)
 		_:
 			push_warning("Locations: cenário desconhecido '%s'" % id)
 			box(root, Vector3(10, 0.1, 10), Vector3(0, -0.05, -3), Color(0.1, 0.1, 0.1))
@@ -432,6 +438,22 @@ static func _casa(root: Node3D, cfg: Dictionary) -> void:
 	prop(root, HOUSE + "props/teddybear.glb", Vector3(0.6, 0.06, -3.3), 200)
 	prop(root, HOUSE + "props/painting3.glb", Vector3(0.2, 1.8, -5.85), 0)
 	prop(root, HOUSE + "props/lamp.glb", Vector3(-3.4, 0, 0.2), 0)
+	# vidro da janela (o Capítulo 2 quebra: "no" leva "janela_vidro" embora e traz "janela_cacos")
+	var vidro := glass_pane(root, Vector3(0.03, 1.25, 1.75), Vector3(-3.92, 1.6, -4.0), Color(0.55, 0.65, 0.8, 0.22))
+	vidro.name = "janela_vidro"
+	var cacos := Node3D.new()
+	cacos.name = "janela_cacos"
+	cacos.position = Vector3(0, -40, 0)
+	root.add_child(cacos)
+	var crng := RandomNumberGenerator.new()
+	crng.seed = 404
+	for i in 14:
+		var c := glass_pane(cacos, Vector3(crng.randf_range(0.08, 0.3), 0.01, crng.randf_range(0.06, 0.25)),
+			Vector3(crng.randf_range(-3.8, -2.4), 0.07, crng.randf_range(-4.9, -3.1)), Color(0.7, 0.8, 0.95, 0.5))
+		c.rotation.y = crng.randf() * TAU
+	for i in 3:  # pontas que ficaram presas no caixilho
+		var ponta := glass_pane(cacos, Vector3(0.03, 0.35, 0.25), Vector3(-3.92, 1.1 + i * 0.4, -4.75 + i * 0.6), Color(0.55, 0.65, 0.8, 0.3))
+		ponta.rotation.x = 0.3 * (i - 1)
 	# luar entrando pela janela
 	var moon := SpotLight3D.new()
 	moon.light_color = Color(0.45, 0.55, 0.9)
@@ -718,6 +740,270 @@ static func _avenida(root: Node3D, cfg: Dictionary) -> void:
 	cfg["ambient"] = Color(0.6, 0.48, 0.44)
 	cfg["ambient_energy"] = 1.1
 
+
+
+# --- Zumbi, Capítulo 2 ----------------------------------------------------------
+
+## Palmeira imperial: tronco fino e uma coroa de folhas caídas.
+static func palmeira(root: Node3D, pos: Vector3, h := 6.0) -> void:
+	box(root, Vector3(0.3, h, 0.3), pos + Vector3(0, h * 0.5, 0), Color(0.42, 0.38, 0.32))
+	for i in 7:
+		var a := TAU * i / 7.0
+		var leaf := box(root, Vector3(0.35, 0.05, 2.2), pos + Vector3(cos(a) * 0.9, h - 0.2, sin(a) * 0.9), Color(0.14, 0.26, 0.12))
+		leaf.rotation = Vector3(0.45, -a + PI * 0.5, 0)
+
+
+static func placa(root: Node3D, text: String, pos: Vector3, size: int, color: Color, rot_y := 0.0) -> Label3D:
+	var l := Label3D.new()
+	l.text = text
+	l.font_size = size
+	l.pixel_size = 0.004
+	l.modulate = color
+	l.outline_size = 0
+	l.position = pos
+	l.rotation.y = deg_to_rad(rot_y)
+	root.add_child(l)
+	return l
+
+
+## Beira da estrada, de madrugada, na frente de um condomínio de luxo:
+## o carro sem gasolina no acostamento (nó "carro_familia"), a rua, o muro alto
+## com cerca elétrica, a guarita iluminada com a cancela, as mansões com
+## gerador, e à direita, depois do muro, o mercadinho de porta de aço meio aberta.
+## Lá dentro: a rua interna e a garagem do síndico com a caminhonete ("caminhonete").
+static func _condominio(root: Node3D, cfg: Dictionary) -> void:
+	box(root, Vector3(80, 0.1, 9), Vector3(0, -0.05, -5.5), Color(0.13, 0.13, 0.14))  # estrada
+	for x in range(-36, 38, 3):
+		box(root, Vector3(1.2, 0.01, 0.15), Vector3(x, 0.01, -5.5), Color(0.75, 0.7, 0.5))
+	box(root, Vector3(80, 0.12, 6), Vector3(0, 0.0, 2.5), Color(0.2, 0.19, 0.15))  # acostamento de terra
+	box(root, Vector3(80, 0.2, 2.2), Vector3(0, 0.1, -11.1), Color(0.4, 0.4, 0.38))  # calçada do condomínio
+	box(root, Vector3(80, 0.1, 40), Vector3(0, -0.06, -32), Color(0.13, 0.2, 0.11))  # gramado lá dentro
+	# muro de 4 m com cerca elétrica, com o vão da portaria entre x -3 e 3
+	var muro := Color(0.62, 0.6, 0.55)
+	box(root, Vector3(25, 4.0, 0.5), Vector3(-15.5, 2.0, -12.4), muro)
+	box(root, Vector3(5, 4.0, 0.5), Vector3(5.5, 2.0, -12.4), muro)
+	for x in range(-27, 9, 2):
+		if x > -4 and x < 4:
+			continue
+		box(root, Vector3(0.05, 0.8, 0.05), Vector3(x, 4.4, -12.4), Color(0.3, 0.3, 0.3))
+	for y in [4.2, 4.45, 4.7]:
+		box(root, Vector3(25, 0.015, 0.015), Vector3(-15.5, y, -12.4), Color(0.6, 0.6, 0.6))
+		box(root, Vector3(5, 0.015, 0.015), Vector3(5.5, y, -12.4), Color(0.6, 0.6, 0.6))
+	placa(root, "RESIDENCIAL VALE IMPERIAL", Vector3(-9.0, 2.9, -12.1), 150, Color(0.95, 0.8, 0.45))
+	var luz_placa := omni(root, Vector3(-9.0, 1.6, -10.8), Color(1.0, 0.85, 0.6), 1.6, 5.0)
+	luz_placa.name = "luz_placa"
+	# guarita de vidro (esquerda do portão) com a luz falhando e o interfone na frente
+	box(root, Vector3(2.6, 0.9, 2.4), Vector3(-4.6, 0.45, -11.4), Color(0.5, 0.48, 0.44))
+	box(root, Vector3(3.0, 0.2, 2.8), Vector3(-4.6, 2.9, -11.4), Color(0.25, 0.25, 0.27))
+	glass_pane(root, Vector3(2.6, 1.9, 0.04), Vector3(-4.6, 1.85, -10.22), Color(0.4, 0.5, 0.45, 0.3))
+	glass_pane(root, Vector3(0.04, 1.9, 2.4), Vector3(-3.32, 1.85, -11.4), Color(0.4, 0.5, 0.45, 0.3))
+	for i in 4:  # marcas de mão por dentro do vidro
+		box(root, Vector3(0.12, 0.16, 0.01), Vector3(-5.4 + i * 0.5, 1.4 + (i % 2) * 0.35, -10.25), Color(0.35, 0.03, 0.03))
+	var guarita := omni(root, Vector3(-4.6, 2.5, -11.4), Color(0.75, 1.0, 0.85), 1.4, 4.5)
+	guarita.name = "luz_guarita"
+	guarita.add_child(Flicker.new(0.8, 6.0))
+	box(root, Vector3(0.18, 1.3, 0.18), Vector3(-2.4, 0.65, -9.6), Color(0.25, 0.25, 0.27))  # poste do interfone
+	box(root, Vector3(0.26, 0.36, 0.1), Vector3(-2.4, 1.4, -9.55), Color(0.15, 0.15, 0.16))
+	var led := box(root, Vector3(0.06, 0.03, 0.02), Vector3(-2.4, 1.52, -9.49), Color(1.0, 0.15, 0.1), 3.0)
+	led.name = "interfone_led"
+	led.add_child(Blink.new())
+	# cancela listrada e portão de ferro atrás
+	var cancela := Node3D.new()
+	cancela.name = "cancela"
+	cancela.position = Vector3(-2.8, 1.0, -10.4)
+	root.add_child(cancela)
+	for i in 6:
+		box(cancela, Vector3(0.9, 0.1, 0.1), Vector3(0.45 + i * 0.9, 0, 0), Color(0.9, 0.1, 0.08) if i % 2 == 0 else Color(0.92, 0.92, 0.9))
+	box(root, Vector3(0.3, 1.0, 0.3), Vector3(-2.8, 0.5, -10.4), Color(0.85, 0.75, 0.2))
+	var portao := Node3D.new()
+	portao.name = "portao"
+	portao.position = Vector3(0, 0, -12.4)
+	root.add_child(portao)
+	for x in range(-14, 15):
+		box(portao, Vector3(0.05, 3.2, 0.05), Vector3(x * 0.2, 1.6, 0), Color(0.12, 0.12, 0.13))
+	for y in [0.3, 1.6, 3.0]:
+		box(portao, Vector3(6, 0.08, 0.06), Vector3(0, y, 0), Color(0.12, 0.12, 0.13))
+	# lá dentro: rua interna, palmeiras e mansões acesas (gerador)
+	box(root, Vector3(6, 0.02, 30), Vector3(0, 0.0, -28), Color(0.25, 0.25, 0.26))
+	for z in [-15.0, -21.0, -27.0, -33.0]:
+		palmeira(root, Vector3(-4.0, 0, z), 6.5)
+		palmeira(root, Vector3(4.0, 0, z), 6.0)
+	for m in [[-13.0, -20.0], [12.0, -19.0], [-14.0, -34.0], [13.0, -33.0]]:
+		box(root, Vector3(10, 4, 8), Vector3(m[0], 2.0, m[1]), Color(0.8, 0.78, 0.72))
+		box(root, Vector3(7, 3, 6), Vector3(m[0] + 1.0, 5.5, m[1] - 0.5), Color(0.75, 0.73, 0.68))
+		box(root, Vector3(11, 0.25, 9), Vector3(m[0], 4.1, m[1]), Color(0.3, 0.3, 0.3))
+		for w in 3:
+			box(root, Vector3(1.6, 1.2, 0.05), Vector3(m[0] - 3.0 + w * 3.0, 2.2, m[1] + 4.02), Color(1.0, 0.85, 0.55), 1.6)
+		omni(root, Vector3(m[0], 3.0, m[1] + 5.0), Color(1.0, 0.85, 0.6), 1.4, 7.0)
+	# casa do síndico no fim da rua, garagem aberta com a caminhonete
+	box(root, Vector3(12, 4.5, 8), Vector3(0, 2.25, -44), Color(0.82, 0.8, 0.75))
+	box(root, Vector3(13, 0.3, 9), Vector3(0, 4.6, -44), Color(0.3, 0.3, 0.3))
+	box(root, Vector3(4.2, 3.0, 0.1), Vector3(-3.0, 1.5, -39.9), Color(0.06, 0.06, 0.07))  # vão da garagem
+	box(root, Vector3(1.4, 1.6, 0.05), Vector3(3.0, 2.4, -39.95), Color(1.0, 0.8, 0.5), 1.5)
+	var pickup := car_node(root, Vector3(-3.0, 0, -41.5), 0.0, Color(0.1, 0.1, 0.12))
+	pickup.name = "caminhonete"
+	omni(root, Vector3(-3.0, 2.8, -40.5), Color(1.0, 0.95, 0.85), 1.5, 5.0)
+	# o mercadinho, à direita, depois do muro
+	var merc := Color(0.55, 0.45, 0.32)
+	box(root, Vector3(7, 4.0, 5), Vector3(13.5, 2.0, -13.4), merc)
+	box(root, Vector3(3.0, 1.1, 0.06), Vector3(13.0, 2.75, -10.88), Color(0.5, 0.5, 0.52))  # porta de aço meio aberta
+	for y in [2.3, 2.5, 2.7, 2.9, 3.1]:
+		box(root, Vector3(3.0, 0.02, 0.08), Vector3(13.0, y, -10.85), Color(0.35, 0.35, 0.37))
+	box(root, Vector3(3.0, 2.2, 0.05), Vector3(13.0, 1.1, -10.92), Color(0.03, 0.03, 0.03))  # escuro lá dentro
+	var neon := placa(root, "MERCADINHO SÃO JORGE", Vector3(13.5, 3.6, -10.8), 110, Color(0.4, 1.0, 0.5))
+	neon.name = "neon"
+	var nl := omni(root, Vector3(13.5, 3.4, -9.8), Color(0.4, 1.0, 0.5), 1.4, 5.0)
+	nl.add_child(Flicker.new(0.95, 4.0))
+	box(root, Vector3(0.7, 0.06, 0.05), Vector3(15.6, 0.03, -10.4), Color(0.4, 0.02, 0.02))  # rastro de sangue
+	box(root, Vector3(0.3, 0.02, 1.4), Vector3(14.6, 0.12, -10.0), Color(0.35, 0.02, 0.02))
+	# postes do nosso lado, um apagando
+	for i in 5:
+		var x := -16.0 + i * 9.0
+		box(root, Vector3(0.14, 5.5, 0.14), Vector3(x, 2.75, 0.6), Color(0.28, 0.28, 0.28))
+		box(root, Vector3(0.9, 0.1, 0.12), Vector3(x, 5.45, 0.2), Color(0.28, 0.28, 0.28))
+		var l := omni(root, Vector3(x, 5.2, -0.3), Color(1.0, 0.75, 0.45), 2.0, 10.0)
+		l.name = "poste_%d" % (i + 1)
+		if i == 2:
+			l.add_child(Flicker.new(0.95, 3.0))
+	# o carro da família, parado no acostamento com o pisca-alerta
+	var car_f := car_node(root, Vector3(-3.4, 0, 1.6), 90.0, Color(0.5, 0.5, 0.55))
+	car_f.name = "carro_familia"
+	for z in [-0.75, 0.75]:
+		var pisca := box(car_f, Vector3(0.18, 0.1, 0.05), Vector3(z, 0.8, -2.36), Color(1.0, 0.6, 0.1), 3.0)
+		pisca.add_child(Blink.new())
+	var moon := DirectionalLight3D.new()
+	moon.light_color = Color(0.55, 0.6, 0.85)
+	moon.light_energy = 0.45
+	moon.rotation_degrees = Vector3(-40, 20, 0)
+	root.add_child(moon)
+	cfg["camera_pos"] = Vector3(0.6, 1.62, 0.8)
+	cfg["camera_look"] = Vector3(-1.5, 1.6, -11.0)
+	cfg["slot_dist"] = 2.6
+	cfg["center_dist"] = 7.0
+	cfg["fog_density"] = 0.022
+	cfg["fog_color"] = Color(0.05, 0.05, 0.07)
+	cfg["ambient"] = Color(0.45, 0.47, 0.6)
+	cfg["ambient_energy"] = 0.65
+
+
+## Dentro do mercadinho: duas gôndolas (uma tombada), geladeiras acesas na
+## parede, o balcão no fundo com o galão vermelho atrás e a porta da câmara
+## fria ("porta_camara") presa com corrente. Lâmpadas fluorescentes falhando.
+static func _mercadinho(root: Node3D, cfg: Dictionary) -> void:
+	box(root, Vector3(9, 0.1, 14), Vector3(0, -0.05, -5), Color(0.5, 0.5, 0.46))  # piso
+	for i in 9:  # lajotas
+		box(root, Vector3(9, 0.005, 0.03), Vector3(0, 0.002, 1 - i * 1.4), Color(0.35, 0.35, 0.32))
+	box(root, Vector3(9, 0.1, 14), Vector3(0, 3.2, -5), Color(0.6, 0.6, 0.58))  # forro
+	var parede := Color(0.72, 0.7, 0.6)
+	box(root, Vector3(0.2, 3.2, 14), Vector3(-4.5, 1.6, -5), parede)
+	box(root, Vector3(0.2, 3.2, 14), Vector3(4.5, 1.6, -5), parede)
+	box(root, Vector3(9, 3.2, 0.2), Vector3(0, 1.6, -11.9), parede)
+	box(root, Vector3(9, 1.1, 0.2), Vector3(0, 2.65, 1.9), Color(0.45, 0.45, 0.47))  # porta de aço meio aberta (atrás)
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 55
+	var cores := [Color(0.85, 0.2, 0.15), Color(0.95, 0.8, 0.2), Color(0.2, 0.45, 0.85), Color(0.3, 0.7, 0.3), Color(0.9, 0.9, 0.85), Color(0.9, 0.5, 0.15)]
+	# gôndolas
+	for g in [[-1.5, 0.0], [1.6, 0.0]]:
+		var gx: float = g[0]
+		box(root, Vector3(0.6, 1.8, 5.0), Vector3(gx, 0.9, -4.6), Color(0.75, 0.75, 0.78))
+		for lvl in 4:
+			for k in 14:
+				var y := 0.25 + lvl * 0.42
+				for side in [-1, 1]:
+					if rng.randf() < 0.3:
+						continue  # prateleira saqueada
+					box(root, Vector3(0.18, rng.randf_range(0.15, 0.3), 0.25), Vector3(gx + side * 0.34, y + 0.1, -2.4 - k * 0.32), cores[rng.randi() % cores.size()])
+	# terceira gôndola tombada no corredor da direita, produtos espalhados
+	var tomb := box(root, Vector3(0.6, 1.8, 3.0), Vector3(3.3, 0.32, -6.5), Color(0.7, 0.7, 0.72))
+	tomb.rotation_degrees = Vector3(0, 8, 78)
+	for i in 22:
+		var b := box(root, Vector3(0.18, 0.12, 0.22), Vector3(rng.randf_range(-0.8, 4.0), 0.06, rng.randf_range(-8.0, -2.0)), cores[rng.randi() % cores.size()])
+		b.rotation.y = rng.randf() * TAU
+	# geladeiras na parede da esquerda
+	for i in 4:
+		var z := -2.4 - i * 1.3
+		box(root, Vector3(0.7, 2.1, 1.2), Vector3(-4.05, 1.05, z), Color(0.85, 0.85, 0.88))
+		box(root, Vector3(0.04, 1.7, 1.0), Vector3(-3.68, 1.1, z), Color(0.75, 0.9, 1.0), 0.9)
+	var gel := omni(root, Vector3(-3.0, 1.2, -4.4), Color(0.7, 0.9, 1.0), 1.0, 4.0)
+	gel.name = "luz_geladeira"
+	# balcão do fundo, caixa registradora, galão vermelho atrás
+	box(root, Vector3(3.0, 1.0, 0.8), Vector3(2.4, 0.5, -9.0), Color(0.45, 0.32, 0.22))
+	box(root, Vector3(0.45, 0.25, 0.4), Vector3(1.6, 1.12, -9.0), Color(0.2, 0.2, 0.22))
+	box(root, Vector3(3.0, 1.6, 0.3), Vector3(2.4, 1.9, -11.6), Color(0.5, 0.36, 0.25))  # prateleira de cigarros
+	var galao := Node3D.new()
+	galao.name = "galao"
+	galao.position = Vector3(3.2, 0, -10.2)
+	root.add_child(galao)
+	box(galao, Vector3(0.36, 0.48, 0.2), Vector3(0, 0.24, 0), Color(0.85, 0.1, 0.08))
+	box(galao, Vector3(0.2, 0.06, 0.06), Vector3(0, 0.52, 0), Color(0.15, 0.15, 0.15))
+	box(galao, Vector3(0.05, 0.12, 0.05), Vector3(0.14, 0.53, 0), Color(0.9, 0.8, 0.2))
+	placa(root, "GASOLINA - GERADOR", Vector3(3.2, 0.32, -10.08), 34, Color(1, 1, 1))
+	# câmara fria / estoque, porta de metal com corrente
+	var porta := Node3D.new()
+	porta.name = "porta_camara"
+	porta.position = Vector3(-1.2, 0, -11.75)
+	root.add_child(porta)
+	box(porta, Vector3(1.6, 2.4, 0.1), Vector3(0, 1.2, 0), Color(0.62, 0.66, 0.68))
+	box(porta, Vector3(0.08, 0.5, 0.1), Vector3(0.6, 1.2, 0.08), Color(0.3, 0.3, 0.32))
+	for ang in [30.0, -30.0]:
+		var ch := box(porta, Vector3(1.4, 0.04, 0.04), Vector3(0, 1.2, 0.12), Color(0.3, 0.3, 0.32))
+		ch.rotation_degrees.z = ang
+	placa(root, "ESTOQUE", Vector3(-1.2, 2.6, -11.68), 60, Color(0.9, 0.2, 0.15))
+	box(root, Vector3(1.0, 0.01, 0.4), Vector3(-1.0, 0.01, -10.8), Color(0.35, 0.02, 0.02))  # sangue saindo por baixo
+	# fluorescentes
+	for z in [-2.0, -6.0, -9.5]:
+		box(root, Vector3(1.4, 0.05, 0.15), Vector3(0, 3.12, z), Color(0.9, 1, 1), 1.5)
+		var l := omni(root, Vector3(0, 2.9, z), Color(0.85, 1.0, 0.9), 1.2, 6.0)
+		if z != -6.0:
+			l.add_child(Flicker.new(0.85, 8.0))
+	cfg["camera_pos"] = Vector3(0, 1.62, 0.6)
+	cfg["camera_look"] = Vector3(0, 1.3, -6.0)
+	cfg["slot_dist"] = 2.6
+	cfg["center_dist"] = 6.5
+	cfg["fog_density"] = 0.03
+	cfg["fog_color"] = Color(0.04, 0.05, 0.04)
+	cfg["ambient"] = Color(0.5, 0.55, 0.5)
+	cfg["ambient_energy"] = 0.55
+
+
+## Estrada de interior ao amanhecer: duas faixas, pasto, cerca de arame e o
+## carro ("carro_fuga") que a cena pode mover. Céu clareando, laranja.
+static func _estrada(root: Node3D, cfg: Dictionary) -> void:
+	box(root, Vector3(7, 0.1, 160), Vector3(0, -0.05, -50), Color(0.2, 0.2, 0.21))
+	for z in range(20, -130, -4):
+		box(root, Vector3(0.15, 0.01, 1.6), Vector3(0, 0.01, z), Color(0.85, 0.75, 0.3))
+	box(root, Vector3(120, 0.1, 160), Vector3(0, -0.08, -50), Color(0.3, 0.32, 0.16))
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 909
+	for side in [-1, 1]:
+		for i in 40:
+			var z := 18.0 - i * 3.5
+			box(root, Vector3(0.1, 1.1, 0.1), Vector3(side * 5.5, 0.55, z), Color(0.35, 0.28, 0.2))
+		for y in [0.6, 0.95]:
+			box(root, Vector3(0.02, 0.02, 140), Vector3(side * 5.5, y, -50), Color(0.5, 0.5, 0.5))
+		for i in 12:
+			var t := Vector3(side * rng.randf_range(10.0, 40.0), 0, rng.randf_range(-110.0, 10.0))
+			var h := rng.randf_range(2.5, 5.0)
+			box(root, Vector3(0.3, h, 0.3), t + Vector3(0, h * 0.5, 0), Color(0.25, 0.2, 0.15))
+			box(root, Vector3(2.6, 2.0, 2.6), t + Vector3(0, h + 0.6, 0), Color(0.15, 0.25, 0.12))
+	box(root, Vector3(200, 14, 1), Vector3(0, 0.0, -140), Color(1.0, 0.6, 0.3), 1.2)  # horizonte clareando
+	var sun := DirectionalLight3D.new()
+	sun.light_color = Color(1.0, 0.7, 0.45)
+	sun.light_energy = 0.9
+	sun.rotation_degrees = Vector3(-10, 170, 0)
+	root.add_child(sun)
+	var car_e := car_node(root, Vector3(1.4, 0, 6.0), 180.0, Color(0.5, 0.5, 0.55))
+	car_e.name = "carro_fuga"
+	for x in [-0.62, 0.62]:
+		box(car_e, Vector3(0.28, 0.14, 0.05), Vector3(x, 0.8, -2.36), Color(1, 0.05, 0.05), 3.0)
+	cfg["camera_pos"] = Vector3(-1.5, 1.6, 14.0)
+	cfg["camera_look"] = Vector3(0.5, 1.0, 0.0)
+	cfg["hands"] = false
+	cfg["center_dist"] = 8.0
+	cfg["fog_density"] = 0.012
+	cfg["fog_color"] = Color(0.6, 0.4, 0.3)
+	cfg["ambient"] = Color(0.8, 0.65, 0.55)
+	cfg["ambient_energy"] = 0.9
 
 # --- Homem do Saco -------------------------------------------------------------
 
