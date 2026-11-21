@@ -5297,7 +5297,7 @@
      "patricia_z": {
       "name": "",
       "model": "nurse",
-      "tint": "#6f8a66"
+      "tint": "#5a7454"
      }
     },
     "dur": 8,
@@ -5684,7 +5684,7 @@
      "marina_z": {
       "name": "",
       "model": "nurse",
-      "tint": "#7a9478"
+      "tint": "#5a7454"
      }
     },
     "maos": true,
@@ -5923,7 +5923,7 @@
      "rafael_z": {
       "name": "",
       "model": "office_worker",
-      "tint": "#6d8566"
+      "tint": "#5a7454"
      }
     },
     "dur": 10,

@@ -355,8 +355,9 @@ func _scare_hold(k: float, a: Actor, o: Dictionary, face: float) -> void:
 ## O impacto do susto: tranco na câmera, mãos recuando e (opcional) flash vermelho.
 ## Sozinho serve para sustos sem monstro (alarme, algo caindo).
 func scare_impact(red := true) -> void:
-	shake(0.22)
+	shake(0.1)
 	flinch_hands()
+	post_tween("static_amount", 0.75, 0.0, 0.6)  # chiado de estática no impacto
 	if red:
 		post_tween("flash", 1.0, 0.0, 0.7)
 
