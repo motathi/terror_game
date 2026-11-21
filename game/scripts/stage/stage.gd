@@ -316,6 +316,8 @@ func jumpscare(char_id: String, def: Dictionary, o: Dictionary) -> void:
 	a.set_name_visible(false)
 	a._current_anim = ""
 	a.play(o.get("anim", "ZombieAttack"), 0.0)  # sem transição: nada de pose T no primeiro quadro
+	if a.anim_player:
+		a.anim_player.advance(0.0)  # aplica a pose já neste quadro
 	a.key.light_energy = 1.8
 	a.key.omni_range = 3.0
 	_cine_extra.append(a)
@@ -357,9 +359,9 @@ func _scare_hold(k: float, a: Actor, o: Dictionary, face: float) -> void:
 func scare_impact(red := true) -> void:
 	shake(0.1)
 	flinch_hands()
-	post_tween("static_amount", 0.75, 0.0, 0.6)  # chiado de estática no impacto
+	post_tween("static_amount", 0.35, 0.0, 0.35)  # chiado de estática no impacto
 	if red:
-		post_tween("flash", 1.0, 0.0, 0.7)
+		post_tween("flash", 0.55, 0.0, 0.45)  # vermelho rápido: o rosto tem que aparecer
 
 
 func flinch_hands() -> void:
