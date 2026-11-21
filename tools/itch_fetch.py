@@ -15,6 +15,7 @@ import json
 import os
 import re
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -29,14 +30,31 @@ def _opener():
     return op
 
 
+def _open(op, req, timeout):
+    """Abre com novas tentativas: o itch.io responde 429 quando há muitos builds seguidos."""
+    for attempt in range(6):
+        try:
+            return op.open(req, timeout=timeout)
+        except urllib.error.HTTPError as e:
+            if e.code not in (429, 500, 502, 503, 504) or attempt == 5:
+                raise
+            wait = int(e.headers.get("Retry-After") or 0) or 10 * 2 ** attempt
+            print(f"  itch.io respondeu {e.code}; nova tentativa em {wait}s")
+            time.sleep(min(wait, 120))
+        except urllib.error.URLError:
+            if attempt == 5:
+                raise
+            time.sleep(10 * 2 ** attempt)
+
+
 def _get(op, url):
-    with op.open(url, timeout=60) as r:
+    with _open(op, url, 60) as r:
         return r.read().decode("utf-8", "replace")
 
 
 def _post_json(op, url, data):
     body = urllib.parse.urlencode(data).encode()
-    with op.open(urllib.request.Request(url, data=body, method="POST"), timeout=60) as r:
+    with _open(op, urllib.request.Request(url, data=body, method="POST"), 60) as r:
         return json.loads(r.read().decode())
 
 
@@ -103,7 +121,7 @@ def fetch(url, dest, only=None):
             print(f"  ERRO {name}: {r}")
             continue
         out = os.path.join(dest, os.path.basename(name))
-        with op.open(r["url"], timeout=300) as resp, open(out, "wb") as f:
+        with _open(op, r["url"], 300) as resp, open(out, "wb") as f:
             while chunk := resp.read(1 << 16):
                 f.write(chunk)
         print(f"  ok  {out} ({os.path.getsize(out)} bytes)")

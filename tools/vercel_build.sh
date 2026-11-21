@@ -50,7 +50,16 @@ if [ ! -f "$TPL_DIR/web_nothreads_release.zip" ]; then
 fi
 
 echo ">> Assets de terceiros"
-python3 "$ROOT/tools/fetch_assets.py" || echo "AVISO: fetch_assets falhou; o build segue com modelos provisórios."
+# Sem os pacotes o jogo sai com modelos provisórios (esferas): melhor falhar o build
+# e manter no ar a versão anterior. ALLOW_PLACEHOLDERS=1 libera (testes).
+if ! python3 "$ROOT/tools/fetch_assets.py"; then
+  if [ "${ALLOW_PLACEHOLDERS:-0}" = "1" ]; then
+    echo "AVISO: fetch_assets falhou; o build segue com modelos provisórios."
+  else
+    echo "ERRO: fetch_assets falhou (itch.io fora do ar ou limitando downloads). Build cancelado para não publicar modelos provisórios."
+    exit 1
+  fi
+fi
 
 echo ">> Importando projeto"
 "$GODOT" --headless --path "$ROOT/game" --import 2>&1 \
