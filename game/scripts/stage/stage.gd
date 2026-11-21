@@ -319,7 +319,7 @@ func jumpscare(char_id: String, def: Dictionary, o: Dictionary) -> void:
 	_cine_extra.append(a)
 	var origin := _cam_base.origin
 	var fwd := -_cam_base.basis.z
-	var face := _model_top(a) - 0.13
+	var face := _face_height(a)
 	var start := origin + fwd * float(o.get("de", 2.2)) + _cam_base.basis.x * float(o.get("lado", 0.0)) \
 		+ Vector3.UP * float(o.get("de_cima", 0.0))
 	var end := origin + fwd * float(o.get("ate", 0.5))
@@ -371,15 +371,27 @@ func _scare_end(a: Actor, fade_in: bool) -> void:
 		post_tween("blackout", 1.0, 0.0, 0.45)
 
 
-## Altura do topo do modelo (para pôr o rosto no centro da tela).
-func _model_top(a: Actor) -> float:
+## Altura do rosto acima dos pés (para pôr o rosto no centro da tela): pelo osso
+## da cabeça do esqueleto; sem esqueleto, pela caixa do modelo.
+func _face_height(a: Actor) -> float:
+	for sk in a.model.find_children("*", "Skeleton3D", true, false):
+		var skel := sk as Skeleton3D
+		for i in skel.get_bone_count():
+			var bn := skel.get_bone_name(i).to_lower()
+			if bn.ends_with("head") or bn == "head" or bn.contains("head") and not bn.contains("end") and not bn.contains("top"):
+				var p := skel.global_transform * skel.get_bone_global_rest(i).origin
+				var h := p.y - a.global_position.y
+				if h > 0.4 and h < 2.6:
+					print("[susto] rosto pelo osso ", skel.get_bone_name(i), ": ", snappedf(h, 0.01))
+					return h + 0.07
 	var top := 0.0
 	var inv := a.global_transform.affine_inverse()
 	for n in a.model.find_children("*", "MeshInstance3D", true, false):
 		var mi := n as MeshInstance3D
 		var box: AABB = inv * mi.global_transform * mi.get_aabb()
 		top = maxf(top, box.end.y)
-	return clampf(top, 0.9, 2.4) if top > 0.0 else 1.7
+	print("[susto] rosto pela caixa: ", snappedf(top, 0.01))
+	return clampf(top, 0.9, 2.4) - 0.13 if top > 0.0 else 1.55
 
 
 func flicker_lights(duration: float) -> void:
