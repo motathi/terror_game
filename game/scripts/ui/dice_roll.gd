@@ -172,10 +172,16 @@ func _wait_timeout(id: int) -> void:
 		tapped.emit()
 
 
-func _gui_input(event: InputEvent) -> void:
-	var pressed: bool = (event is InputEventScreenTouch and event.pressed) or (event is InputEventMouseButton and event.pressed)
-	if pressed and _waiting:
-		accept_event()
+## O overlay cobre a tela toda: qualquer toque (ou clique/tecla) conta, mesmo que
+## a GUI ainda esteja presa ao botão da escolha que acabou de sumir.
+func _input(event: InputEvent) -> void:
+	var pressed: bool = (event is InputEventScreenTouch and event.pressed) \
+		or (event is InputEventMouseButton and event.pressed) \
+		or event.is_action_pressed("ui_accept")
+	if not pressed:
+		return
+	get_viewport().set_input_as_handled()
+	if _waiting:
 		tapped.emit()
 
 
