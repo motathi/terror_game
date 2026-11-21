@@ -133,10 +133,9 @@ As mesmas ações valem nas cinemáticas dos finais (`"passos"`).
 `"maos_ocultas": { "esquerda": "sem_braco" }` no topo da história: em toda cena, a mão daquele lado da tela some enquanto a condição valer.
 
 ## Teste de dado (estilo Baldur's Gate)
-Uma opção pode virar um teste: o jogador rola um d20, soma os modificadores e precisa alcançar a Classe de Dificuldade (CD).
+Uma opção pode virar um teste de dado. Para o jogador é simples: a opção aparece em dourado como `[DADO]  texto` e a tela pede "Tire N ou mais" no d20. Esse N é calculado da CD menos o atributo e os modificadores da cena (nada disso aparece na tela; serve para ajustar a dificuldade). N fica entre 2 e 20.
 - O 20 natural sempre passa e o 1 natural sempre falha.
 - Com vantagem rolam dois dados e vale o maior; com desvantagem, vale o menor.
-- O botão aparece dourado como `[AGILIDADE · CD 12]  texto`.
 
 ```jsonc
 "atributos": {                                       // no topo da história: base de cada atributo

@@ -178,8 +178,7 @@ func _do_choice(node: Dictionary) -> Dictionary:
 	var gold: Array = []
 	for o in _current_choice_options:
 		if o.has("teste"):
-			var info := runner.test_info(o["teste"])
-			labels.append("[%s · CD %d]  %s" % [String(info["nome"]).to_upper(), info["cd"], o["text"]])
+			labels.append("[DADO]  %s" % o["text"])
 			gold.append(true)
 		else:
 			labels.append(o["text"])

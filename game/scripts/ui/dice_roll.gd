@@ -1,12 +1,12 @@
 extends Control
-## Teste de dado estilo Baldur's Gate: d20 + modificadores contra a Classe de
-## Dificuldade (CD). O jogador toca para rolar; o dado gira, para, e a tela
-## mostra o total, SUCESSO/FALHA (20 natural sempre passa, 1 natural sempre
-## falha). Com vantagem rolam dois dados e vale o maior; com desvantagem, o menor.
+## Teste de dado: role o d20 e tire o número da tela ou mais. O jogador toca
+## para rolar; o dado gira, para, e a tela mostra o número e SUCESSO/FALHA
+## (20 sempre passa, 1 sempre falha). Com vantagem rolam dois dados e vale o
+## maior; com desvantagem, o menor.
 ##
 ## Uso: var r: int = await DiceRoll.new().run(parent, info)
 ## r: 2 = sucesso crítico (20 natural), 1 = sucesso, 0 = falha, -1 = falha crítica (1 natural)
-## info = {"nome": "Agilidade", "cd": 12, "mods": [{"texto", "valor"}], "vantagem", "desvantagem"}
+## info = {"alvo": 12, "vantagem": bool, "desvantagem": bool}  (StoryRunner.test_info)
 
 signal tapped
 
@@ -19,7 +19,6 @@ const ROLL_TIME := 1.35
 var _dice: Array = []
 var _title: Label
 var _dc: Label
-var _mods: Label
 var _total: Label
 var _result: Label
 var _hint: Label
@@ -44,12 +43,8 @@ func run(parent: Node, info: Dictionary) -> int:
 		for i in 2:
 			if rolls[i] != used or (i == 1 and rolls[0] == rolls[1]):
 				_dice[i].dim = true
-	var bonus := 0
-	for m in info.get("mods", []):
-		bonus += int(m.get("valor", 0))
-	var total := used + bonus
-	var cd := int(info.get("cd", 10))
-	var success := total >= cd
+	var alvo := int(info.get("alvo", 10))
+	var success := used >= alvo
 	var label := "SUCESSO" if success else "FALHA"
 	if used == 20:
 		success = true
@@ -57,8 +52,8 @@ func run(parent: Node, info: Dictionary) -> int:
 	elif used == 1:
 		success = false
 		label = "FALHA CRÍTICA"
-	print("[dado] %s CD %d: d20=%d %+d = %d -> %s" % [info.get("nome", ""), cd, used, bonus, total, label])
-	_total.text = "%d %s %d = %d" % [used, "+" if bonus >= 0 else "−", absi(bonus), total]
+	print("[dado] %s: precisa de %d, tirou %d -> %s" % [info.get("nome", ""), alvo, used, label])
+	_total.text = "Tirou %d" % used
 	_total.visible = true
 	_result.text = label
 	_result.add_theme_color_override("font_color", GREEN if success else UI.RED)
@@ -105,9 +100,9 @@ func _build(info: Dictionary) -> void:
 	box.add_theme_constant_override("separation", 18)
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(box)
-	_title = UI.label("TESTE DE %s" % String(info.get("nome", "")).to_upper(), 48, GOLD, true)
+	_title = UI.label("ROLE O DADO", 52, GOLD, true)
 	box.add_child(_title)
-	_dc = UI.label("Classe de Dificuldade  %d" % int(info.get("cd", 10)), 46, UI.WHITE)
+	_dc = UI.label("Tire %d ou mais" % int(info.get("alvo", 10)), 50, UI.WHITE)
 	box.add_child(_dc)
 	var row := HBoxContainer.new()
 	row.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -120,13 +115,7 @@ func _build(info: Dictionary) -> void:
 		row.add_child(d)
 		_dice.append(d)
 	if two:
-		box.add_child(UI.label("VANTAGEM: vale o maior" if info.get("vantagem", false) else "DESVANTAGEM: vale o menor", 40, GOLD))
-	var lines: PackedStringArray = []
-	for m in info.get("mods", []):
-		var v := int(m.get("valor", 0))
-		lines.append("%s%d  %s" % ["+" if v >= 0 else "−", absi(v), m.get("texto", "")])
-	_mods = UI.label("\n".join(lines), 42, Color(0.78, 0.78, 0.74))
-	box.add_child(_mods)
+		box.add_child(UI.label("Dois dados: vale o maior" if info.get("vantagem", false) else "Dois dados: vale o menor", 40, GOLD))
 	_total = UI.label("", 64, UI.WHITE, true)
 	_total.visible = false
 	box.add_child(_total)

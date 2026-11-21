@@ -93,18 +93,18 @@ func choose(option: Dictionary) -> Dictionary:
 ## Teste de dado numa opção ("teste"): calcula o que entra na rolagem.
 ## Retorna {"nome", "cd", "mods": [{"texto", "valor"}], "vantagem", "desvantagem"}.
 func test_info(t: Dictionary) -> Dictionary:
+	# O jogador só vê o número que precisa tirar no d20. A dificuldade (cd), o
+	# atributo e os modificadores da cena continuam no JSON e entram nesse número.
 	var key: String = t.get("atributo", "")
 	var a: Dictionary = story.get("atributos", {}).get(key, {})
-	var nome: String = a.get("nome", key.capitalize())
-	var mods: Array = []
-	if not a.is_empty():
-		mods.append({"texto": nome, "valor": int(a.get("valor", 0))})
+	var bonus := int(a.get("valor", 0))
 	for m in t.get("mods", []):
 		if not m.has("if") or eval_condition(m["if"]):
-			mods.append({"texto": m.get("texto", ""), "valor": int(m.get("valor", 0))})
+			bonus += int(m.get("valor", 0))
 	var adv: bool = t.has("vantagem") and eval_condition(t["vantagem"])
 	var dis: bool = t.has("desvantagem") and eval_condition(t["desvantagem"])
-	return {"nome": nome, "cd": int(t.get("cd", 10)), "mods": mods, "vantagem": adv and not dis, "desvantagem": dis and not adv}
+	return {"nome": a.get("nome", key), "alvo": clampi(int(t.get("cd", 10)) - bonus, 2, 20),
+		"vantagem": adv and not dis, "desvantagem": dis and not adv}
 
 
 ## Depois da rolagem: aplica o "set" da opção e o do resultado ("sucesso"/"falha").
