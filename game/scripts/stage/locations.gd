@@ -310,13 +310,13 @@ static func _terreno(root: Node3D, cfg: Dictionary) -> void:
 	for x in [-0.35, 0.35]:
 		for z in [-0.45, 0.45]:
 			box(cage, Vector3(0.03, 0.55, 0.03), Vector3(x, 0.275, z), rust)
-	for z in range(-4, 5):
-		box(cage, Vector3(0.72, 0.015, 0.015), Vector3(0, 0.55, z * 0.11), rust)
-		box(cage, Vector3(0.015, 0.55, 0.015), Vector3(-0.35, 0.275, z * 0.11), rust)
-		box(cage, Vector3(0.015, 0.55, 0.015), Vector3(0.35, 0.275, z * 0.11), rust)
+	for z in range(-2, 3):  # arame em grade larga: dá pra ver o cachorro lá dentro
+		box(cage, Vector3(0.72, 0.012, 0.012), Vector3(0, 0.55, z * 0.22), rust)
+		box(cage, Vector3(0.012, 0.55, 0.012), Vector3(-0.35, 0.275, z * 0.22), rust)
+		box(cage, Vector3(0.012, 0.55, 0.012), Vector3(0.35, 0.275, z * 0.22), rust)
+	for x in range(-2, 3):
+		box(cage, Vector3(0.012, 0.55, 0.012), Vector3(x * 0.17, 0.275, 0.45), rust)  # porta (grade)
 	box(cage, Vector3(0.72, 0.02, 0.92), Vector3(0, 0.01, 0), rust.darkened(0.3))
-	var trap_door := box(cage, Vector3(0.7, 0.5, 0.02), Vector3(0, 0.3, 0.46), rust)
-	trap_door.name = "porta_armadilha"
 	# poste lá longe, e a lanterna do celular na sua mão
 	box(root, Vector3(0.12, 5.0, 0.12), Vector3(5.5, 2.5, -13.0), Color(0.25, 0.25, 0.25))
 	var lamp := omni(root, Vector3(5.0, 4.8, -13.0), Color(1.0, 0.6, 0.25), 1.4, 10.0)
@@ -324,8 +324,8 @@ static func _terreno(root: Node3D, cfg: Dictionary) -> void:
 	var torch := SpotLight3D.new()
 	torch.name = "lanterna"
 	torch.light_color = Color(0.92, 0.96, 1.0)
-	torch.light_energy = 2.2
-	torch.spot_range = 9.0
+	torch.light_energy = 3.4
+	torch.spot_range = 10.0
 	torch.spot_angle = 26.0
 	torch.position = Vector3(0.2, 1.3, 0.4)
 	torch.rotation_degrees = Vector3(-14, 0, 0)
@@ -333,9 +333,9 @@ static func _terreno(root: Node3D, cfg: Dictionary) -> void:
 	cfg["center_dist"] = 4.5
 	cfg["slot_dist"] = 3.2
 	cfg["camera_look"] = Vector3(0, 0.6, -4.0)
-	cfg["fog_density"] = 0.06
-	cfg["fog_color"] = Color(0.04, 0.035, 0.03)
-	cfg["ambient_energy"] = 0.35
+	cfg["fog_density"] = 0.045
+	cfg["fog_color"] = Color(0.05, 0.045, 0.04)
+	cfg["ambient_energy"] = 0.55
 
 
 ## Entrada do pronto-socorro, de noite: portas de vidro acorrentadas por dentro,
