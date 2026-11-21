@@ -88,19 +88,19 @@ func _build(info: Dictionary) -> void:
 	box.set_anchors_preset(Control.PRESET_CENTER)
 	box.anchor_left = 0.06
 	box.anchor_right = 0.94
-	box.anchor_top = 0.14
-	box.anchor_bottom = 0.86
+	box.anchor_top = 0.08
+	box.anchor_bottom = 0.92
 	box.offset_left = 0
 	box.offset_right = 0
 	box.offset_top = 0
 	box.offset_bottom = 0
 	box.alignment = BoxContainer.ALIGNMENT_CENTER
-	box.add_theme_constant_override("separation", 14)
+	box.add_theme_constant_override("separation", 18)
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(box)
-	_title = UI.label("TESTE DE %s" % String(info.get("nome", "")).to_upper(), 40, GOLD, true)
+	_title = UI.label("TESTE DE %s" % String(info.get("nome", "")).to_upper(), 48, GOLD, true)
 	box.add_child(_title)
-	_dc = UI.label("Classe de Dificuldade  %d" % int(info.get("cd", 10)), 34, UI.WHITE)
+	_dc = UI.label("Classe de Dificuldade  %d" % int(info.get("cd", 10)), 46, UI.WHITE)
 	box.add_child(_dc)
 	var row := HBoxContainer.new()
 	row.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -110,25 +110,25 @@ func _build(info: Dictionary) -> void:
 	var two: bool = info.get("vantagem", false) or info.get("desvantagem", false)
 	for i in (2 if two else 1):
 		var d := _Die.new()
-		d.custom_minimum_size = Vector2(300, 300) if not two else Vector2(250, 250)
+		d.custom_minimum_size = Vector2(380, 380) if not two else Vector2(300, 300)
 		d.font = UI.title_font()
 		row.add_child(d)
 		_dice.append(d)
 	if two:
-		box.add_child(UI.label("VANTAGEM: vale o maior" if info.get("vantagem", false) else "DESVANTAGEM: vale o menor", 30, GOLD))
+		box.add_child(UI.label("VANTAGEM: vale o maior" if info.get("vantagem", false) else "DESVANTAGEM: vale o menor", 40, GOLD))
 	var lines: PackedStringArray = []
 	for m in info.get("mods", []):
 		var v := int(m.get("valor", 0))
 		lines.append("%s%d  %s" % ["+" if v >= 0 else "−", absi(v), m.get("texto", "")])
-	_mods = UI.label("\n".join(lines), 32, UI.DIM)
+	_mods = UI.label("\n".join(lines), 42, Color(0.78, 0.78, 0.74))
 	box.add_child(_mods)
-	_total = UI.label("", 44, UI.WHITE, true)
+	_total = UI.label("", 64, UI.WHITE, true)
 	_total.visible = false
 	box.add_child(_total)
-	_result = UI.label("", 56, GREEN, true)
+	_result = UI.label("", 80, GREEN, true)
 	_result.visible = false
 	box.add_child(_result)
-	_hint = UI.label("", 30, UI.DIM)
+	_hint = UI.label("", 40, UI.DIM)
 	box.add_child(_hint)
 
 
