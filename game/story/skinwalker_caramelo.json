@@ -29,7 +29,11 @@
   "mae_fora": false,
   "olhou": false,
   "culpa": 0,
-  "hesitou": 0
+  "hesitou": 0,
+  "caramelo_solto": false,
+  "arranhado": false,
+  "arranhado_terreno": false,
+  "queimado": false
  },
  "characters": {
   "sistema": {
@@ -95,6 +99,11 @@
    "name": "Theo",
    "bus": "Muffled",
    "fx": "errado_abafado"
+  },
+  "coisa_quatro": {
+   "name": "",
+   "model": "coisa_quatro",
+   "fx": "monstro"
   }
  },
  "nodes": {
@@ -226,6 +235,12 @@
        ],
        "dur": 0.4,
        "olhar_camera": false
+      },
+      {
+       "t": 1.2,
+       "acao": "susto",
+       "som": "portao_rangendo",
+       "volume": 4.0
       }
      ]
     },
@@ -901,11 +916,19 @@
    ],
    "choice": {
     "prompt": "Ele estende um saco de sal grosso.",
-    "timer": 6,
+    "timer": 8,
     "plead": {
      "bento": "Pega!"
     },
     "options": [
+     {
+      "text": "Ir agora ao terreno soltar o Caramelo de verdade",
+      "who": "bento",
+      "set": {
+       "sal": true
+      },
+      "next": "terreno"
+     },
      {
       "text": "Pegar o sal",
       "who": "bento",
@@ -1326,6 +1349,12 @@
        "acao": "fx",
        "tipo": "tremor",
        "forca": 0.04
+      },
+      {
+       "t": 1.6,
+       "acao": "susto",
+       "som": "arranhao",
+       "volume": 4.0
       }
      ]
     },
@@ -1351,6 +1380,12 @@
        "densidade": 0.04,
        "fundo": "#000000",
        "dur": 0.4
+      },
+      {
+       "t": 1.6,
+       "acao": "susto",
+       "som": "latido",
+       "volume": 2.0
       }
      ]
     }
@@ -1797,6 +1832,29 @@
        "t": 2.8,
        "acao": "olhar_camera",
        "who": "mae"
+      },
+      {
+       "t": 2.5,
+       "acao": "esconder",
+       "who": "coisa"
+      },
+      {
+       "t": 2.5,
+       "acao": "susto",
+       "who": "coisa",
+       "anim": "attack",
+       "inclinar": 0,
+       "de": 1.8,
+       "ate": 0.5,
+       "rapido": 0.14,
+       "segura": 0.6,
+       "depois": "recuar",
+       "som": "susto_skin"
+      },
+      {
+       "t": 3.5,
+       "acao": "mostrar",
+       "who": "coisa"
       }
      ]
     },
@@ -1834,7 +1892,22 @@
     "options": [
      {
       "text": "Buscar o Theo",
-      "next": "theo_quarto"
+      "teste": {
+       "atributo": "furtividade",
+       "cd": 13,
+       "sucesso": {
+        "next": "theo_quarto"
+       },
+       "falha": {
+        "next": "corredor_arranhao"
+       },
+       "mods": [
+        {
+         "valor": -1,
+         "texto": "Ela está no meio do corredor"
+        }
+       ]
+      }
      },
      {
       "text": "Fugir pela cozinha com a mãe",
@@ -2053,6 +2126,29 @@
        "acao": "fx",
        "tipo": "tremor",
        "forca": 0.06
+      },
+      {
+       "t": 0.5,
+       "acao": "esconder",
+       "who": "coisa"
+      },
+      {
+       "t": 0.5,
+       "acao": "susto",
+       "who": "coisa",
+       "anim": "attack",
+       "inclinar": 0,
+       "de": 2.0,
+       "ate": 0.55,
+       "rapido": 0.16,
+       "segura": 0.5,
+       "depois": "recuar",
+       "som": "susto_skin"
+      },
+      {
+       "t": 1.4,
+       "acao": "mostrar",
+       "who": "coisa"
       }
      ]
     }
@@ -2063,7 +2159,30 @@
     "options": [
      {
       "text": "Olhar pro chão e puxar o Theo",
-      "next": "banheiro"
+      "who": "theo",
+      "teste": {
+       "atributo": "sangue_frio",
+       "cd": 13,
+       "sucesso": {
+        "next": "banheiro"
+       },
+       "falha": {
+        "set": {
+         "olhou": true
+        },
+        "next": "banheiro"
+       },
+       "mods": [
+        {
+         "valor": 1,
+         "texto": "O Theo aperta a sua mão"
+        },
+        {
+         "valor": -2,
+         "texto": "Ela chama você com a voz da sua mãe"
+        }
+       ]
+      }
      },
      {
       "text": "Encarar a coisa",
@@ -2189,7 +2308,7 @@
      ]
     }
    ],
-   "next": "dois_caramelos",
+   "next": "pre_dois",
    "acoes": [
     {
      "t": 0,
@@ -2315,6 +2434,12 @@
         -0.3
        ],
        "dur": 2.2
+      },
+      {
+       "t": 0,
+       "acao": "susto",
+       "som": "batida_porta",
+       "volume": 3.0
       }
      ]
     },
@@ -2544,6 +2669,29 @@
         1.9,
         -3.4
        ]
+      },
+      {
+       "t": 0.5,
+       "acao": "esconder",
+       "who": "coisa"
+      },
+      {
+       "t": 0.5,
+       "acao": "susto",
+       "who": "coisa",
+       "anim": "attack",
+       "inclinar": 0,
+       "de": 3.0,
+       "ate": 0.6,
+       "rapido": 0.15,
+       "segura": 0.6,
+       "depois": "recuar",
+       "som": "susto_skin"
+      },
+      {
+       "t": 1.5,
+       "acao": "mostrar",
+       "who": "coisa"
       }
      ]
     }
@@ -2554,21 +2702,33 @@
     "options": [
      {
       "text": "Fechar a cortina",
-      "next": "dois_caramelos"
+      "teste": {
+       "atributo": "agilidade",
+       "cd": 12,
+       "sucesso": {
+        "next": "pre_dois"
+       },
+       "falha": {
+        "set": {
+         "olhou": true
+        },
+        "next": "pre_dois"
+       }
+      }
      },
      {
       "text": "Encarar",
       "set": {
        "olhou": true
       },
-      "next": "dois_caramelos"
+      "next": "pre_dois"
      }
     ],
     "timeout": {
      "set": {
       "olhou": true
      },
-     "next": "dois_caramelos"
+     "next": "pre_dois"
     }
    }
   },
@@ -2726,12 +2886,36 @@
    ],
    "choice": {
     "prompt": "Qual é o Caramelo?",
-    "timer": 8,
+    "timer": 10,
     "plead": {
      "caramelo_falso": "Au...",
      "caramelo": "Au..."
     },
     "options": [
+     {
+      "text": "Reparar nas patas e na sombra deles",
+      "teste": {
+       "atributo": "percepcao",
+       "cd": 12,
+       "sucesso": {
+        "next": "dc_revela"
+       },
+       "falha": {
+        "next": "dc_iguais"
+       },
+       "mods": [
+        {
+         "if": "sabe_manca",
+         "valor": 3,
+         "texto": "Você sabe: ele mancava da pata de trás"
+        },
+        {
+         "valor": -1,
+         "texto": "Está chovendo"
+        }
+       ]
+      }
+     },
      {
       "text": "Chamar o da esquerda",
       "who": "caramelo_falso",
@@ -3045,6 +3229,12 @@
         1.6,
         -3.2
        ]
+      },
+      {
+       "t": 1.6,
+       "acao": "susto",
+       "som": "susto_skin",
+       "flash": true
       }
      ]
     }
@@ -3159,7 +3349,22 @@
      {
       "text": "Ficar e lutar com ele",
       "who": "caramelo",
-      "ending": "amanhecer"
+      "teste": {
+       "atributo": "forca",
+       "cd": 13,
+       "sucesso": {
+        "ending": "amanhecer"
+       },
+       "falha": {
+        "ending": "bom_garoto"
+       },
+       "mods": [
+        {
+         "valor": 2,
+         "texto": "O Caramelo morde a perna dela"
+        }
+       ]
+      }
      }
     ],
     "timeout": {
@@ -3346,6 +3551,1236 @@
     }
    ],
    "ending": "duas_vezes_voce"
+  },
+  "terreno": {
+   "location": "terreno",
+   "music": "skin_caca",
+   "camera": {
+    "pos": [
+     0,
+     1.5,
+     0.6
+    ],
+    "olhar": [
+     0.3,
+     0.3,
+     -3.2
+    ]
+   },
+   "cast": {
+    "right": {
+     "char": "caramelo",
+     "anim": "Dog1_Lay_Loop"
+    },
+    "center": {
+     "char": "coisa_quatro",
+     "anim": "Idle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "caramelo",
+     "para": [
+      0.3,
+      0,
+      -3.25
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "olhar_camera",
+     "who": "caramelo"
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "coisa_quatro",
+     "para": [
+      -2.6,
+      0,
+      -5.6
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "esconder",
+     "who": "coisa_quatro"
+    },
+    {
+     "t": 0,
+     "acao": "camera",
+     "pos": [
+      0,
+      1.5,
+      3.4
+     ],
+     "olhar": [
+      0,
+      1.0,
+      -3.0
+     ],
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "camera_andar",
+     "pos": [
+      0,
+      1.5,
+      0.6
+     ],
+     "olhar": [
+      0.3,
+      0.3,
+      -3.2
+     ],
+     "dur": 3.2
+    }
+   ],
+   "lines": [
+    {
+     "id": "sk_terreno_01",
+     "who": "sistema",
+     "text": "O terreno baldio fica no fim da rua. Mato seco até a cintura. A lanterna do celular só alcança três passos.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "silencio",
+       "dur": 3.0
+      }
+     ]
+    },
+    {
+     "id": "sk_terreno_02",
+     "who": "sistema",
+     "text": "Um choro fino, no meio do mato. Dentro de uma armadilha de tatu enferrujada, o Caramelo. O de verdade. Mancando da pata de trás.",
+     "sfx": "cachorro_choro",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.3,
+        0.3,
+        -3.2
+       ],
+       "dur": 0.8
+      },
+      {
+       "t": 2.0,
+       "acao": "anim",
+       "who": "caramelo",
+       "anim": "Dog1_Idle_Tail_Wag",
+       "fixo": true
+      }
+     ]
+    },
+    {
+     "id": "sk_terreno_03",
+     "who": "sistema",
+     "text": "Ele abana o rabo. E então para. Olha para alguma coisa atrás do mato, à sua esquerda.",
+     "espera": 0.4,
+     "acoes": [
+      {
+       "t": 0.6,
+       "acao": "anim",
+       "who": "caramelo",
+       "anim": "Dog1_Idle",
+       "fixo": true
+      },
+      {
+       "t": 0.8,
+       "acao": "olhar_para",
+       "who": "caramelo",
+       "alvo": "coisa_quatro"
+      },
+      {
+       "t": 1.4,
+       "acao": "camera_olhar",
+       "olhar": [
+        -2.6,
+        0.6,
+        -5.6
+       ],
+       "dur": 0.9
+      },
+      {
+       "t": 1.6,
+       "acao": "mostrar",
+       "who": "coisa_quatro"
+      },
+      {
+       "t": 1.6,
+       "acao": "olhar_camera",
+       "who": "coisa_quatro"
+      },
+      {
+       "t": 1.6,
+       "acao": "sfx",
+       "som": "rosnado_cao",
+       "volume": -4
+      },
+      {
+       "t": 3.0,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.3,
+        0.3,
+        -3.2
+       ],
+       "dur": 0.5
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "A trava está emperrada.",
+    "timer": 9,
+    "options": [
+     {
+      "text": "Forçar a trava da armadilha",
+      "who": "caramelo",
+      "teste": {
+       "atributo": "forca",
+       "cd": 13,
+       "sucesso": {
+        "next": "terreno_solto"
+       },
+       "falha": {
+        "next": "terreno_barulho"
+       },
+       "mods": [
+        {
+         "valor": -1,
+         "texto": "A ferrugem prendeu tudo"
+        }
+       ]
+      }
+     },
+     {
+      "text": "Procurar a alavanca da trava, com calma",
+      "teste": {
+       "atributo": "percepcao",
+       "cd": 13,
+       "sucesso": {
+        "next": "terreno_solto"
+       },
+       "falha": {
+        "next": "terreno_barulho"
+       },
+       "mods": [
+        {
+         "valor": -1,
+         "texto": "Só a lanterna do celular"
+        }
+       ]
+      }
+     }
+    ],
+    "timeout": {
+     "next": "terreno_barulho"
+    }
+   }
+  },
+  "terreno_solto": {
+   "location": "terreno",
+   "camera": {
+    "pos": [
+     0,
+     1.5,
+     0.6
+    ],
+    "olhar": [
+     0.3,
+     0.3,
+     -3.2
+    ]
+   },
+   "set": {
+    "caramelo_solto": true
+   },
+   "cast": {
+    "right": {
+     "char": "caramelo",
+     "anim": "Dog1_Idle_Tail_Wag"
+    },
+    "center": {
+     "char": "coisa_quatro",
+     "anim": "Idle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "caramelo",
+     "para": [
+      0.3,
+      0,
+      -3.25
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "coisa_quatro",
+     "para": [
+      -2.6,
+      0,
+      -5.6
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "olhar_camera",
+     "who": "coisa_quatro"
+    }
+   ],
+   "lines": [
+    {
+     "id": "sk_terreno_solto_01",
+     "who": "sistema",
+     "text": "A trava cede. O Caramelo pula no seu colo, chorando, lambendo o seu rosto. Atrás de vocês, o mato se mexe.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "maos",
+       "anim": "grab.R"
+      },
+      {
+       "t": 0.2,
+       "acao": "sfx",
+       "som": "portao_rangendo",
+       "volume": -8
+      },
+      {
+       "t": 0.6,
+       "acao": "andar",
+       "who": "caramelo",
+       "por": [
+        -0.2,
+        0,
+        1.6
+       ],
+       "dur": 0.8,
+       "anim": "Dog1_Run",
+       "fim": "Dog1_Idle_Tail_Wag"
+      },
+      {
+       "t": 2.6,
+       "acao": "camera_olhar",
+       "olhar": [
+        -2.6,
+        0.6,
+        -5.6
+       ],
+       "dur": 0.5
+      },
+      {
+       "t": 2.8,
+       "acao": "anim",
+       "who": "coisa_quatro",
+       "anim": "Crawl",
+       "fixo": true
+      },
+      {
+       "t": 2.8,
+       "acao": "andar",
+       "who": "coisa_quatro",
+       "por": [
+        0.8,
+        0,
+        1.4
+       ],
+       "dur": 2.0,
+       "anim": "Crawl",
+       "fim": "Crawl"
+      }
+     ]
+    }
+   ],
+   "next": "terreno_fuga"
+  },
+  "terreno_barulho": {
+   "location": "terreno",
+   "camera": {
+    "pos": [
+     0,
+     1.5,
+     0.6
+    ],
+    "olhar": [
+     0.3,
+     0.3,
+     -3.2
+    ]
+   },
+   "music": "skin_caca",
+   "cast": {
+    "right": {
+     "char": "caramelo",
+     "anim": "Dog1_Bark"
+    },
+    "center": {
+     "char": "coisa_quatro",
+     "anim": "Crawl"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "caramelo",
+     "para": [
+      0.3,
+      0,
+      -3.25
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "coisa_quatro",
+     "para": [
+      -2.6,
+      0,
+      -5.6
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "olhar_camera",
+     "who": "coisa_quatro"
+    }
+   ],
+   "lines": [
+    {
+     "id": "sk_terreno_barulho_01",
+     "who": "sistema",
+     "text": "A trava estala alto. O mato para de se mexer. Depois, alguma coisa vem correndo de quatro.",
+     "espera": 0.6,
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "sfx",
+       "som": "ossos"
+      },
+      {
+       "t": 0.3,
+       "acao": "silencio",
+       "dur": 1.2
+      },
+      {
+       "t": 1.2,
+       "acao": "esconder",
+       "who": "coisa_quatro"
+      },
+      {
+       "t": 1.2,
+       "acao": "susto",
+       "who": "coisa_quatro",
+       "anim": "Rise",
+       "inclinar": 0,
+       "de": 3.2,
+       "ate": 0.6,
+       "rapido": 0.22,
+       "segura": 0.6,
+       "depois": "recuar",
+       "som": "susto_skin"
+      },
+      {
+       "t": 2.2,
+       "acao": "mostrar",
+       "who": "coisa_quatro"
+      },
+      {
+       "t": 2.2,
+       "acao": "andar",
+       "who": "coisa_quatro",
+       "por": [
+        1.0,
+        0,
+        1.6
+       ],
+       "dur": 1.6,
+       "anim": "Crawl",
+       "fim": "Rise"
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "Ela vem vindo!",
+    "timer": 5,
+    "options": [
+     {
+      "text": "Arrancar a gaiola do chão e correr com ela",
+      "teste": {
+       "atributo": "forca",
+       "cd": 15,
+       "sucesso": {
+        "set": {
+         "caramelo_solto": true
+        },
+        "next": "terreno_fuga"
+       },
+       "falha": {
+        "next": "terreno_arranhao"
+       },
+       "mods": [
+        {
+         "valor": 1,
+         "texto": "Adrenalina"
+        }
+       ]
+      }
+     },
+     {
+      "text": "Largar tudo e correr",
+      "next": "terreno_fuga"
+     }
+    ],
+    "timeout": {
+     "next": "terreno_arranhao"
+    }
+   }
+  },
+  "terreno_fuga": {
+   "location": "quintal",
+   "music": "skin_caca",
+   "cast": {
+    "right": {
+     "char": "caramelo",
+     "anim": "Dog1_Run"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "camera",
+     "pos": [
+      2.6,
+      1.6,
+      -11.5
+     ],
+     "olhar": [
+      0,
+      1.3,
+      -4.0
+     ],
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "esconder",
+     "who": "caramelo"
+    }
+   ],
+   "lines": [
+    {
+     "id": "sk_terreno_fuga_01",
+     "who": "sistema",
+     "text": "Vocês correm pela rua escura até o portão. Atrás, um galope que não é de cachorro. O portão bate.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_andar",
+       "pos": [
+        1.4,
+        1.6,
+        -6.0
+       ],
+       "olhar": [
+        0,
+        1.3,
+        -1.0
+       ],
+       "dur": 3.0
+      },
+      {
+       "t": 3.2,
+       "acao": "sfx",
+       "som": "portao_rangendo"
+      },
+      {
+       "t": 3.4,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.1
+      }
+     ]
+    },
+    {
+     "id": "sk_terreno_fuga_02",
+     "who": "sistema",
+     "text": "O Caramelo de verdade cola nas suas pernas, mancando, e não sai mais do seu lado.",
+     "if": "caramelo_solto",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "mostrar",
+       "who": "caramelo"
+      },
+      {
+       "t": 0,
+       "acao": "andar",
+       "who": "caramelo",
+       "por": [
+        0,
+        0,
+        0.6
+       ],
+       "dur": 0.8,
+       "anim": "Dog1_Walk",
+       "fim": "Dog1_Idle_Tail_Wag"
+      }
+     ]
+    }
+   ],
+   "next": "meia_noite"
+  },
+  "terreno_arranhao": {
+   "location": "quintal",
+   "music": "skin_caca",
+   "set": {
+    "arranhado": true,
+    "arranhado_terreno": true
+   },
+   "cast": {
+    "center": {
+     "char": "coisa_quatro",
+     "anim": "Rise"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "camera",
+     "pos": [
+      2.6,
+      1.6,
+      -8.6
+     ],
+     "olhar": [
+      2.6,
+      1.0,
+      -12.0
+     ],
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "coisa_quatro",
+     "para": [
+      2.6,
+      0,
+      -10.4
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "olhar_camera",
+     "who": "coisa_quatro"
+    },
+    {
+     "t": 0,
+     "acao": "esconder",
+     "who": "coisa_quatro"
+    }
+   ],
+   "lines": [
+    {
+     "id": "sk_terreno_arranhao_01",
+     "who": "sistema",
+     "text": "Ela te alcança no portão. As garras abrem o seu antebraço de cima a baixo. Você cai pra dentro do quintal e tranca o portão.",
+     "espera": 0.8,
+     "acoes": [
+      {
+       "t": 0.1,
+       "acao": "susto",
+       "who": "coisa_quatro",
+       "anim": "Rise",
+       "inclinar": 0,
+       "de": 1.8,
+       "ate": 0.5,
+       "rapido": 0.12,
+       "segura": 0.6,
+       "depois": "recuar",
+       "som": "susto_skin"
+      },
+      {
+       "t": 0.35,
+       "acao": "maos_cor",
+       "cor": "#c03020",
+       "dur": 0.3
+      },
+      {
+       "t": 0.4,
+       "acao": "fx",
+       "tipo": "vermelho",
+       "dur": 0.5
+      },
+      {
+       "t": 1.6,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        -0.9,
+        0.6
+       ],
+       "dur": 0.4
+      },
+      {
+       "t": 2.4,
+       "acao": "sfx",
+       "som": "portao_rangendo"
+      },
+      {
+       "t": 2.5,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.12
+      }
+     ]
+    }
+   ],
+   "next": "pelo"
+  },
+  "pre_dois": {
+   "branch": [
+    {
+     "if": "caramelo_solto",
+     "next": "um_caramelo"
+    },
+    {
+     "next": "dois_caramelos"
+    }
+   ]
+  },
+  "um_caramelo": {
+   "location": "quintal",
+   "title_card": "03:10",
+   "music": "skin_tensao",
+   "camera": {
+    "pos": [
+     0,
+     1.25,
+     0.4
+    ],
+    "olhar": [
+     0,
+     0.3,
+     -2.0
+    ],
+    "slot_dist": 2.0,
+    "slot_spread": 0.48,
+    "center_dist": 2.3
+   },
+   "cast": {
+    "left": {
+     "char": "caramelo_falso",
+     "anim": "Dog1_Idle"
+    },
+    "right": {
+     "char": "caramelo",
+     "anim": "Dog1_Bark"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "entrar",
+     "who": "caramelo_falso",
+     "de": [
+      -0.4,
+      0,
+      -3.0
+     ],
+     "dur": 2.4,
+     "anim": "Dog1_Walk",
+     "fim": "Dog1_Idle"
+    }
+   ],
+   "aguardar": 1.4,
+   "lines": [
+    {
+     "id": "sk_um_car_01",
+     "who": "sistema",
+     "text": "Na porta da cozinha, um Caramelo. Sujo, molhado, com a coleira do guizinho. Abanando o rabo.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "caramelo_falso",
+       "dur": 0.8
+      }
+     ]
+    },
+    {
+     "id": "sk_um_car_02",
+     "who": "sistema",
+     "text": "Mas o Caramelo de verdade está aqui dentro. Do seu lado. Rosnando para a porta.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "caramelo",
+       "dur": 0.6
+      },
+      {
+       "t": 0.3,
+       "acao": "olhar_para",
+       "who": "caramelo",
+       "alvo": "caramelo_falso"
+      },
+      {
+       "t": 0.6,
+       "acao": "sfx",
+       "som": "rosnado_cao"
+      }
+     ]
+    }
+   ],
+   "next": "real_escolhido"
+  },
+  "corredor_arranhao": {
+   "location": "casa",
+   "music": "skin_caca",
+   "set": {
+    "arranhado": true
+   },
+   "cast": {
+    "center": {
+     "char": "coisa",
+     "anim": "attack"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "esconder",
+     "who": "coisa"
+    }
+   ],
+   "lines": [
+    {
+     "id": "sk_corr_arranhao_01",
+     "who": "sistema",
+     "text": "No meio do corredor, um braço comprido demais sai do escuro. As garras abrem o seu antebraço. Você passa assim mesmo.",
+     "espera": 0.6,
+     "acoes": [
+      {
+       "t": 0.1,
+       "acao": "susto",
+       "who": "coisa",
+       "anim": "attack",
+       "inclinar": 0,
+       "de": 1.6,
+       "ate": 0.5,
+       "rapido": 0.12,
+       "segura": 0.5,
+       "depois": "recuar",
+       "som": "susto_skin"
+      },
+      {
+       "t": 0.35,
+       "acao": "maos_cor",
+       "cor": "#c03020",
+       "dur": 0.3
+      },
+      {
+       "t": 0.4,
+       "acao": "fx",
+       "tipo": "vermelho",
+       "dur": 0.5
+      }
+     ]
+    }
+   ],
+   "next": "pelo"
+  },
+  "dc_revela": {
+   "location": "quintal",
+   "camera": {
+    "pos": [
+     0,
+     1.25,
+     0.4
+    ],
+    "olhar": [
+     0,
+     0.3,
+     -2.0
+    ],
+    "slot_dist": 2.0,
+    "slot_spread": 0.48,
+    "center_dist": 2.3
+   },
+   "cast": {
+    "left": {
+     "char": "caramelo_falso",
+     "anim": "Dog1_Idle"
+    },
+    "right": {
+     "char": "caramelo",
+     "anim": "Dog1_Idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "sk_dc_revela_01",
+     "who": "sistema",
+     "text": "A luz da cozinha bate nos dois. A sombra do da esquerda não é de cachorro. É comprida, magra, e tem braços.",
+     "espera": 0.4,
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "caramelo_falso",
+       "dur": 0.6
+      },
+      {
+       "t": 1.6,
+       "acao": "esconder",
+       "who": "caramelo_falso"
+      },
+      {
+       "t": 1.6,
+       "acao": "susto",
+       "who": "coisa",
+       "anim": "attack",
+       "inclinar": 0,
+       "de": 1.6,
+       "ate": 0.5,
+       "rapido": 0.16,
+       "segura": 0.6,
+       "depois": "recuar",
+       "som": "susto_skin"
+      },
+      {
+       "t": 2.8,
+       "acao": "mostrar",
+       "who": "caramelo_falso"
+      }
+     ]
+    }
+   ],
+   "next": "dc_decisao"
+  },
+  "dc_iguais": {
+   "location": "quintal",
+   "camera": {
+    "pos": [
+     0,
+     1.25,
+     0.4
+    ],
+    "olhar": [
+     0,
+     0.3,
+     -2.0
+    ],
+    "slot_dist": 2.0,
+    "slot_spread": 0.48,
+    "center_dist": 2.3
+   },
+   "cast": {
+    "left": {
+     "char": "caramelo_falso",
+     "anim": "Dog1_Idle"
+    },
+    "right": {
+     "char": "caramelo",
+     "anim": "Dog1_Idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "sk_dc_iguais_01",
+     "who": "sistema",
+     "text": "Chuva demais. Lama demais. Os dois tremem do mesmo jeito.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "caramelo_falso",
+       "dur": 0.6
+      },
+      {
+       "t": 1.4,
+       "acao": "camera_olhar",
+       "who": "caramelo",
+       "dur": 0.6
+      }
+     ]
+    }
+   ],
+   "next": "dc_decisao"
+  },
+  "dc_decisao": {
+   "location": "quintal",
+   "camera": {
+    "pos": [
+     0,
+     1.25,
+     0.4
+    ],
+    "olhar": [
+     0,
+     0.3,
+     -2.0
+    ],
+    "slot_dist": 2.0,
+    "slot_spread": 0.48,
+    "center_dist": 2.3
+   },
+   "cast": {
+    "left": {
+     "char": "caramelo_falso",
+     "anim": "Dog1_Idle"
+    },
+    "right": {
+     "char": "caramelo",
+     "anim": "Dog1_Idle"
+    }
+   },
+   "choice": {
+    "prompt": "Qual é o Caramelo?",
+    "timer": 7,
+    "plead": {
+     "caramelo_falso": "Au...",
+     "caramelo": "Au..."
+    },
+    "options": [
+     {
+      "text": "Chamar o da esquerda",
+      "who": "caramelo_falso",
+      "ending": "o_outro_caramelo"
+     },
+     {
+      "text": "Chamar o da direita",
+      "who": "caramelo",
+      "next": "real_escolhido"
+     }
+    ],
+    "timeout": {
+     "next": "dc_hesitou"
+    }
+   }
+  },
+  "pelo": {
+   "location": "casa",
+   "cast": {},
+   "lines": [
+    {
+     "id": "sk_pelo_01",
+     "who": "sistema",
+     "text": "O arranhão arde. Na borda da ferida, pelos escuros e grossos começam a brotar. Dá pra ver eles crescendo.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera",
+       "pos": [
+        0,
+        1.5,
+        0.4
+       ],
+       "olhar": [
+        0,
+        1.0,
+        -3.0
+       ],
+       "dur": 0
+      },
+      {
+       "t": 0,
+       "acao": "silencio",
+       "dur": 5.0
+      },
+      {
+       "t": 0.3,
+       "acao": "camera_olhar",
+       "olhar": [
+        -0.3,
+        0.7,
+        -0.6
+       ],
+       "dur": 0.8
+      },
+      {
+       "t": 0.5,
+       "acao": "maos",
+       "anim": "grab.L"
+      },
+      {
+       "t": 1.0,
+       "acao": "maos_cor",
+       "cor": "#6a5040",
+       "dur": 3.0
+      }
+     ]
+    },
+    {
+     "id": "sk_pelo_02",
+     "who": "sistema",
+     "text": "Na lavanderia está o ferro de passar da sua mãe. Ainda quente da roupa da tarde.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        2.4,
+        1.0,
+        -3.0
+       ],
+       "dur": 0.8
+      },
+      {
+       "t": 0.8,
+       "acao": "luz_ponto",
+       "pos": [
+        2.2,
+        1.1,
+        -2.8
+       ],
+       "cor": "#ff7030",
+       "energia": 0.8,
+       "raio": 1.5
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "O que você faz com a ferida?",
+    "timer": 12,
+    "options": [
+     {
+      "text": "Queimar a ferida com o ferro",
+      "teste": {
+       "atributo": "vigor",
+       "cd": 12,
+       "sucesso": {
+        "next": "pelo_ok"
+       },
+       "falha": {
+        "ending": "pele_nova"
+       },
+       "mods": [
+        {
+         "valor": -2,
+         "texto": "Vai doer como nada antes"
+        },
+        {
+         "valor": 1,
+         "texto": "A raiva ajuda"
+        }
+       ]
+      }
+     },
+     {
+      "text": "Esconder o braço na manga",
+      "set": {
+       "olhou": true
+      },
+      "next": "pelo_saida"
+     }
+    ],
+    "timeout": {
+     "set": {
+      "olhou": true
+     },
+     "next": "pelo_saida"
+    }
+   }
+  },
+  "pelo_ok": {
+   "location": "casa",
+   "set": {
+    "queimado": true,
+    "arranhado": false
+   },
+   "cast": {},
+   "lines": [
+    {
+     "id": "sk_pelo_ok_01",
+     "who": "sistema",
+     "text": "O cheiro de pelo queimado enche a lavanderia. Você morde a toalha para não gritar.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        -0.3,
+        0.7,
+        -0.6
+       ],
+       "dur": 0.5
+      },
+      {
+       "t": 0.5,
+       "acao": "sfx",
+       "som": "corte",
+       "volume": -4
+      },
+      {
+       "t": 0.5,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.14
+      },
+      {
+       "t": 0.55,
+       "acao": "fx",
+       "tipo": "vermelho",
+       "ate": 0.9,
+       "dur": 0.2
+      },
+      {
+       "t": 0.8,
+       "acao": "fx",
+       "tipo": "vermelho",
+       "de": 0.9,
+       "ate": 0.0,
+       "dur": 2.0
+      }
+     ]
+    },
+    {
+     "id": "sk_pelo_ok_02",
+     "who": "sistema",
+     "text": "Quando você tira o ferro, os pelos sumiram. Ficou só a queimadura. A sua pele. Só sua.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "maos_cor",
+       "cor": "#d8a088",
+       "dur": 1.5
+      }
+     ]
+    }
+   ],
+   "next": "pelo_saida"
+  },
+  "pelo_saida": {
+   "branch": [
+    {
+     "if": "arranhado_terreno",
+     "next": "meia_noite"
+    },
+    {
+     "next": "theo_quarto"
+    }
+   ]
   }
  },
  "endings": {
@@ -3458,6 +4893,23 @@
       "t": 6.0,
       "acao": "sfx",
       "som": "rosnado_cao"
+     },
+     {
+      "t": 7.0,
+      "acao": "esconder",
+      "who": "coisa"
+     },
+     {
+      "t": 7.0,
+      "acao": "susto",
+      "who": "coisa",
+      "anim": "attack",
+      "de": 1.6,
+      "ate": 0.5,
+      "rapido": 0.14,
+      "segura": 0.6,
+      "inclinar": 0,
+      "som": "susto_skin"
      },
      {
       "t": 7.2,
@@ -3591,6 +5043,23 @@
        -1.1
       ],
       "dur": 1.6
+     },
+     {
+      "t": 7.6,
+      "acao": "esconder",
+      "who": "coisa"
+     },
+     {
+      "t": 7.6,
+      "acao": "susto",
+      "who": "coisa",
+      "anim": "attack",
+      "de": 1.6,
+      "ate": 0.5,
+      "rapido": 0.14,
+      "segura": 0.6,
+      "inclinar": 0,
+      "som": "susto_skin"
      },
      {
       "t": 7.8,
@@ -3738,6 +5207,23 @@
        -0.9
       ],
       "dur": 1.8
+     },
+     {
+      "t": 8.0,
+      "acao": "esconder",
+      "who": "coisa"
+     },
+     {
+      "t": 8.0,
+      "acao": "susto",
+      "who": "coisa",
+      "anim": "attack",
+      "de": 1.6,
+      "ate": 0.5,
+      "rapido": 0.14,
+      "segura": 0.6,
+      "inclinar": 0,
+      "som": "susto_skin"
      },
      {
       "t": 8.3,
@@ -3997,7 +5483,17 @@
       "dur": 1.0
      }
     ]
-   }
+   },
+   "extra": [
+    {
+     "if": "queimado",
+     "text": "A queimadura no braço virou cicatriz. Às vezes, nela, nasce um pelo escuro. Você arranca."
+    },
+    {
+     "if": "caramelo_solto",
+     "text": "Foi você quem tirou o Caramelo da armadilha. Ele nunca mais saiu do seu lado."
+    }
+   ]
   },
   "amanhecer": {
    "title": "Primeira Luz",
@@ -4112,7 +5608,17 @@
       "dur": 0.8
      }
     ]
-   }
+   },
+   "extra": [
+    {
+     "if": "queimado",
+     "text": "A queimadura no braço virou cicatriz. Às vezes, nela, nasce um pelo escuro. Você arranca."
+    },
+    {
+     "if": "caramelo_solto",
+     "text": "Foi você quem tirou o Caramelo da armadilha. Ele nunca mais saiu do seu lado."
+    }
+   ]
   },
   "sal_grosso": {
    "title": "Sal Grosso",
@@ -4239,7 +5745,17 @@
       "dur": 1.0
      }
     ]
-   }
+   },
+   "extra": [
+    {
+     "if": "queimado",
+     "text": "A queimadura no braço virou cicatriz. Às vezes, nela, nasce um pelo escuro. Você arranca."
+    },
+    {
+     "if": "caramelo_solto",
+     "text": "Foi você quem tirou o Caramelo da armadilha. Ele nunca mais saiu do seu lado."
+    }
+   ]
   },
   "duas_vezes_voce": {
    "title": "Duas Vezes Você",
@@ -4421,7 +5937,13 @@
       "dur": 1.0
      }
     ]
-   }
+   },
+   "extra": [
+    {
+     "if": "queimado",
+     "text": "A queimadura no braço virou cicatriz. Às vezes, nela, nasce um pelo escuro. Você arranca."
+    }
+   ]
   },
   "theo_voltou": {
    "title": "O Theo Voltou",
@@ -4537,6 +6059,165 @@
      }
     ]
    }
+  },
+  "pele_nova": {
+   "title": "Pele Nova",
+   "kind": "morte",
+   "text": "Você desmaiou de dor com o ferro na mão. Acordou de madrugada, de quatro no quintal, com terra na boca. Sua mãe chamou o seu nome. Você respondeu com a voz do Theo.",
+   "cinematica": {
+    "location": "quintal",
+    "maos": true,
+    "camera": {
+     "pos": [
+      0.4,
+      0.55,
+      -2.0
+     ],
+     "olhar": [
+      0.0,
+      0.4,
+      -6.0
+     ]
+    },
+    "slots": {
+     "center": [
+      0,
+      0,
+      -0.2
+     ]
+    },
+    "cast": {
+     "center": {
+      "char": "mae",
+      "anim": "Idle"
+     }
+    },
+    "dur": 10,
+    "narrar": 1.0,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "maos_cor",
+      "cor": "#5a4030",
+      "dur": 0.1
+     },
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#304040",
+      "energia": 0.45,
+      "neblina": "#060a0a",
+      "densidade": 0.04,
+      "fundo": "#020404",
+      "dur": 0.1
+     },
+     {
+      "t": 0.2,
+      "acao": "fx",
+      "tipo": "chuvisco",
+      "de": 0.4,
+      "ate": 0.1,
+      "dur": 2.5
+     },
+     {
+      "t": 0.5,
+      "acao": "camera_andar",
+      "por": [
+       0,
+       0,
+       -1.4
+      ],
+      "dur": 3.0
+     },
+     {
+      "t": 3.6,
+      "acao": "camera_olhar",
+      "olhar": [
+       0,
+       1.4,
+       -0.2
+      ],
+      "dur": 0.8
+     },
+     {
+      "t": 4.0,
+      "acao": "sfx",
+      "som": "uivo_humano",
+      "volume": -6
+     },
+     {
+      "t": 5.2,
+      "acao": "fx",
+      "tipo": "vermelho",
+      "de": 0.0,
+      "ate": 0.6,
+      "dur": 1.5
+     },
+     {
+      "t": 5.4,
+      "acao": "camera_andar",
+      "pos": [
+       0.1,
+       0.6,
+       -0.9
+      ],
+      "olhar": [
+       0,
+       1.4,
+       -0.2
+      ],
+      "dur": 1.2
+     },
+     {
+      "t": 6.4,
+      "acao": "maos",
+      "anim": "grab.R"
+     },
+     {
+      "t": 6.6,
+      "acao": "sfx",
+      "som": "susto_skin"
+     },
+     {
+      "t": 6.6,
+      "acao": "fx",
+      "tipo": "tremor",
+      "forca": 0.15
+     },
+     {
+      "t": 7.2,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.5
+     }
+    ]
+   }
+  }
+ },
+ "atributos": {
+  "agilidade": {
+   "nome": "Agilidade",
+   "valor": 1
+  },
+  "percepcao": {
+   "nome": "Percepção",
+   "valor": 1
+  },
+  "furtividade": {
+   "nome": "Furtividade",
+   "valor": 0
+  },
+  "forca": {
+   "nome": "Força",
+   "valor": 0
+  },
+  "sangue_frio": {
+   "nome": "Sangue-frio",
+   "valor": 1
+  },
+  "vigor": {
+   "nome": "Vigor",
+   "valor": 1
   }
  }
 }

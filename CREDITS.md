@@ -28,6 +28,6 @@ Coloque esta lista na tela de créditos do jogo. **Obrigatório:** a linha do pa
 | [VT323](https://fonts.google.com/specimen/VT323) | Peter Hull | SIL OFL 1.1 | Sim |
 | [Silkscreen](https://fonts.google.com/specimen/Silkscreen) | Jason Kottke | SIL OFL 1.1 | Sim (também nos números do d20) |
 
-Feitos no projeto (Blender, por script em `tools/blender/`, mesma licença do jogo): o d20 do teste de dado, o Rastejante (zumbi sem pernas) e o Cinzento (alienígena), com textura, esqueleto e animações.
+Feitos no projeto (Blender, por script em `tools/blender/`, mesma licença do jogo): o d20 do teste de dado, o Rastejante (zumbi sem pernas), o Cinzento (alienígena) e a coisa de quatro (skinwalker), com textura, esqueleto e animações.
 
 Vozes, efeitos e ambientes gerados com ElevenLabs.

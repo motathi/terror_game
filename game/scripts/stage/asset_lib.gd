@@ -25,6 +25,7 @@ const MODELS := {
 	# feitos no projeto (Blender, tools/blender/)
 	"rastejante": "res://assets/models/rastejante.glb",  # zumbi sem pernas: Idle, Crawl, Attack
 	"cinzento": "res://assets/models/cinzento.glb",  # alienígena cinzento: Idle, Walk, Reach
+	"coisa_quatro": "res://assets/models/coisa_quatro.glb",  # skinwalker de quatro: Idle, Crawl, Rise
 }
 
 ## Ajustes por modelo, aplicados pelo Actor:

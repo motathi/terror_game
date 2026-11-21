@@ -520,6 +520,10 @@
    "celeiro_queda": {
     "prompt": "a heavy carcass suddenly falling from the barn rafters onto the wooden floor with a wet thud, dust and creaking wood, startling",
     "duration": 2.0
+   },
+   "susto_skin": {
+    "prompt": "horror jumpscare: a creature roaring right into the listener's face, a dog bark that twists into a human scream, with a violent dissonant string stab and deep bass hit, extremely close",
+    "duration": 2.0
    }
   }
  },

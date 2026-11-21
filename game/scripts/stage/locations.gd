@@ -67,6 +67,8 @@ static func build(id: String, root: Node3D) -> Dictionary:
 			_barraco(root, cfg)
 		"hospital":
 			_hospital(root, cfg)
+		"terreno":
+			_terreno(root, cfg)
 		_:
 			push_warning("Locations: cenário desconhecido '%s'" % id)
 			box(root, Vector3(10, 0.1, 10), Vector3(0, -0.05, -3), Color(0.1, 0.1, 0.1))
@@ -264,6 +266,76 @@ static func _rua(root: Node3D, cfg: Dictionary) -> void:
 	cfg["fog_color"] = Color(0.05, 0.04, 0.05)
 	cfg["ambient_energy"] = 0.5
 	cfg["approach_center"] = true
+
+
+## Terreno baldio no fim da rua, de madrugada: mato seco até a cintura, entulho,
+## cerca de arame caída, um poste distante e a armadilha de tatu enferrujada.
+static func _terreno(root: Node3D, cfg: Dictionary) -> void:
+	box(root, Vector3(30, 0.1, 30), Vector3(0, -0.05, -8), Color(0.16, 0.13, 0.08))  # terra
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 4242
+	for i in 260:  # tufos de mato seco
+		var p := Vector3(rng.randf_range(-7.0, 7.0), 0, rng.randf_range(-14.0, 1.5))
+		if absf(p.x - 0.3) < 0.7 and p.z > -4.0 and p.z < -2.4:
+			continue  # clareira da armadilha
+		if absf(p.x) < 0.5 and p.z > -1.6:
+			continue  # trilha por onde você entra
+		var h := rng.randf_range(0.5, 1.2)
+		var c := Color(0.42, 0.36, 0.18).darkened(rng.randf() * 0.4)
+		var t := box(root, Vector3(0.05, h, 0.05), p + Vector3(0, h * 0.5, 0), c)
+		t.rotation_degrees = Vector3(rng.randf_range(-15, 15), rng.randf_range(0, 90), rng.randf_range(-15, 15))
+	for i in 6:  # entulho: tijolos, um pneu, um sofá velho
+		box(root, Vector3(rng.randf_range(0.3, 0.8), rng.randf_range(0.15, 0.4), rng.randf_range(0.3, 0.7)),
+			Vector3(rng.randf_range(-5.0, 5.0), 0.15, rng.randf_range(-12.0, -5.0)), Color(0.35, 0.22, 0.16))
+	var tire := MeshInstance3D.new()
+	var tm := TorusMesh.new()
+	tm.inner_radius = 0.18
+	tm.outer_radius = 0.34
+	tire.mesh = tm
+	tire.position = Vector3(-1.8, 0.1, -3.6)
+	tire.material_override = AssetLib.make_material(Color(0.08, 0.08, 0.08))
+	root.add_child(tire)
+	box(root, Vector3(1.6, 0.5, 0.7), Vector3(2.6, 0.25, -6.5), Color(0.3, 0.2, 0.25))  # sofá abandonado
+	for i in 8:  # cerca de arame caída
+		var post := box(root, Vector3(0.08, 1.2, 0.08), Vector3(-6.5 + i * 1.9, 0.6, -10.5), Color(0.3, 0.24, 0.18))
+		post.rotation_degrees.z = rng.randf_range(-20, 20)
+	box(root, Vector3(14, 0.02, 0.02), Vector3(0, 0.9, -10.5), Color(0.5, 0.5, 0.5))
+	box(root, Vector3(14, 0.02, 0.02), Vector3(0, 0.5, -10.5), Color(0.5, 0.5, 0.5))
+	# armadilha de tatu: gaiola de arame enferrujada
+	var cage := Node3D.new()
+	cage.name = "armadilha"
+	cage.position = Vector3(0.3, 0, -3.2)
+	root.add_child(cage)
+	var rust := Color(0.45, 0.25, 0.14)
+	for x in [-0.35, 0.35]:
+		for z in [-0.45, 0.45]:
+			box(cage, Vector3(0.03, 0.55, 0.03), Vector3(x, 0.275, z), rust)
+	for z in range(-4, 5):
+		box(cage, Vector3(0.72, 0.015, 0.015), Vector3(0, 0.55, z * 0.11), rust)
+		box(cage, Vector3(0.015, 0.55, 0.015), Vector3(-0.35, 0.275, z * 0.11), rust)
+		box(cage, Vector3(0.015, 0.55, 0.015), Vector3(0.35, 0.275, z * 0.11), rust)
+	box(cage, Vector3(0.72, 0.02, 0.92), Vector3(0, 0.01, 0), rust.darkened(0.3))
+	var trap_door := box(cage, Vector3(0.7, 0.5, 0.02), Vector3(0, 0.3, 0.46), rust)
+	trap_door.name = "porta_armadilha"
+	# poste lá longe, e a lanterna do celular na sua mão
+	box(root, Vector3(0.12, 5.0, 0.12), Vector3(5.5, 2.5, -13.0), Color(0.25, 0.25, 0.25))
+	var lamp := omni(root, Vector3(5.0, 4.8, -13.0), Color(1.0, 0.6, 0.25), 1.4, 10.0)
+	lamp.add_child(Flicker.new(0.9, 5.0))
+	var torch := SpotLight3D.new()
+	torch.name = "lanterna"
+	torch.light_color = Color(0.92, 0.96, 1.0)
+	torch.light_energy = 2.2
+	torch.spot_range = 9.0
+	torch.spot_angle = 26.0
+	torch.position = Vector3(0.2, 1.3, 0.4)
+	torch.rotation_degrees = Vector3(-14, 0, 0)
+	root.add_child(torch)
+	cfg["center_dist"] = 4.5
+	cfg["slot_dist"] = 3.2
+	cfg["camera_look"] = Vector3(0, 0.6, -4.0)
+	cfg["fog_density"] = 0.06
+	cfg["fog_color"] = Color(0.04, 0.035, 0.03)
+	cfg["ambient_energy"] = 0.35
 
 
 ## Entrada do pronto-socorro, de noite: portas de vidro acorrentadas por dentro,
