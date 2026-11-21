@@ -1625,7 +1625,7 @@
           "who": "sistema",
           "sfx": "porta_abre",
           "fx": "lights_off",
-          "text": "As portas se abrem.",
+          "text": "As portas se abrem. Tem um deles parado bem na frente.",
           "acoes": [
             {
               "t": 0.2,
@@ -2362,7 +2362,7 @@
           "id": "garagem_lenta_01",
           "who": "sistema",
           "sfx": "grito_zumbi",
-          "text": "A Patrícia não consegue correr. O garoto se vira.",
+          "text": "A Patrícia não consegue correr. O garoto se vira e avança.",
           "acoes": [
             {
               "t": 0.5,
@@ -4985,27 +4985,19 @@
             },
             {
               "t": 2.9,
-              "acao": "esconder",
-              "who": "marina"
+              "acao": "camera_rel",
+              "por": [
+                0,
+                0,
+                -0.3
+              ],
+              "dur": 1.4
             },
             {
               "t": 2.9,
-              "acao": "susto",
-              "who": "marina",
-              "tint": "#8a9a84",
-              "anim": "Idle",
-              "inclinar": 0,
-              "de": 1.6,
-              "ate": 0.48,
-              "rapido": 0.22,
-              "segura": 0.9,
-              "depois": "recuar",
-              "som": "susto_grito"
-            },
-            {
-              "t": 4.3,
-              "acao": "mostrar",
-              "who": "marina"
+              "acao": "sfx",
+              "som": "stinger_hit",
+              "volume": -6
             }
           ]
         },
@@ -6216,20 +6208,6 @@
               "t": 2.8,
               "acao": "silencio",
               "dur": 1.2
-            },
-            {
-              "t": 3.6,
-              "acao": "susto",
-              "who": "z_vidro",
-              "modelo": "zombie_student",
-              "tint": "#9aa890",
-              "de": 2.4,
-              "ate": 1.25,
-              "rapido": 0.1,
-              "segura": 1.1,
-              "inclinar": 10,
-              "depois": "recuar",
-              "som": "susto_vidro"
             },
             {
               "t": 3.7,
@@ -7613,7 +7591,7 @@
         {
           "id": "c2_janela_04",
           "who": "sistema",
-          "text": "Ele sabe.",
+          "text": "Ele sabe. O vidro explode para dentro.",
           "acoes": [
             {
               "t": 0,
@@ -8572,7 +8550,7 @@
         {
           "id": "c2_achou_01",
           "who": "sistema",
-          "text": "Um soluço. Só um. É o bastante.",
+          "text": "Um soluço. Só um. Ele se vira e se joga em cima de vocês.",
           "if": "escondeu",
           "acoes": [
             {
@@ -11949,7 +11927,7 @@
         {
           "id": "c2_vacorda_01",
           "who": "sistema",
-          "text": "Atrás do vidro da guarita, o vigia vira a cabeça. Devagar demais.",
+          "text": "Atrás do vidro da guarita, o vigia vira a cabeça. E se joga contra o vidro.",
           "acoes": [
             {
               "t": 0,
@@ -12330,20 +12308,6 @@
               "t": 0,
               "acao": "silencio",
               "dur": 0.8
-            },
-            {
-              "t": 0.3,
-              "acao": "susto",
-              "who": "henrique",
-              "anim": "Idle",
-              "inclinar": 0,
-              "de": 1.4,
-              "ate": 0.55,
-              "rapido": 0.16,
-              "segura": 0.7,
-              "depois": "recuar",
-              "som": "susto_grito",
-              "volume": 2.0
             }
           ]
         },
@@ -12767,7 +12731,7 @@
         {
           "id": "c2_espv_01",
           "who": "sistema",
-          "text": "A Bia espirra.",
+          "text": "A Bia espirra. O rosto dele bate no vidro.",
           "acoes": [
             {
               "t": 0,

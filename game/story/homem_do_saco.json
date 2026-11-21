@@ -826,19 +826,6 @@
         1.8,
         6.5
        ]
-      },
-      {
-       "t": 2.2,
-       "acao": "susto",
-       "who": "homem_perto",
-       "anim": "Grab",
-       "inclinar": 0,
-       "de": 3.0,
-       "ate": 0.55,
-       "rapido": 0.14,
-       "segura": 0.6,
-       "depois": "recuar",
-       "som": "susto_saco"
       }
      ]
     }
@@ -2030,19 +2017,6 @@
        "acao": "fx",
        "tipo": "tremor",
        "forca": 0.05
-      },
-      {
-       "t": 0.9,
-       "acao": "susto",
-       "who": "homem_perto",
-       "anim": "Grab",
-       "inclinar": 0,
-       "de": 2.0,
-       "ate": 0.5,
-       "rapido": 0.14,
-       "segura": 0.6,
-       "depois": "recuar",
-       "som": "susto_saco"
       }
      ]
     }
@@ -2139,19 +2113,6 @@
         -2.0
        ],
        "dur": 0.8
-      },
-      {
-       "t": 0.6,
-       "acao": "susto",
-       "who": "homem_perto",
-       "anim": "Grab",
-       "inclinar": 0,
-       "de": 1.4,
-       "ate": 0.45,
-       "rapido": 0.1,
-       "segura": 0.6,
-       "depois": "recuar",
-       "som": "susto_saco"
       }
      ]
     },
@@ -3092,19 +3053,6 @@
        "t": 0.4,
        "acao": "silencio",
        "dur": 2.4
-      },
-      {
-       "t": 2.8,
-       "acao": "susto",
-       "who": "homem_perto",
-       "anim": "Grab",
-       "inclinar": 0,
-       "de": 2.6,
-       "ate": 0.5,
-       "rapido": 0.14,
-       "segura": 0.6,
-       "depois": "recuar",
-       "som": "susto_saco"
       }
      ]
     }
@@ -3572,19 +3520,6 @@
        "dur": 1.0
       },
       {
-       "t": 3.4,
-       "acao": "susto",
-       "who": "homem_perto",
-       "anim": "Grab",
-       "inclinar": 0,
-       "de": 1.4,
-       "ate": 0.5,
-       "rapido": 0.14,
-       "segura": 0.7,
-       "depois": "recuar",
-       "som": "susto_saco"
-      },
-      {
        "t": 5.0,
        "acao": "camera_olhar",
        "who": "saco_davi",
@@ -3754,18 +3689,6 @@
       "acao": "fx",
       "tipo": "tremor",
       "forca": 0.1
-     },
-     {
-      "t": 5.1,
-      "acao": "susto",
-      "who": "homem_perto",
-      "anim": "Grab",
-      "inclinar": 0,
-      "de": 1.8,
-      "ate": 0.45,
-      "rapido": 0.14,
-      "segura": 0.6,
-      "som": "susto_saco"
      },
      {
       "t": 5.2,
@@ -5134,19 +5057,6 @@
       "t": 5.0,
       "acao": "sfx",
       "som": "cascalho_passos"
-     },
-     {
-      "t": 6.6,
-      "acao": "susto",
-      "who": "homem_perto",
-      "anim": "Grab",
-      "inclinar": 0,
-      "de": 1.8,
-      "ate": 0.45,
-      "rapido": 0.14,
-      "segura": 0.6,
-      "depois": "sumir",
-      "som": "susto_saco"
      },
      {
       "t": 7.6,

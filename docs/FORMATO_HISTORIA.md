@@ -113,6 +113,8 @@ Offsets (`de`, `para`, `por`) são relativos à câmera: x = direita, y = cima, 
 | `silencio` | a música some por `dur` segundos (o silêncio antes do susto) |
 | `sfx`, `luz`, `luz_ponto`, `no`, `fx` | som, luz do ambiente, luz pontual, mover nó do cenário, efeitos (`flash`, `tremor`, `piscar`, `vermelho`, `apagar`, `acender`, `chuvisco`) |
 
+Regra do `susto` com `who`: só use quando a fala diz que o bicho avança, agarra ou bate em você ("ele pula o balcão", "o rosto dele bate no vidro"). Se a fala só descreve alguém olhando, virando a cabeça ou parado, não tem bote: aproxime a câmera devagar (`camera_rel`) e, se quiser, um acorde baixo (`sfx` `stinger_hit`).
+
 As mesmas ações valem nas cinemáticas dos finais (`"passos"`).
 
 ## Escolha

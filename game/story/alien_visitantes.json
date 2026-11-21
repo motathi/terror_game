@@ -509,29 +509,6 @@
        "energia": 1.5,
        "raio": 3.0,
        "piscar": true
-      },
-      {
-       "t": 1.6,
-       "acao": "esconder",
-       "who": "criatura"
-      },
-      {
-       "t": 1.6,
-       "acao": "susto",
-       "who": "criatura",
-       "anim": "attack",
-       "de": 4.0,
-       "ate": 0.7,
-       "rapido": 0.2,
-       "segura": 0.6,
-       "inclinar": 0,
-       "depois": "recuar",
-       "som": "susto_alien"
-      },
-      {
-       "t": 2.6,
-       "acao": "mostrar",
-       "who": "criatura"
       }
      ]
     }
@@ -3730,30 +3707,6 @@
        "dur": 0.5
       },
       {
-       "t": 0.6,
-       "acao": "esconder",
-       "who": "lia_copia"
-      },
-      {
-       "t": 0.6,
-       "acao": "susto",
-       "who": "lia_copia",
-       "tint": "#b8d8c0",
-       "anim": "Idle",
-       "inclinar": 0,
-       "de": 1.6,
-       "ate": 0.5,
-       "rapido": 0.18,
-       "segura": 0.8,
-       "depois": "recuar",
-       "som": "susto_alien"
-      },
-      {
-       "t": 1.9,
-       "acao": "mostrar",
-       "who": "lia_copia"
-      },
-      {
        "t": 2.0,
        "acao": "luz_ponto",
        "pos": [
@@ -3765,6 +3718,22 @@
        "energia": 0.6,
        "raio": 2.0,
        "piscar": true
+      },
+      {
+       "t": 0.6,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        -0.3
+       ],
+       "dur": 1.4
+      },
+      {
+       "t": 0.6,
+       "acao": "sfx",
+       "som": "stinger_hit",
+       "volume": -6
       }
      ]
     }
@@ -3876,30 +3845,6 @@
        "dur": 0.5
       },
       {
-       "t": 0.6,
-       "acao": "esconder",
-       "who": "vo"
-      },
-      {
-       "t": 0.6,
-       "acao": "susto",
-       "who": "vo",
-       "tint": "#b8d8c0",
-       "anim": "Idle",
-       "inclinar": 0,
-       "de": 1.6,
-       "ate": 0.5,
-       "rapido": 0.18,
-       "segura": 0.8,
-       "depois": "recuar",
-       "som": "susto_alien"
-      },
-      {
-       "t": 1.9,
-       "acao": "mostrar",
-       "who": "vo"
-      },
-      {
        "t": 2.0,
        "acao": "luz_ponto",
        "pos": [
@@ -3911,6 +3856,22 @@
        "energia": 0.6,
        "raio": 2.0,
        "piscar": true
+      },
+      {
+       "t": 0.6,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        -0.3
+       ],
+       "dur": 1.4
+      },
+      {
+       "t": 0.6,
+       "acao": "sfx",
+       "som": "stinger_hit",
+       "volume": -6
       }
      ]
     }

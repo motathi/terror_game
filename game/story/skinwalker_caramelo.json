@@ -1834,27 +1834,20 @@
        "who": "mae"
       },
       {
-       "t": 2.5,
-       "acao": "esconder",
-       "who": "coisa"
+       "t": 3.55,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        -0.3
+       ],
+       "dur": 1.4
       },
       {
        "t": 2.5,
-       "acao": "susto",
-       "who": "coisa",
-       "anim": "attack",
-       "inclinar": 0,
-       "de": 1.8,
-       "ate": 0.5,
-       "rapido": 0.14,
-       "segura": 0.6,
-       "depois": "recuar",
-       "som": "susto_skin"
-      },
-      {
-       "t": 3.5,
-       "acao": "mostrar",
-       "who": "coisa"
+       "acao": "sfx",
+       "som": "stinger_hit",
+       "volume": -6
       }
      ]
     },
@@ -2128,27 +2121,20 @@
        "forca": 0.06
       },
       {
-       "t": 0.5,
-       "acao": "esconder",
-       "who": "coisa"
+       "t": 0.85,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        -0.3
+       ],
+       "dur": 1.4
       },
       {
        "t": 0.5,
-       "acao": "susto",
-       "who": "coisa",
-       "anim": "attack",
-       "inclinar": 0,
-       "de": 2.0,
-       "ate": 0.55,
-       "rapido": 0.16,
-       "segura": 0.5,
-       "depois": "recuar",
-       "som": "susto_skin"
-      },
-      {
-       "t": 1.4,
-       "acao": "mostrar",
-       "who": "coisa"
+       "acao": "sfx",
+       "som": "stinger_hit",
+       "volume": -6
       }
      ]
     }
@@ -2669,29 +2655,6 @@
         1.9,
         -3.4
        ]
-      },
-      {
-       "t": 0.5,
-       "acao": "esconder",
-       "who": "coisa"
-      },
-      {
-       "t": 0.5,
-       "acao": "susto",
-       "who": "coisa",
-       "anim": "attack",
-       "inclinar": 0,
-       "de": 3.0,
-       "ate": 0.6,
-       "rapido": 0.15,
-       "segura": 0.6,
-       "depois": "recuar",
-       "som": "susto_skin"
-      },
-      {
-       "t": 1.5,
-       "acao": "mostrar",
-       "who": "coisa"
       }
      ]
     }
@@ -4418,35 +4381,28 @@
        "dur": 0.4
       },
       {
-       "t": 0.3,
-       "acao": "esconder",
-       "who": "coisa"
-      },
-      {
-       "t": 0.3,
-       "acao": "susto",
-       "who": "coisa",
-       "anim": "idle",
-       "inclinar": 0,
-       "de": 1.4,
-       "ate": 0.45,
-       "rapido": 0.5,
-       "segura": 1.4,
-       "depois": "recuar",
-       "som": "susto_skin"
-      },
-      {
-       "t": 2.4,
-       "acao": "mostrar",
-       "who": "coisa"
-      },
-      {
        "t": 2.6,
        "acao": "fx",
        "tipo": "chuvisco",
        "de": 0.5,
        "ate": 0.0,
        "dur": 1.5
+      },
+      {
+       "t": 0.45,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        -0.3
+       ],
+       "dur": 1.4
+      },
+      {
+       "t": 0.3,
+       "acao": "sfx",
+       "som": "stinger_hit",
+       "volume": -6
       }
      ]
     }
@@ -4476,35 +4432,28 @@
        "dur": 0.3
       },
       {
-       "t": 0.2,
-       "acao": "esconder",
-       "who": "coisa"
-      },
-      {
-       "t": 0.2,
-       "acao": "susto",
-       "who": "coisa",
-       "anim": "idle",
-       "inclinar": 0,
-       "de": 3.0,
-       "ate": 0.8,
-       "rapido": 0.6,
-       "segura": 1.2,
-       "depois": "recuar",
-       "som": "susto_skin"
-      },
-      {
-       "t": 2.2,
-       "acao": "mostrar",
-       "who": "coisa"
-      },
-      {
        "t": 2.4,
        "acao": "fx",
        "tipo": "chuvisco",
        "de": 0.5,
        "ate": 0.0,
        "dur": 1.5
+      },
+      {
+       "t": 0.35,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        -0.3
+       ],
+       "dur": 1.4
+      },
+      {
+       "t": 0.2,
+       "acao": "sfx",
+       "som": "stinger_hit",
+       "volume": -6
       }
      ]
     }
@@ -4609,26 +4558,19 @@
       },
       {
        "t": 1.6,
-       "acao": "esconder",
-       "who": "caramelo_falso"
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        -0.3
+       ],
+       "dur": 1.4
       },
       {
        "t": 1.6,
-       "acao": "susto",
-       "who": "coisa",
-       "anim": "attack",
-       "inclinar": 0,
-       "de": 1.6,
-       "ate": 0.5,
-       "rapido": 0.16,
-       "segura": 0.6,
-       "depois": "recuar",
-       "som": "susto_skin"
-      },
-      {
-       "t": 2.8,
-       "acao": "mostrar",
-       "who": "caramelo_falso"
+       "acao": "sfx",
+       "som": "stinger_hit",
+       "volume": -6
       }
      ]
     }
