@@ -32,7 +32,7 @@ func _ready() -> void:
 	root.add_theme_constant_override("separation", 16)
 	add_child(root)
 	root.add_child(UI.label("FINAIS", 64, UI.RED, true))
-	root.add_child(UI.label("%d / %d descobertos" % [GameState.count_discovered(runner.campaign_id), ids.size()], 36, UI.DIM))
+	root.add_child(UI.label("%d / %d descobertos" % [GameState.count_discovered(runner.campaign_id, ids), ids.size()], 36, UI.DIM))
 
 	var scroll := ScrollContainer.new()
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL

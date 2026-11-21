@@ -85,11 +85,13 @@ func is_discovered(campaign_id: String, ending_id: String) -> bool:
 	return discovered_endings.has(campaign_id + "/" + ending_id)
 
 
-func count_discovered(campaign_id: String) -> int:
+## valid = finais que existem hoje na campanha (finais removidos não contam).
+func count_discovered(campaign_id: String, valid: Array = []) -> int:
 	var n := 0
 	for key in discovered_endings:
 		if String(key).begins_with(campaign_id + "/"):
-			n += 1
+			if valid.is_empty() or String(key).trim_prefix(campaign_id + "/") in valid:
+				n += 1
 	return n
 
 

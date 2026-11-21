@@ -230,7 +230,7 @@ func _show_ending(ending_id: String) -> void:
 	ui.show_phone("")
 	var data := runner.ending(ending_id)
 	var is_new := GameState.discover_ending(runner.campaign_id, ending_id)
-	var found := GameState.count_discovered(runner.campaign_id)
+	var found := GameState.count_discovered(runner.campaign_id, runner.ending_ids())
 	var total := runner.ending_ids().size()
 	var kind: String = data.get("kind", "")
 	Audio.play_ambience("")

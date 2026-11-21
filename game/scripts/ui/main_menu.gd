@@ -290,8 +290,9 @@ func _select(i: int, animate := true) -> void:
 	if available:
 		_badge.text = "DISPONÍVEL"
 		_badge.add_theme_color_override("font_color", accent)
-		var total := _endings_total(c)
-		var found := GameState.count_discovered(c["id"])
+		var ids := _ending_ids(c)
+		var total := ids.size()
+		var found := GameState.count_discovered(c["id"], ids)
 		_camp_meta.text = "%d FINAIS  ·  %d DESCOBERTOS" % [total, found]
 		_play.text = "JOGAR"
 		_play.disabled = false
@@ -336,11 +337,11 @@ func _build_extras(cena: Dictionary, floor_y: float) -> void:
 			n.add_child(Locations.Hover.new())
 
 
-func _endings_total(c: Dictionary) -> int:
+func _ending_ids(c: Dictionary) -> Array:
 	var runner := StoryRunner.new()
 	if runner.load_file(c.get("path", "")):
-		return runner.ending_ids().size()
-	return 0
+		return runner.ending_ids()
+	return []
 
 
 func _on_play() -> void:
