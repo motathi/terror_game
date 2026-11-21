@@ -70,6 +70,9 @@ rm -rf "$ROOT/dist" && mkdir -p "$ROOT/dist"
 "$GODOT" --headless --path "$ROOT/game" --export-release "Web" "$ROOT/dist/index.html" 2>&1 \
   | grep -vE "^\[ *[0-9]+% \]|DONE|^.\[0m$" | tail -n 80
 test -f "$ROOT/dist/index.pck" || { echo "ERRO: exportação não gerou dist/index.pck"; exit 1; }
+# PWA desligado: no lugar do service worker antigo vai um que apaga o cache e se
+# desregistra (quem abriu o jogo antes deixa de ver a versão velha guardada).
+cp "$ROOT/tools/web/index.service.worker.js" "$ROOT/dist/index.service.worker.js"
 
 echo ">> Teste de fumaça (menu, jogo e cenários)"
 for scene in res://scenes/main_menu.tscn res://scenes/game.tscn res://scenes/location_preview.tscn; do
