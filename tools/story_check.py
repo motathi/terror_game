@@ -114,6 +114,10 @@ def check(story):
     for k, c in ids.items():
         if c > 1:
             errors.append(f"id de fala duplicado: {k}")
+    for side, cond in story.get("maos_ocultas", {}).items():
+        if side not in ("esquerda", "direita"):
+            errors.append(f"maos_ocultas: lado desconhecido '{side}'")
+        check_expr(cond, f"maos_ocultas/{side}")
     for eid, e in endings.items():
         for x in e.get("extra", []):
             check_expr(x["if"], f"final {eid}")

@@ -3,7 +3,7 @@
 Jogo de terror de escolhas em primeira pessoa, no formato dos vídeos "escolha-me / pick your partner" do TikTok e Instagram: você vê pelos olhos do personagem, duas pessoas (ou coisas) imploram para você escolher uma delas, o tempo está acabando, e cada decisão leva a um dos vários finais. Visual low poly estilo PS1, vozes geradas com ElevenLabs.
 
 **Campanhas** (menu em carrossel, definidas em `game/story/campanhas.json`):
-- **Zumbi — Capítulo 1: Surto** (jogável): escritório, notícias de ataques, sua família em casa. 10 finais. Algumas escolhas pedem um teste de dado (d20 + atributo contra a Classe de Dificuldade, como em Baldur's Gate).
+- **Zumbi — Capítulo 1: Surto** (jogável): escritório, notícias de ataques, sua família em casa. 12 finais. Nos ataques você rola o dado (d20 + atributo contra a Classe de Dificuldade, como em Baldur's Gate): fugir do Rastejante, segurar uma porta, cortar o braço mordido e sobreviver ao corte. Sustos (jumpscares) nos momentos-chave.
 - **Alien — Capítulo 1: Visitantes** (jogável): sítio do avô no interior, luzes sobre o milharal, quem volta não é igual. 10 finais. Momento-chave: duas Lias idênticas implorando "a outra é a cópia".
 - **Skinwalker — Capítulo 1: Caramelo** (jogável): o cachorro da família some por três dias e volta diferente. Ele não late, não manca e imita vozes. 10 finais. Momentos-chave: duas mães (uma do lado de fora da porta) e dois Caramelos implorando para entrar.
 - **Homem do Saco — Capítulo 1: Véspera de São João** (jogável): a fogueira está apagando e você precisa levar seu irmão Davi para casa. Atalho pela linha do trem ou rua iluminada; voz da mãe na porta; dois sacos chamando seu nome no barraco do velho. 11 finais.
@@ -68,7 +68,7 @@ game/                      projeto Godot
   autoload/                GameState (save/finais) e Audio (vozes/efeitos/ambiente)
   shaders/                 psx_lit (tremido + textura afim) e psx_post (dither + granulado)
   audio/vo|sfx|amb/        saída do ElevenLabs
-  assets/models/           modelos feitos no projeto (d20.glb, gerado pelo Blender)
+  assets/models/           modelos feitos no projeto pelo Blender (d20.glb, rastejante.glb)
   assets/third_party/      pacotes PSX (ver assets_manifest.json)
 tools/
   fetch_assets.py          baixa os pacotes do itch.io listados no manifesto
@@ -76,5 +76,6 @@ tools/
   elevenlabs_gen.py        pipeline de vozes e efeitos
   story_check.py           validador e simulador de caminhos
   blender/make_d20.py      modela o d20 no Blender (pip install bpy) e exporta d20.glb + faces
+  blender/make_rastejante.py  modela, texturiza, arma e anima o Rastejante (zumbi sem pernas)
 docs/ARQUITETURA.md        por que Godot e como as peças se encaixam
 ```

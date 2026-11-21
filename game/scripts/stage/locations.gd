@@ -65,6 +65,8 @@ static func build(id: String, root: Node3D) -> Dictionary:
 			_ruazinha(root, cfg)
 		"barraco":
 			_barraco(root, cfg)
+		"hospital":
+			_hospital(root, cfg)
 		_:
 			push_warning("Locations: cenário desconhecido '%s'" % id)
 			box(root, Vector3(10, 0.1, 10), Vector3(0, -0.05, -3), Color(0.1, 0.1, 0.1))
@@ -250,6 +252,70 @@ static func _rua(root: Node3D, cfg: Dictionary) -> void:
 	cfg["fog_color"] = Color(0.05, 0.04, 0.05)
 	cfg["ambient_energy"] = 0.5
 	cfg["approach_center"] = true
+
+
+## Entrada do pronto-socorro, de noite: portas de vidro acorrentadas por dentro,
+## cruz vermelha acesa, luz fluorescente piscando lá dentro e uma ambulância largada.
+static func _hospital(root: Node3D, cfg: Dictionary) -> void:
+	box(root, Vector3(24, 0.1, 20), Vector3(0, -0.05, -2), Color(0.14, 0.14, 0.15))  # estacionamento
+	box(root, Vector3(16, 0.18, 2.4), Vector3(0, 0.09, -3.0), Color(0.38, 0.38, 0.36))  # calçada
+	# fachada com um vão para as portas
+	var wall_c := Color(0.5, 0.52, 0.48)
+	box(root, Vector3(6.0, 7.0, 0.4), Vector3(-4.25, 3.5, -4.4), wall_c)
+	box(root, Vector3(6.0, 7.0, 0.4), Vector3(4.25, 3.5, -4.4), wall_c)
+	box(root, Vector3(2.5, 4.6, 0.4), Vector3(0, 4.7, -4.4), wall_c)
+	box(root, Vector3(4.2, 0.15, 1.6), Vector3(0, 2.45, -3.7), Color(0.3, 0.3, 0.3))  # marquise
+	# lá dentro: corredor escuro com macas e luz esverdeada
+	box(root, Vector3(8, 0.1, 8), Vector3(0, 0.0, -8.6), Color(0.3, 0.33, 0.3))
+	box(root, Vector3(8, 0.1, 8), Vector3(0, 3.0, -8.6), Color(0.22, 0.24, 0.22))
+	box(root, Vector3(0.2, 3.0, 8), Vector3(-2.6, 1.5, -8.6), Color(0.42, 0.48, 0.42))
+	box(root, Vector3(0.2, 3.0, 8), Vector3(2.6, 1.5, -8.6), Color(0.42, 0.48, 0.42))
+	box(root, Vector3(5.2, 3.0, 0.2), Vector3(0, 1.5, -12.5), Color(0.38, 0.44, 0.38))
+	for z in [-6.5, -9.5]:
+		box(root, Vector3(0.8, 0.08, 1.9), Vector3(1.6, 0.8, z), Color(0.8, 0.8, 0.78))  # maca
+		box(root, Vector3(0.7, 0.05, 1.7), Vector3(1.6, 0.86, z), Color(0.55, 0.1, 0.08))  # lençol sujo
+	var fluo := omni(root, Vector3(0, 2.8, -7.5), Color(0.6, 1.0, 0.7), 1.6, 7.0)
+	fluo.add_child(Flicker.new(0.9, 9.0))
+	# portas de vidro (sujas de sangue) com corrente e cadeado em X
+	for sx in [-0.62, 0.62]:
+		var g := box(root, Vector3(1.2, 2.3, 0.04), Vector3(sx, 1.15, -4.3), Color(0.12, 0.16, 0.18), 0.05)
+		g.transparency = 0.45
+		box(root, Vector3(1.24, 0.06, 0.07), Vector3(sx, 2.3, -4.3), Color(0.55, 0.55, 0.55))
+		box(root, Vector3(0.06, 2.3, 0.07), Vector3(sx + 0.6, 1.15, -4.3), Color(0.55, 0.55, 0.55))
+	for i in 5:  # mãos de sangue no vidro
+		box(root, Vector3(0.12, 0.16, 0.01), Vector3(-0.9 + i * 0.42, 0.9 + (i % 2) * 0.55, -4.27), Color(0.35, 0.02, 0.02))
+	for ang in [35.0, -35.0]:
+		var ch := box(root, Vector3(2.0, 0.05, 0.05), Vector3(0, 1.1, -4.24), Color(0.3, 0.3, 0.32))
+		ch.rotation_degrees.z = ang
+	box(root, Vector3(0.14, 0.18, 0.08), Vector3(0, 1.1, -4.2), Color(0.6, 0.5, 0.2))  # cadeado
+	# cruz vermelha e letreiro
+	box(root, Vector3(0.9, 0.28, 0.08), Vector3(0, 5.6, -4.17), Color(1.0, 0.1, 0.08), 2.5)
+	box(root, Vector3(0.28, 0.9, 0.08), Vector3(0, 5.6, -4.17), Color(1.0, 0.1, 0.08), 2.5)
+	var red := omni(root, Vector3(0, 5.4, -3.4), Color(1.0, 0.15, 0.1), 1.2, 6.0)
+	red.add_child(Flicker.new(0.4, 3.0))
+	var sign := Label3D.new()
+	sign.text = "PRONTO SOCORRO"
+	sign.font_size = 96
+	sign.pixel_size = 0.004
+	sign.modulate = Color(1.0, 0.85, 0.8)
+	sign.outline_size = 0
+	sign.position = Vector3(0, 2.75, -2.88)
+	root.add_child(sign)
+	var entry := omni(root, Vector3(0, 2.3, -3.4), Color(0.85, 0.95, 1.0), 1.4, 5.0)
+	entry.add_child(Flicker.new(0.7, 6.0))
+	# ambulância largada com a porta de trás aberta e a sirene girando
+	var amb := car_node(root, Vector3(4.3, 0, -1.6), -70.0, Color(0.85, 0.85, 0.82))
+	box(amb, Vector3(1.2, 0.1, 0.3), Vector3(0, 1.45, 0.4), Color(1.0, 0.1, 0.1), 1.5)
+	var siren := omni(amb, Vector3(0, 1.8, 0.4), Color(1.0, 0.1, 0.05), 2.0, 7.0)
+	siren.add_child(Pulse.new(0.9, 1.4))
+	var maca := box(root, Vector3(0.7, 0.08, 1.9), Vector3(-3.2, 0.35, -1.8), Color(0.75, 0.75, 0.72))
+	maca.rotation_degrees = Vector3(0, 30, 70)  # maca virada
+	cfg["center_dist"] = 4.9
+	cfg["slot_dist"] = 4.6
+	cfg["camera_look"] = Vector3(0, 1.5, -4.4)
+	cfg["fog_density"] = 0.035
+	cfg["fog_color"] = Color(0.04, 0.03, 0.04)
+	cfg["ambient_energy"] = 0.45
 
 
 static func _casa(root: Node3D, cfg: Dictionary) -> void:

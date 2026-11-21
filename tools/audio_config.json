@@ -313,6 +313,17 @@
     "style": 0.5,
     "speed": 1.0
    }
+  },
+  "enfermeira": {
+   "voice_id": "EXAVITQu4vr4xnSDxMaL",
+   "description": "Brazilian Portuguese nurse in her 40s, exhausted after a night of horror, firm and grim, speaking low through a glass door.",
+   "settings": {
+    "stability": 0.5,
+    "similarity_boost": 0.8,
+    "style": 0.3,
+    "speed": 0.98
+   },
+   "_obs": "voz pronta \"Sarah\" (limite de vozes personalizadas atingido)"
   }
  },
  "sfx": {
@@ -492,6 +503,14 @@
    },
    "susto_queda": {
     "prompt": "sudden loud crash in a dark kitchen, pots and plates falling and shattering on a tile floor, startling, close",
+    "duration": 2.0
+   },
+   "corte": {
+    "prompt": "heavy fire axe chopping through flesh and bone with a wet crunch, close, horror",
+    "duration": 1.5
+   },
+   "susto_vidro": {
+    "prompt": "a zombie violently slamming its face and hands against a glass door right in front of the listener, loud glass bang and rattle, with a guttural shriek",
     "duration": 2.0
    }
   }

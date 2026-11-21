@@ -22,6 +22,8 @@ const MODELS := {
 	"dog": TP + "psx_dog/DogGlb.glb",
 	"dog_head": TP + "psx_dog/dog_head.glb",  # gerado por tools/dog_head.py
 	"skinwalker": TP + "psx_creatures/zombie_woman.glb",
+	# feitos no projeto (Blender, tools/blender/)
+	"rastejante": "res://assets/models/rastejante.glb",  # zumbi sem pernas: Idle, Crawl, Attack
 }
 
 ## Ajustes por modelo, aplicados pelo Actor:

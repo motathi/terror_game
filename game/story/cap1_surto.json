@@ -18,7 +18,13 @@
   "hesitou": 0,
   "viu_mordida_patricia": false,
   "viu_mordida_rafael": false,
-  "viu_marina": false
+  "viu_marina": false,
+  "mordida_escada": false,
+  "mordida_rua": false,
+  "mordida_escritorio": false,
+  "quer_hospital": false,
+  "foi_hospital": false,
+  "sem_braco": false
  },
  "characters": {
   "sistema": {
@@ -55,6 +61,16 @@
   "zumbi": {
    "name": "",
    "model": "zombie_student"
+  },
+  "rastejante": {
+   "name": "",
+   "model": "rastejante"
+  },
+  "enfermeira": {
+   "name": "Enfermeira",
+   "model": "nurse",
+   "tint": "#c8d0d8",
+   "bus": "Muffled"
   }
  },
  "nodes": {
@@ -542,6 +558,20 @@
         1.55,
         -6.2
        ]
+      },
+      {
+       "t": 3.3,
+       "acao": "susto",
+       "som": "susto_grito",
+       "volume": -1.0
+      },
+      {
+       "t": 3.3,
+       "acao": "fx",
+       "tipo": "chuvisco",
+       "de": 0.9,
+       "ate": 0.0,
+       "dur": 0.9
       }
      ]
     },
@@ -649,6 +679,16 @@
        "acao": "camera_olhar",
        "who": "rafael",
        "dur": 0.8
+      },
+      {
+       "t": 2.3,
+       "acao": "fx",
+       "tipo": "luzes_off"
+      },
+      {
+       "t": 2.3,
+       "acao": "sfx",
+       "som": "stinger_hit"
       }
      ]
     }
@@ -816,6 +856,12 @@
      "t": 0.2,
      "acao": "sfx",
      "som": "passos"
+    },
+    {
+     "t": 0.05,
+     "acao": "susto",
+     "som": "batida_porta",
+     "volume": 2.0
     }
    ]
   },
@@ -1283,6 +1329,10 @@
    ],
    "branch": [
     {
+     "if": "mordido",
+     "ending": "febre"
+    },
+    {
      "if": "marina_trancada",
      "ending": "amanhecer"
     },
@@ -1394,7 +1444,7 @@
     {
      "id": "corredor_vulto_01",
      "who": "sistema",
-     "text": "Um vulto despenca do lance de cima, bem na sua frente. O Rafael te puxa. A coisa fica lá embaixo, se arrastando nos degraus.",
+     "text": "Um vulto despenca do lance de cima, bem na sua frente. Não tem pernas. Ele se arrasta pelos degraus com as mãos.",
      "espera": 1.9,
      "acoes": [
       {
@@ -1405,132 +1455,24 @@
       {
        "t": 0.9,
        "acao": "susto",
-       "who": "vulto",
-       "modelo": "zombie_student",
-       "tint": "#a89480",
+       "who": "rastejante",
        "de": 1.5,
        "ate": 0.45,
        "de_cima": 1.8,
        "rapido": 0.2,
        "segura": 0.7,
-       "inclinar": 38,
-       "som": "susto_grito"
+       "inclinar": 5,
+       "som": "susto_grito",
+       "anim": "Attack"
       },
       {
        "t": 2.1,
        "acao": "maos",
        "anim": "grab.R"
-      },
-      {
-       "t": 2.2,
-       "acao": "camera_rel",
-       "por": [
-        0,
-        0,
-        -0.4
-       ],
-       "dur": 0.8,
-       "andar": true
-      }
-     ]
-    },
-    {
-     "id": "corredor_03",
-     "who": "sistema",
-     "sfx": "elevador_ding",
-     "text": "No 8º andar, a porta do elevador está aberta. Luz acesa. Vazio.",
-     "acoes": [
-      {
-       "t": 0,
-       "acao": "fx",
-       "tipo": "apagar",
-       "dur": 0.25
-      },
-      {
-       "t": 0.3,
-       "acao": "camera",
-       "pos": [
-        0.4,
-        1.62,
-        -0.6
-       ],
-       "olhar": [
-        -1.2,
-        1.3,
-        0.6
-       ],
-       "dur": 0
-      },
-      {
-       "t": 0.3,
-       "acao": "mover",
-       "who": "rafael",
-       "para": [
-        0.5,
-        -0.36,
-        -2.3
-       ],
-       "dur": 0.01
-      },
-      {
-       "t": 0.35,
-       "acao": "fx",
-       "tipo": "acender",
-       "dur": 0.5
-      }
-     ]
-    },
-    {
-     "id": "corredor_04",
-     "who": "rafael",
-     "anim": "Talk",
-     "tags": "[firm, scared]",
-     "text": "Nem pensa. Elevador não.",
-     "acoes": [
-      {
-       "t": 0,
-       "acao": "camera_olhar",
-       "who": "rafael",
-       "dur": 0.6
-      },
-      {
-       "t": 0.1,
-       "acao": "olhar_camera",
-       "who": "rafael"
-      },
-      {
-       "t": 1.6,
-       "acao": "andar",
-       "who": "rafael",
-       "por": [
-        0,
-        -0.54,
-        -1.0
-       ],
-       "dur": 1.0,
-       "olhar_camera": false
       }
      ]
     }
    ],
-   "choice": {
-    "prompt": "Elevador ou escada?",
-    "timer": 6,
-    "options": [
-     {
-      "text": "Pegar o elevador. É mais rápido.",
-      "next": "elevador"
-     },
-     {
-      "text": "Continuar pela escada",
-      "who": "rafael",
-      "next": "patricia"
-     }
-    ],
-    "timeout": {
-     "next": "patricia"
-    }
-   },
    "acoes": [
     {
      "t": 0,
@@ -1543,7 +1485,8 @@
      ],
      "dur": 0
     }
-   ]
+   ],
+   "next": "escada_tornozelo"
   },
   "elevador": {
    "location": "elevador",
@@ -1551,6 +1494,10 @@
     "center": {
      "char": "rafael",
      "anim": "Run"
+    },
+    "left": {
+     "char": "zumbi",
+     "anim": "ZombieAttack"
     }
    },
    "lines": [
@@ -1724,12 +1671,34 @@
        "rapido": 0.12,
        "segura": 0.7,
        "som": "susto_grito"
+      },
+      {
+       "t": 2.1,
+       "acao": "mostrar",
+       "who": "zumbi"
+      },
+      {
+       "t": 2.1,
+       "acao": "olhar_camera",
+       "who": "zumbi"
+      },
+      {
+       "t": 2.2,
+       "acao": "andar",
+       "who": "zumbi",
+       "por": [
+        0,
+        0,
+        0.5
+       ],
+       "dur": 1.2,
+       "anim": "ZombieWalk",
+       "fim": "ZombieAttack"
       }
      ],
      "espera": 0.3
     }
    ],
-   "ending": "portas_abertas",
    "music": "perseguicao",
    "acoes": [
     {
@@ -1764,8 +1733,71 @@
       -1.0
      ],
      "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "zumbi",
+     "para": [
+      0.1,
+      0,
+      -1.7
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "esconder",
+     "who": "zumbi"
     }
-   ]
+   ],
+   "choice": {
+    "prompt": "Fecha! FECHA!",
+    "timer": 5,
+    "options": [
+     {
+      "text": "Apertar o botão de fechar sem parar",
+      "teste": {
+       "atributo": "agilidade",
+       "cd": 14,
+       "sucesso": {
+        "next": "elevador_escapa"
+       },
+       "falha": {
+        "ending": "portas_abertas"
+       },
+       "mods": [
+        {
+         "valor": -1,
+         "texto": "As mãos tremem"
+        }
+       ]
+      }
+     },
+     {
+      "text": "Se encolher no canto e prender a respiração",
+      "teste": {
+       "atributo": "furtividade",
+       "cd": 15,
+       "sucesso": {
+        "next": "elevador_escapa"
+       },
+       "falha": {
+        "ending": "portas_abertas"
+       },
+       "mods": [
+        {
+         "valor": 1,
+         "texto": "Está escuro aqui dentro"
+        }
+       ]
+      }
+     }
+    ],
+    "timeout": {
+     "ending": "portas_abertas"
+    }
+   }
   },
   "patricia": {
    "location": "escada",
@@ -2331,9 +2363,6 @@
      "anim": "Run"
     }
    },
-   "set": {
-    "rafael_mordido": true
-   },
    "lines": [
     {
      "id": "garagem_lenta_01",
@@ -2373,123 +2402,71 @@
         1.3,
         -8.0
        ]
-      }
-     ]
-    },
-    {
-     "id": "garagem_lenta_02",
-     "who": "sistema",
-     "text": "Rafael volta para puxar ela. O garoto alcança ele primeiro.",
-     "acoes": [
-      {
-       "t": 0,
-       "acao": "andar",
-       "who": "rafael",
-       "por": [
-        -0.8,
-        0,
-        1.6
-       ],
-       "dur": 1.0,
-       "anim": "Run",
-       "fim": "Idle",
-       "olhar_camera": false
       },
       {
-       "t": 0.3,
-       "acao": "andar",
+       "t": 0.45,
+       "acao": "silencio",
+       "dur": 0.6
+      },
+      {
+       "t": 0.9,
+       "acao": "esconder",
+       "who": "zumbi"
+      },
+      {
+       "t": 0.9,
+       "acao": "susto",
        "who": "zumbi",
-       "por": [
-        1.0,
-        0,
-        2.2
-       ],
-       "dur": 1.6,
-       "anim": "ZombieWalk",
-       "fim": "ZombieAttack",
-       "olhar_camera": false
+       "anim": "ZombieAttack",
+       "de": 2.6,
+       "ate": 0.55,
+       "rapido": 0.14,
+       "segura": 0.45,
+       "depois": "recuar",
+       "som": "susto_grito"
       },
       {
-       "t": 1.9,
-       "acao": "olhar_para",
-       "who": "zumbi",
-       "alvo": "rafael"
-      },
-      {
-       "t": 1.0,
-       "acao": "camera_olhar",
-       "who": "rafael",
-       "dur": 0.8
-      }
-     ]
-    },
-    {
-     "id": "garagem_lenta_03",
-     "who": "rafael",
-     "tags": "[screaming in pain]",
-     "text": "AAAH! Tira ele! TIRA!",
-     "acoes": [
-      {
-       "t": 0,
-       "acao": "tremer",
-       "who": "rafael",
-       "dur": 1.6
-      },
-      {
-       "t": 0,
-       "acao": "fx",
-       "tipo": "vermelho",
-       "de": 0.0,
-       "ate": 0.45,
-       "dur": 0.25
-      },
-      {
-       "t": 0.3,
-       "acao": "fx",
-       "tipo": "vermelho",
-       "de": 0.45,
-       "ate": 0.0,
-       "dur": 0.8
-      },
-      {
-       "t": 0,
-       "acao": "fx",
-       "tipo": "tremor",
-       "forca": 0.1
-      }
-     ]
-    },
-    {
-     "id": "garagem_lenta_04",
-     "who": "sistema",
-     "text": "Vocês conseguem entrar no carro. O braço do Rafael não para de sangrar.",
-     "acoes": [
-      {
-       "t": 0.2,
-       "acao": "camera_andar",
-       "pos": [
-        2.0,
-        1.62,
-        -10.5
-       ],
-       "olhar": [
-        2.4,
-        1.0,
-        -14.5
-       ],
-       "dur": 2.6
-      },
-      {
-       "t": 2.8,
-       "acao": "fx",
-       "tipo": "apagar",
-       "dur": 0.7
+       "t": 1.75,
+       "acao": "mostrar",
+       "who": "zumbi"
       }
      ]
     }
    ],
-   "next": "carro",
-   "music": "perseguicao"
+   "music": "perseguicao",
+   "choice": {
+    "prompt": "Ele vai pegar a Patrícia!",
+    "timer": 6,
+    "options": [
+     {
+      "text": "Empurrar o garoto para longe dela",
+      "teste": {
+       "atributo": "forca",
+       "cd": 13,
+       "sucesso": {
+        "next": "garagem_empurrao"
+       },
+       "falha": {
+        "next": "garagem_mordida"
+       },
+       "mods": [
+        {
+         "valor": -1,
+         "texto": "Ele é mais pesado do que parece"
+        }
+       ]
+      }
+     },
+     {
+      "text": "Deixar o Rafael puxar a Patrícia",
+      "who": "rafael",
+      "next": "garagem_mordida"
+     }
+    ],
+    "timeout": {
+     "next": "garagem_mordida"
+    }
+   }
   },
   "carro": {
    "location": "avenida",
@@ -2504,6 +2481,10 @@
     }
    ],
    "branch": [
+    {
+     "if": "quer_hospital and not foi_hospital",
+     "next": "hospital"
+    },
     {
      "if": "patricia",
      "next": "carro_patricia"
@@ -2718,10 +2699,6 @@
      "anim": "Sit"
     }
    },
-   "set": {
-    "rafael_mordido": true,
-    "patricia": false
-   },
    "lines": [
     {
      "id": "carro_parou_01",
@@ -2773,79 +2750,62 @@
        "acao": "fx",
        "tipo": "tremor",
        "forca": 0.1
-      }
-     ]
-    },
-    {
-     "id": "carro_parou_02",
-     "who": "rafael",
-     "tags": "[screaming]",
-     "text": "SAI! SAI DE MIM!",
-     "acoes": [
-      {
-       "t": 0,
-       "acao": "fx",
-       "tipo": "vermelho",
-       "de": 0.0,
-       "ate": 0.35,
-       "dur": 0.2
-      },
-      {
-       "t": 0.3,
-       "acao": "fx",
-       "tipo": "vermelho",
-       "de": 0.35,
-       "ate": 0.0,
-       "dur": 0.7
-      },
-      {
-       "t": 0,
-       "acao": "tremer",
-       "who": "rafael",
-       "dur": 1.5
-      }
-     ]
-    },
-    {
-     "id": "carro_parou_03",
-     "who": "sistema",
-     "text": "Você arranca ela de cima dele. O ombro do Rafael está aberto.",
-     "acoes": [
-      {
-       "t": 0,
-       "acao": "maos",
-       "anim": "grab.R"
-      },
-      {
-       "t": 0.3,
-       "acao": "sair",
-       "who": "patricia",
-       "para": [
-        -1.6,
-        0,
-        0.8
-       ],
-       "dur": 0.6,
-       "anim": "Run"
       },
       {
        "t": 1.0,
-       "acao": "anim",
-       "who": "rafael",
-       "anim": "Sit",
-       "fixo": true
-      },
-      {
-       "t": 1.0,
-       "acao": "camera_olhar",
-       "who": "rafael",
-       "dur": 0.8
+       "acao": "susto",
+       "som": "susto_grito",
+       "flash": true
       }
      ]
     }
    ],
-   "next": "carro_rafael",
-   "music": "perseguicao"
+   "music": "perseguicao",
+   "choice": {
+    "prompt": "Ela vai morder ele!",
+    "timer": 5,
+    "plead": {
+     "rafael": "Tira ela!"
+    },
+    "options": [
+     {
+      "text": "Puxar a Patrícia de cima dele",
+      "who": "patricia",
+      "teste": {
+       "atributo": "forca",
+       "cd": 14,
+       "sucesso": {
+        "next": "carro_parou_ok"
+       },
+       "falha": {
+        "next": "carro_parou_mordida"
+       },
+       "mods": [
+        {
+         "valor": 1,
+         "texto": "Ela é pequena"
+        }
+       ]
+      }
+     },
+     {
+      "text": "Abrir a porta e empurrar ela para fora",
+      "teste": {
+       "atributo": "agilidade",
+       "cd": 13,
+       "sucesso": {
+        "next": "carro_parou_ok"
+       },
+       "falha": {
+        "next": "carro_parou_mordida"
+       }
+      }
+     }
+    ],
+    "timeout": {
+     "next": "carro_parou_mordida"
+    }
+   }
   },
   "carro_rafael": {
    "location": "carro",
@@ -3305,7 +3265,8 @@
     }
    },
    "set": {
-    "mordido": true
+    "mordido": true,
+    "mordida_rua": true
    },
    "lines": [
     {
@@ -3368,7 +3329,7 @@
     {
      "id": "rua_arranhao_02",
      "who": "sistema",
-     "text": "Você escapa. Sangrando. E decide não contar pra ninguém.",
+     "text": "Você escapa. Sangrando. Ele ficou para trás, mas o braço não para de queimar.",
      "acoes": [
       {
        "t": 0.2,
@@ -3388,7 +3349,7 @@
      ]
     }
    ],
-   "next": "casa_chegada"
+   "next": "braco_rua"
   },
   "casa_chegada": {
    "location": "casa",
@@ -3652,6 +3613,30 @@
      ]
     },
     {
+     "id": "casa_final_braco_inf",
+     "who": "sistema",
+     "text": "Ela olha para o pano encharcado no lugar do seu braço. E inclina a cabeça, curiosa.",
+     "if": "sem_braco and marina_infectada",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        -0.3,
+        0.9,
+        -0.6
+       ],
+       "dur": 0.6
+      },
+      {
+       "t": 1.8,
+       "acao": "camera_olhar",
+       "who": "marina",
+       "dur": 0.6
+      }
+     ]
+    },
+    {
      "id": "casa_final_inf_02",
      "if": "marina_infectada",
      "who": "marina",
@@ -3759,6 +3744,30 @@
        "acao": "sfx",
        "som": "vidro",
        "volume": -12
+      }
+     ]
+    },
+    {
+     "id": "casa_final_braco_ok",
+     "who": "sistema",
+     "text": "Ela vê o pano encharcado no lugar do seu braço. Não grita. Só cobre a boca e chora.",
+     "if": "sem_braco and not marina_infectada",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        -0.3,
+        0.9,
+        -0.6
+       ],
+       "dur": 0.6
+      },
+      {
+       "t": 1.8,
+       "acao": "camera_olhar",
+       "who": "marina",
+       "dur": 0.6
       }
      ]
     },
@@ -3879,6 +3888,32 @@
        "falha": {
         "next": "marina_exame_falha"
        }
+      }
+     },
+     {
+      "text": "Empurrar a Marina para o banheiro e trancar",
+      "who": "marina",
+      "if": "marina_infectada",
+      "teste": {
+       "atributo": "forca",
+       "cd": 15,
+       "sucesso": {
+        "ending": "porta_trancada"
+       },
+       "falha": {
+        "ending": "ultimo_abraco"
+       },
+       "mods": [
+        {
+         "valor": -1,
+         "texto": "Ela está mais forte do que antes"
+        },
+        {
+         "if": "viu_marina",
+         "valor": 2,
+         "texto": "Você viu os olhos dela. Não hesita."
+        }
+       ]
       }
      },
      {
@@ -4623,7 +4658,7 @@
    "cast": {
     "left": {
      "char": "jorge",
-     "anim": "Sit"
+     "anim": "Run"
     }
    },
    "lines": [
@@ -4635,34 +4670,45 @@
      "acoes": [
       {
        "t": 0,
-       "acao": "fx",
-       "tipo": "tremor",
-       "forca": 0.06
-      },
-      {
-       "t": 0.6,
-       "acao": "camera_olhar",
+       "acao": "camera",
+       "pos": [
+        -3.45,
+        1.62,
+        -1.85
+       ],
        "olhar": [
         -4.8,
-        1.0,
+        1.45,
         -2.5
        ],
-       "dur": 0.8
+       "dur": 0
       },
       {
-       "t": 1.4,
+       "t": 1.2,
        "acao": "fx",
        "tipo": "tremor",
        "forca": 0.05
       },
       {
-       "t": 2.0,
+       "t": 1.9,
        "acao": "fx",
        "tipo": "tremor",
        "forca": 0.05
       },
       {
-       "t": 2.6,
+       "t": 2.5,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.05
+      },
+      {
+       "t": 3.0,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.05
+      },
+      {
+       "t": 3.4,
        "acao": "fx",
        "tipo": "tremor",
        "forca": 0.05
@@ -4670,21 +4716,99 @@
      ]
     },
     {
-     "id": "ficar_barulho_02",
-     "who": "jorge",
-     "text": "Volta aqui. Abaixa. Agora a gente espera.",
-     "tags": "[urgent whisper, firm]",
+     "id": "ficar_barulho_03",
+     "who": "sistema",
+     "text": "O vidro trinca. Um braço atravessa a fresta e agarra a sua camisa.",
+     "espera": 0.9,
      "acoes": [
       {
        "t": 0,
-       "acao": "camera_olhar",
-       "who": "jorge",
-       "dur": 0.6
+       "acao": "silencio",
+       "dur": 0.9
+      },
+      {
+       "t": 0.1,
+       "acao": "susto",
+       "who": "z_porta",
+       "modelo": "zombie_student",
+       "tint": "#8c9a84",
+       "de": 2.2,
+       "ate": 1.2,
+       "rapido": 0.1,
+       "segura": 1.0,
+       "inclinar": 12,
+       "depois": "recuar",
+       "som": "susto_vidro"
+      },
+      {
+       "t": 0.25,
+       "acao": "maos",
+       "anim": "grab.L"
+      },
+      {
+       "t": 1.0,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.08
       }
      ]
     }
    ],
-   "next": "esperar"
+   "choice": {
+    "prompt": "Segura!",
+    "timer": 7,
+    "options": [
+     {
+      "text": "Segurar a porta com o Seu Jorge",
+      "who": "jorge",
+      "teste": {
+       "atributo": "forca",
+       "cd": 13,
+       "sucesso": {
+        "next": "escritorio_porta_ok"
+       },
+       "falha": {
+        "next": "escritorio_mordida"
+       },
+       "mods": [
+        {
+         "valor": 2,
+         "texto": "O Seu Jorge empurra junto"
+        }
+       ]
+      }
+     },
+     {
+      "text": "Se jogar para trás e rasgar a camisa",
+      "teste": {
+       "atributo": "agilidade",
+       "cd": 12,
+       "sucesso": {
+        "next": "escritorio_porta_ok"
+       },
+       "falha": {
+        "next": "escritorio_mordida"
+       }
+      }
+     }
+    ],
+    "timeout": {
+     "next": "escritorio_mordida"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "jorge",
+     "para": [
+      -2.6,
+      0,
+      -0.6
+     ],
+     "dur": 0.01
+    }
+   ]
   },
   "carro_rafael_exame_ok": {
    "location": "carro",
@@ -4866,6 +4990,30 @@
        "acao": "tremer",
        "who": "marina",
        "dur": 1.0
+      },
+      {
+       "t": 2.9,
+       "acao": "esconder",
+       "who": "marina"
+      },
+      {
+       "t": 2.9,
+       "acao": "susto",
+       "who": "marina",
+       "tint": "#8a9a84",
+       "anim": "Idle",
+       "inclinar": 0,
+       "de": 1.6,
+       "ate": 0.48,
+       "rapido": 0.22,
+       "segura": 0.9,
+       "depois": "recuar",
+       "som": "susto_grito"
+      },
+      {
+       "t": 4.3,
+       "acao": "mostrar",
+       "who": "marina"
       }
      ]
     },
@@ -4993,6 +5141,32 @@
     },
     "options": [
      {
+      "text": "Empurrar a Marina para o banheiro e trancar",
+      "who": "marina",
+      "if": "marina_infectada",
+      "teste": {
+       "atributo": "forca",
+       "cd": 15,
+       "sucesso": {
+        "ending": "porta_trancada"
+       },
+       "falha": {
+        "ending": "ultimo_abraco"
+       },
+       "mods": [
+        {
+         "valor": -1,
+         "texto": "Ela está mais forte do que antes"
+        },
+        {
+         "if": "viu_marina",
+         "valor": 2,
+         "texto": "Você viu os olhos dela. Não hesita."
+        }
+       ]
+      }
+     },
+     {
       "text": "Abraçar a Marina",
       "who": "marina",
       "next": "abracar_marina"
@@ -5007,6 +5181,1960 @@
      "next": "abracar_marina"
     }
    }
+  },
+  "corredor_oitavo": {
+   "location": "escada",
+   "ambience": "tensao",
+   "cast": {
+    "right": {
+     "char": "rafael",
+     "anim": "Idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "corredor_03",
+     "who": "sistema",
+     "sfx": "elevador_ding",
+     "text": "No 8º andar, a porta do elevador está aberta. Luz acesa. Vazio.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "fx",
+       "tipo": "apagar",
+       "dur": 0.25
+      },
+      {
+       "t": 0.3,
+       "acao": "camera",
+       "pos": [
+        0.4,
+        1.62,
+        -0.6
+       ],
+       "olhar": [
+        -1.2,
+        1.3,
+        0.6
+       ],
+       "dur": 0
+      },
+      {
+       "t": 0.3,
+       "acao": "mover",
+       "who": "rafael",
+       "para": [
+        0.5,
+        -0.36,
+        -2.3
+       ],
+       "dur": 0.01
+      },
+      {
+       "t": 0.35,
+       "acao": "fx",
+       "tipo": "acender",
+       "dur": 0.5
+      }
+     ]
+    },
+    {
+     "id": "corredor_04",
+     "who": "rafael",
+     "anim": "Talk",
+     "tags": "[firm, scared]",
+     "text": "Nem pensa. Elevador não.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "rafael",
+       "dur": 0.6
+      },
+      {
+       "t": 0.1,
+       "acao": "olhar_camera",
+       "who": "rafael"
+      },
+      {
+       "t": 1.6,
+       "acao": "andar",
+       "who": "rafael",
+       "por": [
+        0,
+        -0.54,
+        -1.0
+       ],
+       "dur": 1.0,
+       "olhar_camera": false
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "Elevador ou escada?",
+    "timer": 6,
+    "options": [
+     {
+      "text": "Pegar o elevador. É mais rápido.",
+      "next": "elevador"
+     },
+     {
+      "text": "Continuar pela escada",
+      "who": "rafael",
+      "next": "patricia"
+     }
+    ],
+    "timeout": {
+     "next": "patricia"
+    }
+   }
+  },
+  "escada_tornozelo": {
+   "location": "escada",
+   "music": "perseguicao",
+   "cast": {
+    "center": {
+     "char": "rastejante",
+     "anim": "Crawl"
+    },
+    "right": {
+     "char": "rafael",
+     "anim": "Idle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "rastejante",
+     "para": [
+      0.1,
+      -1.95,
+      -5.3
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "olhar_camera",
+     "who": "rastejante"
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "rafael",
+     "para": [
+      0.9,
+      -1.0,
+      -3.4
+     ],
+     "dur": 0.01
+    }
+   ],
+   "lines": [
+    {
+     "id": "escada_torn_01",
+     "who": "sistema",
+     "text": "Ele agarra o seu tornozelo. As unhas atravessam a meia.",
+     "sfx": "rosnado",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.1,
+        -1.7,
+        -5.0
+       ],
+       "dur": 0.25
+      },
+      {
+       "t": 0,
+       "acao": "anim",
+       "who": "rastejante",
+       "anim": "Attack",
+       "fixo": true
+      },
+      {
+       "t": 0.1,
+       "acao": "andar",
+       "who": "rastejante",
+       "por": [
+        0,
+        0,
+        0.35
+       ],
+       "dur": 0.25,
+       "anim": "Attack",
+       "fim": "Attack"
+      },
+      {
+       "t": 0.15,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.1
+      },
+      {
+       "t": 0.2,
+       "acao": "maos",
+       "anim": "grab.L"
+      },
+      {
+       "t": 1.2,
+       "acao": "tremer",
+       "who": "rastejante",
+       "dur": 1.5
+      }
+     ]
+    },
+    {
+     "id": "escada_torn_02",
+     "who": "rafael",
+     "text": "Chuta! Chuta a cabeça dele!",
+     "tags": "[shouting, panicked]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "rafael",
+       "dur": 0.3
+      },
+      {
+       "t": 1.0,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.1,
+        -1.7,
+        -5.0
+       ],
+       "dur": 0.3
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "Ele não solta!",
+    "timer": 7,
+    "options": [
+     {
+      "text": "Chutar a cabeça dele",
+      "teste": {
+       "atributo": "forca",
+       "cd": 12,
+       "sucesso": {
+        "next": "escada_solta"
+       },
+       "falha": {
+        "next": "escada_mordida"
+       },
+       "mods": [
+        {
+         "valor": -1,
+         "texto": "Degrau escorregadio"
+        }
+       ]
+      }
+     },
+     {
+      "text": "Puxar a perna com tudo",
+      "teste": {
+       "atributo": "agilidade",
+       "cd": 13,
+       "sucesso": {
+        "next": "escada_solta"
+       },
+       "falha": {
+        "next": "escada_mordida"
+       },
+       "mods": [
+        {
+         "valor": 1,
+         "texto": "O Rafael te puxa pelo braço"
+        }
+       ]
+      }
+     }
+    ],
+    "timeout": {
+     "next": "escada_mordida"
+    }
+   }
+  },
+  "escada_solta": {
+   "location": "escada",
+   "cast": {
+    "center": {
+     "char": "rastejante",
+     "anim": "Attack"
+    },
+    "right": {
+     "char": "rafael",
+     "anim": "Run"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "rastejante",
+     "para": [
+      0.1,
+      -1.95,
+      -5.3
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "olhar_camera",
+     "who": "rastejante"
+    }
+   ],
+   "lines": [
+    {
+     "id": "escada_solta_01",
+     "who": "sistema",
+     "text": "O seu calcanhar acerta alguma coisa que estala. Ele solta. Vocês descem dois lances sem respirar.",
+     "sfx": "ossos",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.12
+      },
+      {
+       "t": 0.05,
+       "acao": "anim",
+       "who": "rastejante",
+       "anim": "Idle",
+       "fixo": true
+      },
+      {
+       "t": 0.1,
+       "acao": "andar",
+       "who": "rastejante",
+       "por": [
+        0,
+        0,
+        -0.5
+       ],
+       "dur": 0.4,
+       "anim": "Idle",
+       "fim": "Idle"
+      },
+      {
+       "t": 1.4,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        -0.7,
+        -1.4
+       ],
+       "dur": 1.8,
+       "andar": true
+      },
+      {
+       "t": 1.4,
+       "acao": "andar",
+       "who": "rafael",
+       "por": [
+        0,
+        -0.7,
+        -1.4
+       ],
+       "dur": 1.6,
+       "anim": "Run"
+      }
+     ]
+    }
+   ],
+   "next": "corredor_oitavo"
+  },
+  "escada_mordida": {
+   "location": "escada",
+   "music": "perseguicao",
+   "cast": {
+    "center": {
+     "char": "rastejante",
+     "anim": "Attack"
+    },
+    "right": {
+     "char": "rafael",
+     "anim": "Idle"
+    }
+   },
+   "set": {
+    "mordido": true,
+    "mordida_escada": true
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "rastejante",
+     "para": [
+      0.1,
+      -1.95,
+      -5.3
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "olhar_camera",
+     "who": "rastejante"
+    }
+   ],
+   "lines": [
+    {
+     "id": "escada_mordida_01",
+     "who": "sistema",
+     "text": "Você se abaixa para soltar a perna e ele crava os dentes no seu antebraço. O Rafael chuta até a mandíbula estalar.",
+     "espera": 1.2,
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "esconder",
+       "who": "rastejante"
+      },
+      {
+       "t": 0.05,
+       "acao": "susto",
+       "who": "rastejante",
+       "anim": "Attack",
+       "de": 1.2,
+       "ate": 0.42,
+       "rapido": 0.12,
+       "segura": 0.6,
+       "inclinar": 5,
+       "depois": "recuar",
+       "som": "susto_grito"
+      },
+      {
+       "t": 0.35,
+       "acao": "maos_cor",
+       "cor": "#c03020",
+       "dur": 0.3
+      },
+      {
+       "t": 0.4,
+       "acao": "fx",
+       "tipo": "vermelho",
+       "dur": 0.5
+      },
+      {
+       "t": 1.2,
+       "acao": "mostrar",
+       "who": "rastejante"
+      },
+      {
+       "t": 2.2,
+       "acao": "sfx",
+       "som": "ossos"
+      },
+      {
+       "t": 2.2,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.1
+      },
+      {
+       "t": 2.3,
+       "acao": "anim",
+       "who": "rastejante",
+       "anim": "Idle",
+       "fixo": true
+      }
+     ]
+    }
+   ],
+   "next": "braco_escada"
+  },
+  "braco_escada": {
+   "location": "escada",
+   "cast": {
+    "right": {
+     "char": "rafael",
+     "anim": "Idle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "rafael",
+     "para": [
+      0.6,
+      -1.0,
+      -3.0
+     ],
+     "dur": 0.01
+    }
+   ],
+   "lines": [
+    {
+     "id": "braco_esc_01",
+     "who": "rafael",
+     "text": "Ele te mordeu. Ele te MORDEU. Tem uma machadinha de incêndio ali na parede.",
+     "tags": "[panicked, out of breath]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "rafael",
+       "dur": 0.4
+      },
+      {
+       "t": 1.8,
+       "acao": "camera_olhar",
+       "olhar": [
+        -1.2,
+        0.2,
+        -3.6
+       ],
+       "dur": 0.6
+      }
+     ]
+    },
+    {
+     "id": "braco_esc_02",
+     "who": "sistema",
+     "text": "A mordida arde. As veias em volta já estão escurecendo. Se existe uma chance, é agora.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        -0.25,
+        -0.6,
+        -0.6
+       ],
+       "dur": 0.6
+      },
+      {
+       "t": 0.2,
+       "acao": "maos",
+       "anim": "grab.L"
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "O que você faz com o braço?",
+    "timer": 12,
+    "options": [
+     {
+      "text": "Cortar acima da mordida, com a machadinha",
+      "teste": {
+       "atributo": "vigor",
+       "cd": 12,
+       "sucesso": {
+        "next": "corte_ok"
+       },
+       "falha": {
+        "ending": "sangria"
+       },
+       "mods": [
+        {
+         "valor": 1,
+         "texto": "O Rafael aperta o cinto como torniquete"
+        },
+        {
+         "valor": -2,
+         "texto": "Sem anestesia"
+        }
+       ]
+      }
+     },
+     {
+      "text": "Não cortar. Procurar um hospital no caminho.",
+      "set": {
+       "quer_hospital": true
+      },
+      "next": "corredor_oitavo"
+     },
+     {
+      "text": "Esconder. Dizer que foi só um arranhão.",
+      "next": "corredor_oitavo"
+     }
+    ],
+    "timeout": {
+     "next": "corredor_oitavo"
+    }
+   }
+  },
+  "corte_ok": {
+   "set": {
+    "sem_braco": true,
+    "mordido": false
+   },
+   "lines": [
+    {
+     "id": "corte_01",
+     "who": "sistema",
+     "text": "Você aperta o cinto até não sentir mais a mão. Um golpe. Dois. O mundo fica branco.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "silencio",
+       "dur": 5.0
+      },
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        -0.3,
+        -0.9,
+        -0.7
+       ],
+       "dur": 0.8
+      },
+      {
+       "t": 0.6,
+       "acao": "maos",
+       "anim": "grab.L"
+      },
+      {
+       "t": 2.6,
+       "acao": "sfx",
+       "som": "corte"
+      },
+      {
+       "t": 2.6,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.15
+      },
+      {
+       "t": 2.65,
+       "acao": "fx",
+       "tipo": "vermelho",
+       "ate": 1.0,
+       "dur": 0.15
+      },
+      {
+       "t": 3.4,
+       "acao": "sfx",
+       "som": "corte"
+      },
+      {
+       "t": 3.4,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.2
+      },
+      {
+       "t": 3.6,
+       "acao": "fx",
+       "tipo": "apagar",
+       "dur": 0.6
+      }
+     ]
+    },
+    {
+     "id": "corte_02",
+     "who": "sistema",
+     "text": "Quando a vista volta, o braço termina num pano encharcado. Você está vivo.",
+     "espera": 0.8,
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "maos_ocultar",
+       "lado": "esquerda"
+      },
+      {
+       "t": 0,
+       "acao": "maos_cor",
+       "cor": "#d08070",
+       "dur": 0.1
+      },
+      {
+       "t": 0.3,
+       "acao": "fx",
+       "tipo": "acender",
+       "dur": 1.5
+      },
+      {
+       "t": 0.3,
+       "acao": "fx",
+       "tipo": "vermelho",
+       "de": 0.6,
+       "ate": 0.0,
+       "dur": 2.5
+      },
+      {
+       "t": 1.0,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        0
+       ],
+       "dur": 1.2,
+       "olhar": [
+        0,
+        0.0,
+        -3.0
+       ]
+      }
+     ]
+    }
+   ],
+   "branch": [
+    {
+     "if": "mordida_escritorio",
+     "next": "esperar"
+    },
+    {
+     "if": "foi_hospital and com_rafael",
+     "next": "carro_rumo"
+    },
+    {
+     "if": "mordida_escada and not foi_hospital",
+     "next": "corredor_oitavo"
+    },
+    {
+     "next": "casa_chegada"
+    }
+   ]
+  },
+  "braco_rua": {
+   "location": "rua",
+   "cast": {},
+   "lines": [
+    {
+     "id": "braco_rua_01",
+     "who": "sistema",
+     "text": "O arranhão queima como ácido. As veias escurecem, subindo pelo pulso.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        -0.3,
+        0.6,
+        -0.8
+       ],
+       "dur": 0.7
+      },
+      {
+       "t": 0.4,
+       "acao": "maos",
+       "anim": "grab.L"
+      }
+     ]
+    },
+    {
+     "id": "braco_rua_02",
+     "who": "sistema",
+     "text": "No chão, um caco de vidro do tamanho de uma faca. E, três quadras atrás, a placa azul do hospital.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.6,
+        0.05,
+        -1.6
+       ],
+       "dur": 0.8
+      },
+      {
+       "t": 2.6,
+       "acao": "camera_olhar",
+       "olhar": [
+        -7.0,
+        4.0,
+        -16.0
+       ],
+       "dur": 1.0
+      },
+      {
+       "t": 2.8,
+       "acao": "texto3d",
+       "id": "placa",
+       "texto": "+ HOSPITAL",
+       "pos": [
+        -7.3,
+        4.0,
+        -16.0
+       ],
+       "tamanho": 48,
+       "cor": "#6aa8ff"
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "O que você faz com o braço?",
+    "timer": 12,
+    "options": [
+     {
+      "text": "Cortar o braço com o caco de vidro",
+      "teste": {
+       "atributo": "vigor",
+       "cd": 15,
+       "sucesso": {
+        "next": "corte_ok"
+       },
+       "falha": {
+        "ending": "sangria"
+       },
+       "mods": [
+        {
+         "valor": -2,
+         "texto": "Um caco de vidro não é uma machadinha"
+        },
+        {
+         "valor": 1,
+         "texto": "Adrenalina"
+        }
+       ]
+      }
+     },
+     {
+      "text": "Não cortar. Ir até o hospital.",
+      "set": {
+       "atraso": "=atraso + 1"
+      },
+      "next": "hospital"
+     },
+     {
+      "text": "Enrolar o braço e seguir pra casa",
+      "next": "casa_chegada"
+     }
+    ],
+    "timeout": {
+     "next": "casa_chegada"
+    }
+   }
+  },
+  "hospital": {
+   "location": "hospital",
+   "music": "suspense",
+   "set": {
+    "foi_hospital": true
+   },
+   "camera": {
+    "pos": [
+     0,
+     1.62,
+     2.2
+    ],
+    "olhar": [
+     0,
+     1.6,
+     -4.4
+    ]
+   },
+   "cast": {
+    "center": {
+     "char": "enfermeira",
+     "anim": "Idle"
+    },
+    "left": {
+     "char": "zumbi",
+     "anim": "ZombieIdle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "enfermeira",
+     "para": [
+      -2.2,
+      0,
+      -4.8
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "esconder",
+     "who": "enfermeira"
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "zumbi",
+     "para": [
+      -1.2,
+      0,
+      -10.0
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "anim",
+     "who": "zumbi",
+     "anim": "ZombieWalk",
+     "fixo": true
+    }
+   ],
+   "lines": [
+    {
+     "id": "hosp_01",
+     "who": "sistema",
+     "text": "Hospital Santa Luzia. As portas de vidro estão acorrentadas por dentro. Lá no fundo, vultos andando entre as macas.",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "camera_andar",
+       "pos": [
+        0,
+        1.62,
+        -2.85
+       ],
+       "olhar": [
+        0,
+        1.5,
+        -4.6
+       ],
+       "dur": 4.0
+      },
+      {
+       "t": 2.0,
+       "acao": "andar",
+       "who": "zumbi",
+       "por": [
+        1.6,
+        0,
+        0
+       ],
+       "dur": 5.0,
+       "anim": "ZombieWalk",
+       "fim": "ZombieIdle",
+       "olhar_camera": false
+      }
+     ]
+    },
+    {
+     "id": "hosp_02",
+     "who": "sistema",
+     "text": "Uma enfermeira aparece do outro lado do vidro. O jaleco está manchado. Ela olha direto para o seu braço.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "mostrar",
+       "who": "enfermeira"
+      },
+      {
+       "t": 0,
+       "acao": "andar",
+       "who": "enfermeira",
+       "por": [
+        2.2,
+        0,
+        0
+       ],
+       "dur": 1.6,
+       "anim": "Walk",
+       "fim": "Idle"
+      },
+      {
+       "t": 1.7,
+       "acao": "camera_olhar",
+       "who": "enfermeira",
+       "dur": 0.5
+      }
+     ]
+    },
+    {
+     "id": "hosp_03",
+     "who": "enfermeira",
+     "text": "Não tem remédio pra isso. Eu vi a noite inteira. Ou corta agora, acima da mordida, ou vai pra casa se despedir.",
+     "tags": "[exhausted, whispering through glass, grim]"
+    },
+    {
+     "id": "hosp_04",
+     "who": "enfermeira",
+     "text": "Eu tenho um torniquete e uma serra. Passo pela fresta da porta. Mas tem que ser já.",
+     "tags": "[urgent, scared]",
+     "acoes": [
+      {
+       "t": 2.8,
+       "acao": "silencio",
+       "dur": 1.2
+      },
+      {
+       "t": 3.6,
+       "acao": "susto",
+       "who": "z_vidro",
+       "modelo": "zombie_student",
+       "tint": "#9aa890",
+       "de": 2.4,
+       "ate": 1.25,
+       "rapido": 0.1,
+       "segura": 1.1,
+       "inclinar": 10,
+       "depois": "recuar",
+       "som": "susto_vidro"
+      },
+      {
+       "t": 3.7,
+       "acao": "anim",
+       "who": "enfermeira",
+       "anim": "Walk"
+      },
+      {
+       "t": 3.7,
+       "acao": "andar",
+       "who": "enfermeira",
+       "por": [
+        0.9,
+        0,
+        0.3
+       ],
+       "dur": 0.4,
+       "anim": "Walk",
+       "fim": "Idle"
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "O que você faz?",
+    "timer": 12,
+    "options": [
+     {
+      "text": "Cortar aqui, com a ajuda dela",
+      "who": "enfermeira",
+      "teste": {
+       "atributo": "vigor",
+       "cd": 10,
+       "sucesso": {
+        "next": "corte_ok"
+       },
+       "falha": {
+        "ending": "sangria"
+       },
+       "mods": [
+        {
+         "valor": 2,
+         "texto": "Torniquete de verdade"
+        },
+        {
+         "valor": 1,
+         "texto": "Ela já fez isso hoje"
+        }
+       ]
+      }
+     },
+     {
+      "text": "Ir pra casa assim mesmo",
+      "next": "hosp_saida"
+     }
+    ],
+    "timeout": {
+     "next": "hosp_saida"
+    }
+   }
+  },
+  "hosp_saida": {
+   "branch": [
+    {
+     "if": "com_rafael",
+     "next": "carro_rumo"
+    },
+    {
+     "next": "casa_chegada"
+    }
+   ]
+  },
+  "carro_rumo": {
+   "branch": [
+    {
+     "if": "patricia",
+     "next": "carro_patricia"
+    },
+    {
+     "if": "rafael_mordido",
+     "next": "carro_rafael"
+    },
+    {
+     "next": "carro_tranquilo"
+    }
+   ]
+  },
+  "escritorio_porta_ok": {
+   "location": "escritorio_escuro",
+   "cast": {
+    "left": {
+     "char": "jorge",
+     "anim": "Idle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "jorge",
+     "para": [
+      -4.0,
+      0,
+      -1.7
+     ],
+     "dur": 0.01
+    }
+   ],
+   "lines": [
+    {
+     "id": "escr_porta_ok_01",
+     "who": "sistema",
+     "text": "Vocês dois empurram até a trinca parar de abrir. O braço some do outro lado. O silêncio volta, pior que antes.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera",
+       "pos": [
+        -3.45,
+        1.62,
+        -1.85
+       ],
+       "olhar": [
+        -4.8,
+        1.45,
+        -2.5
+       ],
+       "dur": 0
+      },
+      {
+       "t": 0.2,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.1
+      },
+      {
+       "t": 0.3,
+       "acao": "maos",
+       "anim": "grab.R"
+      },
+      {
+       "t": 2.4,
+       "acao": "camera_olhar",
+       "who": "jorge",
+       "dur": 0.6
+      }
+     ]
+    },
+    {
+     "id": "ficar_barulho_02",
+     "who": "jorge",
+     "text": "Volta aqui. Abaixa. Agora a gente espera.",
+     "tags": "[urgent whisper, firm]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "jorge",
+       "dur": 0.5
+      }
+     ]
+    }
+   ],
+   "next": "esperar"
+  },
+  "escritorio_mordida": {
+   "location": "escritorio_escuro",
+   "music": "perseguicao",
+   "set": {
+    "mordido": true,
+    "mordida_escritorio": true
+   },
+   "cast": {
+    "left": {
+     "char": "jorge",
+     "anim": "Run"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "jorge",
+     "para": [
+      -2.8,
+      0,
+      -0.9
+     ],
+     "dur": 0.01
+    }
+   ],
+   "lines": [
+    {
+     "id": "escr_mordida_01",
+     "who": "sistema",
+     "text": "Os dedos escorregam da camisa para o seu pulso. Dentes, através do vidro quebrado.",
+     "espera": 1.0,
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera",
+       "pos": [
+        -3.45,
+        1.62,
+        -1.85
+       ],
+       "olhar": [
+        -4.8,
+        1.45,
+        -2.5
+       ],
+       "dur": 0
+      },
+      {
+       "t": 0.05,
+       "acao": "susto",
+       "who": "z_porta",
+       "modelo": "zombie_student",
+       "tint": "#8c9a84",
+       "de": 1.6,
+       "ate": 0.5,
+       "rapido": 0.1,
+       "segura": 0.6,
+       "inclinar": 15,
+       "depois": "recuar",
+       "som": "susto_grito"
+      },
+      {
+       "t": 0.3,
+       "acao": "maos_cor",
+       "cor": "#c03020",
+       "dur": 0.3
+      },
+      {
+       "t": 0.35,
+       "acao": "fx",
+       "tipo": "vermelho",
+       "dur": 0.5
+      },
+      {
+       "t": 2.4,
+       "acao": "andar",
+       "who": "jorge",
+       "por": [
+        -1.2,
+        0,
+        -0.8
+       ],
+       "dur": 0.6,
+       "anim": "Run",
+       "fim": "Idle"
+      }
+     ]
+    }
+   ],
+   "next": "braco_escritorio"
+  },
+  "braco_escritorio": {
+   "location": "escritorio_escuro",
+   "cast": {
+    "left": {
+     "char": "jorge",
+     "anim": "Idle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "jorge",
+     "para": [
+      -2.2,
+      0,
+      -1.6
+     ],
+     "dur": 0.01
+    }
+   ],
+   "lines": [
+    {
+     "id": "braco_escr_01",
+     "who": "jorge",
+     "text": "Ele pegou você. Me dá esse braço. Fui bombeiro vinte anos. Tem uma machadinha no armário de incêndio.",
+     "tags": "[calm but urgent, low voice]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera",
+       "pos": [
+        -3.45,
+        1.62,
+        -1.85
+       ],
+       "olhar": [
+        -4.8,
+        1.45,
+        -2.5
+       ],
+       "dur": 0
+      },
+      {
+       "t": 0.1,
+       "acao": "camera_olhar",
+       "who": "jorge",
+       "dur": 0.5
+      }
+     ]
+    },
+    {
+     "id": "braco_escr_02",
+     "who": "sistema",
+     "text": "A mordida pulsa. Uma linha escura sobe pelo antebraço, devagar.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        -3.7,
+        0.7,
+        -1.3
+       ],
+       "dur": 0.6
+      },
+      {
+       "t": 0.2,
+       "acao": "maos",
+       "anim": "grab.L"
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "O que você faz com o braço?",
+    "timer": 12,
+    "options": [
+     {
+      "text": "Deixar o Seu Jorge cortar",
+      "who": "jorge",
+      "teste": {
+       "atributo": "vigor",
+       "cd": 12,
+       "sucesso": {
+        "next": "corte_ok"
+       },
+       "falha": {
+        "ending": "sangria"
+       },
+       "mods": [
+        {
+         "valor": 1,
+         "texto": "O Seu Jorge sabe o que faz"
+        },
+        {
+         "valor": -2,
+         "texto": "Sem anestesia"
+        }
+       ]
+      }
+     },
+     {
+      "text": "Esconder o braço. Dizer que não foi nada.",
+      "next": "esperar"
+     }
+    ],
+    "timeout": {
+     "next": "esperar"
+    }
+   }
+  },
+  "elevador_escapa": {
+   "location": "elevador",
+   "cast": {
+    "left": {
+     "char": "zumbi",
+     "anim": "ZombieAttack"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "zumbi",
+     "para": [
+      0.1,
+      0,
+      -1.2
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "olhar_camera",
+     "who": "zumbi"
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "porta_e",
+     "para": [
+      -0.55,
+      1.1,
+      -0.64
+     ],
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "porta_d",
+     "para": [
+      0.55,
+      1.1,
+      -0.64
+     ],
+     "dur": 0
+    }
+   ],
+   "lines": [
+    {
+     "id": "elev_escapa_01",
+     "who": "sistema",
+     "text": "As portas batem no braço dele. Abrem. Fecham. Na terceira vez, os dedos ficam do lado de fora. O elevador desce.",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "no",
+       "nome": "porta_e",
+       "para": [
+        -0.3,
+        1.1,
+        -0.64
+       ],
+       "dur": 0.25
+      },
+      {
+       "t": 0.2,
+       "acao": "no",
+       "nome": "porta_d",
+       "para": [
+        0.3,
+        1.1,
+        -0.64
+       ],
+       "dur": 0.25
+      },
+      {
+       "t": 0.45,
+       "acao": "sfx",
+       "som": "batidas_vidro",
+       "volume": -2
+      },
+      {
+       "t": 0.45,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.1
+      },
+      {
+       "t": 0.8,
+       "acao": "no",
+       "nome": "porta_e",
+       "para": [
+        -0.55,
+        1.1,
+        -0.64
+       ],
+       "dur": 0.3
+      },
+      {
+       "t": 0.8,
+       "acao": "no",
+       "nome": "porta_d",
+       "para": [
+        0.55,
+        1.1,
+        -0.64
+       ],
+       "dur": 0.3
+      },
+      {
+       "t": 1.4,
+       "acao": "no",
+       "nome": "porta_e",
+       "para": [
+        -0.35,
+        1.1,
+        -0.64
+       ],
+       "dur": 0.25
+      },
+      {
+       "t": 1.4,
+       "acao": "no",
+       "nome": "porta_d",
+       "para": [
+        0.35,
+        1.1,
+        -0.64
+       ],
+       "dur": 0.25
+      },
+      {
+       "t": 1.65,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.12
+      },
+      {
+       "t": 1.7,
+       "acao": "esconder",
+       "who": "zumbi"
+      },
+      {
+       "t": 1.7,
+       "acao": "sfx",
+       "som": "ossos"
+      },
+      {
+       "t": 3.6,
+       "acao": "texto3d",
+       "id": "andar",
+       "texto": "3",
+       "pos": [
+        0,
+        2.4,
+        -0.52
+       ],
+       "tamanho": 40,
+       "cor": "#ff3020"
+      },
+      {
+       "t": 4.2,
+       "acao": "texto3d",
+       "id": "andar",
+       "texto": "1",
+       "pos": [
+        0,
+        2.4,
+        -0.52
+       ],
+       "tamanho": 40,
+       "cor": "#ff3020"
+      },
+      {
+       "t": 4.8,
+       "acao": "texto3d",
+       "id": "andar",
+       "texto": "S2",
+       "pos": [
+        0,
+        2.4,
+        -0.52
+       ],
+       "tamanho": 40,
+       "cor": "#ff3020"
+      }
+     ]
+    },
+    {
+     "id": "elev_escapa_02",
+     "who": "sistema",
+     "text": "Subsolo 2. O Rafael chega pela escada, sem fôlego. Não diz nada. Só te puxa pelo braço.",
+     "sfx": "elevador_ding",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "no",
+       "nome": "porta_e",
+       "para": [
+        -1.0,
+        1.1,
+        -0.64
+       ],
+       "dur": 1.2
+      },
+      {
+       "t": 0.3,
+       "acao": "no",
+       "nome": "porta_d",
+       "para": [
+        1.0,
+        1.1,
+        -0.64
+       ],
+       "dur": 1.2
+      }
+     ]
+    }
+   ],
+   "next": "garagem"
+  },
+  "garagem_mordida": {
+   "location": "garagem",
+   "cast": {
+    "center": {
+     "char": "zumbi",
+     "anim": "ZombieAttack"
+    },
+    "right": {
+     "char": "rafael",
+     "anim": "Run"
+    }
+   },
+   "music": "perseguicao",
+   "set": {
+    "rafael_mordido": true
+   },
+   "lines": [
+    {
+     "id": "garagem_lenta_02",
+     "who": "sistema",
+     "text": "Rafael volta para puxar ela. O garoto alcança ele primeiro.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "andar",
+       "who": "rafael",
+       "por": [
+        -0.8,
+        0,
+        1.6
+       ],
+       "dur": 1.0,
+       "anim": "Run",
+       "fim": "Idle",
+       "olhar_camera": false
+      },
+      {
+       "t": 0.3,
+       "acao": "andar",
+       "who": "zumbi",
+       "por": [
+        1.0,
+        0,
+        2.2
+       ],
+       "dur": 1.6,
+       "anim": "ZombieWalk",
+       "fim": "ZombieAttack",
+       "olhar_camera": false
+      },
+      {
+       "t": 1.9,
+       "acao": "olhar_para",
+       "who": "zumbi",
+       "alvo": "rafael"
+      },
+      {
+       "t": 1.0,
+       "acao": "camera_olhar",
+       "who": "rafael",
+       "dur": 0.8
+      }
+     ]
+    },
+    {
+     "id": "garagem_lenta_03",
+     "who": "rafael",
+     "tags": "[screaming in pain]",
+     "text": "AAAH! Tira ele! TIRA!",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "tremer",
+       "who": "rafael",
+       "dur": 1.6
+      },
+      {
+       "t": 0,
+       "acao": "fx",
+       "tipo": "vermelho",
+       "de": 0.0,
+       "ate": 0.45,
+       "dur": 0.25
+      },
+      {
+       "t": 0.3,
+       "acao": "fx",
+       "tipo": "vermelho",
+       "de": 0.45,
+       "ate": 0.0,
+       "dur": 0.8
+      },
+      {
+       "t": 0,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.1
+      }
+     ]
+    },
+    {
+     "id": "garagem_lenta_04",
+     "who": "sistema",
+     "text": "Vocês conseguem entrar no carro. O braço do Rafael não para de sangrar.",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "camera_andar",
+       "pos": [
+        2.0,
+        1.62,
+        -10.5
+       ],
+       "olhar": [
+        2.4,
+        1.0,
+        -14.5
+       ],
+       "dur": 2.6
+      },
+      {
+       "t": 2.8,
+       "acao": "fx",
+       "tipo": "apagar",
+       "dur": 0.7
+      }
+     ]
+    }
+   ],
+   "next": "carro"
+  },
+  "garagem_empurrao": {
+   "location": "garagem",
+   "cast": {
+    "center": {
+     "char": "zumbi",
+     "anim": "ZombieAttack"
+    },
+    "right": {
+     "char": "rafael",
+     "anim": "Run"
+    }
+   },
+   "music": "perseguicao",
+   "lines": [
+    {
+     "id": "garagem_empurrao_01",
+     "who": "sistema",
+     "text": "Você acerta o ombro do garoto com tudo. Ele cai entre dois carros e a cabeça bate no para-choque.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_andar",
+       "por": [
+        0,
+        0,
+        -1.0
+       ],
+       "dur": 0.4
+      },
+      {
+       "t": 0.35,
+       "acao": "maos",
+       "anim": "grab.R"
+      },
+      {
+       "t": 0.4,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.14
+      },
+      {
+       "t": 0.4,
+       "acao": "sfx",
+       "som": "ossos"
+      },
+      {
+       "t": 0.45,
+       "acao": "andar",
+       "who": "zumbi",
+       "por": [
+        1.2,
+        -0.9,
+        -0.6
+       ],
+       "dur": 0.4,
+       "anim": "ZombieAttack",
+       "fim": "ZombieIdle"
+      }
+     ]
+    },
+    {
+     "id": "garagem_empurrao_02",
+     "who": "rafael",
+     "text": "Vai, vai! Pro carro!",
+     "tags": "[shouting]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "rafael",
+       "dur": 0.4
+      }
+     ]
+    }
+   ],
+   "next": "carro_entrar"
+  },
+  "carro_parou_mordida": {
+   "location": "carro",
+   "cast": {
+    "left": {
+     "char": "patricia",
+     "anim": "Sit"
+    },
+    "right": {
+     "char": "rafael",
+     "anim": "Sit"
+    }
+   },
+   "music": "perseguicao",
+   "set": {
+    "rafael_mordido": true,
+    "patricia": false
+   },
+   "lines": [
+    {
+     "id": "carro_parou_02",
+     "who": "rafael",
+     "tags": "[screaming]",
+     "text": "SAI! SAI DE MIM!",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "fx",
+       "tipo": "vermelho",
+       "de": 0.0,
+       "ate": 0.35,
+       "dur": 0.2
+      },
+      {
+       "t": 0.3,
+       "acao": "fx",
+       "tipo": "vermelho",
+       "de": 0.35,
+       "ate": 0.0,
+       "dur": 0.7
+      },
+      {
+       "t": 0,
+       "acao": "tremer",
+       "who": "rafael",
+       "dur": 1.5
+      }
+     ]
+    },
+    {
+     "id": "carro_parou_03",
+     "who": "sistema",
+     "text": "Você arranca ela de cima dele. O ombro do Rafael está aberto.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "maos",
+       "anim": "grab.R"
+      },
+      {
+       "t": 0.3,
+       "acao": "sair",
+       "who": "patricia",
+       "para": [
+        -1.6,
+        0,
+        0.8
+       ],
+       "dur": 0.6,
+       "anim": "Run"
+      },
+      {
+       "t": 1.0,
+       "acao": "anim",
+       "who": "rafael",
+       "anim": "Sit",
+       "fixo": true
+      },
+      {
+       "t": 1.0,
+       "acao": "camera_olhar",
+       "who": "rafael",
+       "dur": 0.8
+      }
+     ]
+    }
+   ],
+   "next": "carro_rafael"
+  },
+  "carro_parou_ok": {
+   "location": "carro",
+   "cast": {
+    "left": {
+     "char": "patricia",
+     "anim": "Sit"
+    },
+    "right": {
+     "char": "rafael",
+     "anim": "Sit"
+    }
+   },
+   "music": "perseguicao",
+   "set": {
+    "patricia": false
+   },
+   "lines": [
+    {
+     "id": "carro_parou_ok_01",
+     "who": "sistema",
+     "text": "Você agarra a Patrícia pelo cabelo antes dos dentes chegarem. Ela rola para o asfalto. O Rafael fecha a porta com o pé.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "maos",
+       "anim": "grab.L"
+      },
+      {
+       "t": 0.3,
+       "acao": "sair",
+       "who": "patricia",
+       "para": [
+        -1.6,
+        0,
+        0.8
+       ],
+       "dur": 0.5,
+       "anim": "Run"
+      },
+      {
+       "t": 0.3,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.1
+      },
+      {
+       "t": 2.6,
+       "acao": "sfx",
+       "som": "porta_abre",
+       "volume": -6
+      },
+      {
+       "t": 2.8,
+       "acao": "camera_olhar",
+       "who": "rafael",
+       "dur": 0.6
+      }
+     ]
+    },
+    {
+     "id": "carro_parou_ok_02",
+     "who": "rafael",
+     "text": "Vai! VAI! Não olha pra trás!",
+     "tags": "[shouting, terrified]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "tremer",
+       "who": "rafael",
+       "dur": 1.2
+      }
+     ]
+    }
+   ],
+   "next": "carro_tranquilo"
   }
  },
  "endings": {
@@ -5547,7 +7675,13 @@
       "dur": 5
      }
     ]
-   }
+   },
+   "extra": [
+    {
+     "if": "sem_braco",
+     "text": "O médico do exército olhou o que sobrou do seu braço e disse que o Seu Jorge salvou a sua vida."
+    }
+   ]
   },
   "linha_muda": {
    "title": "Linha Muda",
@@ -5664,7 +7798,13 @@
       "dur": 6
      }
     ]
-   }
+   },
+   "extra": [
+    {
+     "if": "sem_braco",
+     "text": "Você perdeu um braço e a Marina na mesma noite."
+    }
+   ]
   },
   "ultimo_abraco": {
    "title": "Último Abraço",
@@ -5904,7 +8044,13 @@
       "volume": -6
      }
     ]
-   }
+   },
+   "extra": [
+    {
+     "if": "sem_braco",
+     "text": "Com um braço só, você segurou a maçaneta até amanhecer."
+    }
+   ]
   },
   "o_convidado": {
    "title": "O Convidado",
@@ -6196,6 +8342,10 @@
     {
      "if": "culpa >= 1",
      "text": "Mas toda noite você ainda ouve alguém gritando numa escada."
+    },
+    {
+     "if": "sem_braco",
+     "text": "Você perdeu um braço naquela noite. A Bia aprendeu a amarrar os seus sapatos."
     }
    ],
    "cinematica": {
@@ -6376,6 +8526,253 @@
      }
     ]
    }
+  },
+  "sangria": {
+   "title": "Sangria",
+   "kind": "morte",
+   "text": "Você cortou rápido. Não rápido o bastante para o sangue parar.",
+   "cinematica": {
+    "maos": true,
+    "dur": 8.5,
+    "narrar": 1.2,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "maos_cor",
+      "cor": "#a01810",
+      "dur": 0.1
+     },
+     {
+      "t": 0,
+      "acao": "maos_ocultar",
+      "lado": "esquerda"
+     },
+     {
+      "t": 0,
+      "acao": "sfx",
+      "som": "coracao"
+     },
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#402020",
+      "energia": 0.4,
+      "neblina": "#100404",
+      "densidade": 0.06,
+      "fundo": "#000000",
+      "dur": 3.0
+     },
+     {
+      "t": 0.4,
+      "acao": "fx",
+      "tipo": "vermelho",
+      "de": 0.0,
+      "ate": 0.55,
+      "dur": 4.0
+     },
+     {
+      "t": 0.6,
+      "acao": "camera_rel",
+      "por": [
+       0,
+       -0.45,
+       0
+      ],
+      "dur": 3.0,
+      "olhar": [
+       0,
+       -1.0,
+       -2.0
+      ]
+     },
+     {
+      "t": 2.6,
+      "acao": "fx",
+      "tipo": "chuvisco",
+      "de": 0.0,
+      "ate": 0.35,
+      "dur": 2.0
+     },
+     {
+      "t": 3.0,
+      "acao": "sfx",
+      "som": "coracao",
+      "volume": -6
+     },
+     {
+      "t": 3.8,
+      "acao": "camera_rel",
+      "por": [
+       0.35,
+       -0.55,
+       0.1
+      ],
+      "dur": 0.8,
+      "olhar": [
+       1.5,
+       -1.6,
+       -1.0
+      ]
+     },
+     {
+      "t": 4.4,
+      "acao": "fx",
+      "tipo": "tremor",
+      "forca": 0.12
+     },
+     {
+      "t": 5.2,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 2.8
+     },
+     {
+      "t": 5.6,
+      "acao": "sfx",
+      "som": "stinger_boom",
+      "volume": -4
+     }
+    ]
+   }
+  },
+  "febre": {
+   "title": "Febre",
+   "kind": "morte",
+   "text": "O exército chegou às 6:14. O Seu Jorge abriu a porta para eles. Àquela altura, você já não sabia o nome dele.",
+   "cinematica": {
+    "location": "escritorio_escuro",
+    "maos": true,
+    "camera": {
+     "pos": [
+      -0.8,
+      0.9,
+      0.2
+     ],
+     "olhar": [
+      -3.6,
+      1.2,
+      -2.0
+     ]
+    },
+    "slots": {
+     "left": [
+      -3.6,
+      0,
+      -2.0
+     ]
+    },
+    "cast": {
+     "left": {
+      "char": "jorge",
+      "anim": "Idle"
+     }
+    },
+    "dur": 9,
+    "narrar": 1.0,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#6a6a88",
+      "energia": 0.7,
+      "neblina": "#202030",
+      "densidade": 0.03,
+      "fundo": "#101018",
+      "dur": 2.0
+     },
+     {
+      "t": 0,
+      "acao": "maos_cor",
+      "cor": "#7f8f6c",
+      "dur": 0.1
+     },
+     {
+      "t": 0.2,
+      "acao": "fx",
+      "tipo": "chuvisco",
+      "de": 0.5,
+      "ate": 0.1,
+      "dur": 2.5
+     },
+     {
+      "t": 0.3,
+      "acao": "olhar_camera",
+      "who": "jorge"
+     },
+     {
+      "t": 1.8,
+      "acao": "luz_ponto",
+      "pos": [
+       -4.6,
+       1.5,
+       -2.6
+      ],
+      "cor": "#f0f4ff",
+      "energia": 2.5,
+      "raio": 6
+     },
+     {
+      "t": 1.8,
+      "acao": "sfx",
+      "som": "batida_porta"
+     },
+     {
+      "t": 2.8,
+      "acao": "anim",
+      "who": "jorge",
+      "anim": "Wave"
+     },
+     {
+      "t": 3.4,
+      "acao": "fx",
+      "tipo": "vermelho",
+      "de": 0.0,
+      "ate": 0.6,
+      "dur": 1.8
+     },
+     {
+      "t": 3.4,
+      "acao": "sfx",
+      "som": "rosnado"
+     },
+     {
+      "t": 3.8,
+      "acao": "camera_andar",
+      "pos": [
+       -2.6,
+       1.3,
+       -1.3
+      ],
+      "olhar": [
+       -3.6,
+       1.3,
+       -2.0
+      ],
+      "dur": 1.0
+     },
+     {
+      "t": 3.9,
+      "acao": "maos",
+      "anim": "grab.R"
+     },
+     {
+      "t": 4.9,
+      "acao": "sfx",
+      "som": "tiro"
+     },
+     {
+      "t": 4.9,
+      "acao": "fx",
+      "tipo": "flash"
+     },
+     {
+      "t": 4.95,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.15
+     }
+    ]
+   }
   }
  },
  "atributos": {
@@ -6390,6 +8787,17 @@
   "furtividade": {
    "nome": "Furtividade",
    "valor": 0
+  },
+  "forca": {
+   "nome": "Força",
+   "valor": 1
+  },
+  "vigor": {
+   "nome": "Vigor",
+   "valor": 1
   }
+ },
+ "maos_ocultas": {
+  "esquerda": "sem_braco"
  }
 }

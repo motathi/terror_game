@@ -103,6 +103,11 @@ func _setup_scene(node: Dictionary) -> void:
 	Audio.play_music(node.get("music", Audio.music_for_location(loc)))
 	stage.apply_node_view(node.get("camera", {}))
 	stage.set_cast(node.get("cast", {}), runner.story.get("characters", {}))
+	# "maos_ocultas": {"esquerda": "sem_braco"} esconde a mão enquanto a condição valer
+	# (ex.: o braço que você cortou não volta a aparecer nas cenas seguintes)
+	var rules: Dictionary = runner.story.get("maos_ocultas", {})
+	for side in ["esquerda", "direita"]:
+		stage.set_hand_hidden(side, rules.has(side) and runner.eval_condition(rules[side]))
 	_scene_gen += 1
 	_start_timeline(node.get("acoes", []))  # direção de cena do nó (entradas etc.)
 	if node.has("ambience"):
@@ -356,6 +361,8 @@ func _run_step(s: Dictionary, chars: Dictionary) -> void:
 		"maos":
 			stage.hands.visible = true
 			stage.play_hands(s.get("anim", "guard_idle"))
+		"maos_ocultar":
+			stage.set_hand_hidden(s.get("lado", "esquerda"), s.get("ocultar", true))
 		"maos_cor":
 			stage.tint_hands(Color.html(s.get("cor", "#ffffff")), dur)
 		"susto":

@@ -4,7 +4,7 @@ extends Node3D
 
 const AssetLib := preload("res://scripts/stage/asset_lib.gd")
 ## Animações em loop: basta o nome conter uma destas palavras ("Dog1_Idle"...).
-const LOOPING := ["idle", "walk", "run", "talk", "sit", "zombie", "loop", "wag", "bark"]
+const LOOPING := ["idle", "walk", "run", "talk", "sit", "zombie", "loop", "wag", "bark", "crawl", "attack"]
 
 var char_id := ""
 var display_name := ""

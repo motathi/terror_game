@@ -103,7 +103,7 @@ Offsets (`de`, `para`, `por`) são relativos à câmera: x = direita, y = cima, 
 | `camera_rel` | move a câmera relativa a ela (`por`, `olhar` opcional, `andar: true` para passos) |
 | `camera_olhar` | vira a câmera para um personagem (`who`) ou ponto (`olhar`) |
 | `camera` / `camera_voltar` | câmera para posição absoluta / volta à câmera do nó |
-| `maos` | mão estica (`grab.L` / `grab.R`); `maos_cor` tinge as mãos (ex.: sangue) |
+| `maos` | mão estica (`grab.L` / `grab.R`); `maos_cor` tinge as mãos (ex.: sangue); `maos_ocultar` (`lado`: `esquerda`/`direita`, `ocultar`) some com uma mão (braço cortado) |
 | `texto3d` | texto no mundo (tela do celular, relógio); mesmo `id` substitui, texto vazio apaga |
 | `luz_no` | muda a energia de uma luz do cenário pelo nome (`nome`, `energia`, `dur`; ex.: postes apagando) |
 | `susto` | **jumpscare**: com `who` alguém salta na frente da câmera e o rosto enche a tela (barulho alto, tranco, flash vermelho, mãos recuando, corte seco). `who` pode ser um personagem da história ou um nome novo com `modelo`/`tint`. Opções: `anim`, `de`/`ate` (distância 2.2 → 0.5 m), `lado`, `de_cima`, `rapido`, `segura`, `depois` (`sumir`/`recuar`), `inclinar` (graus para trás, 20; mais quando a câmera está baixa ou olhando para baixo), `som` (`susto_grito`), `volume`. Sem `who` é um susto falso: só o som e o tranco (`flash: true` para o vermelho) |
@@ -127,6 +127,9 @@ As mesmas ações valem nas cinemáticas dos finais (`"passos"`).
   "timeout": { "set": {}, "next": "patricia_deixada" } // obrigatório com timer; soma 1 em `hesitou`
 }
 ```
+
+## Mão amputada (persistente)
+`"maos_ocultas": { "esquerda": "sem_braco" }` no topo da história: em toda cena, a mão daquele lado da tela some enquanto a condição valer.
 
 ## Teste de dado (estilo Baldur's Gate)
 Uma opção pode virar um teste: o jogador rola um d20, soma os modificadores e precisa alcançar a Classe de Dificuldade (CD).

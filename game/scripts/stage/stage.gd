@@ -394,6 +394,14 @@ func scare_impact(red := true) -> void:
 		post_tween("flash", 0.55, 0.0, 0.45)  # vermelho rápido: o rosto tem que aparecer
 
 
+## Esconde a mão de um lado da tela ("esquerda"/"direita"), ex.: braço amputado.
+func set_hand_hidden(screen_side: String, hidden: bool) -> void:
+	# o pivô "L" do modelo é a mão da direita da tela (ver play_hands)
+	var pivot: Node3D = _hand_pivots.get("R" if screen_side == "esquerda" else "L")
+	if pivot:
+		pivot.visible = not hidden
+
+
 func flinch_hands() -> void:
 	for p in _hand_pivots.values():
 		var pv := p as Node3D
