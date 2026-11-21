@@ -32,7 +32,9 @@
  "vars": {
   "tocha": false,
   "culpa": 0,
-  "hesitou": 0
+  "hesitou": 0,
+  "mao_ferida": false,
+  "resgatou": false
  },
  "characters": {
   "sistema": {
@@ -242,6 +244,11 @@
   "saco_trilho": {
    "name": "Saco",
    "fx": "errado_abafado"
+  },
+  "homem_perto": {
+   "name": "",
+   "model": "homem_saco",
+   "fx": "monstro"
   }
  },
  "nodes": {
@@ -731,6 +738,12 @@
        "acao": "olhar_para",
        "who": "davi",
        "alvo": "homem"
+      },
+      {
+       "t": 0.2,
+       "acao": "susto",
+       "som": "saco_arrastando",
+       "volume": 4.0
       }
      ]
     },
@@ -813,6 +826,19 @@
         1.8,
         6.5
        ]
+      },
+      {
+       "t": 2.2,
+       "acao": "susto",
+       "who": "homem_perto",
+       "anim": "Grab",
+       "inclinar": 0,
+       "de": 3.0,
+       "ate": 0.55,
+       "rapido": 0.14,
+       "segura": 0.6,
+       "depois": "recuar",
+       "som": "susto_saco"
       }
      ]
     }
@@ -944,7 +970,22 @@
      {
       "text": "Pular pro barranco puxando o Davi",
       "who": "davi",
-      "ending": "o_trem"
+      "teste": {
+       "atributo": "agilidade",
+       "cd": 13,
+       "sucesso": {
+        "ending": "o_trem"
+       },
+       "falha": {
+        "next": "trem_falha"
+       },
+       "mods": [
+        {
+         "valor": -1,
+         "texto": "O Davi é mais lento"
+        }
+       ]
+      }
      },
      {
       "text": "Pular sozinho",
@@ -1182,7 +1223,22 @@
      {
       "text": "Segurar o Davi e ficar quieto",
       "who": "davi",
-      "next": "mato_quieto"
+      "teste": {
+       "atributo": "furtividade",
+       "cd": 12,
+       "sucesso": {
+        "next": "mato_quieto"
+       },
+       "falha": {
+        "next": "mato_achou"
+       },
+       "mods": [
+        {
+         "valor": -2,
+         "texto": "O tênis do Davi pisca no escuro"
+        }
+       ]
+      }
      }
     ],
     "timeout": {
@@ -1304,6 +1360,12 @@
        "acao": "sfx",
        "som": "choro_crianca",
        "volume": -10
+      },
+      {
+       "t": 1.5,
+       "acao": "susto",
+       "som": "risada_saco",
+       "volume": 2.0
       }
      ]
     },
@@ -1452,6 +1514,19 @@
        "acao": "camera_olhar",
        "who": "davi",
        "dur": 0.6
+      },
+      {
+       "t": 0.3,
+       "acao": "susto",
+       "who": "homem_perto",
+       "anim": "Grab",
+       "inclinar": 0,
+       "de": 1.8,
+       "ate": 0.5,
+       "rapido": 0.14,
+       "segura": 0.6,
+       "depois": "recuar",
+       "som": "susto_saco"
       }
      ]
     },
@@ -1524,8 +1599,30 @@
    ],
    "choice": {
     "prompt": "Ele está levando o Davi.",
-    "timer": 6,
+    "timer": 7,
     "options": [
+     {
+      "text": "Agarrar o saco antes que ele vá",
+      "teste": {
+       "atributo": "forca",
+       "cd": 15,
+       "sucesso": {
+        "set": {
+         "resgatou": true
+        },
+        "next": "resgate"
+       },
+       "falha": {
+        "next": "gancho"
+       },
+       "mods": [
+        {
+         "valor": 1,
+         "texto": "O Davi chuta de dentro do saco"
+        }
+       ]
+      }
+     },
      {
       "text": "Correr atrás dele até o barraco",
       "next": "barraco"
@@ -1933,6 +2030,19 @@
        "acao": "fx",
        "tipo": "tremor",
        "forca": 0.05
+      },
+      {
+       "t": 0.9,
+       "acao": "susto",
+       "who": "homem_perto",
+       "anim": "Grab",
+       "inclinar": 0,
+       "de": 2.0,
+       "ate": 0.5,
+       "rapido": 0.14,
+       "segura": 0.6,
+       "depois": "recuar",
+       "som": "susto_saco"
       }
      ]
     }
@@ -1946,8 +2056,26 @@
     "options": [
      {
       "text": "Correr pra casa",
-      "who": "davi",
-      "next": "casa"
+      "teste": {
+       "atributo": "agilidade",
+       "cd": 12,
+       "sucesso": {
+        "next": "casa"
+       },
+       "falha": {
+        "next": "pego_rua"
+       },
+       "mods": [
+        {
+         "valor": 1,
+         "texto": "A rua é iluminada"
+        },
+        {
+         "valor": -1,
+         "texto": "O Davi está cansado"
+        }
+       ]
+      }
      },
      {
       "text": "Cortar pela praça, até a fogueira",
@@ -2011,6 +2139,19 @@
         -2.0
        ],
        "dur": 0.8
+      },
+      {
+       "t": 0.6,
+       "acao": "susto",
+       "who": "homem_perto",
+       "anim": "Grab",
+       "inclinar": 0,
+       "de": 1.4,
+       "ate": 0.45,
+       "rapido": 0.1,
+       "segura": 0.6,
+       "depois": "recuar",
+       "som": "susto_saco"
       }
      ]
     },
@@ -2062,8 +2203,30 @@
    ],
    "choice": {
     "prompt": "Ele está levando o Davi.",
-    "timer": 6,
+    "timer": 7,
     "options": [
+     {
+      "text": "Agarrar o saco antes que ele vá",
+      "teste": {
+       "atributo": "forca",
+       "cd": 15,
+       "sucesso": {
+        "set": {
+         "resgatou": true
+        },
+        "next": "resgate"
+       },
+       "falha": {
+        "next": "gancho"
+       },
+       "mods": [
+        {
+         "valor": 1,
+         "texto": "O Davi chuta de dentro do saco"
+        }
+       ]
+      }
+     },
      {
       "text": "Correr atrás dele",
       "next": "barraco"
@@ -2242,6 +2405,12 @@
        "acao": "fx",
        "tipo": "tremor",
        "forca": 0.04
+      },
+      {
+       "t": 0.2,
+       "acao": "susto",
+       "som": "batida_porta",
+       "volume": 4.0
       }
      ]
     },
@@ -2294,12 +2463,25 @@
    ],
    "choice": {
     "prompt": "Quem está na porta?",
-    "timer": 7,
+    "timer": 10,
     "plead": {
      "davi": "Abre!",
      "mae_falsa_hs": "Abre, filho"
     },
     "options": [
+     {
+      "text": "Espiar pelo buraco da fechadura",
+      "teste": {
+       "atributo": "percepcao",
+       "cd": 12,
+       "sucesso": {
+        "next": "casa_revela"
+       },
+       "falha": {
+        "next": "casa_nada"
+       }
+      }
+     },
      {
       "text": "Abrir a porta",
       "who": "mae_falsa_hs",
@@ -2685,13 +2867,785 @@
         -1.2
        ],
        "dur": 0.8
+      },
+      {
+       "t": 0.2,
+       "acao": "susto",
+       "som": "cascalho_passos",
+       "volume": 3.0
       }
      ]
     }
    ],
    "choice": {
     "prompt": "Qual saco é o Davi?",
-    "timer": 8,
+    "timer": 10,
+    "plead": {
+     "saco_falso": "Me tira!",
+     "saco_davi": "Sou eu!"
+    },
+    "options": [
+     {
+      "text": "Escutar a respiração dos dois sacos",
+      "teste": {
+       "atributo": "percepcao",
+       "cd": 13,
+       "sucesso": {
+        "next": "barraco_revela"
+       },
+       "falha": {
+        "next": "barraco_iguais"
+       },
+       "mods": [
+        {
+         "if": "tocha",
+         "valor": 2,
+         "texto": "A luz do tição"
+        }
+       ]
+      }
+     },
+     {
+      "text": "Abrir o saco da esquerda",
+      "who": "saco_falso",
+      "ending": "saco_errado"
+     },
+     {
+      "text": "Abrir o saco da direita",
+      "who": "saco_davi",
+      "ending": "tenis_de_luzinha"
+     },
+     {
+      "text": "Entrar no saco no lugar dele",
+      "ending": "no_lugar_dele"
+     }
+    ],
+    "timeout": {
+     "ending": "dentro_do_saco"
+    }
+   }
+  },
+  "trem_falha": {
+   "location": "linha_trem",
+   "music": "hs_caca",
+   "cast": {
+    "left": {
+     "char": "davi",
+     "anim": "Run"
+    },
+    "center": {
+     "char": "homem",
+     "anim": "Walk"
+    }
+   },
+   "lines": [
+    {
+     "id": "hs_trem_falha_01",
+     "who": "sistema",
+     "text": "Você pula. O tênis do Davi prende entre o trilho e o dormente. Uma mão enorme alcança ele antes do trem.",
+     "espera": 0.5,
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.1
+      },
+      {
+       "t": 0.3,
+       "acao": "camera_rel",
+       "por": [
+        -0.6,
+        -0.8,
+        0.4
+       ],
+       "dur": 0.4
+      },
+      {
+       "t": 1.4,
+       "acao": "susto",
+       "who": "homem_perto",
+       "anim": "Grab",
+       "inclinar": 0,
+       "de": 2.0,
+       "ate": 0.55,
+       "rapido": 0.14,
+       "segura": 0.6,
+       "depois": "recuar",
+       "som": "susto_saco"
+      },
+      {
+       "t": 1.4,
+       "acao": "sfx",
+       "som": "trem_passando",
+       "volume": -2
+      }
+     ]
+    }
+   ],
+   "next": "pego"
+  },
+  "mato_achou": {
+   "location": "linha_trem",
+   "music": "hs_caca",
+   "cast": {
+    "left": {
+     "char": "davi",
+     "anim": "Sit"
+    },
+    "center": {
+     "char": "homem",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "saco_trilho",
+     "offscreen": "saco"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "esconder",
+     "who": "homem"
+    },
+    {
+     "t": 0,
+     "acao": "camera",
+     "pos": [
+      -2.2,
+      0.75,
+      0.3
+     ],
+     "olhar": [
+      0,
+      0.5,
+      -3.0
+     ],
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "davi",
+     "para": [
+      -1.75,
+      -0.12,
+      -1.5
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0.05,
+     "acao": "anim",
+     "who": "davi",
+     "anim": "Sit",
+     "fixo": true
+    },
+    {
+     "t": 0.1,
+     "acao": "olhar_camera",
+     "who": "davi"
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "saco_trilho",
+     "para": [
+      0.1,
+      0.16,
+      -2.6
+     ],
+     "dur": 0.01
+    }
+   ],
+   "lines": [
+    {
+     "id": "hs_mato_achou_01",
+     "who": "sistema",
+     "text": "O tênis do Davi pisca. Vermelho. Azul. O homem para. E vira o chapéu, devagar, na direção do mato.",
+     "espera": 0.4,
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        -1.75,
+        0.2,
+        -1.5
+       ],
+       "dur": 0.5
+      },
+      {
+       "t": 0.4,
+       "acao": "luz_ponto",
+       "pos": [
+        -1.7,
+        0.2,
+        -1.4
+       ],
+       "cor": "#ff3030",
+       "energia": 1.0,
+       "raio": 1.0,
+       "piscar": true
+      },
+      {
+       "t": 0.4,
+       "acao": "silencio",
+       "dur": 2.4
+      },
+      {
+       "t": 2.8,
+       "acao": "susto",
+       "who": "homem_perto",
+       "anim": "Grab",
+       "inclinar": 0,
+       "de": 2.6,
+       "ate": 0.5,
+       "rapido": 0.14,
+       "segura": 0.6,
+       "depois": "recuar",
+       "som": "susto_saco"
+      }
+     ]
+    }
+   ],
+   "next": "pego"
+  },
+  "resgate": {
+   "cast": {
+    "left": {
+     "char": "davi",
+     "anim": "Run"
+    }
+   },
+   "lines": [
+    {
+     "id": "hs_resgate_01",
+     "who": "sistema",
+     "text": "Você se joga no saco. A estopa rasga. O Davi cai no chão, chorando, com o tênis piscando. Vocês correm sem olhar pra trás.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "maos",
+       "anim": "grab.R"
+      },
+      {
+       "t": 0.3,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.12
+      },
+      {
+       "t": 0.4,
+       "acao": "sfx",
+       "som": "saco_arrastando"
+      },
+      {
+       "t": 1.2,
+       "acao": "mostrar",
+       "who": "davi"
+      },
+      {
+       "t": 1.2,
+       "acao": "andar",
+       "who": "davi",
+       "por": [
+        0.2,
+        0,
+        1.6
+       ],
+       "dur": 1.2,
+       "anim": "Run",
+       "fim": "Run"
+      },
+      {
+       "t": 2.6,
+       "acao": "camera_andar",
+       "por": [
+        0,
+        0,
+        2.0
+       ],
+       "dur": 2.0
+      }
+     ]
+    }
+   ],
+   "next": "casa"
+  },
+  "gancho": {
+   "music": "hs_caca",
+   "cast": {},
+   "lines": [
+    {
+     "id": "hs_gancho_01",
+     "who": "sistema",
+     "text": "Ele te derruba com as costas da mão. Um gancho de pendurar saco atravessa a palma da sua mão e te prende no chão.",
+     "espera": 0.6,
+     "acoes": [
+      {
+       "t": 0.1,
+       "acao": "susto",
+       "who": "homem_perto",
+       "anim": "Grab",
+       "inclinar": 0,
+       "de": 1.6,
+       "ate": 0.45,
+       "rapido": 0.12,
+       "segura": 0.6,
+       "depois": "sumir",
+       "som": "susto_saco"
+      },
+      {
+       "t": 1.0,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        -1.1,
+        0.3
+       ],
+       "dur": 0.4,
+       "olhar": [
+        0.4,
+        0.0,
+        -1.0
+       ]
+      },
+      {
+       "t": 1.6,
+       "acao": "sfx",
+       "som": "corte"
+      },
+      {
+       "t": 1.6,
+       "acao": "fx",
+       "tipo": "vermelho",
+       "ate": 0.8,
+       "dur": 0.15
+      },
+      {
+       "t": 1.8,
+       "acao": "fx",
+       "tipo": "vermelho",
+       "de": 0.8,
+       "ate": 0.0,
+       "dur": 1.5
+      },
+      {
+       "t": 1.7,
+       "acao": "maos_cor",
+       "cor": "#c03020",
+       "dur": 0.3
+      },
+      {
+       "t": 1.7,
+       "acao": "maos",
+       "anim": "grab.L"
+      }
+     ]
+    },
+    {
+     "id": "hs_gancho_02",
+     "who": "sistema",
+     "text": "O saco com o Davi vai ficando pequeno no escuro. Piscando. Vermelho. Azul.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        0.5,
+        -10.0
+       ],
+       "dur": 1.0
+      },
+      {
+       "t": 0.5,
+       "acao": "luz_ponto",
+       "pos": [
+        0,
+        0.8,
+        -9.0
+       ],
+       "cor": "#ff3030",
+       "energia": 0.8,
+       "raio": 1.5,
+       "piscar": true
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "O gancho não solta.",
+    "timer": 10,
+    "options": [
+     {
+      "text": "Arrancar a mão do gancho",
+      "teste": {
+       "atributo": "vigor",
+       "cd": 13,
+       "sucesso": {
+        "next": "gancho_ok"
+       },
+       "falha": {
+        "ending": "pendurado"
+       },
+       "mods": [
+        {
+         "valor": -2,
+         "texto": "O ferro atravessou a mão"
+        },
+        {
+         "valor": 1,
+         "texto": "O choro do Davi"
+        }
+       ]
+      }
+     },
+     {
+      "text": "Gritar por ajuda",
+      "next": "gancho_grito"
+     }
+    ],
+    "timeout": {
+     "next": "gancho_grito"
+    }
+   }
+  },
+  "gancho_ok": {
+   "set": {
+    "mao_ferida": true
+   },
+   "cast": {},
+   "lines": [
+    {
+     "id": "hs_gancho_ok_01",
+     "who": "sistema",
+     "text": "Você puxa. A mão rasga e solta. Você enrola a mão na camisa e corre atrás da luzinha piscando.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "sfx",
+       "som": "corte",
+       "volume": -4
+      },
+      {
+       "t": 0,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.12
+      },
+      {
+       "t": 0.1,
+       "acao": "fx",
+       "tipo": "vermelho",
+       "ate": 0.7,
+       "dur": 0.15
+      },
+      {
+       "t": 0.4,
+       "acao": "fx",
+       "tipo": "vermelho",
+       "de": 0.7,
+       "ate": 0.0,
+       "dur": 1.5
+      },
+      {
+       "t": 1.4,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        1.1,
+        -0.3
+       ],
+       "dur": 0.6
+      },
+      {
+       "t": 2.2,
+       "acao": "camera_andar",
+       "por": [
+        0,
+        0,
+        -2.5
+       ],
+       "dur": 2.0
+      }
+     ]
+    }
+   ],
+   "next": "barraco"
+  },
+  "gancho_grito": {
+   "cast": {},
+   "lines": [
+    {
+     "id": "hs_gancho_grito_01",
+     "who": "sistema",
+     "text": "Você grita até a Dona Lurdes aparecer, com um tição na mão. Ela arranca o gancho e te arrasta de volta pra festa.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "sfx",
+       "som": "fogos",
+       "volume": -8
+      },
+      {
+       "t": 1.5,
+       "acao": "luz_ponto",
+       "pos": [
+        0.6,
+        1.0,
+        -1.0
+       ],
+       "cor": "#ff8a30",
+       "energia": 2.0,
+       "raio": 4.0,
+       "piscar": true
+      },
+      {
+       "t": 2.5,
+       "acao": "maos",
+       "anim": "grab.R"
+      },
+      {
+       "t": 3.4,
+       "acao": "fx",
+       "tipo": "apagar",
+       "dur": 0.6
+      }
+     ]
+    }
+   ],
+   "next": "festa_volta"
+  },
+  "casa_revela": {
+   "location": "casa",
+   "music": "hs_tensao",
+   "cast": {
+    "left": {
+     "char": "davi",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "mae_falsa_hs",
+     "offscreen": "porta"
+    }
+   },
+   "lines": [
+    {
+     "id": "hs_casa_revela_01",
+     "who": "sistema",
+     "text": "Do outro lado da fechadura, um olho. Amarelo. Grudado no buraco, olhando de volta pra você.",
+     "espera": 0.3,
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "mae_falsa_hs",
+       "dur": 0.5
+      },
+      {
+       "t": 0.3,
+       "acao": "silencio",
+       "dur": 1.5
+      },
+      {
+       "t": 1.2,
+       "acao": "susto",
+       "who": "homem_perto",
+       "anim": "Grab",
+       "inclinar": 0,
+       "de": 1.0,
+       "ate": 0.4,
+       "rapido": 0.1,
+       "segura": 0.8,
+       "depois": "recuar",
+       "som": "susto_saco"
+      },
+      {
+       "t": 2.4,
+       "acao": "sfx",
+       "som": "batida_porta",
+       "volume": 2
+      }
+     ]
+    }
+   ],
+   "next": "casa_decisao"
+  },
+  "casa_nada": {
+   "location": "casa",
+   "music": "hs_tensao",
+   "cast": {
+    "left": {
+     "char": "davi",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "mae_falsa_hs",
+     "offscreen": "porta"
+    }
+   },
+   "lines": [
+    {
+     "id": "hs_casa_nada_01",
+     "who": "sistema",
+     "text": "Só escuro do outro lado. E uma respiração pesada, devagar, encostada na porta.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "mae_falsa_hs",
+       "dur": 0.5
+      }
+     ]
+    }
+   ],
+   "next": "casa_decisao"
+  },
+  "casa_decisao": {
+   "location": "casa",
+   "music": "hs_tensao",
+   "cast": {
+    "left": {
+     "char": "davi",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "mae_falsa_hs",
+     "offscreen": "porta"
+    }
+   },
+   "choice": {
+    "prompt": "Quem está na porta?",
+    "timer": 7,
+    "plead": {
+     "davi": "Abre!",
+     "mae_falsa_hs": "Abre, filho"
+    },
+    "options": [
+     {
+      "text": "Abrir a porta",
+      "who": "mae_falsa_hs",
+      "ending": "porta_aberta"
+     },
+     {
+      "text": "Segurar o Davi longe da porta",
+      "who": "davi",
+      "next": "casa_madrugada"
+     }
+    ],
+    "timeout": {
+     "next": "davi_abre"
+    }
+   }
+  },
+  "barraco_revela": {
+   "location": "barraco",
+   "cast": {
+    "left": {
+     "char": "saco_falso",
+     "offscreen": "saco"
+    },
+    "right": {
+     "char": "saco_davi",
+     "offscreen": "saco"
+    }
+   },
+   "lines": [
+    {
+     "id": "hs_barraco_revela_01",
+     "who": "sistema",
+     "text": "O saco da esquerda respira devagar. Fundo. Como um homem velho dormindo. O da direita soluça rápido, igual criança.",
+     "espera": 0.3,
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "saco_falso",
+       "dur": 0.5
+      },
+      {
+       "t": 0.4,
+       "acao": "tremer",
+       "who": "saco_falso",
+       "dur": 1.0
+      },
+      {
+       "t": 3.4,
+       "acao": "susto",
+       "who": "homem_perto",
+       "anim": "Grab",
+       "inclinar": 0,
+       "de": 1.4,
+       "ate": 0.5,
+       "rapido": 0.14,
+       "segura": 0.7,
+       "depois": "recuar",
+       "som": "susto_saco"
+      },
+      {
+       "t": 5.0,
+       "acao": "camera_olhar",
+       "who": "saco_davi",
+       "dur": 0.5
+      }
+     ]
+    }
+   ],
+   "next": "barraco_decisao"
+  },
+  "barraco_iguais": {
+   "location": "barraco",
+   "cast": {
+    "left": {
+     "char": "saco_falso",
+     "offscreen": "saco"
+    },
+    "right": {
+     "char": "saco_davi",
+     "offscreen": "saco"
+    }
+   },
+   "lines": [
+    {
+     "id": "hs_barraco_iguais_01",
+     "who": "sistema",
+     "text": "Os dois choram igual. Os dois tremem igual. E os passos lá fora estão mais perto.",
+     "sfx": "cascalho_passos",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "saco_falso",
+       "dur": 0.5
+      },
+      {
+       "t": 1.4,
+       "acao": "camera_olhar",
+       "who": "saco_davi",
+       "dur": 0.5
+      }
+     ]
+    }
+   ],
+   "next": "barraco_decisao"
+  },
+  "barraco_decisao": {
+   "location": "barraco",
+   "cast": {
+    "left": {
+     "char": "saco_falso",
+     "offscreen": "saco"
+    },
+    "right": {
+     "char": "saco_davi",
+     "offscreen": "saco"
+    }
+   },
+   "choice": {
+    "prompt": "Qual saco é o Davi?",
+    "timer": 7,
     "plead": {
      "saco_falso": "Me tira!",
      "saco_davi": "Sou eu!"
@@ -2800,6 +3754,18 @@
       "acao": "fx",
       "tipo": "tremor",
       "forca": 0.1
+     },
+     {
+      "t": 5.1,
+      "acao": "susto",
+      "who": "homem_perto",
+      "anim": "Grab",
+      "inclinar": 0,
+      "de": 1.8,
+      "ate": 0.45,
+      "rapido": 0.14,
+      "segura": 0.6,
+      "som": "susto_saco"
      },
      {
       "t": 5.2,
@@ -2936,6 +3902,18 @@
       "dur": 0.6
      },
      {
+      "t": 6.6,
+      "acao": "susto",
+      "who": "homem_perto",
+      "anim": "Grab",
+      "inclinar": 0,
+      "de": 1.8,
+      "ate": 0.45,
+      "rapido": 0.14,
+      "segura": 0.6,
+      "som": "susto_saco"
+     },
+     {
       "t": 6.8,
       "acao": "fx",
       "tipo": "tremor",
@@ -3057,6 +4035,18 @@
       "t": 4.6,
       "acao": "fx",
       "tipo": "flash"
+     },
+     {
+      "t": 6.3,
+      "acao": "susto",
+      "who": "homem_perto",
+      "anim": "Grab",
+      "inclinar": 0,
+      "de": 1.8,
+      "ate": 0.45,
+      "rapido": 0.14,
+      "segura": 0.6,
+      "som": "susto_saco"
      },
      {
       "t": 6.4,
@@ -3222,7 +4212,13 @@
       "dur": 0.9
      }
     ]
-   }
+   },
+   "extra": [
+    {
+     "if": "mao_ferida",
+     "text": "Até hoje você tem uma cicatriz redonda no meio da mão. Ela dói em véspera de São João."
+    }
+   ]
   },
   "tenis_de_luzinha": {
    "title": "Tênis de Luzinha",
@@ -3334,7 +4330,13 @@
       "dur": 0.9
      }
     ]
-   }
+   },
+   "extra": [
+    {
+     "if": "mao_ferida",
+     "text": "Até hoje você tem uma cicatriz redonda no meio da mão. Ela dói em véspera de São João."
+    }
+   ]
   },
   "saco_errado": {
    "title": "O Saco Errado",
@@ -3431,6 +4433,18 @@
       "t": 4.4,
       "acao": "olhar_camera",
       "who": "homem"
+     },
+     {
+      "t": 5.9,
+      "acao": "susto",
+      "who": "homem_perto",
+      "anim": "Grab",
+      "inclinar": 0,
+      "de": 1.8,
+      "ate": 0.45,
+      "rapido": 0.14,
+      "segura": 0.6,
+      "som": "susto_saco"
      },
      {
       "t": 6.0,
@@ -3574,7 +4588,13 @@
       "dur": 0.9
      }
     ]
-   }
+   },
+   "extra": [
+    {
+     "if": "mao_ferida",
+     "text": "Até hoje você tem uma cicatriz redonda no meio da mão. Ela dói em véspera de São João."
+    }
+   ]
   },
   "fogueira": {
    "title": "Perto do Fogo",
@@ -3678,7 +4698,13 @@
       "dur": 0.9
      }
     ]
-   }
+   },
+   "extra": [
+    {
+     "if": "mao_ferida",
+     "text": "Até hoje você tem uma cicatriz redonda no meio da mão. Ela dói em véspera de São João."
+    }
+   ]
   },
   "no_lugar_dele": {
    "title": "No Lugar Dele",
@@ -4000,7 +5026,158 @@
       "dur": 0.9
      }
     ]
+   },
+   "extra": [
+    {
+     "if": "mao_ferida",
+     "text": "Até hoje você tem uma cicatriz redonda no meio da mão. Ela dói em véspera de São João."
+    },
+    {
+     "if": "resgatou",
+     "text": "O saco rasgado ficou na beira dos trilhos. Ninguém teve coragem de tirar."
+    }
+   ]
+  },
+  "pendurado": {
+   "title": "Pendurado",
+   "kind": "morte",
+   "text": "Você desmaiou de dor. Acordou de cabeça pra baixo, dentro de um saco, pendurado no teto do barraco. Do saco ao lado, o Davi chamava o seu nome.",
+   "cinematica": {
+    "location": "barraco",
+    "maos": true,
+    "camera": {
+     "pos": [
+      0.2,
+      2.1,
+      0.6
+     ],
+     "olhar": [
+      0,
+      0.3,
+      -1.5
+     ]
+    },
+    "dur": 10,
+    "narrar": 1.0,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "maos_cor",
+      "cor": "#a01810",
+      "dur": 0.1
+     },
+     {
+      "t": 0,
+      "acao": "fx",
+      "tipo": "vermelho",
+      "de": 0.0,
+      "ate": 0.35,
+      "dur": 2.0
+     },
+     {
+      "t": 0.2,
+      "acao": "sfx",
+      "som": "coracao"
+     },
+     {
+      "t": 0.5,
+      "acao": "camera_rel",
+      "por": [
+       0.15,
+       0,
+       0
+      ],
+      "dur": 2.0,
+      "olhar": [
+       0.4,
+       0.3,
+       -1.5
+      ]
+     },
+     {
+      "t": 2.5,
+      "acao": "camera_rel",
+      "por": [
+       -0.3,
+       0,
+       0
+      ],
+      "dur": 2.0,
+      "olhar": [
+       -0.4,
+       0.3,
+       -1.5
+      ]
+     },
+     {
+      "t": 3.0,
+      "acao": "sfx",
+      "som": "choro_crianca",
+      "volume": -4
+     },
+     {
+      "t": 4.5,
+      "acao": "camera_rel",
+      "por": [
+       0.15,
+       0,
+       0
+      ],
+      "dur": 1.5,
+      "olhar": [
+       0,
+       0.3,
+       -1.5
+      ]
+     },
+     {
+      "t": 5.0,
+      "acao": "sfx",
+      "som": "cascalho_passos"
+     },
+     {
+      "t": 6.6,
+      "acao": "susto",
+      "who": "homem_perto",
+      "anim": "Grab",
+      "inclinar": 0,
+      "de": 1.8,
+      "ate": 0.45,
+      "rapido": 0.14,
+      "segura": 0.6,
+      "depois": "sumir",
+      "som": "susto_saco"
+     },
+     {
+      "t": 7.6,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.6
+     }
+    ]
    }
+  }
+ },
+ "atributos": {
+  "agilidade": {
+   "nome": "Agilidade",
+   "valor": 1
+  },
+  "percepcao": {
+   "nome": "Percepção",
+   "valor": 1
+  },
+  "furtividade": {
+   "nome": "Furtividade",
+   "valor": 1
+  },
+  "forca": {
+   "nome": "Força",
+   "valor": 0
+  },
+  "vigor": {
+   "nome": "Vigor",
+   "valor": 1
   }
  }
 }

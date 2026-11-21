@@ -26,6 +26,7 @@ const MODELS := {
 	"rastejante": "res://assets/models/rastejante.glb",  # zumbi sem pernas: Idle, Crawl, Attack
 	"cinzento": "res://assets/models/cinzento.glb",  # alienígena cinzento: Idle, Walk, Reach
 	"coisa_quatro": "res://assets/models/coisa_quatro.glb",  # skinwalker de quatro: Idle, Crawl, Rise
+	"homem_saco": "res://assets/models/homem_saco.glb",  # Homem do Saco de perto: Idle, Walk, Grab
 }
 
 ## Ajustes por modelo, aplicados pelo Actor:

@@ -6,7 +6,7 @@ Jogo de terror de escolhas em primeira pessoa, no formato dos vídeos "escolha-m
 - **Zumbi — Capítulo 1: Surto** (jogável): escritório, notícias de ataques, sua família em casa. 12 finais. Nos ataques você rola o dado (d20 + atributo contra a Classe de Dificuldade, como em Baldur's Gate): fugir do Rastejante, segurar uma porta, cortar o braço mordido e sobreviver ao corte. Sustos (jumpscares) nos momentos-chave.
 - **Alien — Capítulo 1: Visitantes** (jogável): sítio do avô no interior, luzes sobre o milharal, quem volta não é igual. 11 finais. Momento-chave: duas Lias idênticas implorando "a outra é a cópia" (dá para rolar Percepção e flagrar a cópia). Dados para se esconder no milho, escapar da luz, acertar o tiro e segurar a janela contra o Cinzento; quem for marcado decide se arranca o grão da nuca com uma faca.
 - **Skinwalker — Capítulo 1: Caramelo** (jogável): o cachorro da família some por três dias e volta diferente. Ele não late, não manca e imita vozes. 11 finais. Momentos-chave: duas mães (uma do lado de fora da porta) e dois Caramelos implorando para entrar. Dá para ir ao terreno baldio soltar o Caramelo de verdade da armadilha enquanto a coisa de quatro caça no mato; dados para não olhar nos olhos dela (Sangue-frio), fechar a cortina, passar por ela no corredor e lutar ao lado do Caramelo; quem é arranhado decide se queima a ferida com o ferro antes que o pelo tome conta.
-- **Homem do Saco — Capítulo 1: Véspera de São João** (jogável): a fogueira está apagando e você precisa levar seu irmão Davi para casa. Atalho pela linha do trem ou rua iluminada; voz da mãe na porta; dois sacos chamando seu nome no barraco do velho. 11 finais.
+- **Homem do Saco — Capítulo 1: Véspera de São João** (jogável): a fogueira está apagando e você precisa levar seu irmão Davi para casa. Atalho pela linha do trem ou rua iluminada; voz da mãe na porta; dois sacos chamando seu nome no barraco do velho. 12 finais. Dados para pular do trem puxando o Davi, ficar quieto no mato com o tênis piscando, correr pela rua, agarrar o saco, espiar pela fechadura e escutar a respiração dos sacos; quem falha ao agarrar o saco fica preso pelo gancho na mão e decide se arranca.
 - **Em breve:** Casa Abandonada, Fazenda.
 
 **Capítulo 1: Surto.** Sexta-feira, 17:48. Você está no escritório quando o jornal começa a falar de pessoas mordendo pessoas. Sua esposa Marina e sua filha Bia estão em casa.
@@ -68,7 +68,7 @@ game/                      projeto Godot
   autoload/                GameState (save/finais) e Audio (vozes/efeitos/ambiente)
   shaders/                 psx_lit (tremido + textura afim) e psx_post (dither + granulado)
   audio/vo|sfx|amb/        saída do ElevenLabs
-  assets/models/           modelos feitos no projeto pelo Blender (d20.glb, rastejante.glb, cinzento.glb, coisa_quatro.glb)
+  assets/models/           modelos feitos no projeto pelo Blender (d20.glb, rastejante.glb, cinzento.glb, coisa_quatro.glb, homem_saco.glb)
   assets/third_party/      pacotes PSX (ver assets_manifest.json)
 tools/
   fetch_assets.py          baixa os pacotes do itch.io listados no manifesto
@@ -79,5 +79,6 @@ tools/
   blender/make_rastejante.py  modela, texturiza, arma e anima o Rastejante (zumbi sem pernas)
   blender/make_cinzento.py    modela, texturiza, arma e anima o Cinzento (alienígena)
   blender/make_coisa_quatro.py modela, texturiza, arma e anima a coisa de quatro (skinwalker)
+  blender/make_homem_saco.py  modela, texturiza, arma e anima o Homem do Saco (versão de perto)
 docs/ARQUITETURA.md        por que Godot e como as peças se encaixam
 ```

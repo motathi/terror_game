@@ -524,6 +524,14 @@
    "susto_skin": {
     "prompt": "horror jumpscare: a creature roaring right into the listener's face, a dog bark that twists into a human scream, with a violent dissonant string stab and deep bass hit, extremely close",
     "duration": 2.0
+   },
+   "susto_saco": {
+    "prompt": "horror jumpscare: an old man shrieking with a raspy wet voice right into the listener's face, burlap sack rustling, violent dissonant string stab and deep bass hit, extremely close",
+    "duration": 2.0
+   },
+   "risada_saco": {
+    "prompt": "muffled small child giggling from inside a burlap sack, slowly turning into a deep old man laughing, creepy, close, quiet night",
+    "duration": 3.5
    }
   }
  },
