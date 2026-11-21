@@ -25,6 +25,7 @@ var settings: Dictionary = {
 var debug_start_node := ""
 ## Atalho de teste: ...?final=<id_do_final> mostra direto a cinemática do final.
 var debug_ending := ""
+## Atalho de teste: ...?lento=0.25 roda o jogo em câmera lenta (conferir sustos quadro a quadro).
 ## Atalho de teste: ...?vars=viu_marina:true,culpa:2 define variáveis da história ao abrir com ?cena=.
 var debug_vars := {}
 
@@ -37,6 +38,9 @@ func _ready() -> void:
 		debug_start_node = str(q) if q != null else ""
 		var fq = JavaScriptBridge.eval("new URLSearchParams(window.location.search).get('final') || ''", true)
 		debug_ending = str(fq) if fq != null else ""
+		var lq = JavaScriptBridge.eval("new URLSearchParams(window.location.search).get('lento') || ''", true)
+		if lq != null and str(lq).is_valid_float():
+			Engine.time_scale = clampf(str(lq).to_float(), 0.05, 1.0)  # câmera lenta para conferir sustos
 		var vq = JavaScriptBridge.eval("new URLSearchParams(window.location.search).get('vars') || ''", true)
 		for pair in str(vq if vq != null else "").split(",", false):
 			var kv: PackedStringArray = str(pair).split(":")

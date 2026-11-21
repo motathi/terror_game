@@ -314,6 +314,8 @@ func jumpscare(char_id: String, def: Dictionary, o: Dictionary) -> void:
 	_actors_root.add_child(a)
 	a.setup(char_id, def, {"anim": o.get("anim", "ZombieAttack")}, title_font, body_font)
 	a.set_name_visible(false)
+	a._current_anim = ""
+	a.play(o.get("anim", "ZombieAttack"), 0.0)  # sem transição: nada de pose T no primeiro quadro
 	a.key.light_energy = 1.8
 	a.key.omni_range = 3.0
 	_cine_extra.append(a)
