@@ -317,12 +317,15 @@ func jumpscare(char_id: String, def: Dictionary, o: Dictionary) -> void:
 	a.set_name_visible(false)
 	a._current_anim = ""
 	a.play(o.get("anim", "ZombieAttack"), 0.0)  # sem transição
-	a.key.light_energy = 1.8
-	a.key.omni_range = 3.0
 	a.visible = false  # dois quadros escondido: a animação assenta (nada de pose T)
 	_cine_extra.append(a)
 	var head := _head_bone(a)
 	var face := _face_height(a)
+	# luz de baixo para cima, fria e esverdeada: a "lanterna no queixo" dos filmes de terror
+	a.key.light_color = Color(0.72, 0.95, 0.75)
+	a.key.light_energy = 1.5
+	a.key.omni_range = 2.2
+	a.key.position = Vector3(0, face - 0.55, 0.35)
 	var recuar: bool = o.get("depois", "sumir") == "recuar"
 	_scare_place(0.0, a, o, face, head)
 	await get_tree().process_frame
