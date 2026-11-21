@@ -5303,6 +5303,18 @@
      "anim": "Idle"
     }
    },
+   "camera": {
+    "pos": [
+     0,
+     -0.1,
+     -4.2
+    ],
+    "olhar": [
+     0.1,
+     -1.8,
+     -5.1
+    ]
+   },
    "acoes": [
     {
      "t": 0,
@@ -5310,8 +5322,8 @@
      "who": "rastejante",
      "para": [
       0.1,
-      -1.95,
-      -5.3
+      -2.15,
+      -5.0
      ],
      "dur": 0.01
     },
@@ -5325,9 +5337,9 @@
      "acao": "mover",
      "who": "rafael",
      "para": [
-      0.9,
-      -1.0,
-      -3.4
+      0.8,
+      -1.94,
+      -4.6
      ],
      "dur": 0.01
     }
@@ -5344,8 +5356,8 @@
        "acao": "camera_olhar",
        "olhar": [
         0.1,
-        -1.7,
-        -5.0
+        -1.9,
+        -4.8
        ],
        "dur": 0.25
       },
@@ -5405,8 +5417,8 @@
        "acao": "camera_olhar",
        "olhar": [
         0.1,
-        -1.7,
-        -5.0
+        -1.9,
+        -4.8
        ],
        "dur": 0.3
       }
@@ -5463,6 +5475,18 @@
   },
   "escada_solta": {
    "location": "escada",
+   "camera": {
+    "pos": [
+     0,
+     -0.1,
+     -4.2
+    ],
+    "olhar": [
+     0.1,
+     -1.8,
+     -5.1
+    ]
+   },
    "cast": {
     "center": {
      "char": "rastejante",
@@ -5480,8 +5504,8 @@
      "who": "rastejante",
      "para": [
       0.1,
-      -1.95,
-      -5.3
+      -2.15,
+      -5.0
      ],
      "dur": 0.01
     },
@@ -5554,6 +5578,18 @@
   },
   "escada_mordida": {
    "location": "escada",
+   "camera": {
+    "pos": [
+     0,
+     -0.1,
+     -4.2
+    ],
+    "olhar": [
+     0.1,
+     -1.8,
+     -5.1
+    ]
+   },
    "music": "perseguicao",
    "cast": {
     "center": {
@@ -5576,8 +5612,8 @@
      "who": "rastejante",
      "para": [
       0.1,
-      -1.95,
-      -5.3
+      -2.15,
+      -5.0
      ],
      "dur": 0.01
     },
@@ -5654,6 +5690,18 @@
   },
   "braco_escada": {
    "location": "escada",
+   "camera": {
+    "pos": [
+     0,
+     -0.1,
+     -4.2
+    ],
+    "olhar": [
+     0.1,
+     -1.8,
+     -5.1
+    ]
+   },
    "cast": {
     "right": {
      "char": "rafael",
@@ -5667,10 +5715,15 @@
      "who": "rafael",
      "para": [
       0.6,
-      -1.0,
-      -3.0
+      -1.94,
+      -4.6
      ],
      "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "olhar_camera",
+     "who": "rafael"
     }
    ],
    "lines": [
@@ -5691,10 +5744,23 @@
        "acao": "camera_olhar",
        "olhar": [
         -1.2,
-        0.2,
-        -3.6
+        -0.7,
+        -4.9
        ],
        "dur": 0.6
+      },
+      {
+       "t": 1.9,
+       "acao": "texto3d",
+       "id": "machado",
+       "texto": "INCÊNDIO",
+       "pos": [
+        -1.18,
+        -0.5,
+        -4.9
+       ],
+       "tamanho": 20,
+       "cor": "#ff3020"
       }
      ]
     },
@@ -5707,9 +5773,9 @@
        "t": 0,
        "acao": "camera_olhar",
        "olhar": [
-        -0.25,
-        -0.6,
-        -0.6
+        -0.3,
+        -1.0,
+        -4.8
        ],
        "dur": 0.6
       },

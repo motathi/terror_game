@@ -81,7 +81,20 @@ static func _escritorio(root: Node3D, cfg: Dictionary, dark: bool) -> void:
 			prop(root, OFF + "carpet_floor/floor_2x2.glb", Vector3(x, 0, z), 0, 1, Vector3(2, 0.02, 2))
 	box(root, Vector3(12, 0.1, 12), Vector3(0, 3.0, -4), Color(0.55, 0.55, 0.52))
 	box(root, Vector3(12, 3.0, 0.2), Vector3(0, 1.5, -7.0), Color(0.62, 0.6, 0.52))
-	box(root, Vector3(0.2, 3.0, 12), Vector3(-5.0, 1.5, -4), Color(0.6, 0.58, 0.5))
+	# parede da esquerda com a porta de vidro do andar (onde eles batem à noite)
+	var wc := Color(0.6, 0.58, 0.5)
+	box(root, Vector3(0.2, 3.0, 6.8), Vector3(-5.0, 1.5, -6.6), wc)
+	box(root, Vector3(0.2, 3.0, 3.8), Vector3(-5.0, 1.5, 0.1), wc)
+	box(root, Vector3(0.2, 0.7, 1.4), Vector3(-5.0, 2.65, -2.5), wc)
+	var glass := box(root, Vector3(0.04, 2.3, 1.36), Vector3(-4.95, 1.15, -2.5), Color(0.28, 0.34, 0.38), 0.05)
+	glass.transparency = 0.7
+	for zz in [-3.2, -1.8]:
+		box(root, Vector3(0.12, 2.3, 0.06), Vector3(-4.95, 1.15, zz), Color(0.3, 0.3, 0.32))
+	box(root, Vector3(0.12, 0.06, 1.4), Vector3(-4.95, 1.2, -2.5), Color(0.3, 0.3, 0.32))  # barra
+	box(root, Vector3(4.0, 0.1, 3.0), Vector3(-7.0, 0.0, -2.5), Color(0.25, 0.24, 0.22))  # corredor lá fora
+	box(root, Vector3(0.2, 3.0, 3.0), Vector3(-8.8, 1.5, -2.5), Color(0.35, 0.34, 0.3))
+	var hall := omni(root, Vector3(-6.8, 2.4, -2.5), Color(1.0, 0.25, 0.15) if dark else Color(1.0, 0.95, 0.85), 1.0, 4.0)
+	hall.add_child(Flicker.new(0.8, 7.0))
 	box(root, Vector3(0.2, 3.0, 12), Vector3(5.0, 1.5, -4), Color(0.6, 0.58, 0.5))
 	# janelas com a cidade lá fora (fim de tarde / noite)
 	var sky := Color(0.9, 0.45, 0.25) if not dark else Color(0.05, 0.06, 0.12)
@@ -275,11 +288,12 @@ static func _hospital(root: Node3D, cfg: Dictionary) -> void:
 		box(root, Vector3(0.8, 0.08, 1.9), Vector3(1.6, 0.8, z), Color(0.8, 0.8, 0.78))  # maca
 		box(root, Vector3(0.7, 0.05, 1.7), Vector3(1.6, 0.86, z), Color(0.55, 0.1, 0.08))  # lençol sujo
 	var fluo := omni(root, Vector3(0, 2.8, -7.5), Color(0.6, 1.0, 0.7), 1.6, 7.0)
+	omni(root, Vector3(0.4, 2.2, -5.2), Color(0.85, 0.95, 1.0), 1.3, 3.2)  # luz de quem fala atrás do vidro
 	fluo.add_child(Flicker.new(0.9, 9.0))
 	# portas de vidro (sujas de sangue) com corrente e cadeado em X
 	for sx in [-0.62, 0.62]:
-		var g := box(root, Vector3(1.2, 2.3, 0.04), Vector3(sx, 1.15, -4.3), Color(0.12, 0.16, 0.18), 0.05)
-		g.transparency = 0.45
+		var g := box(root, Vector3(1.2, 2.3, 0.04), Vector3(sx, 1.15, -4.3), Color(0.3, 0.38, 0.4), 0.05)
+		g.transparency = 0.78
 		box(root, Vector3(1.24, 0.06, 0.07), Vector3(sx, 2.3, -4.3), Color(0.55, 0.55, 0.55))
 		box(root, Vector3(0.06, 2.3, 0.07), Vector3(sx + 0.6, 1.15, -4.3), Color(0.55, 0.55, 0.55))
 	for i in 5:  # mãos de sangue no vidro
