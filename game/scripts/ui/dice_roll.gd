@@ -35,6 +35,7 @@ func run(parent: Node, info: Dictionary) -> bool:
 	Audio.play_sfx("ui_select")
 	_hint.text = "toque para rolar"
 	await _wait_tap(7.0)
+	_hint.text = ""
 	var rolls: Array = await _roll(_dice.size())
 	var used: int = rolls[0]
 	if _dice.size() == 2:
@@ -276,6 +277,6 @@ class _Die3D extends SubViewportContainer:
 
 	func show_result(ok: bool) -> void:
 		_rim.light_color = Color(0.35, 1.0, 0.45) if ok else Color(1.0, 0.12, 0.08)
-		create_tween().tween_property(_rim, "light_energy", 2.6, 0.25)
+		create_tween().tween_property(_rim, "light_energy", 4.5, 0.25)
 		model.scale = Vector3.ONE * 1.16
 		create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT).tween_property(model, "scale", Vector3.ONE, 0.35)
