@@ -4,7 +4,8 @@ extends Control
 ## mostra o total, SUCESSO/FALHA (20 natural sempre passa, 1 natural sempre
 ## falha). Com vantagem rolam dois dados e vale o maior; com desvantagem, o menor.
 ##
-## Uso: var ok: bool = await DiceRoll.new().run(parent, info)
+## Uso: var r: int = await DiceRoll.new().run(parent, info)
+## r: 2 = sucesso crítico (20 natural), 1 = sucesso, 0 = falha, -1 = falha crítica (1 natural)
 ## info = {"nome": "Agilidade", "cd": 12, "mods": [{"texto", "valor"}], "vantagem", "desvantagem"}
 
 signal tapped
@@ -27,7 +28,7 @@ var _waiting := false
 var _wait_id := 0
 
 
-func run(parent: Node, info: Dictionary) -> bool:
+func run(parent: Node, info: Dictionary) -> int:
 	parent.add_child(self)
 	_build(info)
 	modulate.a = 0.0
@@ -75,7 +76,11 @@ func run(parent: Node, info: Dictionary) -> bool:
 	tw.tween_property(self, "modulate:a", 0.0, 0.25)
 	await tw.finished
 	queue_free()
-	return success
+	if used == 20:
+		return 2
+	if used == 1:
+		return -1
+	return 1 if success else 0
 
 
 func _build(info: Dictionary) -> void:

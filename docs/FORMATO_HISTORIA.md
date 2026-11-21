@@ -152,10 +152,12 @@ Uma opção pode virar um teste: o jogador rola um d20, soma os modificadores e 
               { "valor": 1, "texto": "Carros por toda parte" } ],   // sem "if" = sempre
     "vantagem": "viu_mordida_rafael",                  // expressão (opcional); também "desvantagem"
     "sucesso": { "set": {}, "next": "carro_entrar" },  // next ou ending
-    "falha":   { "next": "garagem_correr" }
+    "falha":   { "next": "garagem_correr" },
+    "falha_critica":   { "next": "pior_ainda" },        // opcional: 1 natural (sem ele vale "falha")
+    "sucesso_critico": { "next": "melhor_ainda" }       // opcional: 20 natural (sem ele vale "sucesso")
   } }
 ```
-O `story_check.py` segue os dois resultados de cada teste.
+O `story_check.py` segue todos os resultados de cada teste. Regra de design: a falha precisa levar a uma cena que mostre o preço na hora (não só mudar uma variável e seguir igual ao sucesso).
 
 ## Condições e `set`
 - Condições usam a sintaxe de expressão do Godot: `and`, `or`, `not`, `==`, `>=`, `+`...

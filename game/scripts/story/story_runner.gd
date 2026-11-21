@@ -108,9 +108,17 @@ func test_info(t: Dictionary) -> Dictionary:
 
 
 ## Depois da rolagem: aplica o "set" da opção e o do resultado ("sucesso"/"falha").
-func resolve_test(option: Dictionary, success: bool) -> Dictionary:
+## r: 2 = sucesso crítico, 1 = sucesso, 0 = falha, -1 = falha crítica (DiceRoll.run).
+## "sucesso_critico" / "falha_critica" são opcionais; sem eles vale sucesso/falha.
+func resolve_test(option: Dictionary, r: int) -> Dictionary:
 	apply_set(option.get("set", {}))
-	var out: Dictionary = option["teste"].get("sucesso" if success else "falha", {})
+	var t: Dictionary = option["teste"]
+	var key := "sucesso" if r > 0 else "falha"
+	if r == 2 and t.has("sucesso_critico"):
+		key = "sucesso_critico"
+	elif r == -1 and t.has("falha_critica"):
+		key = "falha_critica"
+	var out: Dictionary = t.get(key, {})
 	apply_set(out.get("set", {}))
 	return _target(out)
 

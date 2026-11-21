@@ -201,8 +201,8 @@ func _do_choice(node: Dictionary) -> Dictionary:
 	await get_tree().create_timer(0.35).timeout
 	if opt.has("teste"):
 		# teste de dado: o resultado decide para onde a história vai
-		var ok: bool = await DiceRoll.new().run(ui.get_parent(), runner.test_info(opt["teste"]))
-		return runner.resolve_test(opt, ok)
+		var r: int = await DiceRoll.new().run(ui.get_parent(), runner.test_info(opt["teste"]))
+		return runner.resolve_test(opt, r)
 	return runner.choose(opt)
 
 

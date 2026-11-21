@@ -2170,7 +2170,7 @@
         "set": {
          "olhou": true
         },
-        "next": "banheiro"
+        "next": "olhou_quarto"
        },
        "mods": [
         {
@@ -2712,7 +2712,7 @@
         "set": {
          "olhou": true
         },
-        "next": "pre_dois"
+        "next": "olhou_janela"
        }
       }
      },
@@ -4364,6 +4364,152 @@
     }
    ],
    "next": "real_escolhido"
+  },
+  "olhou_quarto": {
+   "location": "casa",
+   "music": "skin_caca",
+   "cast": {
+    "left": {
+     "char": "theo",
+     "anim": "Idle"
+    },
+    "center": {
+     "char": "coisa",
+     "anim": "idle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "theo",
+     "para": [
+      -2.0,
+      -0.35,
+      -3.2
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0.05,
+     "acao": "anim",
+     "who": "theo",
+     "anim": "Sit",
+     "fixo": true
+    },
+    {
+     "t": 0.1,
+     "acao": "olhar_para",
+     "who": "coisa",
+     "alvo": "theo"
+    }
+   ],
+   "lines": [
+    {
+     "id": "sk_olhou_quarto_01",
+     "who": "sistema",
+     "text": "Você tenta olhar pro chão. Não consegue. Os olhos dela encontram os seus. E ela sorri. Com a sua boca.",
+     "espera": 0.4,
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "coisa",
+       "dur": 0.4
+      },
+      {
+       "t": 0.3,
+       "acao": "esconder",
+       "who": "coisa"
+      },
+      {
+       "t": 0.3,
+       "acao": "susto",
+       "who": "coisa",
+       "anim": "idle",
+       "inclinar": 0,
+       "de": 1.4,
+       "ate": 0.45,
+       "rapido": 0.5,
+       "segura": 1.4,
+       "depois": "recuar",
+       "som": "susto_skin"
+      },
+      {
+       "t": 2.4,
+       "acao": "mostrar",
+       "who": "coisa"
+      },
+      {
+       "t": 2.6,
+       "acao": "fx",
+       "tipo": "chuvisco",
+       "de": 0.5,
+       "ate": 0.0,
+       "dur": 1.5
+      }
+     ]
+    }
+   ],
+   "next": "banheiro"
+  },
+  "olhou_janela": {
+   "location": "quintal",
+   "music": "skin_tensao",
+   "cast": {
+    "center": {
+     "char": "coisa",
+     "anim": "idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "sk_olhou_janela_01",
+     "who": "sistema",
+     "text": "A cortina enrosca no trilho. Por um segundo, vocês se olham. Ela pisca primeiro.",
+     "espera": 0.4,
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "coisa",
+       "dur": 0.3
+      },
+      {
+       "t": 0.2,
+       "acao": "esconder",
+       "who": "coisa"
+      },
+      {
+       "t": 0.2,
+       "acao": "susto",
+       "who": "coisa",
+       "anim": "idle",
+       "inclinar": 0,
+       "de": 3.0,
+       "ate": 0.8,
+       "rapido": 0.6,
+       "segura": 1.2,
+       "depois": "recuar",
+       "som": "susto_skin"
+      },
+      {
+       "t": 2.2,
+       "acao": "mostrar",
+       "who": "coisa"
+      },
+      {
+       "t": 2.4,
+       "acao": "fx",
+       "tipo": "chuvisco",
+       "de": 0.5,
+       "ate": 0.0,
+       "dur": 1.5
+      }
+     ]
+    }
+   ],
+   "next": "pre_dois"
   },
   "corredor_arranhao": {
    "location": "casa",

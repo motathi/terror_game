@@ -88,9 +88,10 @@ def check(story):
                     t = o["teste"]
                     if t.get("atributo") not in story.get("atributos", {}):
                         errors.append(f"{where}: atributo desconhecido '{t.get('atributo')}'")
-                    for res in ("sucesso", "falha"):
+                    for res in ("sucesso", "falha", "sucesso_critico", "falha_critica"):
                         if res not in t:
-                            errors.append(f"{where}: teste sem '{res}'")
+                            if res in ("sucesso", "falha"):
+                                errors.append(f"{where}: teste sem '{res}'")
                             continue
                         ref(t[res], f"{where}/{res}")
                         check_set(t[res].get("set"), f"{where}/{res}")
@@ -155,7 +156,9 @@ def walk(story):
                 if "if" in o and not evaluate(o["if"], state):
                     continue
                 if "teste" in o:  # os dois resultados do dado
-                    for res in ("sucesso", "falha"):
+                    for res in ("sucesso", "falha", "sucesso_critico", "falha_critica"):
+                        if res not in o["teste"]:
+                            continue
                         r = o["teste"][res]
                         merged = dict(r, set={**(o.get("set") or {}), **(r.get("set") or {})})
                         outs.append((merged, f"{o['text']} 🎲{res}"))

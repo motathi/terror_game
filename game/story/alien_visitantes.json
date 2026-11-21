@@ -1014,7 +1014,15 @@
          "valor": -1,
          "texto": "A Lia está com a perna machucada"
         }
-       ]
+       ],
+       "falha_critica": {
+        "set": {
+         "marcado": true,
+         "lia_levada": true,
+         "lia_salva": false
+        },
+        "next": "queda_critica"
+       }
       }
      },
      {
@@ -1109,7 +1117,7 @@
      "id": "al_queda_volta_02",
      "who": "sistema",
      "sfx": "ovni_zumbido",
-     "text": "Um frio atravessa o seu corpo inteiro. Depois, nada. Vocês correm.",
+     "text": "Um frio entra pela sua nuca, como uma agulha de gelo. A luz te marcou. Vocês correm assim mesmo.",
      "acoes": [
       {
        "t": 0,
@@ -3316,6 +3324,152 @@
     }
    ],
    "next": "casa_volta_salva"
+  },
+  "queda_critica": {
+   "location": "campo",
+   "music": "alien_final",
+   "cast": {
+    "left": {
+     "char": "lia",
+     "anim": "Sit"
+    }
+   },
+   "lines": [
+    {
+     "id": "al_queda_critica_01",
+     "who": "sistema",
+     "text": "Você tropeça na mesma raiz. A luz verde desce sobre vocês dois ao mesmo tempo.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        -0.9,
+        0.3
+       ],
+       "dur": 0.35
+      },
+      {
+       "t": 0.2,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.12
+      },
+      {
+       "t": 0.8,
+       "acao": "luz",
+       "ambiente": "#80ffa0",
+       "energia": 1.6,
+       "neblina": "#2a7a3a",
+       "densidade": 0.06,
+       "fundo": "#0a3014",
+       "dur": 0.4
+      },
+      {
+       "t": 0.9,
+       "acao": "sfx",
+       "som": "ovni_zumbido"
+      },
+      {
+       "t": 1.0,
+       "acao": "maos_cor",
+       "cor": "#c8dcc4",
+       "dur": 1.5
+      }
+     ]
+    },
+    {
+     "id": "al_queda_critica_02",
+     "who": "lia",
+     "text": "Não solta! NÃO SOLTA!",
+     "tags": "[screaming, desperate]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "lia",
+       "dur": 0.3
+      },
+      {
+       "t": 0,
+       "acao": "maos",
+       "anim": "grab.L"
+      },
+      {
+       "t": 0.3,
+       "acao": "anim",
+       "who": "lia",
+       "anim": "Run",
+       "fixo": true
+      },
+      {
+       "t": 0.4,
+       "acao": "andar",
+       "who": "lia",
+       "por": [
+        0,
+        2.6,
+        0
+       ],
+       "dur": 2.2,
+       "anim": "Run",
+       "fim": "Run",
+       "olhar_camera": false
+      }
+     ]
+    },
+    {
+     "id": "al_queda_critica_03",
+     "who": "sistema",
+     "text": "Quando a luz apaga, a sua mão está vazia. E a sua nuca está gelada.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "esconder",
+       "who": "lia"
+      },
+      {
+       "t": 0,
+       "acao": "fx",
+       "tipo": "flash"
+      },
+      {
+       "t": 0.1,
+       "acao": "fx",
+       "tipo": "apagar",
+       "dur": 0.2
+      },
+      {
+       "t": 0.4,
+       "acao": "luz",
+       "ambiente": "#405848",
+       "energia": 0.5,
+       "neblina": "#06100a",
+       "densidade": 0.035,
+       "fundo": "#020604",
+       "dur": 0.1
+      },
+      {
+       "t": 0.5,
+       "acao": "fx",
+       "tipo": "acender",
+       "dur": 1.2
+      },
+      {
+       "t": 1.2,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        1.5,
+        -6.0
+       ],
+       "dur": 1.0
+      }
+     ]
+    }
+   ],
+   "next": "casa_volta_sozinho"
   },
   "queda_volta_limpa": {
    "location": "campo",
