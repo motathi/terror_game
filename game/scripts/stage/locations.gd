@@ -86,8 +86,7 @@ static func _escritorio(root: Node3D, cfg: Dictionary, dark: bool) -> void:
 	box(root, Vector3(0.2, 3.0, 6.8), Vector3(-5.0, 1.5, -6.6), wc)
 	box(root, Vector3(0.2, 3.0, 3.8), Vector3(-5.0, 1.5, 0.1), wc)
 	box(root, Vector3(0.2, 0.7, 1.4), Vector3(-5.0, 2.65, -2.5), wc)
-	var glass := box(root, Vector3(0.04, 2.3, 1.36), Vector3(-4.95, 1.15, -2.5), Color(0.28, 0.34, 0.38), 0.05)
-	glass.transparency = 0.7
+	glass_pane(root, Vector3(0.04, 2.3, 1.36), Vector3(-4.95, 1.15, -2.5), Color(0.5, 0.6, 0.66, 0.22))
 	for zz in [-3.2, -1.8]:
 		box(root, Vector3(0.12, 2.3, 0.06), Vector3(-4.95, 1.15, zz), Color(0.3, 0.3, 0.32))
 	box(root, Vector3(0.12, 0.06, 1.4), Vector3(-4.95, 1.2, -2.5), Color(0.3, 0.3, 0.32))  # barra
@@ -292,8 +291,7 @@ static func _hospital(root: Node3D, cfg: Dictionary) -> void:
 	fluo.add_child(Flicker.new(0.9, 9.0))
 	# portas de vidro (sujas de sangue) com corrente e cadeado em X
 	for sx in [-0.62, 0.62]:
-		var g := box(root, Vector3(1.2, 2.3, 0.04), Vector3(sx, 1.15, -4.3), Color(0.3, 0.38, 0.4), 0.05)
-		g.transparency = 0.78
+		glass_pane(root, Vector3(1.2, 2.3, 0.04), Vector3(sx, 1.15, -4.3), Color(0.5, 0.62, 0.66, 0.25))
 		box(root, Vector3(1.24, 0.06, 0.07), Vector3(sx, 2.3, -4.3), Color(0.55, 0.55, 0.55))
 		box(root, Vector3(0.06, 2.3, 0.07), Vector3(sx + 0.6, 1.15, -4.3), Color(0.55, 0.55, 0.55))
 	for i in 5:  # mãos de sangue no vidro
@@ -1049,6 +1047,26 @@ static func box(root: Node3D, size: Vector3, pos: Vector3, color: Color, emissio
 	mi.mesh = m
 	mi.position = pos
 	mi.material_override = AssetLib.make_material(color, emission)
+	root.add_child(mi)
+	return mi
+
+
+## Vidro de verdade (transparente). O shader PSX é opaco, então aqui vai um
+## StandardMaterial3D com alfa; color.a = quanto o vidro aparece.
+static func glass_pane(root: Node3D, size: Vector3, pos: Vector3, color: Color) -> MeshInstance3D:
+	var mi := MeshInstance3D.new()
+	var m := BoxMesh.new()
+	m.size = size
+	mi.mesh = m
+	mi.position = pos
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = color
+	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	mat.roughness = 0.15
+	mat.metallic_specular = 0.8
+	mat.cull_mode = BaseMaterial3D.CULL_DISABLED
+	mi.material_override = mat
+	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	root.add_child(mi)
 	return mi
 

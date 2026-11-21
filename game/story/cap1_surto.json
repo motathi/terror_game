@@ -4659,6 +4659,10 @@
     "left": {
      "char": "jorge",
      "anim": "Run"
+    },
+    "center": {
+     "char": "zumbi",
+     "anim": "ZombieAttack"
     }
    },
    "lines": [
@@ -4807,6 +4811,22 @@
       -0.6
      ],
      "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "zumbi",
+     "para": [
+      -5.7,
+      0,
+      -2.6
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "olhar_camera",
+     "who": "zumbi"
     }
    ]
   },
