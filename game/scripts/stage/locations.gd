@@ -790,6 +790,9 @@ static func _condominio(root: Node3D, cfg: Dictionary) -> void:
 		box(root, Vector3(25, 0.015, 0.015), Vector3(-15.5, y, -12.4), Color(0.6, 0.6, 0.6))
 		box(root, Vector3(5, 0.015, 0.015), Vector3(5.5, y, -12.4), Color(0.6, 0.6, 0.6))
 	placa(root, "RESIDENCIAL VALE IMPERIAL", Vector3(-9.0, 2.9, -12.1), 150, Color(0.95, 0.8, 0.45))
+	for x in [-24.0, -18.0, -14.0, 5.5]:  # arandelas do muro, luz quente lavando a parede
+		box(root, Vector3(0.3, 0.2, 0.15), Vector3(x, 3.4, -12.1), Color(1.0, 0.9, 0.7), 2.0)
+		omni(root, Vector3(x, 3.0, -11.4), Color(1.0, 0.82, 0.55), 1.3, 5.5)
 	var luz_placa := omni(root, Vector3(-9.0, 1.6, -10.8), Color(1.0, 0.85, 0.6), 1.6, 5.0)
 	luz_placa.name = "luz_placa"
 	# guarita de vidro (esquerda do portão) com a luz falhando e o interfone na frente
@@ -835,14 +838,24 @@ static func _condominio(root: Node3D, cfg: Dictionary) -> void:
 		for w in 3:
 			box(root, Vector3(1.6, 1.2, 0.05), Vector3(m[0] - 3.0 + w * 3.0, 2.2, m[1] + 4.02), Color(1.0, 0.85, 0.55), 1.6)
 		omni(root, Vector3(m[0], 3.0, m[1] + 5.0), Color(1.0, 0.85, 0.6), 1.4, 7.0)
-	# casa do síndico no fim da rua, garagem aberta com a caminhonete
-	box(root, Vector3(12, 4.5, 8), Vector3(0, 2.25, -44), Color(0.82, 0.8, 0.75))
-	box(root, Vector3(13, 0.3, 9), Vector3(0, 4.6, -44), Color(0.3, 0.3, 0.3))
-	box(root, Vector3(4.2, 3.0, 0.1), Vector3(-3.0, 1.5, -39.9), Color(0.06, 0.06, 0.07))  # vão da garagem
-	box(root, Vector3(1.4, 1.6, 0.05), Vector3(3.0, 2.4, -39.95), Color(1.0, 0.8, 0.5), 1.5)
-	var pickup := car_node(root, Vector3(-3.0, 0, -41.5), 0.0, Color(0.1, 0.1, 0.12))
+	# casa do síndico no fim da rua (dois andares, janela de cima acesa) e a
+	# garagem aberta ao lado, com a caminhonete
+	box(root, Vector3(10, 4.5, 8), Vector3(4.0, 2.25, -45.0), Color(0.82, 0.8, 0.75))
+	box(root, Vector3(8, 3.2, 6), Vector3(4.5, 6.1, -45.5), Color(0.78, 0.76, 0.7))
+	box(root, Vector3(11, 0.3, 9), Vector3(4.0, 4.6, -45.0), Color(0.3, 0.3, 0.3))
+	box(root, Vector3(1.6, 1.4, 0.05), Vector3(2.0, 2.3, -40.97), Color(1.0, 0.8, 0.5), 1.5)
+	var jc := box(root, Vector3(1.4, 1.5, 0.05), Vector3(5.0, 5.9, -42.47), Color(1.0, 0.7, 0.45), 1.8)
+	jc.name = "janela_lucia"
+	omni(root, Vector3(5.0, 5.9, -41.6), Color(1.0, 0.7, 0.45), 1.2, 4.0)
+	box(root, Vector3(1.2, 2.2, 0.05), Vector3(6.5, 1.1, -40.97), Color(0.35, 0.22, 0.12))  # porta
+	box(root, Vector3(5.2, 0.25, 6.2), Vector3(-3.5, 3.1, -42.0), Color(0.3, 0.3, 0.3))  # garagem
+	box(root, Vector3(5.2, 3.1, 0.2), Vector3(-3.5, 1.55, -45.0), Color(0.7, 0.68, 0.64))
+	box(root, Vector3(0.2, 3.1, 6.2), Vector3(-6.1, 1.55, -42.0), Color(0.75, 0.73, 0.68))
+	var pickup := car_node(root, Vector3(-3.5, 0, -42.2), 0.0, Color(0.1, 0.1, 0.12))
 	pickup.name = "caminhonete"
-	omni(root, Vector3(-3.0, 2.8, -40.5), Color(1.0, 0.95, 0.85), 1.5, 5.0)
+	omni(root, Vector3(-3.5, 2.8, -41.0), Color(1.0, 0.95, 0.85), 2.0, 6.0)
+	for x in [-8.0, 8.0]:  # luminárias do muro por dentro
+		omni(root, Vector3(x, 3.2, -13.2), Color(1.0, 0.85, 0.6), 1.0, 6.0)
 	# o mercadinho, à direita, depois do muro
 	var merc := Color(0.55, 0.45, 0.32)
 	box(root, Vector3(7, 4.0, 5), Vector3(13.5, 2.0, -13.4), merc)
@@ -873,17 +886,18 @@ static func _condominio(root: Node3D, cfg: Dictionary) -> void:
 		pisca.add_child(Blink.new())
 	var moon := DirectionalLight3D.new()
 	moon.light_color = Color(0.55, 0.6, 0.85)
-	moon.light_energy = 0.45
+	moon.light_energy = 0.7
 	moon.rotation_degrees = Vector3(-40, 20, 0)
 	root.add_child(moon)
+	omni(root, Vector3(-3.4, 3.0, 3.5), Color(0.75, 0.8, 1.0), 1.0, 7.0)  # luz de lua sobre o carro
 	cfg["camera_pos"] = Vector3(0.6, 1.62, 0.8)
 	cfg["camera_look"] = Vector3(-1.5, 1.6, -11.0)
 	cfg["slot_dist"] = 2.6
 	cfg["center_dist"] = 7.0
-	cfg["fog_density"] = 0.022
-	cfg["fog_color"] = Color(0.05, 0.05, 0.07)
-	cfg["ambient"] = Color(0.45, 0.47, 0.6)
-	cfg["ambient_energy"] = 0.65
+	cfg["fog_density"] = 0.018
+	cfg["fog_color"] = Color(0.07, 0.07, 0.1)
+	cfg["ambient"] = Color(0.55, 0.58, 0.75)
+	cfg["ambient_energy"] = 1.0
 
 
 ## Dentro do mercadinho: duas gôndolas (uma tombada), geladeiras acesas na
@@ -937,7 +951,7 @@ static func _mercadinho(root: Node3D, cfg: Dictionary) -> void:
 	box(galao, Vector3(0.36, 0.48, 0.2), Vector3(0, 0.24, 0), Color(0.85, 0.1, 0.08))
 	box(galao, Vector3(0.2, 0.06, 0.06), Vector3(0, 0.52, 0), Color(0.15, 0.15, 0.15))
 	box(galao, Vector3(0.05, 0.12, 0.05), Vector3(0.14, 0.53, 0), Color(0.9, 0.8, 0.2))
-	placa(root, "GASOLINA - GERADOR", Vector3(3.2, 0.32, -10.08), 34, Color(1, 1, 1))
+	placa(galao, "GASOLINA", Vector3(0, 0.3, 0.11), 22, Color(1, 1, 1))
 	# câmara fria / estoque, porta de metal com corrente
 	var porta := Node3D.new()
 	porta.name = "porta_camara"

@@ -42,7 +42,7 @@ Opcional no topo do arquivo: `"musica_cenarios": {"casa": "skin_casa"}` e `"sons
 ## Nó
 ```jsonc
 "patricia": {
-  "location": "escada",                  // escritorio | escritorio_escuro | escada | garagem | carro | rua | casa | campo | fazenda_casa | celeiro | elevador | quintal | avenida | festa | linha_trem | ruazinha | barraco
+  "location": "escada",                  // escritorio | escritorio_escuro | escada | garagem | carro | rua | casa | campo | fazenda_casa | celeiro | elevador | quintal | avenida | festa | linha_trem | ruazinha | barraco | hospital | terreno | condominio | mercadinho | estrada
   "title_card": "21:30",                 // opcional: cartela no topo da tela
   "camera": { "pos": [0,1.3,0.4], "olhar": [0,0.3,-2], "slot_dist": 2.0 },  // opcional: câmera só deste nó (bom p/ cachorros)
   "ambience": "tensao",                  // opcional: troca o som ambiente
@@ -85,6 +85,8 @@ O que a fala descreve precisa acontecer na tela: quem chega entra andando, quem 
   { "t": 2.0, "acao": "camera_olhar", "who": "rafael", "dur": 0.8 }
 ]
 ```
+Qualquer ação aceita `"if"` (mesma sintaxe das falas): `{ "t": 0, "acao": "esconder", "who": "marina", "if": "not c2_marina" }` tira do elenco quem não está naquele caminho.
+
 `"espera": 1.2` numa fala atrasa a legenda (a ação começa antes). `"aguardar": 1.6` num nó segura a primeira fala (ex.: até quem está chegando parar de andar).
 
 Offsets (`de`, `para`, `por`) são relativos à câmera: x = direita, y = cima, z = **para trás** (positivo vem de trás de você, negativo vai para a frente).

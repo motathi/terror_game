@@ -3,14 +3,17 @@
 Jogo de terror de escolhas em primeira pessoa, no formato dos vídeos "escolha-me / pick your partner" do TikTok e Instagram: você vê pelos olhos do personagem, duas pessoas (ou coisas) imploram para você escolher uma delas, o tempo está acabando, e cada decisão leva a um dos vários finais. Visual low poly estilo PS1, vozes geradas com ElevenLabs.
 
 **Campanhas** (menu em carrossel, definidas em `game/story/campanhas.json`):
-- **Zumbi — Capítulo 1: Surto** (jogável): escritório, notícias de ataques, sua família em casa. 12 finais. Nos ataques você rola o dado (um d20: tire o número da tela ou mais): fugir do Rastejante, segurar uma porta, cortar o braço mordido e sobreviver ao corte. Sustos (jumpscares) nos momentos-chave.
+- **Zumbi — Capítulos 1 e 2: Surto e Fuga** (jogável): escritório, notícias de ataques, sua família em casa; depois um zumbi quebra a janela, vocês se escondem, fogem de carro e a gasolina acaba na frente de um condomínio de luxo com um mercadinho do outro lado da rua. 18 finais. Nos ataques você rola o dado (um d20: tire o número da tela ou mais): fugir do Rastejante, segurar uma porta, cortar o braço mordido e sobreviver ao corte. Sustos (jumpscares) nos momentos-chave.
 - **Alien — Capítulo 1: Visitantes** (jogável): sítio do avô no interior, luzes sobre o milharal, quem volta não é igual. 11 finais. Momento-chave: duas Lias idênticas implorando "a outra é a cópia" (dá para rolar o dado e flagrar a cópia). Dados para se esconder no milho, escapar da luz, acertar o tiro e segurar a janela contra o Cinzento; quem for marcado decide se arranca o grão da nuca com uma faca.
 - **Skinwalker — Capítulo 1: Caramelo** (jogável): o cachorro da família some por três dias e volta diferente. Ele não late, não manca e imita vozes. 11 finais. Momentos-chave: duas mães (uma do lado de fora da porta) e dois Caramelos implorando para entrar. Dá para ir ao terreno baldio soltar o Caramelo de verdade da armadilha enquanto a coisa de quatro caça no mato; dados para não olhar nos olhos dela, fechar a cortina, passar por ela no corredor e lutar ao lado do Caramelo; quem é arranhado decide se queima a ferida com o ferro antes que o pelo tome conta.
 - **Homem do Saco — Capítulo 1: Véspera de São João** (jogável): a fogueira está apagando e você precisa levar seu irmão Davi para casa. Atalho pela linha do trem ou rua iluminada; voz da mãe na porta; dois sacos chamando seu nome no barraco do velho. 12 finais. Dados para pular do trem puxando o Davi, ficar quieto no mato com o tênis piscando, correr pela rua, agarrar o saco, espiar pela fechadura e escutar a respiração dos sacos; quem falha ao agarrar o saco fica preso pelo gancho na mão e decide se arranca.
 - **Em breve:** Casa Abandonada, Fazenda.
 
 **Capítulo 1: Surto.** Sexta-feira, 17:48. Você está no escritório quando o jornal começa a falar de pessoas mordendo pessoas. Sua esposa Marina e sua filha Bia estão em casa.
-29 cenas · 89 falas · 867 caminhos · **10 finais**.
+
+**Capítulo 2: Fuga.** Três da manhã, a casa barricada. Um zumbi quebra a janela da sala e entra. Vocês se escondem atrás do balcão, correm para o carro e fogem pela cidade, mas a gasolina acaba na frente do Residencial Vale Imperial. Do outro lado da rua, um mercadinho de porta de aço meio aberta. Interfone, mercadinho ou esperar no carro: cada escolha cobra um preço.
+
+97 cenas · 300+ falas · **18 finais** (12 bilhões de caminhos).
 
 | | |
 |---|---|
@@ -54,7 +57,7 @@ A história fica em JSON (`game/story/cap1_surto.json`). O formato está em [doc
 
 ```bash
 python3 tools/story_check.py game/story/cap1_surto.json          # erros + finais alcançáveis
-python3 tools/story_check.py game/story/cap1_surto.json --paths  # todos os caminhos
+python3 tools/story_check.py game/story/cap1_surto.json --paths  # todos os caminhos (lento em campanhas grandes)
 ```
 
 ## Estrutura

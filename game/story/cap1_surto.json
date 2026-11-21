@@ -7248,7 +7248,7 @@
           0.6
         ],
         "olhar": [
-          -1.2,
+          0.0,
           1.45,
           -3.0
         ]
@@ -7282,9 +7282,9 @@
           "acao": "mover",
           "who": "marina",
           "para": [
-            -1.3,
+            -0.2,
             0.06,
-            -2.2
+            -2.5
           ],
           "dur": 0.01
         },
@@ -7293,9 +7293,9 @@
           "acao": "mover",
           "who": "filha",
           "para": [
-            0.15,
+            0.95,
             0.06,
-            -1.9
+            -2.0
           ],
           "dur": 0.01
         },
@@ -7458,7 +7458,7 @@
           0.6
         ],
         "olhar": [
-          -1.2,
+          0.0,
           1.45,
           -3.0
         ]
@@ -7479,6 +7479,62 @@
           "anim": "ZombieIdle"
         }
       },
+      "acoes": [
+        {
+          "t": 0,
+          "acao": "esconder",
+          "who": "marina",
+          "if": "not c2_marina"
+        },
+        {
+          "t": 0,
+          "acao": "mover",
+          "who": "marina",
+          "para": [
+            -0.2,
+            0.06,
+            -2.5
+          ],
+          "dur": 0.01
+        },
+        {
+          "t": 0,
+          "acao": "mover",
+          "who": "filha",
+          "para": [
+            0.95,
+            0.06,
+            -2.0
+          ],
+          "dur": 0.01
+        },
+        {
+          "t": 0,
+          "acao": "olhar_camera",
+          "who": "marina"
+        },
+        {
+          "t": 0,
+          "acao": "olhar_camera",
+          "who": "filha"
+        },
+        {
+          "t": 0,
+          "acao": "mover",
+          "who": "zumbi_janela",
+          "para": [
+            -4.75,
+            0.06,
+            -4.0
+          ],
+          "dur": 0.01
+        },
+        {
+          "t": 0,
+          "acao": "esconder",
+          "who": "zumbi_janela"
+        }
+      ],
       "lines": [
         {
           "id": "c2_janela_01",
@@ -7725,13 +7781,13 @@
       "location": "casa",
       "camera": {
         "pos": [
-          -1.0,
+          -1.6,
           1.0,
-          -4.95
+          -5.05
         ],
         "olhar": [
-          0.0,
-          1.1,
+          0.3,
+          0.95,
           -1.0
         ]
       },
@@ -7762,9 +7818,9 @@
           "acao": "mover",
           "who": "marina",
           "para": [
-            -2.2,
+            -2.9,
             0.06,
-            -5.2
+            -4.4
           ],
           "dur": 0.01
         },
@@ -7773,9 +7829,9 @@
           "acao": "mover",
           "who": "filha",
           "para": [
-            -0.3,
+            -0.45,
             0.06,
-            -5.25
+            -4.5
           ],
           "dur": 0.01
         },
@@ -7934,13 +7990,13 @@
       "location": "casa",
       "camera": {
         "pos": [
-          -1.0,
+          -1.6,
           1.0,
-          -4.95
+          -5.05
         ],
         "olhar": [
-          0.0,
-          1.1,
+          0.3,
+          0.95,
           -1.0
         ]
       },
@@ -7958,6 +8014,57 @@
           "anim": "ZombieWalk"
         }
       },
+      "acoes": [
+        {
+          "t": 0,
+          "acao": "esconder",
+          "who": "marina",
+          "if": "not c2_marina"
+        },
+        {
+          "t": 0,
+          "acao": "mover",
+          "who": "marina",
+          "para": [
+            -2.9,
+            0.06,
+            -4.4
+          ],
+          "dur": 0.01
+        },
+        {
+          "t": 0,
+          "acao": "mover",
+          "who": "filha",
+          "para": [
+            -0.45,
+            0.06,
+            -4.5
+          ],
+          "dur": 0.01
+        },
+        {
+          "t": 0,
+          "acao": "olhar_camera",
+          "who": "marina"
+        },
+        {
+          "t": 0,
+          "acao": "olhar_camera",
+          "who": "filha"
+        },
+        {
+          "t": 0,
+          "acao": "mover",
+          "who": "zumbi_janela",
+          "para": [
+            0.6,
+            0.06,
+            -1.6
+          ],
+          "dur": 0.01
+        }
+      ],
       "lines": [
         {
           "id": "c2_distrai_01",
@@ -8031,13 +8138,13 @@
       "location": "casa",
       "camera": {
         "pos": [
-          -1.0,
+          -1.6,
           1.0,
-          -4.95
+          -5.05
         ],
         "olhar": [
-          0.0,
-          1.1,
+          0.3,
+          0.95,
           -1.0
         ]
       },
@@ -8055,6 +8162,57 @@
           "anim": "ZombieWalk"
         }
       },
+      "acoes": [
+        {
+          "t": 0,
+          "acao": "esconder",
+          "who": "marina",
+          "if": "not c2_marina"
+        },
+        {
+          "t": 0,
+          "acao": "mover",
+          "who": "marina",
+          "para": [
+            -2.9,
+            0.06,
+            -4.4
+          ],
+          "dur": 0.01
+        },
+        {
+          "t": 0,
+          "acao": "mover",
+          "who": "filha",
+          "para": [
+            -0.45,
+            0.06,
+            -4.5
+          ],
+          "dur": 0.01
+        },
+        {
+          "t": 0,
+          "acao": "olhar_camera",
+          "who": "marina"
+        },
+        {
+          "t": 0,
+          "acao": "olhar_camera",
+          "who": "filha"
+        },
+        {
+          "t": 0,
+          "acao": "mover",
+          "who": "zumbi_janela",
+          "para": [
+            0.6,
+            0.06,
+            -1.6
+          ],
+          "dur": 0.01
+        }
+      ],
       "lines": [
         {
           "id": "c2_passou_01",
@@ -8137,7 +8295,7 @@
           0.6
         ],
         "olhar": [
-          -1.2,
+          0.0,
           1.45,
           -3.0
         ]
@@ -8311,13 +8469,13 @@
       "location": "casa",
       "camera": {
         "pos": [
-          -1.0,
+          -1.6,
           1.0,
-          -4.95
+          -5.05
         ],
         "olhar": [
-          0.0,
-          1.1,
+          0.3,
+          0.95,
           -1.0
         ]
       },
@@ -8352,9 +8510,9 @@
           "acao": "mover",
           "who": "marina",
           "para": [
-            -2.2,
+            -2.9,
             0.06,
-            -5.2
+            -4.4
           ],
           "dur": 0.01
         },
@@ -8363,9 +8521,9 @@
           "acao": "mover",
           "who": "filha",
           "para": [
-            -0.3,
+            -0.45,
             0.06,
-            -5.25
+            -4.5
           ],
           "dur": 0.01
         },
@@ -8635,13 +8793,13 @@
       "location": "casa",
       "camera": {
         "pos": [
-          -1.0,
+          -1.6,
           1.0,
-          -4.95
+          -5.05
         ],
         "olhar": [
-          0.0,
-          1.1,
+          0.3,
+          0.95,
           -1.0
         ]
       },
@@ -8678,9 +8836,9 @@
           "acao": "mover",
           "who": "marina",
           "para": [
-            -2.2,
+            -2.9,
             0.06,
-            -5.2
+            -4.4
           ],
           "dur": 0.01
         },
@@ -8689,9 +8847,9 @@
           "acao": "mover",
           "who": "filha",
           "para": [
-            -0.3,
+            -0.45,
             0.06,
-            -5.25
+            -4.5
           ],
           "dur": 0.01
         },
@@ -9088,6 +9246,28 @@
           "acao": "esconder",
           "who": "vigia",
           "if": "barulho < 1"
+        },
+        {
+          "t": 0,
+          "acao": "luz",
+          "ambiente": "#6a7088",
+          "energia": 1.0,
+          "neblina": "#0c0e16",
+          "densidade": 0.025,
+          "fundo": "#04050a",
+          "dur": 0
+        },
+        {
+          "t": 0,
+          "acao": "luz_ponto",
+          "pos": [
+            -2.6,
+            3.5,
+            -5.0
+          ],
+          "cor": "#ffd8a0",
+          "energia": 2.2,
+          "raio": 9
         }
       ],
       "lines": [
@@ -9247,6 +9427,28 @@
           "t": 0,
           "acao": "olhar_camera",
           "who": "vigia"
+        },
+        {
+          "t": 0,
+          "acao": "luz",
+          "ambiente": "#6a7088",
+          "energia": 1.0,
+          "neblina": "#0c0e16",
+          "densidade": 0.025,
+          "fundo": "#04050a",
+          "dur": 0
+        },
+        {
+          "t": 0,
+          "acao": "luz_ponto",
+          "pos": [
+            -1.0,
+            3.5,
+            -5.5
+          ],
+          "cor": "#ffd8a0",
+          "energia": 2.2,
+          "raio": 9
         }
       ],
       "lines": [
@@ -9473,9 +9675,9 @@
           "acao": "mover",
           "who": "marina",
           "para": [
-            -1.6,
+            -1.9,
             0,
-            -1.6
+            -0.1
           ],
           "dur": 0.01
         },
@@ -9484,9 +9686,9 @@
           "acao": "mover",
           "who": "filha",
           "para": [
-            -0.4,
+            -1.1,
             0,
-            -0.9
+            0.4
           ],
           "dur": 0.01
         },
@@ -9641,9 +9843,9 @@
           "acao": "mover",
           "who": "marina",
           "para": [
-            -1.6,
+            -1.9,
             0,
-            -1.6
+            -0.1
           ],
           "dur": 0.01
         },
@@ -9652,9 +9854,9 @@
           "acao": "mover",
           "who": "filha",
           "para": [
-            -0.4,
+            -1.1,
             0,
-            -0.9
+            0.4
           ],
           "dur": 0.01
         },
@@ -10265,13 +10467,13 @@
       "music": "tensao",
       "camera": {
         "pos": [
-          2.0,
-          1.62,
-          -7.8
+          2.6,
+          2.05,
+          -8.0
         ],
         "olhar": [
           3.2,
-          0.4,
+          0.3,
           -10.2
         ]
       },
@@ -10628,9 +10830,15 @@
           "dur": 0.01
         },
         {
-          "t": 0,
-          "acao": "esconder",
-          "who": "seu_ze"
+          "t": 0.3,
+          "acao": "mover",
+          "who": "seu_ze",
+          "para": [
+            0.0,
+            0,
+            -5.0
+          ],
+          "dur": 5.0
         }
       ],
       "lines": [
@@ -10862,9 +11070,9 @@
           "acao": "mover",
           "who": "marina",
           "para": [
-            -1.6,
+            -2.6,
             0,
-            3.6
+            -0.3
           ],
           "dur": 0.01
         },
@@ -11317,7 +11525,7 @@
         {
           "id": "c2_int_04",
           "who": "sistema",
-          "text": "Na guarita, com a luz falhando, tem um homem de farda sentado. De costas. Imóvel.",
+          "text": "Na guarita, com a luz falhando, tem um homem de farda em pé. Imóvel. Olhando para vocês sem piscar.",
           "acoes": [
             {
               "t": 0,
@@ -11697,7 +11905,7 @@
         },
         {
           "t": 0,
-          "acao": "esconder",
+          "acao": "olhar_camera",
           "who": "vigia"
         }
       ],
@@ -11724,6 +11932,11 @@
             },
             {
               "t": 1.4,
+              "acao": "esconder",
+              "who": "vigia"
+            },
+            {
+              "t": 1.4,
               "acao": "susto",
               "who": "vigia",
               "anim": "ZombieAttack",
@@ -11734,6 +11947,18 @@
               "depois": "sumir",
               "som": "susto_vidro",
               "volume": 4.0
+            },
+            {
+              "t": 2.6,
+              "acao": "mostrar",
+              "who": "vigia"
+            },
+            {
+              "t": 2.6,
+              "acao": "anim",
+              "who": "vigia",
+              "anim": "ZombieAttack",
+              "fixo": true
             }
           ]
         },
@@ -11856,9 +12081,9 @@
               "t": 1.0,
               "acao": "camera_olhar",
               "olhar": [
-                2.8,
-                2.4,
-                -40.0
+                5.0,
+                5.6,
+                -42.4
               ],
               "dur": 1.6
             }
@@ -11874,9 +12099,9 @@
               "t": 0,
               "acao": "camera_olhar",
               "olhar": [
-                3.0,
-                2.4,
-                -40.0
+                5.0,
+                5.8,
+                -42.4
               ],
               "dur": 0.8
             }
@@ -12038,7 +12263,7 @@
       "cast": {
         "center": {
           "char": "henrique",
-          "anim": "attack"
+          "anim": "Idle"
         }
       },
       "acoes": [
@@ -12074,7 +12299,8 @@
               "t": 0.3,
               "acao": "susto",
               "who": "henrique",
-              "anim": "attack",
+              "anim": "Idle",
+              "inclinar": 0,
               "de": 1.4,
               "ate": 0.55,
               "rapido": 0.16,
@@ -12152,14 +12378,14 @@
       "music": "perseguicao",
       "camera": {
         "pos": [
-          -1.8,
+          -1.6,
           1.62,
-          -36.0
+          -35.5
         ],
         "olhar": [
-          -3.0,
+          -3.5,
           1.0,
-          -41.5
+          -42.2
         ]
       },
       "cast": {},
@@ -12173,14 +12399,14 @@
               "t": 0.2,
               "acao": "camera_andar",
               "pos": [
-                -2.2,
+                -2.0,
                 1.62,
-                -38.4
+                -37.8
               ],
               "olhar": [
-                -3.0,
+                -3.5,
                 1.0,
-                -41.5
+                -42.2
               ],
               "dur": 2.4
             }
@@ -12202,9 +12428,9 @@
               "t": 0.4,
               "acao": "camera_olhar",
               "olhar": [
-                3.0,
-                1.5,
-                -40.0
+                6.5,
+                1.3,
+                -40.9
               ],
               "dur": 0.6
             },
@@ -12296,11 +12522,11 @@
               "id": "relogio",
               "texto": "04:40",
               "pos": [
-                -3.0,
-                0.95,
-                1.2
+                -2.95,
+                0.9,
+                1.05
               ],
-              "tamanho": 36,
+              "tamanho": 16,
               "cor": "#30ff60"
             }
           ]
@@ -14566,9 +14792,9 @@
             -30.0
           ],
           "olhar": [
-            3.0,
-            2.4,
-            -40.0
+            5.0,
+            5.8,
+            -42.4
           ]
         },
         "cast": {},
@@ -14594,9 +14820,9 @@
               -36.0
             ],
             "olhar": [
-              3.0,
-              2.4,
-              -40.0
+              5.0,
+              5.8,
+              -42.4
             ],
             "dur": 7.0
           },
