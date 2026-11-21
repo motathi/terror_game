@@ -106,6 +106,8 @@ Offsets (`de`, `para`, `por`) são relativos à câmera: x = direita, y = cima, 
 | `maos` | mão estica (`grab.L` / `grab.R`); `maos_cor` tinge as mãos (ex.: sangue) |
 | `texto3d` | texto no mundo (tela do celular, relógio); mesmo `id` substitui, texto vazio apaga |
 | `luz_no` | muda a energia de uma luz do cenário pelo nome (`nome`, `energia`, `dur`; ex.: postes apagando) |
+| `susto` | **jumpscare**: com `who` alguém salta na frente da câmera e o rosto enche a tela (barulho alto, tranco, flash vermelho, mãos recuando, corte seco). `who` pode ser um personagem da história ou um nome novo com `modelo`/`tint`. Opções: `anim`, `de`/`ate` (distância 2.2 → 0.5 m), `lado`, `de_cima`, `rapido`, `segura`, `depois` (`sumir`/`recuar`), `som` (`susto_grito`), `volume`. Sem `who` é um susto falso: só o som e o tranco (`flash: true` para o vermelho) |
+| `silencio` | a música some por `dur` segundos (o silêncio antes do susto) |
 | `sfx`, `luz`, `luz_ponto`, `no`, `fx` | som, luz do ambiente, luz pontual, mover nó do cenário, efeitos (`flash`, `tremor`, `piscar`, `vermelho`, `apagar`, `acender`, `chuvisco`) |
 
 As mesmas ações valem nas cinemáticas dos finais (`"passos"`).

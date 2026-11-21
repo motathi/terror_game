@@ -358,6 +358,20 @@ func _run_step(s: Dictionary, chars: Dictionary) -> void:
 			stage.play_hands(s.get("anim", "guard_idle"))
 		"maos_cor":
 			stage.tint_hands(Color.html(s.get("cor", "#ffffff")), dur)
+		"susto":
+			# jumpscare: com "who" alguém salta na tela; sem "who" é só o barulho e o tranco
+			if who.is_empty():
+				stage.scare_impact(s.get("flash", false))
+			else:
+				var def: Dictionary = chars.get(who, {}).duplicate()
+				if s.has("modelo") or def.is_empty():
+					def["model"] = s.get("modelo", "zombie_student")
+				if s.has("tint"):
+					def["tint"] = s["tint"]
+				stage.jumpscare(who, def, s)
+			Audio.play_sfx(s.get("som", "susto_grito"), float(s.get("volume", 3.0)))
+		"silencio":
+			Audio.hush(dur)
 		"fx":
 			match s.get("tipo", ""):
 				"flash":

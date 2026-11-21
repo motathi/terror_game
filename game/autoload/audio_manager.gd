@@ -107,13 +107,24 @@ func _process(delta: float) -> void:
 	var idx := AudioServer.get_bus_index("Music")
 	if idx >= 0:
 		var base := linear_to_db(maxf(float(GameState.settings.get("music_volume", 0.8)), 0.0001))
-		AudioServer.set_bus_volume_db(idx, base + DUCK_DB * _duck)
+		AudioServer.set_bus_volume_db(idx, base + DUCK_DB * _duck + _hush_db)
 	# sons aleatórios do cenário
 	if not _random_pool.is_empty():
 		_random_timer -= delta
 		if _random_timer <= 0.0:
 			_random_timer = randf_range(9.0, 20.0)
 			play_sfx(_random_pool.pick_random(), randf_range(-16.0, -9.0))
+
+
+## Silêncio antes do susto: a música some por alguns segundos e volta.
+var _hush_db := 0.0
+
+
+func hush(seconds: float, depth_db := -40.0) -> void:
+	var tw := create_tween()
+	tw.tween_property(self, "_hush_db", depth_db, 0.6)
+	tw.tween_interval(maxf(seconds - 0.6, 0.0))
+	tw.tween_property(self, "_hush_db", 0.0, 0.25)
 
 
 ## Troca a trilha com crossfade. "" = silêncio.

@@ -481,6 +481,18 @@
    "dado_falha": {
     "prompt": "short ominous dark fantasy failure sting, low descending cello and a dull thud",
     "duration": 1.5
+   },
+   "susto_grito": {
+    "prompt": "horror movie jumpscare: a zombie screaming right into the listener's face, sudden violent orchestral string stab and deep bass impact, harsh and distorted, extremely close",
+    "duration": 2.0
+   },
+   "susto_alarme": {
+    "prompt": "car alarm suddenly blaring very loud in an empty concrete underground parking garage, echoing, startling",
+    "duration": 3.0
+   },
+   "susto_queda": {
+    "prompt": "sudden loud crash in a dark kitchen, pots and plates falling and shattering on a tile floor, startling, close",
+    "duration": 2.0
    }
   }
  },

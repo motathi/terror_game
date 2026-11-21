@@ -1136,9 +1136,87 @@
    },
    "lines": [
     {
+     "id": "esperar_sonho_01",
+     "who": "sistema",
+     "text": "Lá pelas três, você cochila sentado no chão. Um barulho. Você abre os olhos.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "silencio",
+       "dur": 6.5
+      },
+      {
+       "t": 0.3,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.0,
+        0.9,
+        -3.0
+       ],
+       "dur": 2.5
+      },
+      {
+       "t": 1.2,
+       "acao": "fx",
+       "tipo": "apagar",
+       "dur": 3.0
+      }
+     ]
+    },
+    {
+     "id": "esperar_sonho_02",
+     "who": "sistema",
+     "text": "Você acorda gritando. O Seu Jorge tapa a sua boca. Foi um pesadelo. Lá fora, as batidas recomeçam.",
+     "espera": 1.5,
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "fx",
+       "tipo": "acender",
+       "dur": 0.1
+      },
+      {
+       "t": 0.12,
+       "acao": "susto",
+       "who": "pesadelo",
+       "modelo": "zombie_student",
+       "tint": "#c0ae98",
+       "de": 0.9,
+       "ate": 0.4,
+       "rapido": 0.1,
+       "segura": 0.9,
+       "som": "susto_grito"
+      },
+      {
+       "t": 1.4,
+       "acao": "camera_olhar",
+       "who": "jorge",
+       "dur": 0.3
+      },
+      {
+       "t": 3.6,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.04
+      },
+      {
+       "t": 4.4,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.04
+      },
+      {
+       "t": 5.2,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.04
+      }
+     ]
+    },
+    {
      "id": "esperar_01",
      "who": "sistema",
-     "text": "Você não dorme. Só conta as horas.",
+     "text": "Depois disso, você não dorme mais. Só conta as horas.",
      "acoes": [
       {
        "t": 0,
@@ -1309,6 +1387,48 @@
         -8.0
        ],
        "dur": 1.8
+      }
+     ]
+    },
+    {
+     "id": "corredor_vulto_01",
+     "who": "sistema",
+     "text": "Um vulto despenca do lance de cima, bem na sua frente. O Rafael te puxa. A coisa fica lá embaixo, se arrastando nos degraus.",
+     "espera": 1.9,
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "silencio",
+       "dur": 1.4
+      },
+      {
+       "t": 0.9,
+       "acao": "susto",
+       "who": "vulto",
+       "modelo": "zombie_student",
+       "tint": "#a89480",
+       "de": 1.5,
+       "ate": 0.45,
+       "de_cima": 1.8,
+       "rapido": 0.2,
+       "segura": 0.7,
+       "som": "susto_grito"
+      },
+      {
+       "t": 2.1,
+       "acao": "maos",
+       "anim": "grab.R"
+      },
+      {
+       "t": 2.2,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        -0.4
+       ],
+       "dur": 0.8,
+       "andar": true
       }
      ]
     },
@@ -1585,8 +1705,26 @@
         -0.64
        ],
        "dur": 1.2
+      },
+      {
+       "t": 0,
+       "acao": "silencio",
+       "dur": 1.2
+      },
+      {
+       "t": 1.0,
+       "acao": "susto",
+       "who": "z_elevador",
+       "modelo": "zombie_student",
+       "tint": "#8a9a80",
+       "de": 1.8,
+       "ate": 0.45,
+       "rapido": 0.12,
+       "segura": 0.7,
+       "som": "susto_grito"
       }
-     ]
+     ],
+     "espera": 0.3
     }
    ],
    "ending": "portas_abertas",
@@ -1989,6 +2127,18 @@
         -6.0
        ],
        "dur": 1.0
+      },
+      {
+       "t": 1.5,
+       "acao": "susto",
+       "som": "susto_alarme",
+       "volume": 0.0
+      },
+      {
+       "t": 1.5,
+       "acao": "fx",
+       "tipo": "piscar",
+       "dur": 1.4
       }
      ]
     },
@@ -3188,6 +3338,28 @@
        "acao": "fx",
        "tipo": "tremor",
        "forca": 0.12
+      },
+      {
+       "t": 0,
+       "acao": "esconder",
+       "who": "zumbi"
+      },
+      {
+       "t": 0.15,
+       "acao": "susto",
+       "who": "zumbi",
+       "anim": "ZombieAttack",
+       "de": 2.6,
+       "ate": 0.45,
+       "lado": 0.9,
+       "rapido": 0.16,
+       "segura": 0.6,
+       "som": "susto_grito"
+      },
+      {
+       "t": 1.3,
+       "acao": "mostrar",
+       "who": "zumbi"
       }
      ]
     },
@@ -3332,6 +3504,27 @@
         -1.2
        ],
        "dur": 2.6
+      },
+      {
+       "t": 0,
+       "acao": "silencio",
+       "dur": 1.8
+      },
+      {
+       "t": 1.6,
+       "acao": "susto",
+       "som": "susto_queda",
+       "volume": 0.0
+      },
+      {
+       "t": 1.65,
+       "acao": "camera_olhar",
+       "olhar": [
+        -1.4,
+        0.9,
+        -5.4
+       ],
+       "dur": 0.25
       }
      ]
     }
@@ -5158,36 +5351,27 @@
       "som": "grito_zumbi"
      },
      {
-      "t": 2.5,
-      "acao": "mover",
+      "t": 2.45,
+      "acao": "esconder",
+      "who": "patricia_z"
+     },
+     {
+      "t": 2.45,
+      "acao": "susto",
       "who": "patricia_z",
-      "para": [
-       0,
-       0.1,
-       0.1
-      ],
-      "dur": 0.45
+      "anim": "Run",
+      "de": 0.9,
+      "ate": 0.36,
+      "lado": -0.4,
+      "rapido": 0.12,
+      "segura": 0.5,
+      "som": "susto_grito"
      },
      {
       "t": 2.7,
       "acao": "fx",
       "tipo": "tremor",
       "forca": 0.2
-     },
-     {
-      "t": 2.8,
-      "acao": "camera",
-      "pos": [
-       0.35,
-       0.85,
-       0.45
-      ],
-      "olhar": [
-       1.2,
-       0.1,
-       -1.0
-      ],
-      "dur": 0.35
      },
      {
       "t": 2.8,
@@ -5555,15 +5739,20 @@
       "forca": 0.1
      },
      {
-      "t": 3.3,
-      "acao": "mover",
+      "t": 3.25,
+      "acao": "esconder",
+      "who": "marina_z"
+     },
+     {
+      "t": 3.25,
+      "acao": "susto",
       "who": "marina_z",
-      "para": [
-       0,
-       0.06,
-       0.25
-      ],
-      "dur": 0.3
+      "anim": "Run",
+      "de": 1.2,
+      "ate": 0.42,
+      "rapido": 0.12,
+      "segura": 0.5,
+      "som": "susto_grito"
      },
      {
       "t": 3.4,
@@ -5814,6 +6003,22 @@
       "t": 3.8,
       "acao": "sfx",
       "som": "gemido"
+     },
+     {
+      "t": 5.9,
+      "acao": "esconder",
+      "who": "rafael_z"
+     },
+     {
+      "t": 5.9,
+      "acao": "susto",
+      "who": "rafael_z",
+      "anim": "Run",
+      "de": 1.6,
+      "ate": 0.42,
+      "rapido": 0.14,
+      "segura": 0.5,
+      "som": "susto_grito"
      },
      {
       "t": 6.2,

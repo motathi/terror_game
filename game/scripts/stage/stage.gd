@@ -298,6 +298,90 @@ func scare_flash() -> void:
 		tw.tween_method(func(v): post_material.set_shader_parameter("flash", v), 0.9, 0.0, 0.6)
 
 
+# --- sustos (jumpscare) ------------------------------------------------------------
+
+## Alguém salta na frente da câmera e o rosto enche a tela. O som fica por conta
+## de quem chama (ação "susto" da história). Opções (dicionário da ação):
+##   anim     animação durante o bote (padrão "ZombieAttack")
+##   de/ate   distância inicial e final até a câmera (2.2 -> 0.5 m)
+##   lado     deslocamento lateral inicial (vem do canto da tela)
+##   de_cima  altura extra inicial (despenca de cima)
+##   rapido   duração do bote em s (0.14)
+##   segura   quanto tempo fica tremendo na sua cara (0.8)
+##   depois   "sumir" (corte seco para o preto) ou "recuar"
+func jumpscare(char_id: String, def: Dictionary, o: Dictionary) -> void:
+	var a := Actor.new()
+	_actors_root.add_child(a)
+	a.setup(char_id, def, {"anim": o.get("anim", "ZombieAttack")}, title_font, body_font)
+	a.set_name_visible(false)
+	a.key.light_energy = 1.8
+	a.key.omni_range = 3.0
+	_cine_extra.append(a)
+	var origin := _cam_base.origin
+	var fwd := -_cam_base.basis.z
+	var face := _model_top(a) - 0.13
+	var start := origin + fwd * float(o.get("de", 2.2)) + _cam_base.basis.x * float(o.get("lado", 0.0)) \
+		+ Vector3.UP * float(o.get("de_cima", 0.0))
+	var end := origin + fwd * float(o.get("ate", 0.5))
+	start.y -= face
+	end.y -= face + 0.04
+	a.global_position = start
+	_face_point(a, origin)
+	var recuar: bool = o.get("depois", "sumir") == "recuar"
+	var tw := create_tween()
+	tw.tween_property(a, "global_position", end, maxf(float(o.get("rapido", 0.14)), 0.02)) \
+		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	tw.tween_callback(scare_impact.bind(true))
+	tw.tween_method(_scare_jitter.bind(a, end), 0.0, 1.0, maxf(float(o.get("segura", 0.8)), 0.05))
+	if recuar:
+		tw.tween_property(a, "global_position", start, 0.3).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	else:
+		tw.tween_callback(post_tween.bind("blackout", 0.0, 1.0, 0.04))
+		tw.tween_interval(0.1)
+	tw.tween_callback(_scare_end.bind(a, not recuar))
+
+
+## O impacto do susto: tranco na câmera, mãos recuando e (opcional) flash vermelho.
+## Sozinho serve para sustos sem monstro (alarme, algo caindo).
+func scare_impact(red := true) -> void:
+	shake(0.22)
+	flinch_hands()
+	if red:
+		post_tween("flash", 1.0, 0.0, 0.7)
+
+
+func flinch_hands() -> void:
+	for p in _hand_pivots.values():
+		var pv := p as Node3D
+		var tw := create_tween().set_trans(Tween.TRANS_QUAD)
+		tw.tween_property(pv, "position", Vector3(0, 0.07, 0.06), 0.08).set_ease(Tween.EASE_OUT)
+		tw.tween_property(pv, "position", Vector3.ZERO, 0.6).set_ease(Tween.EASE_IN_OUT)
+
+
+func _scare_jitter(k: float, a: Actor, at: Vector3) -> void:
+	if is_instance_valid(a):
+		a.global_position = at + Vector3(sin(k * 97.0), cos(k * 71.0), 0.0) * 0.014
+
+
+func _scare_end(a: Actor, fade_in: bool) -> void:
+	if is_instance_valid(a):
+		_cine_extra.erase(a)
+		a.queue_free()
+	if fade_in:
+		post_tween("blackout", 1.0, 0.0, 0.45)
+
+
+## Altura do topo do modelo (para pôr o rosto no centro da tela).
+func _model_top(a: Actor) -> float:
+	var top := 0.0
+	var inv := a.global_transform.affine_inverse()
+	for n in a.model.find_children("*", "MeshInstance3D", true, false):
+		var mi := n as MeshInstance3D
+		var box: AABB = inv * mi.global_transform * mi.get_aabb()
+		top = maxf(top, box.end.y)
+	return clampf(top, 0.9, 2.4) if top > 0.0 else 1.7
+
+
 func flicker_lights(duration: float) -> void:
 	var lights := get_tree().get_nodes_in_group("scene_lights")
 	var originals := {}
