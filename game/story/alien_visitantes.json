@@ -12,7 +12,10 @@
   "vo_levado": false,
   "criatura_ferida": false,
   "culpa": 0,
-  "hesitou": 0
+  "hesitou": 0,
+  "viu_copia": false,
+  "nuca_vista": false,
+  "cicatriz": false
  },
  "characters": {
   "sistema": {
@@ -46,6 +49,10 @@
   "criatura": {
    "name": "",
    "model": "alien_shellback"
+  },
+  "cinzento": {
+   "name": "",
+   "model": "cinzento"
   }
  },
  "nodes": {
@@ -502,6 +509,29 @@
        "energia": 1.5,
        "raio": 3.0,
        "piscar": true
+      },
+      {
+       "t": 1.6,
+       "acao": "esconder",
+       "who": "criatura"
+      },
+      {
+       "t": 1.6,
+       "acao": "susto",
+       "who": "criatura",
+       "anim": "attack",
+       "de": 4.0,
+       "ate": 0.7,
+       "rapido": 0.2,
+       "segura": 0.6,
+       "inclinar": 0,
+       "depois": "recuar",
+       "som": "susto_alien"
+      },
+      {
+       "t": 2.6,
+       "acao": "mostrar",
+       "who": "criatura"
       }
      ]
     }
@@ -512,7 +542,27 @@
     "options": [
      {
       "text": "Se esconder no milho",
-      "next": "feixe"
+      "who": "lia",
+      "teste": {
+       "atributo": "furtividade",
+       "cd": 12,
+       "sucesso": {
+        "next": "milho_passa"
+       },
+       "falha": {
+        "next": "feixe"
+       },
+       "mods": [
+        {
+         "valor": 1,
+         "texto": "O milho é mais alto que vocês"
+        },
+        {
+         "valor": -2,
+         "texto": "A mão da Lia sangra. Ela sente o cheiro"
+        }
+       ]
+      }
      },
      {
       "text": "Correr de volta pra casa",
@@ -701,6 +751,13 @@
         -7.4
        ],
        "dur": 1.6
+      },
+      {
+       "t": 0.9,
+       "acao": "susto",
+       "som": "susto_grito",
+       "volume": -2.0,
+       "flash": false
       }
      ]
     },
@@ -900,6 +957,29 @@
        "dur": 2.4,
        "anim": "walk",
        "fim": "walk"
+      },
+      {
+       "t": 4.4,
+       "acao": "esconder",
+       "who": "criatura"
+      },
+      {
+       "t": 4.4,
+       "acao": "susto",
+       "who": "criatura",
+       "anim": "attack",
+       "de": 3.5,
+       "ate": 0.7,
+       "rapido": 0.16,
+       "segura": 0.5,
+       "inclinar": 0,
+       "depois": "recuar",
+       "som": "susto_alien"
+      },
+      {
+       "t": 5.3,
+       "acao": "mostrar",
+       "who": "criatura"
       }
      ]
     }
@@ -915,10 +995,27 @@
       "text": "Voltar pela Lia",
       "who": "lia",
       "set": {
-       "lia_salva": true,
-       "marcado": true
+       "lia_salva": true
       },
-      "next": "queda_volta"
+      "teste": {
+       "atributo": "agilidade",
+       "cd": 13,
+       "sucesso": {
+        "next": "queda_volta_limpa"
+       },
+       "falha": {
+        "set": {
+         "marcado": true
+        },
+        "next": "queda_volta"
+       },
+       "mods": [
+        {
+         "valor": -1,
+         "texto": "A Lia está com a perna machucada"
+        }
+       ]
+      }
      },
      {
       "text": "Correr sem ela",
@@ -1372,6 +1469,18 @@
        "acao": "sfx",
        "som": "gemido",
        "volume": -8
+      },
+      {
+       "t": 2.0,
+       "acao": "susto",
+       "som": "celeiro_queda",
+       "volume": 1.0
+      },
+      {
+       "t": 2.0,
+       "acao": "fx",
+       "tipo": "piscar",
+       "dur": 0.8
       }
      ]
     },
@@ -1464,6 +1573,29 @@
        "acao": "camera_olhar",
        "who": "criatura",
        "dur": 0.6
+      },
+      {
+       "t": 2.3,
+       "acao": "esconder",
+       "who": "criatura"
+      },
+      {
+       "t": 2.3,
+       "acao": "susto",
+       "who": "criatura",
+       "anim": "attack",
+       "de": 4.2,
+       "ate": 0.75,
+       "rapido": 0.18,
+       "segura": 0.5,
+       "inclinar": 0,
+       "depois": "recuar",
+       "som": "susto_alien"
+      },
+      {
+       "t": 3.2,
+       "acao": "mostrar",
+       "who": "criatura"
       }
      ]
     }
@@ -1478,10 +1610,31 @@
      {
       "text": "Atirar na criatura",
       "set": {
-       "criatura_ferida": true,
-       "vo_levado": true
+       "criatura_ferida": true
       },
-      "next": "celeiro_tiro"
+      "teste": {
+       "atributo": "pontaria",
+       "cd": 13,
+       "sucesso": {
+        "next": "celeiro_tiro_certo"
+       },
+       "falha": {
+        "set": {
+         "vo_levado": true
+        },
+        "next": "celeiro_tiro"
+       },
+       "mods": [
+        {
+         "valor": 2,
+         "texto": "O Vô segura a lanterna"
+        },
+        {
+         "valor": -1,
+         "texto": "As mãos tremem"
+        }
+       ]
+      }
      },
      {
       "text": "Seguir a voz da Lia",
@@ -1800,7 +1953,7 @@
      ]
     }
    ],
-   "next": "batidas"
+   "next": "janela"
   },
   "casa_volta_sozinho": {
    "location": "fazenda_casa",
@@ -1885,7 +2038,7 @@
      ]
     }
    ],
-   "next": "batidas",
+   "next": "janela",
    "aguardar": 1.6,
    "acoes": [
     {
@@ -2064,7 +2217,7 @@
      ]
     }
    ],
-   "next": "batidas",
+   "next": "pre_batidas",
    "aguardar": 1.6,
    "acoes": [
     {
@@ -2174,6 +2327,12 @@
        "acao": "fx",
        "tipo": "tremor",
        "forca": 0.04
+      },
+      {
+       "t": 2.8,
+       "acao": "susto",
+       "som": "batida_porta",
+       "volume": 4.0
       }
      ]
     }
@@ -2386,12 +2545,39 @@
    ],
    "choice": {
     "prompt": "Qual é a Lia de verdade?",
-    "timer": 8,
+    "timer": 10,
     "plead": {
      "lia": "Sou eu!",
      "lia_copia": "Sou eu!"
     },
     "options": [
+     {
+      "text": "Olhar as duas com atenção",
+      "teste": {
+       "atributo": "percepcao",
+       "cd": 14,
+       "sucesso": {
+        "set": {
+         "viu_copia": true
+        },
+        "next": "lias_revela"
+       },
+       "falha": {
+        "next": "lias_iguais"
+       },
+       "mods": [
+        {
+         "if": "com_lia",
+         "valor": 3,
+         "texto": "Você viu a Lia cortar a mão no arame"
+        },
+        {
+         "valor": -1,
+         "texto": "Está escuro"
+        }
+       ]
+      }
+     },
      {
       "text": "A Lia da esquerda",
       "who": "lia",
@@ -2788,12 +2974,38 @@
    ],
    "choice": {
     "prompt": "Qual é o seu avô?",
-    "timer": 8,
+    "timer": 10,
     "plead": {
      "vo": "Vem cá",
      "vo_copia": "Sou eu!"
     },
     "options": [
+     {
+      "text": "Observar os dois com atenção",
+      "teste": {
+       "atributo": "percepcao",
+       "cd": 14,
+       "sucesso": {
+        "set": {
+         "viu_copia": true
+        },
+        "next": "vos_revela"
+       },
+       "falha": {
+        "next": "vos_iguais"
+       },
+       "mods": [
+        {
+         "valor": 2,
+         "texto": "Você sente o cheiro de fumo de rolo"
+        },
+        {
+         "valor": -1,
+         "texto": "Está escuro"
+        }
+       ]
+      }
+     },
      {
       "text": "O Vô que estava em casa",
       "who": "vo",
@@ -2961,6 +3173,1322 @@
      "ending": "fumo_de_rolo"
     }
    ]
+  },
+  "milho_passa": {
+   "location": "campo",
+   "music": "suspense",
+   "camera": {
+    "pos": [
+     -4.3,
+     1.5,
+     -4.0
+    ],
+    "olhar": [
+     -4.3,
+     1.3,
+     -12.0
+    ],
+    "slot_dist": 2.4,
+    "slot_spread": 0.5,
+    "center_dist": 5.2
+   },
+   "set": {
+    "lia_salva": true
+   },
+   "cast": {
+    "left": {
+     "char": "lia",
+     "anim": "Sit"
+    },
+    "center": {
+     "char": "criatura",
+     "anim": "walk"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "anim",
+     "who": "lia",
+     "anim": "Sit",
+     "fixo": true
+    },
+    {
+     "t": 0,
+     "acao": "andar",
+     "who": "lia",
+     "por": [
+      0,
+      -0.42,
+      0
+     ],
+     "dur": 0.01,
+     "anim": "Sit",
+     "fim": "Sit"
+    }
+   ],
+   "lines": [
+    {
+     "id": "al_milho_passa_01",
+     "who": "sistema",
+     "text": "Vocês prendem a respiração. A coisa passa a um palmo do seu rosto. Cheiro de ferro e de chuva elétrica.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "silencio",
+       "dur": 3.0
+      },
+      {
+       "t": 0,
+       "acao": "esconder",
+       "who": "criatura"
+      },
+      {
+       "t": 0.6,
+       "acao": "susto",
+       "who": "criatura",
+       "anim": "walk",
+       "de": 2.4,
+       "ate": 0.75,
+       "rapido": 0.9,
+       "segura": 1.6,
+       "inclinar": 0,
+       "depois": "recuar",
+       "som": "ovni_zumbido",
+       "volume": -4.0
+      },
+      {
+       "t": 3.3,
+       "acao": "mostrar",
+       "who": "criatura"
+      }
+     ]
+    },
+    {
+     "id": "al_milho_passa_02",
+     "who": "sistema",
+     "text": "Ela vira a cabeça para o céu, como se alguém a chamasse. E some entre as fileiras.",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "sair",
+       "who": "criatura",
+       "para": [
+        3.0,
+        0,
+        -3.0
+       ],
+       "dur": 2.2,
+       "anim": "walk"
+      }
+     ]
+    },
+    {
+     "id": "al_milho_passa_03",
+     "who": "lia",
+     "text": "Corre. Agora. Sem olhar pra trás.",
+     "tags": "[terrified whisper]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "lia",
+       "dur": 0.4
+      },
+      {
+       "t": 0.8,
+       "acao": "anim",
+       "who": "lia",
+       "anim": "Run",
+       "fixo": true
+      },
+      {
+       "t": 1.0,
+       "acao": "camera_andar",
+       "por": [
+        0,
+        0,
+        2.0
+       ],
+       "dur": 1.6
+      }
+     ]
+    }
+   ],
+   "next": "casa_volta_salva"
+  },
+  "queda_volta_limpa": {
+   "location": "campo",
+   "cast": {
+    "left": {
+     "char": "lia",
+     "anim": "Run"
+    }
+   },
+   "lines": [
+    {
+     "id": "al_queda_limpa_01",
+     "who": "sistema",
+     "text": "Você puxa a Lia e se joga com ela atrás de um cupinzeiro. A luz verde passa raspando, varrendo o milho.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "maos",
+       "anim": "grab.L"
+      },
+      {
+       "t": 0.2,
+       "acao": "anim",
+       "who": "lia",
+       "anim": "Run",
+       "fixo": true
+      },
+      {
+       "t": 0.3,
+       "acao": "andar",
+       "who": "lia",
+       "por": [
+        0.4,
+        0.42,
+        1.8
+       ],
+       "dur": 1.4,
+       "anim": "Run",
+       "fim": "Run"
+      },
+      {
+       "t": 0.9,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        -0.9,
+        0.4
+       ],
+       "dur": 0.4
+      },
+      {
+       "t": 1.4,
+       "acao": "luz",
+       "ambiente": "#80ffa0",
+       "energia": 1.4,
+       "neblina": "#2a7a3a",
+       "densidade": 0.05,
+       "fundo": "#0a3014",
+       "dur": 0.3
+      },
+      {
+       "t": 1.5,
+       "acao": "sfx",
+       "som": "ovni_zumbido"
+      },
+      {
+       "t": 3.0,
+       "acao": "luz",
+       "ambiente": "#405848",
+       "energia": 0.6,
+       "neblina": "#06100a",
+       "densidade": 0.03,
+       "fundo": "#020604",
+       "dur": 1.0
+      }
+     ]
+    },
+    {
+     "id": "al_queda_limpa_02",
+     "who": "sistema",
+     "text": "Ela não tocou em vocês. Vocês correm até ver a luz da cozinha.",
+     "acoes": [
+      {
+       "t": 1.2,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        1.5,
+        10
+       ],
+       "dur": 0.6
+      },
+      {
+       "t": 1.8,
+       "acao": "camera_andar",
+       "pos": [
+        0,
+        1.62,
+        6.0
+       ],
+       "olhar": [
+        0,
+        1.5,
+        12
+       ],
+       "dur": 2.4
+      },
+      {
+       "t": 1.8,
+       "acao": "sair",
+       "who": "lia",
+       "para": [
+        0.8,
+        0,
+        6.5
+       ],
+       "dur": 2.0,
+       "anim": "Run"
+      }
+     ]
+    }
+   ],
+   "next": "casa_volta_salva"
+  },
+  "celeiro_tiro_certo": {
+   "location": "celeiro",
+   "cast": {
+    "center": {
+     "char": "criatura",
+     "anim": "hit"
+    },
+    "right": {
+     "char": "vo",
+     "anim": "Idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "al_tiro_certo_01",
+     "who": "sistema",
+     "text": "O tiro acerta em cheio. A criatura despenca das vigas, se debate no feno e foge pelo buraco do telhado.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "fx",
+       "tipo": "flash"
+      },
+      {
+       "t": 0,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.12
+      },
+      {
+       "t": 0,
+       "acao": "sfx",
+       "som": "tiro"
+      },
+      {
+       "t": 0.1,
+       "acao": "luz_ponto",
+       "pos": [
+        0,
+        1.4,
+        -0.6
+       ],
+       "cor": "#ffd080",
+       "energia": 3,
+       "raio": 6
+      },
+      {
+       "t": 0.3,
+       "acao": "anim",
+       "who": "criatura",
+       "anim": "hit"
+      },
+      {
+       "t": 0.4,
+       "acao": "sfx",
+       "som": "criatura_grito"
+      },
+      {
+       "t": 1.6,
+       "acao": "andar",
+       "who": "criatura",
+       "por": [
+        0.6,
+        0,
+        2.0
+       ],
+       "dur": 0.8,
+       "anim": "run",
+       "fim": "run",
+       "olhar_camera": false
+      },
+      {
+       "t": 2.5,
+       "acao": "andar",
+       "who": "criatura",
+       "por": [
+        0,
+        5.5,
+        0
+       ],
+       "dur": 1.4,
+       "anim": "run",
+       "fim": "run",
+       "olhar_camera": false
+      }
+     ]
+    },
+    {
+     "id": "al_tiro_certo_02",
+     "who": "vo",
+     "text": "Acertou! Bom menino. Agora pra casa, rápido, antes que ela volte com os outros.",
+     "tags": "[breathless, proud, urgent]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "vo",
+       "dur": 0.5
+      },
+      {
+       "t": 0.2,
+       "acao": "olhar_camera",
+       "who": "vo"
+      }
+     ]
+    }
+   ],
+   "next": "espera"
+  },
+  "lias_revela": {
+   "location": "fazenda_casa",
+   "music": "alien_final",
+   "cast": {
+    "left": {
+     "char": "lia",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "lia_copia",
+     "anim": "Idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "al_lias_revela_01",
+     "who": "sistema",
+     "text": "Por meio segundo, os olhos da Lia da direita refletem verde. Como olho de gato no farol do carro.",
+     "espera": 0.6,
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "lia_copia",
+       "dur": 0.5
+      },
+      {
+       "t": 0.6,
+       "acao": "esconder",
+       "who": "lia_copia"
+      },
+      {
+       "t": 0.6,
+       "acao": "susto",
+       "who": "lia_copia",
+       "tint": "#b8d8c0",
+       "anim": "Idle",
+       "inclinar": 0,
+       "de": 1.6,
+       "ate": 0.5,
+       "rapido": 0.18,
+       "segura": 0.8,
+       "depois": "recuar",
+       "som": "susto_alien"
+      },
+      {
+       "t": 1.9,
+       "acao": "mostrar",
+       "who": "lia_copia"
+      },
+      {
+       "t": 2.0,
+       "acao": "luz_ponto",
+       "pos": [
+        0,
+        1.6,
+        -1.6
+       ],
+       "cor": "#40ff70",
+       "energia": 0.6,
+       "raio": 2.0,
+       "piscar": true
+      }
+     ]
+    }
+   ],
+   "next": "lias_decisao"
+  },
+  "lias_iguais": {
+   "location": "fazenda_casa",
+   "music": "alien_final",
+   "cast": {
+    "left": {
+     "char": "lia",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "lia_copia",
+     "anim": "Idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "al_lias_iguais_01",
+     "who": "sistema",
+     "text": "Você olha. Olha de novo. Nenhuma diferença. Nem na respiração.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "lia_copia",
+       "dur": 0.6
+      },
+      {
+       "t": 1.6,
+       "acao": "camera_olhar",
+       "who": "lia",
+       "dur": 0.6
+      }
+     ]
+    }
+   ],
+   "next": "lias_decisao"
+  },
+  "lias_decisao": {
+   "location": "fazenda_casa",
+   "music": "alien_final",
+   "cast": {
+    "left": {
+     "char": "lia",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "lia_copia",
+     "anim": "Idle"
+    }
+   },
+   "choice": {
+    "prompt": "Qual é a Lia de verdade?",
+    "timer": 7,
+    "plead": {
+     "lia": "Sou eu!",
+     "lia_copia": "Sou eu!"
+    },
+    "options": [
+     {
+      "text": "A Lia da esquerda",
+      "who": "lia",
+      "ending": "mao_machucada"
+     },
+     {
+      "text": "A Lia da direita",
+      "who": "lia_copia",
+      "ending": "copia_perfeita"
+     },
+     {
+      "text": "Pedir a senha",
+      "if": "sabe_senha",
+      "next": "senha_lias"
+     }
+    ],
+    "timeout": {
+     "ending": "nenhuma_das_duas"
+    }
+   }
+  },
+  "vos_revela": {
+   "location": "fazenda_casa",
+   "music": "alien_final",
+   "cast": {
+    "left": {
+     "char": "vo",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "vo_copia",
+     "anim": "Idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "al_vos_revela_01",
+     "who": "sistema",
+     "text": "O Vô da cozinha não pisca. Nem uma vez. E a sombra dele na parede se mexe meio segundo depois dele.",
+     "espera": 0.6,
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "vo",
+       "dur": 0.5
+      },
+      {
+       "t": 0.6,
+       "acao": "esconder",
+       "who": "vo"
+      },
+      {
+       "t": 0.6,
+       "acao": "susto",
+       "who": "vo",
+       "tint": "#b8d8c0",
+       "anim": "Idle",
+       "inclinar": 0,
+       "de": 1.6,
+       "ate": 0.5,
+       "rapido": 0.18,
+       "segura": 0.8,
+       "depois": "recuar",
+       "som": "susto_alien"
+      },
+      {
+       "t": 1.9,
+       "acao": "mostrar",
+       "who": "vo"
+      },
+      {
+       "t": 2.0,
+       "acao": "luz_ponto",
+       "pos": [
+        0,
+        1.6,
+        -1.6
+       ],
+       "cor": "#40ff70",
+       "energia": 0.6,
+       "raio": 2.0,
+       "piscar": true
+      }
+     ]
+    }
+   ],
+   "next": "vos_decisao"
+  },
+  "vos_iguais": {
+   "location": "fazenda_casa",
+   "music": "alien_final",
+   "cast": {
+    "left": {
+     "char": "vo",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "vo_copia",
+     "anim": "Idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "al_vos_iguais_01",
+     "who": "sistema",
+     "text": "As mesmas rugas, a mesma voz rouca, a mesma mão calejada. Você não consegue ter certeza.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "vo",
+       "dur": 0.6
+      },
+      {
+       "t": 1.6,
+       "acao": "camera_olhar",
+       "who": "vo_copia",
+       "dur": 0.6
+      }
+     ]
+    }
+   ],
+   "next": "vos_decisao"
+  },
+  "vos_decisao": {
+   "location": "fazenda_casa",
+   "music": "alien_final",
+   "cast": {
+    "left": {
+     "char": "vo",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "vo_copia",
+     "anim": "Idle"
+    }
+   },
+   "choice": {
+    "prompt": "Qual é o seu avô?",
+    "timer": 7,
+    "plead": {
+     "vo": "Vem cá",
+     "vo_copia": "Sou eu!"
+    },
+    "options": [
+     {
+      "text": "O Vô que estava em casa",
+      "who": "vo",
+      "ending": "sem_cheiro"
+     },
+     {
+      "text": "O Vô que chegou da rua",
+      "who": "vo_copia",
+      "ending": "fumo_de_rolo"
+     },
+     {
+      "text": "Pedir a senha",
+      "next": "senha_vos"
+     }
+    ],
+    "timeout": {
+     "ending": "tres_da_manha"
+    }
+   }
+  },
+  "janela": {
+   "location": "fazenda_casa",
+   "music": "alien_casa",
+   "camera": {
+    "pos": [
+     0,
+     1.55,
+     -3.2
+    ],
+    "olhar": [
+     0,
+     1.35,
+     -5.0
+    ]
+   },
+   "cast": {
+    "center": {
+     "char": "cinzento",
+     "anim": "Idle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "cinzento",
+     "para": [
+      0.05,
+      0.22,
+      -5.55
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "olhar_camera",
+     "who": "cinzento"
+    },
+    {
+     "t": 0,
+     "acao": "esconder",
+     "who": "cinzento"
+    }
+   ],
+   "lines": [
+    {
+     "id": "al_janela_01",
+     "who": "sistema",
+     "text": "Um arranhão no vidro da janela da cozinha. Devagar. Três dedos.",
+     "sfx": "arranhao",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "silencio",
+       "dur": 4.5
+      },
+      {
+       "t": 0.2,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        1.35,
+        -5.0
+       ],
+       "dur": 1.0
+      }
+     ]
+    },
+    {
+     "id": "al_janela_02",
+     "who": "sistema",
+     "text": "Uma cabeça enorme encosta no vidro. Os olhos são dois buracos pretos. Ela inclina a cabeça, curiosa.",
+     "espera": 0.4,
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "esconder",
+       "who": "cinzento"
+      },
+      {
+       "t": 0.1,
+       "acao": "susto",
+       "who": "cinzento",
+       "anim": "Reach",
+       "inclinar": 0,
+       "de": 2.6,
+       "ate": 1.25,
+       "rapido": 0.12,
+       "segura": 1.0,
+       "depois": "recuar",
+       "som": "susto_alien"
+      },
+      {
+       "t": 1.6,
+       "acao": "mostrar",
+       "who": "cinzento"
+      },
+      {
+       "t": 1.7,
+       "acao": "anim",
+       "who": "cinzento",
+       "anim": "Idle",
+       "fixo": true
+      },
+      {
+       "t": 1.7,
+       "acao": "luz_ponto",
+       "pos": [
+        0.3,
+        1.6,
+        -5.9
+       ],
+       "cor": "#40ff70",
+       "energia": 1.2,
+       "raio": 3.0
+      }
+     ]
+    },
+    {
+     "id": "al_janela_03",
+     "who": "sistema",
+     "text": "O trinco começa a girar sozinho.",
+     "sfx": "porta_abre",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.25,
+        1.2,
+        -4.9
+       ],
+       "dur": 0.5
+      },
+      {
+       "t": 0.4,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.04
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "O trinco está girando!",
+    "timer": 7,
+    "options": [
+     {
+      "text": "Segurar a janela com as duas mãos",
+      "teste": {
+       "atributo": "forca",
+       "cd": 13,
+       "sucesso": {
+        "next": "janela_ok"
+       },
+       "falha": {
+        "next": "janela_falha"
+       },
+       "mods": [
+        {
+         "valor": 1,
+         "texto": "O trinco é de ferro"
+        }
+       ]
+      }
+     },
+     {
+      "text": "Apagar a lamparina e se esconder atrás do sofá",
+      "teste": {
+       "atributo": "furtividade",
+       "cd": 12,
+       "sucesso": {
+        "next": "janela_ok"
+       },
+       "falha": {
+        "next": "janela_falha"
+       }
+      }
+     }
+    ],
+    "timeout": {
+     "next": "janela_falha"
+    }
+   }
+  },
+  "janela_ok": {
+   "location": "fazenda_casa",
+   "camera": {
+    "pos": [
+     0,
+     1.55,
+     -3.2
+    ],
+    "olhar": [
+     0,
+     1.35,
+     -5.0
+    ]
+   },
+   "cast": {
+    "center": {
+     "char": "cinzento",
+     "anim": "Idle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "cinzento",
+     "para": [
+      0.05,
+      0.22,
+      -5.55
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "olhar_camera",
+     "who": "cinzento"
+    }
+   ],
+   "lines": [
+    {
+     "id": "al_janela_ok_01",
+     "who": "sistema",
+     "text": "O trinco para. A cabeça se afasta do vidro sem pressa, como quem promete voltar depois.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "maos",
+       "anim": "grab.R"
+      },
+      {
+       "t": 0.8,
+       "acao": "andar",
+       "who": "cinzento",
+       "por": [
+        0.0,
+        0,
+        -2.0
+       ],
+       "dur": 2.4,
+       "anim": "Walk",
+       "fim": "Idle",
+       "olhar_camera": false
+      },
+      {
+       "t": 2.6,
+       "acao": "esconder",
+       "who": "cinzento"
+      }
+     ]
+    }
+   ],
+   "next": "pre_batidas"
+  },
+  "janela_falha": {
+   "location": "fazenda_casa",
+   "camera": {
+    "pos": [
+     0,
+     1.55,
+     -3.2
+    ],
+    "olhar": [
+     0,
+     1.35,
+     -5.0
+    ]
+   },
+   "set": {
+    "marcado": true
+   },
+   "cast": {
+    "center": {
+     "char": "cinzento",
+     "anim": "Reach"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "cinzento",
+     "para": [
+      0.05,
+      0.22,
+      -5.55
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "olhar_camera",
+     "who": "cinzento"
+    }
+   ],
+   "lines": [
+    {
+     "id": "al_janela_falha_01",
+     "who": "sistema",
+     "text": "A janela abre um dedo. Uma luz verde entra pela fresta e encosta na sua nuca. Fria como gelo. Depois, nada.",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "luz",
+       "ambiente": "#80ffa0",
+       "energia": 1.4,
+       "neblina": "#2a7a3a",
+       "densidade": 0.05,
+       "fundo": "#0a3014",
+       "dur": 0.4
+      },
+      {
+       "t": 0.4,
+       "acao": "sfx",
+       "som": "ovni_zumbido"
+      },
+      {
+       "t": 0.5,
+       "acao": "maos_cor",
+       "cor": "#c8dcc4",
+       "dur": 1.5
+      },
+      {
+       "t": 0.6,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.08
+      },
+      {
+       "t": 2.6,
+       "acao": "fx",
+       "tipo": "apagar",
+       "dur": 0.3
+      },
+      {
+       "t": 3.0,
+       "acao": "esconder",
+       "who": "cinzento"
+      },
+      {
+       "t": 3.2,
+       "acao": "luz",
+       "ambiente": "#304038",
+       "energia": 0.5,
+       "neblina": "#06100a",
+       "densidade": 0.03,
+       "fundo": "#020604",
+       "dur": 0.1
+      },
+      {
+       "t": 3.3,
+       "acao": "fx",
+       "tipo": "acender",
+       "dur": 1.2
+      }
+     ]
+    }
+   ],
+   "next": "nuca"
+  },
+  "pre_batidas": {
+   "branch": [
+    {
+     "if": "marcado and not nuca_vista",
+     "next": "nuca"
+    },
+    {
+     "next": "batidas"
+    }
+   ]
+  },
+  "nuca": {
+   "location": "fazenda_casa",
+   "set": {
+    "nuca_vista": true
+   },
+   "cast": {
+    "left": {
+     "char": "lia",
+     "anim": "Idle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "camera",
+     "pos": [
+      0,
+      1.6,
+      0.4
+     ],
+     "olhar": [
+      0,
+      1.3,
+      -3.0
+     ],
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "esconder",
+     "who": "lia"
+    }
+   ],
+   "lines": [
+    {
+     "id": "al_nuca_01",
+     "who": "sistema",
+     "text": "A sua nuca coça. Debaixo da pele tem uma coisa dura, do tamanho de um grão de feijão. E ela pisca. Verde.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "silencio",
+       "dur": 6.0
+      },
+      {
+       "t": 0.4,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        -0.05,
+        0
+       ],
+       "dur": 1.5,
+       "olhar": [
+        0.6,
+        0.9,
+        -1.2
+       ]
+      },
+      {
+       "t": 0.8,
+       "acao": "maos",
+       "anim": "grab.R"
+      },
+      {
+       "t": 1.5,
+       "acao": "luz_ponto",
+       "pos": [
+        0,
+        1.6,
+        0.6
+       ],
+       "cor": "#40ff70",
+       "energia": 1.0,
+       "raio": 2.0,
+       "piscar": true
+      },
+      {
+       "t": 1.5,
+       "acao": "sfx",
+       "som": "ovni_zumbido",
+       "volume": -10
+      }
+     ]
+    },
+    {
+     "id": "al_nuca_02a",
+     "who": "lia",
+     "text": "Primo... a sua nuca tá brilhando. Isso é deles. Tira isso de você.",
+     "tags": "[scared whisper]",
+     "if": "lia_salva",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "mostrar",
+       "who": "lia"
+      },
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "who": "lia",
+       "dur": 0.5
+      }
+     ]
+    },
+    {
+     "id": "al_nuca_02b",
+     "who": "sistema",
+     "text": "Na gaveta da cozinha tem uma faca de serra. O grão continua piscando, no ritmo do seu coração.",
+     "if": "not lia_salva",
+     "sfx": "coracao",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        -2.0,
+        1.0,
+        -3.6
+       ],
+       "dur": 0.8
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "O que você faz com o grão?",
+    "timer": 12,
+    "options": [
+     {
+      "text": "Arrancar com a faca de cozinha",
+      "teste": {
+       "atributo": "vigor",
+       "cd": 12,
+       "sucesso": {
+        "next": "nuca_ok"
+       },
+       "falha": {
+        "ending": "sinal"
+       },
+       "mods": [
+        {
+         "valor": -2,
+         "texto": "É na sua própria nuca"
+        },
+        {
+         "if": "lia_salva",
+         "valor": 3,
+         "texto": "A Lia segura a lanterna e a faca"
+        }
+       ]
+      }
+     },
+     {
+      "text": "Deixar quieto. Talvez não seja nada.",
+      "next": "batidas"
+     }
+    ],
+    "timeout": {
+     "next": "batidas"
+    }
+   }
+  },
+  "nuca_ok": {
+   "location": "fazenda_casa",
+   "set": {
+    "marcado": false,
+    "cicatriz": true
+   },
+   "cast": {
+    "left": {
+     "char": "lia",
+     "anim": "Idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "al_nuca_ok_01",
+     "who": "sistema",
+     "text": "Você corta. A coisa se agarra por dentro, como um carrapato. Você puxa. Ela sai inteira, piscando na palma da sua mão.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "esconder",
+       "who": "lia"
+      },
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.2,
+        0.9,
+        -0.8
+       ],
+       "dur": 0.6
+      },
+      {
+       "t": 0.4,
+       "acao": "maos",
+       "anim": "grab.R"
+      },
+      {
+       "t": 1.6,
+       "acao": "sfx",
+       "som": "corte"
+      },
+      {
+       "t": 1.6,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.14
+      },
+      {
+       "t": 1.65,
+       "acao": "fx",
+       "tipo": "vermelho",
+       "ate": 0.8,
+       "dur": 0.15
+      },
+      {
+       "t": 1.9,
+       "acao": "fx",
+       "tipo": "vermelho",
+       "de": 0.8,
+       "ate": 0.0,
+       "dur": 1.2
+      },
+      {
+       "t": 3.4,
+       "acao": "texto3d",
+       "id": "grao",
+       "texto": "•",
+       "pos": [
+        0.2,
+        0.95,
+        -0.75
+       ],
+       "tamanho": 60,
+       "cor": "#60ff80"
+      }
+     ]
+    },
+    {
+     "id": "al_nuca_ok_02",
+     "who": "sistema",
+     "text": "Você esmaga o grão com o salto da bota. Lá fora, um zumbido distante para de repente.",
+     "acoes": [
+      {
+       "t": 0.6,
+       "acao": "texto3d",
+       "id": "grao",
+       "texto": "",
+       "pos": [
+        0,
+        0,
+        0
+       ]
+      },
+      {
+       "t": 0.6,
+       "acao": "sfx",
+       "som": "ossos",
+       "volume": -6
+      },
+      {
+       "t": 0.6,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.06
+      }
+     ]
+    }
+   ],
+   "next": "batidas"
   }
  },
  "endings": {
@@ -3092,6 +4620,23 @@
       "anim": "run"
      },
      {
+      "t": 7.6,
+      "acao": "esconder",
+      "who": "criatura"
+     },
+     {
+      "t": 7.6,
+      "acao": "susto",
+      "who": "criatura",
+      "anim": "attack",
+      "de": 1.6,
+      "ate": 0.5,
+      "rapido": 0.14,
+      "segura": 0.6,
+      "inclinar": 0,
+      "som": "susto_alien"
+     },
+     {
       "t": 8.0,
       "acao": "fx",
       "tipo": "vermelho",
@@ -3126,6 +4671,14 @@
     {
      "if": "not com_lia",
      "text": "Você acertou no chute. Será que acertaria de novo?"
+    },
+    {
+     "if": "cicatriz",
+     "text": "Até hoje você tem uma cicatriz na nuca. Ela coça quando o céu fica verde."
+    },
+    {
+     "if": "marcado",
+     "text": "Às vezes, no escuro, a sua nuca pisca."
     }
    ],
    "cinematica": {
@@ -3269,16 +4822,8 @@
      },
      {
       "t": 7.6,
-      "acao": "texto3d",
-      "id": "views",
-      "texto": "2.000.000 visualizações",
-      "pos": [
-       -0.2,
-       2.25,
-       -1.1
-      ],
-      "tamanho": 40,
-      "cor": "#ffffff"
+      "acao": "celular",
+      "texto": "LIA_FILMA\n2.000.000 visualizações"
      },
      {
       "t": 9.0,
@@ -3408,6 +4953,24 @@
       "t": 4.4,
       "acao": "sfx",
       "som": "ovni_zumbido"
+     },
+     {
+      "t": 6.3,
+      "acao": "esconder",
+      "who": "lia_copia"
+     },
+     {
+      "t": 6.3,
+      "acao": "susto",
+      "who": "lia_copia",
+      "anim": "Idle",
+      "de": 1.6,
+      "ate": 0.5,
+      "rapido": 0.2,
+      "segura": 0.6,
+      "inclinar": 0,
+      "som": "susto_alien",
+      "tint": "#a8c8b0"
      },
      {
       "t": 6.4,
@@ -3606,6 +5169,23 @@
       "som": "criatura_grito"
      },
      {
+      "t": 7.5,
+      "acao": "esconder",
+      "who": "criatura2"
+     },
+     {
+      "t": 7.5,
+      "acao": "susto",
+      "who": "criatura2",
+      "anim": "attack",
+      "de": 1.6,
+      "ate": 0.5,
+      "rapido": 0.14,
+      "segura": 0.6,
+      "inclinar": 0,
+      "som": "susto_alien"
+     },
+     {
       "t": 7.8,
       "acao": "fx",
       "tipo": "vermelho",
@@ -3640,6 +5220,14 @@
     {
      "if": "criatura_ferida",
      "text": "Nas noites seguintes, a luz verde nunca mais apareceu sobre o milharal."
+    },
+    {
+     "if": "cicatriz",
+     "text": "Até hoje você tem uma cicatriz na nuca. Ela coça quando o céu fica verde."
+    },
+    {
+     "if": "marcado",
+     "text": "Às vezes, no escuro, a sua nuca pisca."
     }
    ],
    "cinematica": {
@@ -3952,6 +5540,23 @@
       "dur": 1.6
      },
      {
+      "t": 7.5,
+      "acao": "esconder",
+      "who": "criatura"
+     },
+     {
+      "t": 7.5,
+      "acao": "susto",
+      "who": "criatura",
+      "anim": "attack",
+      "de": 1.6,
+      "ate": 0.5,
+      "rapido": 0.14,
+      "segura": 0.6,
+      "inclinar": 0,
+      "som": "susto_alien"
+     },
+     {
       "t": 7.8,
       "acao": "fx",
       "tipo": "vermelho",
@@ -3976,6 +5581,14 @@
     {
      "if": "culpa >= 1",
      "text": "Mas toda vez que o milho balança, você ainda escuta alguém gritando 'volta'."
+    },
+    {
+     "if": "cicatriz",
+     "text": "Até hoje você tem uma cicatriz na nuca. Ela coça quando o céu fica verde."
+    },
+    {
+     "if": "marcado",
+     "text": "Às vezes, no escuro, a sua nuca pisca."
     }
    ],
    "cinematica": {
@@ -4583,6 +6196,23 @@
       "som": "criatura_grito"
      },
      {
+      "t": 7.5,
+      "acao": "esconder",
+      "who": "criatura2"
+     },
+     {
+      "t": 7.5,
+      "acao": "susto",
+      "who": "criatura2",
+      "anim": "attack",
+      "de": 1.6,
+      "ate": 0.5,
+      "rapido": 0.14,
+      "segura": 0.6,
+      "inclinar": 0,
+      "som": "susto_alien"
+     },
+     {
       "t": 7.8,
       "acao": "fx",
       "tipo": "vermelho",
@@ -4734,6 +6364,23 @@
       "dur": 1.2
      },
      {
+      "t": 9.0,
+      "acao": "esconder",
+      "who": "criatura"
+     },
+     {
+      "t": 9.0,
+      "acao": "susto",
+      "who": "criatura",
+      "anim": "attack",
+      "de": 2.4,
+      "ate": 0.5,
+      "rapido": 0.14,
+      "segura": 0.6,
+      "inclinar": 0,
+      "som": "susto_alien"
+     },
+     {
       "t": 10.4,
       "acao": "fx",
       "tipo": "apagar",
@@ -4741,6 +6388,175 @@
      }
     ]
    }
+  },
+  "sinal": {
+   "title": "Sinal",
+   "kind": "morte",
+   "text": "A faca escorregou. Você caiu no chão da cozinha, e o grão continuou piscando, cada vez mais rápido. Às três e quinze, eles vieram buscar o que era deles.",
+   "cinematica": {
+    "location": "fazenda_casa",
+    "maos": true,
+    "camera": {
+     "pos": [
+      0.3,
+      0.45,
+      0.2
+     ],
+     "olhar": [
+      0.0,
+      1.2,
+      -5.0
+     ]
+    },
+    "slots": {
+     "center": [
+      0.05,
+      0.22,
+      -5.55
+     ]
+    },
+    "cast": {
+     "center": {
+      "char": "cinzento",
+      "anim": "Idle"
+     }
+    },
+    "dur": 10,
+    "narrar": 1.0,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#304038",
+      "energia": 0.45,
+      "neblina": "#06100a",
+      "densidade": 0.04,
+      "fundo": "#020604",
+      "dur": 0.1
+     },
+     {
+      "t": 0,
+      "acao": "maos_cor",
+      "cor": "#a01810",
+      "dur": 0.1
+     },
+     {
+      "t": 0,
+      "acao": "fx",
+      "tipo": "vermelho",
+      "de": 0.0,
+      "ate": 0.35,
+      "dur": 2.0
+     },
+     {
+      "t": 0.4,
+      "acao": "luz_ponto",
+      "pos": [
+       0.3,
+       0.6,
+       0.4
+      ],
+      "cor": "#40ff70",
+      "energia": 1.2,
+      "raio": 2.0,
+      "piscar": true
+     },
+     {
+      "t": 0.4,
+      "acao": "sfx",
+      "som": "coracao"
+     },
+     {
+      "t": 2.5,
+      "acao": "luz",
+      "ambiente": "#80ffa0",
+      "energia": 1.4,
+      "neblina": "#2a7a3a",
+      "densidade": 0.05,
+      "fundo": "#0a3014",
+      "dur": 2.0
+     },
+     {
+      "t": 2.6,
+      "acao": "sfx",
+      "som": "ovni_zumbido"
+     },
+     {
+      "t": 3.0,
+      "acao": "anim",
+      "who": "cinzento",
+      "anim": "Walk",
+      "fixo": true
+     },
+     {
+      "t": 3.0,
+      "acao": "mover",
+      "who": "cinzento",
+      "para": [
+       0.2,
+       0.0,
+       -1.4
+      ],
+      "dur": 4.0
+     },
+     {
+      "t": 7.0,
+      "acao": "anim",
+      "who": "cinzento",
+      "anim": "Reach",
+      "fixo": true
+     },
+     {
+      "t": 7.4,
+      "acao": "esconder",
+      "who": "cinzento"
+     },
+     {
+      "t": 7.4,
+      "acao": "susto",
+      "who": "cinzento",
+      "anim": "Reach",
+      "inclinar": 0,
+      "de": 1.4,
+      "ate": 0.45,
+      "rapido": 0.15,
+      "segura": 0.8,
+      "som": "susto_alien"
+     },
+     {
+      "t": 8.8,
+      "acao": "fx",
+      "tipo": "apagar",
+      "dur": 0.4
+     }
+    ]
+   }
+  }
+ },
+ "atributos": {
+  "agilidade": {
+   "nome": "Agilidade",
+   "valor": 1
+  },
+  "percepcao": {
+   "nome": "Percepção",
+   "valor": 1
+  },
+  "furtividade": {
+   "nome": "Furtividade",
+   "valor": 1
+  },
+  "forca": {
+   "nome": "Força",
+   "valor": 0
+  },
+  "pontaria": {
+   "nome": "Pontaria",
+   "valor": 0
+  },
+  "vigor": {
+   "nome": "Vigor",
+   "valor": 1
   }
  }
 }

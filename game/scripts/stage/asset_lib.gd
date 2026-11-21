@@ -24,6 +24,7 @@ const MODELS := {
 	"skinwalker": TP + "psx_creatures/zombie_woman.glb",
 	# feitos no projeto (Blender, tools/blender/)
 	"rastejante": "res://assets/models/rastejante.glb",  # zumbi sem pernas: Idle, Crawl, Attack
+	"cinzento": "res://assets/models/cinzento.glb",  # alienígena cinzento: Idle, Walk, Reach
 }
 
 ## Ajustes por modelo, aplicados pelo Actor:

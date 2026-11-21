@@ -512,6 +512,14 @@
    "susto_vidro": {
     "prompt": "a zombie violently slamming its face and hands against a glass door right in front of the listener, loud glass bang and rattle, with a guttural shriek",
     "duration": 2.0
+   },
+   "susto_alien": {
+    "prompt": "horror jumpscare: an alien creature screeching right into the listener's face, metallic insect-like scream with a violent dissonant synth stab and a deep bass hit, extremely close",
+    "duration": 2.0
+   },
+   "celeiro_queda": {
+    "prompt": "a heavy carcass suddenly falling from the barn rafters onto the wooden floor with a wet thud, dust and creaking wood, startling",
+    "duration": 2.0
    }
   }
  },
