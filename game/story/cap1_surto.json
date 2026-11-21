@@ -5299,8 +5299,8 @@
        "acao": "camera_olhar",
        "olhar": [
         0.1,
-        -1.9,
-        -4.8
+        -1.8,
+        -5.1
        ],
        "dur": 0.25
       },
@@ -5310,19 +5310,6 @@
        "who": "rastejante",
        "anim": "Attack",
        "fixo": true
-      },
-      {
-       "t": 0.1,
-       "acao": "andar",
-       "who": "rastejante",
-       "por": [
-        0,
-        0,
-        0.35
-       ],
-       "dur": 0.25,
-       "anim": "Attack",
-       "fim": "Attack"
       },
       {
        "t": 0.15,
@@ -5360,8 +5347,8 @@
        "acao": "camera_olhar",
        "olhar": [
         0.1,
-        -1.9,
-        -4.8
+        -1.8,
+        -5.1
        ],
        "dur": 0.3
       }
