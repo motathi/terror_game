@@ -4739,9 +4739,16 @@
       },
       {
        "t": 0.8,
+       "acao": "luz_no",
+       "nome": "tv_luz",
+       "energia": 0.0,
+       "dur": 0.15
+      },
+      {
+       "t": 0.8,
        "acao": "luz",
-       "ambiente": "#202838",
-       "energia": 0.25,
+       "ambiente": "#141a26",
+       "energia": 0.15,
        "neblina": "#03040a",
        "densidade": 0.05,
        "fundo": "#000000",

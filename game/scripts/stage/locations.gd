@@ -271,6 +271,7 @@ static func _casa(root: Node3D, cfg: Dictionary) -> void:
 	prop(root, HOUSE + "props/sideboard.glb", Vector3(3.5, 0, -1.2), -90, 1, Vector3(0.5, 0.8, 1.5))
 	prop(root, HOUSE + "props/tv.glb", Vector3(3.5, 0.8, -1.2), -90, 1, Vector3(0.6, 0.5, 0.4))
 	var tv_light := omni(root, Vector3(2.8, 1.3, -1.2), Color(0.5, 0.6, 1.0), 1.0, 4.5)
+	tv_light.name = "tv_luz"
 	tv_light.add_child(Flicker.new(0.4, 11.0))
 	prop(root, HOUSE + "props/table.glb", Vector3(-1.6, 0, -4.3), 0, 1, Vector3(1.7, 0.72, 1.1))
 	prop(root, HOUSE + "props/chair.glb", Vector3(-2.4, 0, -4.3), 90)

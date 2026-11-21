@@ -187,7 +187,7 @@ func _process(delta: float) -> void:
 
 ## Um d20 visto de frente: hexágono com o triângulo central e as faces em volta.
 class _Die extends Control:
-	var value := 20
+	var value := 0  # 0 = ainda não rolou ("?")
 	var color := Color(0.86, 0.68, 0.32)
 	var dim := false
 	var spin := 0.0
@@ -224,7 +224,7 @@ class _Die extends Control:
 			draw_line(hexa[2 * j + 1], tri[j], col, 3.0)
 			draw_line(hexa[2 * j + 1], tri[(j + 1) % 3], col, 3.0)
 		if font:
-			var txt := str(value)
+			var txt := str(value) if value > 0 else "?"
 			var fs := int(r * 0.62)
 			var w := font.get_string_size(txt, HORIZONTAL_ALIGNMENT_CENTER, -1, fs).x
 			draw_string(font, c + Vector2(-w * 0.5, fs * 0.36), txt, HORIZONTAL_ALIGNMENT_LEFT, -1, fs,
