@@ -25,6 +25,10 @@ var _buttons_box: VBoxContainer
 var _title_card: Label
 var _fade: ColorRect
 var _ending_layer: Control
+var _phone: PanelContainer
+var _phone_head: Label
+var _phone_body: Label
+var _phone_tween: Tween
 
 var _advance := false
 var _choice_active := false
@@ -100,6 +104,8 @@ func _ready() -> void:
 	_title_card.modulate.a = 0.0
 	add_child(_title_card)
 
+	_build_phone()
+
 	# --- fade ---
 	_fade = ColorRect.new()
 	_fade.color = Color.BLACK
@@ -111,6 +117,72 @@ func _ready() -> void:
 	UI.full_rect(_ending_layer)
 	_ending_layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_ending_layer)
+
+
+# --- tela do celular (nítida, na interface: na cena 3D o texto vira borrão) ----------
+
+func _build_phone() -> void:
+	_phone = PanelContainer.new()
+	var frame := UI.panel_style(Color(0.06, 0.06, 0.07, 0.97), 34, Color(0.32, 0.32, 0.36))
+	frame.content_margin_left = 16
+	frame.content_margin_right = 16
+	frame.content_margin_top = 30
+	frame.content_margin_bottom = 30
+	_phone.add_theme_stylebox_override("panel", frame)
+	_phone.anchor_left = 0.18
+	_phone.anchor_right = 0.82
+	_phone.anchor_top = 0.16
+	_phone.anchor_bottom = 0.16
+	_phone.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_phone.pivot_offset = Vector2(230, 150)
+	add_child(_phone)
+	var screen := PanelContainer.new()
+	var glow := UI.panel_style(Color(0.1, 0.16, 0.26), 18)
+	glow.content_margin_top = 18
+	glow.content_margin_bottom = 22
+	screen.add_theme_stylebox_override("panel", glow)
+	screen.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_phone.add_child(screen)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 10)
+	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	screen.add_child(v)
+	_phone_head = UI.label("", 30, Color(0.55, 0.85, 1.0), true)
+	v.add_child(_phone_head)
+	_phone_body = UI.label("", 40, Color(0.93, 0.96, 1.0))
+	v.add_child(_phone_body)
+	_phone.visible = false
+
+
+## Mostra a tela do celular. A primeira linha (se houver mais de uma) é o
+## cabeçalho (contato/hora). Texto vazio guarda o celular.
+func show_phone(text: String) -> void:
+	if _phone_tween and _phone_tween.is_valid():
+		_phone_tween.kill()
+	if text.strip_edges().is_empty():
+		if _phone.visible:
+			_phone_tween = create_tween()
+			_phone_tween.tween_property(_phone, "modulate:a", 0.0, 0.25)
+			_phone_tween.tween_callback(_phone.hide)
+		return
+	var lines := text.split("\n")
+	if lines.size() > 1:
+		_phone_head.text = lines[0].strip_edges().trim_suffix(":")
+		_phone_head.visible = true
+		lines.remove_at(0)
+		_phone_body.text = "\n".join(lines)
+	else:
+		_phone_head.visible = false
+		_phone_body.text = text
+	if not _phone.visible:
+		_phone.modulate.a = 0.0
+	_phone.visible = true
+	_phone.pivot_offset = _phone.size * 0.5
+	_phone_tween = create_tween()
+	_phone_tween.tween_property(_phone, "modulate:a", 1.0, 0.2)
+	for i in 4:  # vibra
+		_phone_tween.tween_property(_phone, "rotation", 0.035 if i % 2 == 0 else -0.035, 0.05)
+	_phone_tween.tween_property(_phone, "rotation", 0.0, 0.05)
 
 
 func _process(delta: float) -> void:

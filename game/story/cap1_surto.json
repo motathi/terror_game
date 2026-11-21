@@ -241,16 +241,8 @@
       },
       {
        "t": 0.2,
-       "acao": "texto3d",
-       "id": "cel",
-       "texto": "MARINA:\nViu o jornal? A Bia\ntá perguntando de você.",
-       "pos": [
-        0.18,
-        0.86,
-        -0.32
-       ],
-       "tamanho": 16,
-       "cor": "#e8f0ff"
+       "acao": "celular",
+       "texto": "MARINA:\nViu o jornal? A Bia\ntá perguntando de você."
       }
      ]
     }
@@ -314,16 +306,8 @@
      "acoes": [
       {
        "t": 0,
-       "acao": "texto3d",
-       "id": "cel",
-       "texto": "",
-       "pos": [
-        0.18,
-        0.86,
-        -0.32
-       ],
-       "tamanho": 16,
-       "cor": "#e8f0ff"
+       "acao": "celular",
+       "texto": ""
       },
       {
        "t": 0,
@@ -467,16 +451,8 @@
       },
       {
        "t": 0.3,
-       "acao": "texto3d",
-       "id": "cel",
-       "texto": "CHAMADA ENCERRADA",
-       "pos": [
-        0.2,
-        1.12,
-        -0.48
-       ],
-       "tamanho": 14,
-       "cor": "#ff6060"
+       "acao": "celular",
+       "texto": "CHAMADA ENCERRADA"
       }
      ]
     },
@@ -487,14 +463,8 @@
      "acoes": [
       {
        "t": 0.5,
-       "acao": "texto3d",
-       "id": "cel",
-       "texto": "",
-       "pos": [
-        0,
-        0,
-        0
-       ]
+       "acao": "celular",
+       "texto": ""
       },
       {
        "t": 0.5,
@@ -572,6 +542,11 @@
        "de": 0.9,
        "ate": 0.0,
        "dur": 0.9
+      },
+      {
+       "t": 0,
+       "acao": "celular",
+       "texto": ""
       }
      ]
     },
@@ -592,7 +567,7 @@
         1.62,
         -6.24
        ],
-       "tamanho": 22,
+       "tamanho": 34,
        "cor": "#ffffff"
       },
       {
@@ -1022,16 +997,8 @@
       },
       {
        "t": 0.3,
-       "acao": "texto3d",
-       "id": "cel",
-       "texto": "SEM SINAL",
-       "pos": [
-        0.15,
-        0.47,
-        -0.33
-       ],
-       "tamanho": 14,
-       "cor": "#ff8080"
+       "acao": "celular",
+       "texto": "SEM SINAL"
       }
      ]
     },
@@ -1043,16 +1010,8 @@
      "acoes": [
       {
        "t": 0,
-       "acao": "texto3d",
-       "id": "cel",
-       "texto": "19:02  MARINA\nTrancamos tudo.\nA Bia dormiu. Te amo.",
-       "pos": [
-        0.15,
-        0.47,
-        -0.33
-       ],
-       "tamanho": 12,
-       "cor": "#e8f0ff"
+       "acao": "celular",
+       "texto": "19:02  MARINA\nTrancamos tudo.\nA Bia dormiu. Te amo."
       }
      ]
     },
@@ -1064,16 +1023,8 @@
      "acoes": [
       {
        "t": 0,
-       "acao": "texto3d",
-       "id": "cel",
-       "texto": "19:02  MARINA\nTô saindo. Não consigo\nficar parada aqui.",
-       "pos": [
-        0.15,
-        0.47,
-        -0.33
-       ],
-       "tamanho": 12,
-       "cor": "#e8f0ff"
+       "acao": "celular",
+       "texto": "19:02  MARINA\nTô saindo. Não consigo\nficar parada aqui."
       }
      ]
     },
@@ -1085,14 +1036,8 @@
      "acoes": [
       {
        "t": 0,
-       "acao": "texto3d",
-       "id": "cel",
-       "texto": "",
-       "pos": [
-        0,
-        0,
-        0
-       ]
+       "acao": "celular",
+       "texto": ""
       },
       {
        "t": 0,
@@ -2868,16 +2813,8 @@
       },
       {
        "t": 0.2,
-       "acao": "texto3d",
-       "id": "cel",
-       "texto": "MARINA",
-       "pos": [
-        0.1,
-        0.62,
-        -0.38
-       ],
-       "tamanho": 14,
-       "cor": "#a0ffa0"
+       "acao": "celular",
+       "texto": "MARINA"
       }
      ]
     },
@@ -2899,16 +2836,8 @@
       },
       {
        "t": 0.2,
-       "acao": "texto3d",
-       "id": "cel",
-       "texto": "SEM SINAL",
-       "pos": [
-        0.1,
-        0.62,
-        -0.38
-       ],
-       "tamanho": 14,
-       "cor": "#ff8080"
+       "acao": "celular",
+       "texto": "SEM SINAL"
       }
      ]
     },
@@ -2920,14 +2849,8 @@
      "acoes": [
       {
        "t": 0,
-       "acao": "texto3d",
-       "id": "cel",
-       "texto": "",
-       "pos": [
-        0,
-        0,
-        0
-       ]
+       "acao": "celular",
+       "texto": ""
       },
       {
        "t": 0,
@@ -5779,7 +5702,7 @@
         -0.45,
         -4.9
        ],
-       "tamanho": 30,
+       "tamanho": 44,
        "cor": "#ff3020"
       },
       {
@@ -7871,16 +7794,8 @@
      },
      {
       "t": 0,
-      "acao": "texto3d",
-      "id": "tel",
-      "texto": "LIGANDO...\nMARINA",
-      "pos": [
-       0,
-       1.25,
-       -0.55
-      ],
-      "tamanho": 28,
-      "cor": "#80ff90"
+      "acao": "celular",
+      "texto": "LIGANDO...\nMARINA"
      },
      {
       "t": 0.2,
@@ -7894,16 +7809,8 @@
      },
      {
       "t": 3.2,
-      "acao": "texto3d",
-      "id": "tel",
-      "texto": "SEM SINAL",
-      "pos": [
-       0,
-       1.25,
-       -0.55
-      ],
-      "tamanho": 28,
-      "cor": "#ff5050"
+      "acao": "celular",
+      "texto": "SEM SINAL"
      },
      {
       "t": 3.2,
@@ -7912,16 +7819,8 @@
      },
      {
       "t": 4.5,
-      "acao": "texto3d",
-      "id": "tel",
-      "texto": "",
-      "pos": [
-       0,
-       1.25,
-       -0.55
-      ],
-      "tamanho": 28,
-      "cor": "#ff5050"
+      "acao": "celular",
+      "texto": ""
      },
      {
       "t": 4.0,

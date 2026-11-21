@@ -104,7 +104,8 @@ Offsets (`de`, `para`, `por`) são relativos à câmera: x = direita, y = cima, 
 | `camera_olhar` | vira a câmera para um personagem (`who`) ou ponto (`olhar`) |
 | `camera` / `camera_voltar` | câmera para posição absoluta / volta à câmera do nó |
 | `maos` | mão estica (`grab.L` / `grab.R`); `maos_cor` tinge as mãos (ex.: sangue); `maos_ocultar` (`lado`: `esquerda`/`direita`, `ocultar`) some com uma mão (braço cortado) |
-| `texto3d` | texto no mundo (tela do celular, relógio); mesmo `id` substitui, texto vazio apaga |
+| `texto3d` | texto no mundo (relógio, placa, número do andar); mesmo `id` substitui, texto vazio apaga. Use tamanho ≥ 34: a cena 3D roda em baixa resolução |
+| `celular` | mostra a tela do celular na interface, nítida (`texto`; a primeira linha vira o cabeçalho quando há mais de uma; texto vazio guarda o celular). Use para mensagens: em `texto3d` elas viram borrão |
 | `luz_no` | muda a energia de uma luz do cenário pelo nome (`nome`, `energia`, `dur`; ex.: postes apagando) |
 | `susto` | **jumpscare**: com `who` alguém salta na frente da câmera e o rosto enche a tela (barulho alto, tranco, flash vermelho, mãos recuando, corte seco). `who` pode ser um personagem da história ou um nome novo com `modelo`/`tint`. Opções: `anim`, `de`/`ate` (distância 2.2 → 0.5 m), `lado`, `de_cima`, `rapido`, `segura`, `depois` (`sumir`/`recuar`), `inclinar` (graus para trás, 20; mais quando a câmera está baixa ou olhando para baixo), `som` (`susto_grito`), `volume`. Sem `who` é um susto falso: só o som e o tranco (`flash: true` para o vermelho) |
 | `silencio` | a música some por `dur` segundos (o silêncio antes do susto) |

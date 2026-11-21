@@ -218,6 +218,7 @@ func _on_screen_tapped(pos: Vector2) -> void:
 
 
 func _show_ending(ending_id: String) -> void:
+	ui.show_phone("")
 	var data := runner.ending(ending_id)
 	var is_new := GameState.discover_ending(runner.campaign_id, ending_id)
 	var found := GameState.count_discovered(runner.campaign_id)
@@ -377,6 +378,8 @@ func _run_step(s: Dictionary, chars: Dictionary) -> void:
 					def["tint"] = s["tint"]
 				stage.jumpscare(who, def, s)
 			Audio.play_sfx(s.get("som", "susto_grito"), float(s.get("volume", 3.0)))
+		"celular":
+			ui.show_phone(s.get("texto", ""))
 		"silencio":
 			Audio.hush(dur)
 		"fx":
