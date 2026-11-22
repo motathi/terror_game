@@ -1061,7 +1061,7 @@ static func cadeira_balanco(root: Node3D, pos: Vector3, rot_y: float, nome := ""
 	root.add_child(c)
 	var wood := Color(0.36, 0.22, 0.12)
 	box(c, Vector3(0.55, 0.06, 0.5), Vector3(0, 0.45, 0), wood)
-	var back := box(c, Vector3(0.55, 0.8, 0.05), Vector3(0, 0.88, 0.27), wood)
+	var back := box(c, Vector3(0.55, 0.55, 0.05), Vector3(0, 0.76, 0.27), wood)  # encosto baixo: a cabeça de quem senta aparece
 	back.rotation.x = deg_to_rad(-12)
 	for x in [-0.27, 0.27]:
 		var r := box(c, Vector3(0.05, 0.05, 0.95), Vector3(x, 0.04, 0.0), wood)  # balanço curvo (dois pedaços)
