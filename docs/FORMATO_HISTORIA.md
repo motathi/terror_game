@@ -96,7 +96,8 @@ Offsets (`de`, `para`, `por`) são relativos à câmera: x = direita, y = cima, 
 | `entrar` | personagem começa deslocado (`de`) e anda até o lugar dele (`anim`, depois `fim`), virando para você |
 | `sair` | anda até `para` e some (`esconder: false` mantém) |
 | `andar` | anda `por` a partir de onde está; `olhar_camera: false` deixa de costas; `fim` = animação de repouso |
-| `mover` | vai até uma posição absoluta (`para`) |
+| `mover` | vai até uma posição absoluta (`para`); `virar: false` não vira o corpo (para quem está na parede ou no teto) |
+| `rotacionar` | gira o personagem para uma orientação absoluta (`rot` em graus, ordem Y-X-Z do Godot): `[0, 0, 180]` = de ponta-cabeça no teto (a posição é a do teto); `[0, 0, -90]` = de lado numa parede à esquerda; `[90, 0, 0]` = descendo a parede do fundo de cabeça para baixo |
 | `olhar_camera` / `olhar_para` (`alvo`) | vira para você / para outro personagem |
 | `anim` | troca a animação; `fixo: true` vira a animação de repouso |
 | `esconder` / `mostrar` | some / aparece |
@@ -111,7 +112,7 @@ Offsets (`de`, `para`, `por`) são relativos à câmera: x = direita, y = cima, 
 | `luz_no` | muda a energia de uma luz do cenário pelo nome (`nome`, `energia`, `dur`; ex.: postes apagando) |
 | `susto` | **jumpscare**: com `who` alguém salta na frente da câmera e o rosto enche a tela (barulho alto, tranco, flash vermelho, mãos recuando, corte seco). `who` pode ser um personagem da história ou um nome novo com `modelo`/`tint`. Opções: `anim`, `de`/`ate` (distância 2.2 → 0.5 m), `lado`, `de_cima`, `rapido`, `segura`, `depois` (`sumir`/`recuar`), `inclinar` (graus para trás, 20; mais quando a câmera está baixa ou olhando para baixo), `som` (`susto_grito`), `volume`. Sem `who` é um susto falso: só o som e o tranco (`flash: true` para o vermelho) |
 | `silencio` | a música some por `dur` segundos (o silêncio antes do susto) |
-| `sfx`, `luz`, `luz_ponto`, `no`, `fx` | som, luz do ambiente, luz pontual, mover nó do cenário, efeitos (`flash`, `tremor`, `piscar`, `vermelho`, `apagar`, `acender`, `chuvisco`) |
+| `sfx`, `luz`, `luz_ponto`, `no`, `fx` | som, luz do ambiente, luz pontual, mover nó do cenário (`no`: `nome`, `para` e/ou `rot` em graus), efeitos (`flash`, `tremor`, `piscar`, `vermelho`, `apagar`, `acender`, `chuvisco`) |
 
 Regra do `susto` com `who`: só use quando a fala diz que o bicho avança, agarra ou bate em você ("ele pula o balcão", "o rosto dele bate no vidro"). Se a fala só descreve alguém olhando, virando a cabeça ou parado, não tem bote: aproxime a câmera devagar (`camera_rel`) e, se quiser, um acorde baixo (`sfx` `stinger_hit`).
 

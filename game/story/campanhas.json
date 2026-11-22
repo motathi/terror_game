@@ -159,6 +159,22 @@
       "path": "res://story/homem_do_saco.json"
     },
     {
+      "id": "exorcismo",
+      "titulo": "EXORCISMO",
+      "subtitulo": "Capítulo 1 — A Vó Celeste",
+      "chamada": "Você foi passar o fim de semana com a sua avó. A cuidadora foi embora correndo. E a vó não come há quatro dias.",
+      "path": "res://story/exorcismo.json",
+      "status": "disponivel",
+      "cor": "#a070ff",
+      "cena": {
+        "location": "quarto_vo",
+        "model": "vo_possuida",
+        "anim": "FloatIdle",
+        "dist": 2.6,
+        "luz": "#ffa060"
+      }
+    },
+    {
       "id": "casa_abandonada",
       "titulo": "CASA ABANDONADA",
       "subtitulo": "Em breve",

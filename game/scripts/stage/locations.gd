@@ -75,6 +75,12 @@ static func build(id: String, root: Node3D) -> Dictionary:
 			_mercadinho(root, cfg)
 		"estrada":
 			_estrada(root, cfg)
+		"casa_vo_fora":
+			_casa_vo_fora(root, cfg)
+		"sala_vo":
+			_sala_vo(root, cfg)
+		"quarto_vo":
+			_quarto_vo(root, cfg)
 		_:
 			push_warning("Locations: cenário desconhecido '%s'" % id)
 			box(root, Vector3(10, 0.1, 10), Vector3(0, -0.05, -3), Color(0.1, 0.1, 0.1))
@@ -1018,6 +1024,301 @@ static func _estrada(root: Node3D, cfg: Dictionary) -> void:
 	cfg["fog_color"] = Color(0.6, 0.4, 0.3)
 	cfg["ambient"] = Color(0.8, 0.65, 0.55)
 	cfg["ambient_energy"] = 0.9
+
+
+# --- Exorcismo -----------------------------------------------------------------------
+
+## Crucifixo de madeira (nó girável: a história vira de cabeça para baixo com "no" + "rot").
+static func crucifixo(root: Node3D, pos: Vector3, nome: String, s := 1.0, rot_y := 0.0) -> Node3D:
+	var c := Node3D.new()
+	c.name = nome
+	c.position = pos
+	c.rotation.y = deg_to_rad(rot_y)
+	root.add_child(c)
+	var wood := Color(0.32, 0.2, 0.1)
+	box(c, Vector3(0.06, 0.5, 0.04) * s, Vector3.ZERO, wood)
+	box(c, Vector3(0.3, 0.06, 0.04) * s, Vector3(0, 0.1 * s, 0), wood)
+	box(c, Vector3(0.03, 0.2, 0.03) * s, Vector3(0, 0.0, 0.03 * s), Color(0.8, 0.7, 0.55))  # o Cristo
+	return c
+
+
+## Santinho de gesso (base, manto colorido e cabeça).
+static func santo(root: Node3D, pos: Vector3, cor: Color, h := 0.3, de_costas := false) -> void:
+	box(root, Vector3(0.1, 0.03, 0.1), pos + Vector3(0, 0.015, 0), Color(0.75, 0.7, 0.6))
+	box(root, Vector3(0.09, h * 0.7, 0.07), pos + Vector3(0, 0.03 + h * 0.35, 0), cor)
+	box(root, Vector3(0.06, 0.07, 0.06), pos + Vector3(0, 0.03 + h * 0.78, 0), Color(0.85, 0.72, 0.6))
+	if not de_costas:
+		box(root, Vector3(0.02, 0.012, 0.005), pos + Vector3(0, 0.03 + h * 0.8, 0.032), Color(0.1, 0.08, 0.06))
+
+
+## Cadeira de balanço de madeira (assento a 0,47 m).
+static func cadeira_balanco(root: Node3D, pos: Vector3, rot_y: float, nome := "") -> Node3D:
+	var c := Node3D.new()
+	c.position = pos
+	c.rotation.y = deg_to_rad(rot_y)
+	if not nome.is_empty():
+		c.name = nome
+	root.add_child(c)
+	var wood := Color(0.36, 0.22, 0.12)
+	box(c, Vector3(0.55, 0.06, 0.5), Vector3(0, 0.45, 0), wood)
+	var back := box(c, Vector3(0.55, 0.8, 0.05), Vector3(0, 0.88, 0.27), wood)
+	back.rotation.x = deg_to_rad(-12)
+	for x in [-0.27, 0.27]:
+		var r := box(c, Vector3(0.05, 0.05, 0.95), Vector3(x, 0.04, 0.0), wood)  # balanço curvo (dois pedaços)
+		r.rotation.x = deg_to_rad(6)
+		for z in [-0.2, 0.2]:
+			box(c, Vector3(0.05, 0.42, 0.05), Vector3(x, 0.24, z), wood)
+		box(c, Vector3(0.05, 0.05, 0.5), Vector3(x, 0.68, -0.02), wood)  # braço
+	return c
+
+
+## Frente do sobrado da avó ao anoitecer: varanda com colunas, porta azul,
+## janelas de madeira, a janela do quarto dela acesa lá em cima ("janela_vo"),
+## a mangueira e o céu roxo-laranja. Lâmpada da varanda falhando.
+static func _casa_vo_fora(root: Node3D, cfg: Dictionary) -> void:
+	box(root, Vector3(60, 0.1, 60), Vector3(0, -0.05, -8), Color(0.32, 0.25, 0.16))  # terreiro
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 303
+	for i in 30:
+		var t := box(root, Vector3(0.3, 0.12, 0.3), Vector3(rng.randf_range(-14, 14), 0.04, rng.randf_range(-6, 6)), Color(0.22, 0.3, 0.12))  # tufos de capim
+		t.rotation.y = rng.randf() * TAU
+	var parede := Color(0.84, 0.81, 0.72)
+	var azul := Color(0.2, 0.36, 0.6)
+	box(root, Vector3(10, 6.2, 8), Vector3(0, 3.1, -12.0), parede)  # sobrado
+	box(root, Vector3(10.05, 0.6, 8.05), Vector3(0, 0.3, -12.0), Color(0.55, 0.5, 0.42))  # barrado sujo
+	for sx in [-1, 1]:  # telhado de duas águas
+		var t := box(root, Vector3(10.8, 0.25, 5.0), Vector3(0, 7.0, -12.0 + sx * 2.1), Color(0.5, 0.2, 0.14))
+		t.rotation.x = deg_to_rad(28 * sx)
+	box(root, Vector3(10, 0.3, 2.6), Vector3(0, 0.15, -6.7), Color(0.6, 0.45, 0.35))  # piso da varanda (lajota)
+	box(root, Vector3(10.4, 0.16, 2.9), Vector3(0, 3.0, -6.65), Color(0.45, 0.3, 0.2))  # teto da varanda
+	for x in [-4.7, -1.6, 1.6, 4.7]:
+		box(root, Vector3(0.24, 2.85, 0.24), Vector3(x, 1.45, -5.55), parede)
+	box(root, Vector3(1.1, 2.2, 0.06), Vector3(0, 1.4, -7.97), azul)  # porta
+	box(root, Vector3(0.06, 0.06, 0.06), Vector3(0.38, 1.4, -7.92), Color(0.8, 0.7, 0.3))
+	for x in [-3.2, 3.2]:
+		box(root, Vector3(1.3, 1.4, 0.06), Vector3(x, 1.7, -7.97), Color(0.05, 0.05, 0.06))  # janelas de baixo, escuras
+		box(root, Vector3(0.6, 1.4, 0.08), Vector3(x - 0.95, 1.7, -7.95), azul)
+		box(root, Vector3(0.6, 1.4, 0.08), Vector3(x + 0.95, 1.7, -7.95), azul)
+	for x in [-3.2, 0.0]:
+		box(root, Vector3(1.1, 1.3, 0.06), Vector3(x, 4.6, -7.97), Color(0.05, 0.05, 0.06))
+		box(root, Vector3(0.5, 1.3, 0.08), Vector3(x - 0.8, 4.6, -7.95), azul)
+	var jv := box(root, Vector3(1.1, 1.3, 0.06), Vector3(3.2, 4.6, -7.97), Color(1.0, 0.62, 0.3), 1.4)  # o quarto dela
+	jv.name = "janela_vo"
+	box(root, Vector3(0.35, 1.3, 0.08), Vector3(3.55, 4.6, -7.93), Color(0.75, 0.55, 0.45))  # cortina
+	var jl := omni(root, Vector3(3.2, 4.6, -7.2), Color(1.0, 0.6, 0.3), 1.2, 4.0)
+	jl.name = "luz_janela_vo"
+	jl.add_child(Flicker.new(0.3, 4.0))
+	var lamp := omni(root, Vector3(0, 2.7, -6.3), Color(1.0, 0.82, 0.55), 2.2, 7.0)
+	lamp.name = "luz_varanda"
+	lamp.add_child(Flicker.new(0.85, 3.0))
+	box(root, Vector3(0.18, 0.22, 0.18), Vector3(0, 2.8, -6.9), Color(1.0, 0.9, 0.7), 2.5)
+	# mangueira e cerca de bambu
+	box(root, Vector3(0.5, 3.2, 0.5), Vector3(-7.2, 1.6, -4.5), Color(0.3, 0.22, 0.14))
+	for c in [Vector3(-7.2, 4.0, -4.5), Vector3(-6.2, 3.6, -3.8), Vector3(-8.1, 3.7, -5.0), Vector3(-7.0, 4.6, -5.3)]:
+		box(root, Vector3(2.4, 1.6, 2.4), c, Color(0.1, 0.2, 0.09))
+	for i in 18:
+		box(root, Vector3(0.08, 1.2, 0.08), Vector3(-12 + i * 1.4, 0.6, 3.5), Color(0.5, 0.45, 0.3))
+	box(root, Vector3(26, 0.06, 0.06), Vector3(0, 0.9, 3.5), Color(0.5, 0.45, 0.3))
+	# céu do anoitecer: faixa laranja no horizonte, roxo por cima
+	box(root, Vector3(140, 10, 1), Vector3(0, 3.0, -45), Color(0.95, 0.45, 0.25), 1.1)
+	box(root, Vector3(140, 30, 1), Vector3(0, 22.0, -45), Color(0.28, 0.16, 0.36), 0.9)
+	var sky := DirectionalLight3D.new()
+	sky.light_color = Color(0.9, 0.6, 0.6)
+	sky.light_energy = 0.5
+	sky.rotation_degrees = Vector3(-20, 160, 0)
+	root.add_child(sky)
+	cfg["camera_pos"] = Vector3(0.6, 1.6, 2.2)
+	cfg["camera_look"] = Vector3(0, 2.0, -8.0)
+	cfg["slot_dist"] = 6.0
+	cfg["slot_spread"] = 0.8
+	cfg["center_dist"] = 8.4
+	cfg["floor_y"] = 0.0
+	cfg["fog_density"] = 0.012
+	cfg["fog_color"] = Color(0.3, 0.2, 0.3)
+	cfg["ambient"] = Color(0.7, 0.55, 0.65)
+	cfg["ambient_energy"] = 0.8
+
+
+## A sala da avó: cadeira de balanço virada para a TV chiando, sofá de crochê,
+## prateleira de santos (todos virados para a parede), relógio parado nas três,
+## crucifixo ("crucifixo_sala") e a escada de madeira subindo pela direita até o
+## andar de cima (degraus de 20 cm: base em z=-2, topo em z=-6.5, y=3).
+static func _sala_vo(root: Node3D, cfg: Dictionary) -> void:
+	box(root, Vector3(8, 0.1, 9.5), Vector3(0, -0.05, -2.5), Color(0.42, 0.28, 0.16))  # tábuas
+	for i in 12:
+		box(root, Vector3(0.02, 0.005, 9.5), Vector3(-3.7 + i * 0.67, 0.002, -2.5), Color(0.3, 0.2, 0.11))
+	var parede := Color(0.55, 0.6, 0.5)
+	var barrado := Color(0.36, 0.4, 0.32)
+	box(root, Vector3(0.2, 3.0, 9.5), Vector3(-4.1, 1.5, -2.5), parede)
+	box(root, Vector3(0.2, 3.0, 9.5), Vector3(4.1, 1.5, -2.5), parede)
+	box(root, Vector3(8.4, 3.0, 0.2), Vector3(0, 1.5, -7.1), parede)
+	box(root, Vector3(8.4, 3.0, 0.2), Vector3(0, 1.5, 2.3), parede)
+	for x in [-3.99, 3.99]:
+		box(root, Vector3(0.02, 1.0, 9.5), Vector3(x, 0.5, -2.5), barrado)
+	box(root, Vector3(8.2, 1.0, 0.02), Vector3(0, 0.5, -6.99), barrado)
+	# forro com o vão da escada
+	box(root, Vector3(6.6, 0.1, 9.5), Vector3(-0.7, 3.0, -2.5), Color(0.7, 0.68, 0.6))
+	box(root, Vector3(1.4, 0.1, 4.0), Vector3(3.3, 3.0, 0.25), Color(0.7, 0.68, 0.6))
+	# escada encostada na parede da direita
+	var madeira := Color(0.38, 0.24, 0.13)
+	for i in 15:
+		var y := 0.2 * (i + 1)
+		var z := -2.0 - 0.3 * i
+		box(root, Vector3(1.3, 0.05, 0.32), Vector3(3.35, y, z - 0.15), madeira)
+		box(root, Vector3(1.3, y, 0.3), Vector3(3.35, y * 0.5, z - 0.15), Color(0.3, 0.2, 0.12))
+	for i in 8:
+		box(root, Vector3(0.05, 0.9, 0.05), Vector3(2.68, 0.2 * (i * 2 + 1) + 0.45, -2.1 - 0.6 * i), madeira)
+	var corr := box(root, Vector3(0.07, 0.07, 5.4), Vector3(2.68, 2.05, -4.3), madeira)  # corrimão
+	corr.rotation.x = deg_to_rad(33.7)
+	box(root, Vector3(1.4, 0.1, 1.0), Vector3(3.35, 3.0, -7.0), madeira)  # patamar lá em cima
+	var topo := omni(root, Vector3(3.3, 3.6, -6.6), Color(0.5, 0.55, 0.8), 0.6, 3.0)
+	topo.name = "luz_escada"
+	# cadeira de balanço virada para a TV, de costas para quem entra
+	cadeira_balanco(root, Vector3(-0.7, 0, -3.2), 180.0, "cadeira")
+	box(root, Vector3(0.9, 0.75, 0.5), Vector3(-0.7, 0.375, -6.6), Color(0.3, 0.2, 0.12))  # rack
+	box(root, Vector3(0.75, 0.6, 0.55), Vector3(-0.7, 1.05, -6.6), Color(0.18, 0.17, 0.16))  # TV de tubo
+	var tela := box(root, Vector3(0.58, 0.44, 0.02), Vector3(-0.7, 1.06, -6.31), Color(0.75, 0.8, 0.85), 1.6)
+	tela.name = "tela_tv"
+	var tv := omni(root, Vector3(-0.7, 1.1, -5.9), Color(0.65, 0.75, 1.0), 1.4, 4.5)
+	tv.name = "tv_vo"
+	tv.add_child(Flicker.new(0.5, 14.0))
+	# sofá de crochê na parede da esquerda
+	box(root, Vector3(0.85, 0.45, 2.2), Vector3(-3.55, 0.225, -1.8), Color(0.5, 0.32, 0.25))
+	box(root, Vector3(0.25, 0.55, 2.2), Vector3(-3.9, 0.7, -1.8), Color(0.5, 0.32, 0.25))
+	box(root, Vector3(0.7, 0.03, 0.7), Vector3(-3.5, 0.47, -1.4), Color(0.9, 0.88, 0.8))  # paninho de crochê
+	# prateleira de santos (virados para a parede) e retratos
+	box(root, Vector3(0.25, 0.04, 1.4), Vector3(-3.88, 1.5, -4.6), madeira)
+	var cores := [Color(0.25, 0.4, 0.8), Color(0.8, 0.25, 0.2), Color(0.85, 0.75, 0.3), Color(0.4, 0.6, 0.4), Color(0.6, 0.35, 0.6)]
+	for i in 5:
+		santo(root, Vector3(-3.86, 1.52, -4.05 - i * 0.27), cores[i], 0.26 + (i % 2) * 0.06, true)
+	for i in 4:
+		box(root, Vector3(0.03, 0.35, 0.28), Vector3(-3.98, 2.15, -1.0 - i * 0.5), Color(0.25, 0.18, 0.1))
+		box(root, Vector3(0.02, 0.27, 0.2), Vector3(-3.96, 2.15, -1.0 - i * 0.5), Color(0.7, 0.62, 0.5).darkened(0.1 * i))
+	crucifixo(root, Vector3(1.4, 2.2, -6.97), "crucifixo_sala", 1.2)
+	# relógio de parede parado nas três
+	box(root, Vector3(0.42, 0.42, 0.05), Vector3(-2.4, 2.25, -6.97), Color(0.9, 0.86, 0.75))
+	box(root, Vector3(0.02, 0.17, 0.02), Vector3(-2.4, 2.32, -6.93), Color(0.05, 0.05, 0.05))
+	box(root, Vector3(0.13, 0.025, 0.02), Vector3(-2.33, 2.25, -6.93), Color(0.05, 0.05, 0.05))
+	# janela com cortina e luar
+	box(root, Vector3(0.05, 1.3, 1.2), Vector3(-3.98, 1.7, 0.2), Color(0.08, 0.1, 0.16), 0.4)
+	box(root, Vector3(0.06, 1.5, 0.4), Vector3(-3.95, 1.7, -0.45), Color(0.65, 0.45, 0.4))
+	var lua := SpotLight3D.new()
+	lua.light_color = Color(0.5, 0.6, 0.95)
+	lua.light_energy = 1.6
+	lua.spot_range = 7.0
+	lua.spot_angle = 35.0
+	lua.position = Vector3(-4.6, 2.4, 0.2)
+	lua.rotation_degrees = Vector3(-30, -90, 0)
+	root.add_child(lua)
+	var abaj := omni(root, Vector3(-3.4, 1.4, -3.3), Color(1.0, 0.75, 0.45), 1.3, 4.5)  # abajur de pé
+	abaj.name = "abajur_sala"
+	box(root, Vector3(0.05, 1.3, 0.05), Vector3(-3.5, 0.65, -3.3), Color(0.2, 0.18, 0.15))
+	box(root, Vector3(0.35, 0.3, 0.35), Vector3(-3.5, 1.4, -3.3), Color(0.95, 0.8, 0.55), 1.2)
+	cfg["camera_pos"] = Vector3(0.6, 1.6, 1.4)
+	cfg["camera_look"] = Vector3(-0.4, 1.2, -4.0)
+	cfg["slot_dist"] = 3.0
+	cfg["center_dist"] = 4.6
+	cfg["floor_y"] = 0.0
+	cfg["fog_density"] = 0.03
+	cfg["fog_color"] = Color(0.04, 0.04, 0.05)
+	cfg["ambient"] = Color(0.5, 0.5, 0.6)
+	cfg["ambient_energy"] = 0.55
+
+
+## O quarto da avó, no andar de cima: cama de ferro ("cama") com a cabeceira na
+## parede do fundo, crucifixo em cima ("crucifixo"), oratório com velas, guarda-
+## roupa, janela com luar, cadeira de balanço no canto. Teto baixo (2,7 m) para
+## ela andar de cabeça para baixo. A porta ("porta_quarto", dobradiça em x=-0.5)
+## fica na parede da frente (z=1.2): com a câmera do lado de fora dá para espiar pela fresta.
+static func _quarto_vo(root: Node3D, cfg: Dictionary) -> void:
+	box(root, Vector3(6.4, 0.1, 9), Vector3(0, -0.05, -1.5), Color(0.34, 0.22, 0.13))
+	var papel := Color(0.62, 0.52, 0.46)
+	box(root, Vector3(0.2, 2.7, 7), Vector3(-3.1, 1.35, -1.9), papel)
+	box(root, Vector3(0.2, 2.7, 7), Vector3(3.1, 1.35, -1.9), papel)
+	box(root, Vector3(6.4, 2.7, 0.2), Vector3(0, 1.35, -5.1), papel)
+	for i in 14:  # listras do papel de parede
+		box(root, Vector3(0.02, 2.7, 0.01), Vector3(-2.9 + i * 0.45, 1.35, -4.99), papel.darkened(0.15))
+	box(root, Vector3(6.4, 0.1, 7), Vector3(0, 2.75, -1.9), Color(0.7, 0.66, 0.58))  # teto baixo
+	# parede da porta com o vão (x de -0.5 a 0.5) e o corredor lá fora
+	box(root, Vector3(2.7, 2.7, 0.15), Vector3(-1.85, 1.35, 1.2), papel)
+	box(root, Vector3(2.7, 2.7, 0.15), Vector3(1.85, 1.35, 1.2), papel)
+	box(root, Vector3(1.0, 0.55, 0.15), Vector3(0, 2.45, 1.2), papel)
+	box(root, Vector3(2.4, 2.7, 0.15), Vector3(-1.3, 1.35, 3.2), papel.darkened(0.3))  # corredor
+	box(root, Vector3(0.15, 2.7, 2.0), Vector3(-1.2, 1.35, 2.2), papel.darkened(0.3))
+	box(root, Vector3(0.15, 2.7, 2.0), Vector3(1.2, 1.35, 2.2), papel.darkened(0.3))
+	box(root, Vector3(2.4, 0.1, 2.0), Vector3(0, 2.75, 2.2), Color(0.5, 0.48, 0.42))
+	var porta := Node3D.new()
+	porta.name = "porta_quarto"
+	porta.position = Vector3(-0.5, 0, 1.2)
+	root.add_child(porta)
+	box(porta, Vector3(1.0, 2.15, 0.05), Vector3(0.5, 1.075, 0), Color(0.42, 0.28, 0.17))
+	box(porta, Vector3(0.06, 0.06, 0.08), Vector3(0.88, 1.0, -0.05), Color(0.8, 0.7, 0.3))
+	porta.rotation.y = deg_to_rad(80)  # aberta
+	# cama de ferro
+	var cama := Node3D.new()
+	cama.name = "cama"
+	cama.position = Vector3(0, 0, -3.9)
+	root.add_child(cama)
+	var ferro := Color(0.12, 0.12, 0.13)
+	box(cama, Vector3(1.5, 0.25, 1.95), Vector3(0, 0.42, 0), Color(0.92, 0.9, 0.85))  # colchão e lençol
+	box(cama, Vector3(1.55, 0.06, 1.3), Vector3(0, 0.56, 0.3), Color(0.55, 0.28, 0.3))  # colcha
+	box(cama, Vector3(0.6, 0.12, 0.35), Vector3(0, 0.6, -0.75), Color(0.95, 0.94, 0.9))  # travesseiro
+	box(cama, Vector3(1.6, 0.06, 2.0), Vector3(0, 0.28, 0), ferro)
+	for x in [-0.78, 0.78]:
+		box(cama, Vector3(0.05, 1.25, 0.05), Vector3(x, 0.62, -1.0), ferro)
+		box(cama, Vector3(0.05, 0.85, 0.05), Vector3(x, 0.42, 1.0), ferro)
+	for i in 7:
+		box(cama, Vector3(0.025, 0.7, 0.025), Vector3(-0.6 + i * 0.2, 0.85, -1.0), ferro)
+		box(cama, Vector3(0.025, 0.4, 0.025), Vector3(-0.6 + i * 0.2, 0.62, 1.0), ferro)
+	box(cama, Vector3(1.6, 0.05, 0.05), Vector3(0, 1.22, -1.0), ferro)
+	box(cama, Vector3(1.6, 0.05, 0.05), Vector3(0, 0.83, 1.0), ferro)
+	crucifixo(root, Vector3(0, 1.85, -4.97), "crucifixo", 1.0)
+	# criados-mudos, abajur e terço
+	for x in [-1.25, 1.25]:
+		box(root, Vector3(0.5, 0.6, 0.45), Vector3(x, 0.3, -4.6), Color(0.36, 0.22, 0.12))
+	box(root, Vector3(0.2, 0.3, 0.2), Vector3(-1.25, 0.75, -4.6), Color(0.95, 0.85, 0.65), 1.0)
+	var abaj := omni(root, Vector3(-1.25, 1.0, -4.3), Color(1.0, 0.72, 0.45), 1.2, 4.0)
+	abaj.name = "abajur"
+	for k in 10:
+		box(root, Vector3(0.02, 0.02, 0.02), Vector3(1.15 + 0.02 * k, 0.61, -4.55 + 0.01 * (k % 3)), Color(0.15, 0.1, 0.08))
+	# oratório com santos e velas na parede da esquerda
+	box(root, Vector3(0.35, 0.9, 0.7), Vector3(-2.82, 1.35, -2.4), Color(0.4, 0.26, 0.14))
+	box(root, Vector3(0.05, 0.78, 0.6), Vector3(-2.65, 1.35, -2.4), Color(0.25, 0.1, 0.12))
+	santo(root, Vector3(-2.75, 1.0, -2.55), Color(0.25, 0.4, 0.8), 0.3)
+	santo(root, Vector3(-2.75, 1.0, -2.25), Color(0.85, 0.75, 0.3), 0.26)
+	for z in [-2.65, -2.4, -2.15]:
+		box(root, Vector3(0.04, 0.12, 0.04), Vector3(-2.7, 0.96, z), Color(0.95, 0.92, 0.85))
+		box(root, Vector3(0.02, 0.03, 0.02), Vector3(-2.7, 1.04, z), Color(1.0, 0.7, 0.2), 4.0)
+	box(root, Vector3(0.4, 0.04, 0.8), Vector3(-2.8, 0.88, -2.4), Color(0.4, 0.26, 0.14))
+	var velas := omni(root, Vector3(-2.4, 1.2, -2.4), Color(1.0, 0.6, 0.25), 1.3, 3.5)
+	velas.name = "velas"
+	velas.add_child(Flicker.new(0.35, 9.0))
+	# guarda-roupa e janela (direita)
+	var gr := box(root, Vector3(0.6, 2.2, 1.4), Vector3(2.68, 1.1, -1.6), Color(0.32, 0.2, 0.11))
+	gr.name = "guarda_roupa"
+	box(root, Vector3(0.02, 2.0, 0.02), Vector3(2.37, 1.1, -1.6), Color(0.15, 0.1, 0.05))
+	box(root, Vector3(0.05, 1.2, 1.0), Vector3(2.98, 1.5, -3.9), Color(0.08, 0.1, 0.18), 0.5)
+	box(root, Vector3(0.06, 1.4, 0.35), Vector3(2.95, 1.5, -3.3), Color(0.8, 0.75, 0.7))
+	var lua := SpotLight3D.new()
+	lua.light_color = Color(0.55, 0.65, 1.0)
+	lua.light_energy = 2.0
+	lua.spot_range = 6.0
+	lua.spot_angle = 38.0
+	lua.position = Vector3(3.6, 2.2, -3.9)
+	lua.rotation_degrees = Vector3(-25, 90, 0)
+	root.add_child(lua)
+	cadeira_balanco(root, Vector3(-2.2, 0, -4.3), 40.0, "cadeira_quarto")
+	box(root, Vector3(2.2, 0.01, 1.4), Vector3(0, 0.005, -1.8), Color(0.5, 0.2, 0.18))  # tapete
+	omni(root, Vector3(0, 2.4, -1.5), Color(0.75, 0.75, 0.9), 0.5, 5.0)  # o resto da luz do corredor
+	cfg["camera_pos"] = Vector3(0, 1.6, 0.6)
+	cfg["camera_look"] = Vector3(0, 0.9, -4.0)
+	cfg["slot_dist"] = 2.4
+	cfg["center_dist"] = 4.0
+	cfg["floor_y"] = 0.0
+	cfg["fog_density"] = 0.03
+	cfg["fog_color"] = Color(0.04, 0.03, 0.04)
+	cfg["ambient"] = Color(0.5, 0.48, 0.58)
+	cfg["ambient_energy"] = 0.55
 
 # --- Homem do Saco -------------------------------------------------------------
 

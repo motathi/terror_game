@@ -1,0 +1,6186 @@
+{
+ "id": "exorcismo",
+ "title": "Exorcismo — Capítulo 1: A Vó Celeste",
+ "start": "inicio",
+ "musica_cenarios": {
+  "casa_vo_fora": "ex_casa",
+  "sala_vo": "ex_casa",
+  "quarto_vo": "ex_tensao"
+ },
+ "sons_cenarios": {
+  "casa_vo_fora": [
+   "latido_longe",
+   "sussurros"
+  ],
+  "sala_vo": [
+   "relogio",
+   "estalos",
+   "batidas_teto"
+  ],
+  "quarto_vo": [
+   "sussurros",
+   "estalos"
+  ]
+ },
+ "vars": {
+  "viu_marcas": false,
+  "terco": false,
+  "abracou": false,
+  "agua_benta": false,
+  "sabe_nome": false,
+  "ligou_mae": false,
+  "arranhado": false,
+  "ferido": false,
+  "ouviu_vo": false,
+  "velas_apagadas": false,
+  "porta_fechada": false,
+  "respondeu": false,
+  "padre_ferido": false,
+  "hesitou": 0,
+  "culpa": 0
+ },
+ "atributos": {
+  "agilidade": {
+   "nome": "Agilidade",
+   "valor": 1
+  },
+  "forca": {
+   "nome": "Força",
+   "valor": 0
+  },
+  "furtividade": {
+   "nome": "Furtividade",
+   "valor": 1
+  },
+  "fe": {
+   "nome": "Fé",
+   "valor": 1
+  },
+  "percepcao": {
+   "nome": "Percepção",
+   "valor": 1
+  },
+  "vigor": {
+   "nome": "Vigor",
+   "valor": 1
+  }
+ },
+ "characters": {
+  "sistema": {
+   "name": "",
+   "voiced": true
+  },
+  "vo_celeste": {
+   "name": "Vó Celeste",
+   "model": "vo_celeste"
+  },
+  "vo_possuida": {
+   "name": "",
+   "model": "vo_possuida",
+   "fx": "monstro"
+  },
+  "mae_falsa_ex": {
+   "name": "Mãe",
+   "fx": "errado"
+  },
+  "mae_ex": {
+   "name": "Mãe",
+   "bus": "Phone"
+  },
+  "neuza": {
+   "name": "Dona Neuza",
+   "model": "nurse",
+   "tint": "#a89080",
+   "altura": 1.58
+  },
+  "padre": {
+   "name": "Padre Ângelo",
+   "model": "office_worker",
+   "tint": "#2a2a30",
+   "altura": 1.72,
+   "anexos": [
+    {
+     "osso": "Head",
+     "forma": "caixa",
+     "tamanho": [
+      0.05,
+      0.03,
+      0.02
+     ],
+     "pos": [
+      0,
+      -0.11,
+      0.09
+     ],
+     "cor": "#f0f0f0"
+    }
+   ]
+  }
+ },
+ "nodes": {
+  "inicio": {
+   "location": "casa_vo_fora",
+   "title_card": "SEXTA-FEIRA — 18:40",
+   "ambience": "quintal_noite",
+   "cast": {
+    "center": {
+     "char": "neuza",
+     "anim": "Idle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "neuza",
+     "para": [
+      -0.8,
+      0.3,
+      -6.6
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "olhar_camera",
+     "who": "neuza"
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_ini_01",
+     "who": "sistema",
+     "text": "A casa da sua avó fica no fim de uma estrada de terra. A última vez que você veio aqui, tinha doze anos."
+    },
+    {
+     "id": "ex_ini_02",
+     "who": "sistema",
+     "text": "A Dona Neuza, que cuida dela, já está na varanda. Com a mala na mão.",
+     "acoes": [
+      {
+       "t": 0.8,
+       "acao": "anim",
+       "who": "neuza",
+       "anim": "Walk"
+      },
+      {
+       "t": 0.8,
+       "acao": "mover",
+       "who": "neuza",
+       "para": [
+        -0.4,
+        0,
+        -0.9
+       ],
+       "dur": 4.0
+      },
+      {
+       "t": 4.9,
+       "acao": "anim",
+       "who": "neuza",
+       "anim": "Idle"
+      },
+      {
+       "t": 4.9,
+       "acao": "olhar_camera",
+       "who": "neuza"
+      }
+     ]
+    },
+    {
+     "id": "ex_ini_03",
+     "who": "neuza",
+     "text": "Graças a Deus você chegou. Eu não durmo mais nem uma noite nessa casa.",
+     "tags": "[relieved, scared, whispering]"
+    },
+    {
+     "id": "ex_ini_04",
+     "who": "neuza",
+     "text": "Faz quatro dias que ela não come. Mas o prato aparece limpo de manhã.",
+     "tags": "[nervous, low voice]"
+    },
+    {
+     "id": "ex_ini_05",
+     "who": "neuza",
+     "text": "E de madrugada ela conversa com alguém no quarto. Numa língua que não é a nossa.",
+     "tags": "[terrified, whispering]"
+    },
+    {
+     "id": "ex_ini_06",
+     "who": "sistema",
+     "text": "Lá em cima, na janela do quarto dela, a cortina se mexe.",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "camera_olhar",
+       "olhar": [
+        3.2,
+        4.4,
+        -8.0
+       ],
+       "dur": 1.6
+      },
+      {
+       "t": 1.8,
+       "acao": "luz_no",
+       "nome": "luz_janela_vo",
+       "energia": 0.2,
+       "dur": 0.2
+      },
+      {
+       "t": 2.3,
+       "acao": "luz_no",
+       "nome": "luz_janela_vo",
+       "energia": 1.2,
+       "dur": 0.2
+      },
+      {
+       "t": 3.4,
+       "acao": "camera_olhar",
+       "who": "neuza",
+       "dur": 1.0
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "O que você pergunta?",
+    "options": [
+     {
+      "text": "\"O que aconteceu com o seu braço?\"",
+      "who": "neuza",
+      "set": {
+       "viu_marcas": true
+      },
+      "next": "marcas"
+     },
+     {
+      "text": "\"Fica só esta noite, por favor.\"",
+      "next": "fica"
+     }
+    ]
+   }
+  },
+  "marcas": {
+   "location": "casa_vo_fora",
+   "cast": {
+    "center": {
+     "char": "neuza",
+     "anim": "Idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "ex_marcas_01",
+     "who": "sistema",
+     "text": "Ela puxa a manga. Três riscos fundos no antebraço, de cima a baixo. Já estão roxos.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "anim",
+       "who": "neuza",
+       "anim": "Wave"
+      }
+     ]
+    },
+    {
+     "id": "ex_marcas_02",
+     "who": "neuza",
+     "text": "Ela disse que foi o gato. Sua avó não tem gato. Nunca teve.",
+     "tags": "[trembling, whispering]"
+    }
+   ],
+   "next": "terco"
+  },
+  "fica": {
+   "location": "casa_vo_fora",
+   "cast": {
+    "center": {
+     "char": "neuza",
+     "anim": "Idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "ex_fica_01",
+     "who": "neuza",
+     "text": "Ontem ela me chamou pelo nome da minha mãe. Minha mãe morreu em oitenta e sete.",
+     "tags": "[shaking, on the verge of tears]"
+    },
+    {
+     "id": "ex_fica_02",
+     "who": "neuza",
+     "text": "E sabia coisas que só minha mãe sabia. Não. Eu não fico.",
+     "tags": "[firm, scared]"
+    }
+   ],
+   "next": "terco"
+  },
+  "terco": {
+   "location": "casa_vo_fora",
+   "cast": {
+    "center": {
+     "char": "neuza",
+     "anim": "Idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "ex_terco_01",
+     "who": "neuza",
+     "text": "Pega. É o terço dela. Ela arrancou do pescoço e jogou no quintal. Não tira do seu, ouviu?",
+     "tags": "[urgent, whispering]",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "anim",
+       "who": "neuza",
+       "anim": "Wave"
+      },
+      {
+       "t": 0.8,
+       "acao": "maos",
+       "anim": "grab.R"
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "O terço",
+    "options": [
+     {
+      "text": "Colocar o terço no pescoço",
+      "set": {
+       "terco": true
+      },
+      "next": "neuza_vai"
+     },
+     {
+      "text": "\"Ela só está doente, Dona Neuza.\"",
+      "next": "neuza_vai"
+     }
+    ]
+   }
+  },
+  "neuza_vai": {
+   "location": "casa_vo_fora",
+   "cast": {
+    "center": {
+     "char": "neuza",
+     "anim": "Idle"
+    }
+   },
+   "lines": [
+    {
+     "id": "ex_nvai_01",
+     "who": "neuza",
+     "text": "Deus te proteja, menino. O padre Ângelo tem o meu número.",
+     "tags": "[sad, leaving]",
+     "acoes": [
+      {
+       "t": 2.0,
+       "acao": "anim",
+       "who": "neuza",
+       "anim": "Walk"
+      },
+      {
+       "t": 2.0,
+       "acao": "mover",
+       "who": "neuza",
+       "para": [
+        -9.0,
+        0,
+        1.5
+       ],
+       "dur": 6.0
+      }
+     ]
+    },
+    {
+     "id": "ex_nvai_02",
+     "who": "sistema",
+     "text": "Ela vai embora a pé pela estrada de terra, sem olhar para trás. A porta da casa está destrancada.",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "camera_olhar",
+       "olhar": [
+        0,
+        1.6,
+        -8.0
+       ],
+       "dur": 1.5
+      },
+      {
+       "t": 3.0,
+       "acao": "esconder",
+       "who": "neuza"
+      }
+     ]
+    }
+   ],
+   "next": "sala"
+  },
+  "sala": {
+   "location": "sala_vo",
+   "title_card": "19:10",
+   "ambience": "casa",
+   "music": "ex_casa",
+   "cast": {
+    "center": {
+     "char": "vo_celeste",
+     "anim": "SitIdle",
+     "facing": "away"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_celeste",
+     "para": [
+      -0.7,
+      0,
+      -3.25
+     ],
+     "dur": 0.01,
+     "virar": false
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_sala_01",
+     "who": "sistema",
+     "text": "A sala cheira a vela derretida e a remédio. A TV está ligada num canal fora do ar.",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "camera_olhar",
+       "olhar": [
+        -0.7,
+        1.0,
+        -6.4
+       ],
+       "dur": 1.6
+      }
+     ]
+    },
+    {
+     "id": "ex_sala_02",
+     "who": "sistema",
+     "text": "Sua avó está na cadeira de balanço, de costas para você. Balançando. Sem fazer barulho nenhum.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        -0.7,
+        1.0,
+        -3.2
+       ],
+       "dur": 1.2
+      }
+     ]
+    },
+    {
+     "id": "ex_sala_03",
+     "who": "vo_celeste",
+     "text": "É você, meu filho? Chega mais perto. Deixa a vó te ver.",
+     "tags": "[old woman, sweet, frail, slow]"
+    }
+   ],
+   "choice": {
+    "prompt": "Ela não vira para trás.",
+    "options": [
+     {
+      "text": "Dar a volta na cadeira e abraçar ela",
+      "who": "vo_celeste",
+      "set": {
+       "abracou": true
+      },
+      "next": "abraco"
+     },
+     {
+      "text": "Olhar a prateleira de santos",
+      "next": "santos"
+     }
+    ]
+   }
+  },
+  "abraco": {
+   "location": "sala_vo",
+   "cast": {
+    "center": {
+     "char": "vo_celeste",
+     "anim": "Idle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_celeste",
+     "para": [
+      -0.4,
+      0,
+      -2.4
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "olhar_camera",
+     "who": "vo_celeste"
+    },
+    {
+     "t": 0,
+     "acao": "camera",
+     "pos": [
+      0.2,
+      1.55,
+      -0.6
+     ],
+     "olhar": [
+      -0.4,
+      1.35,
+      -2.4
+     ],
+     "dur": 0
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_abraco_01",
+     "who": "sistema",
+     "text": "Ela se levanta sozinha, sem apoiar na cadeira. Os braços dela são frios. E fortes demais.",
+     "acoes": [
+      {
+       "t": 0.5,
+       "acao": "andar",
+       "who": "vo_celeste",
+       "por": [
+        0,
+        0,
+        1.2
+       ],
+       "dur": 1.8,
+       "fim": "Idle"
+      },
+      {
+       "t": 2.4,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        -0.5
+       ],
+       "dur": 1.0
+      }
+     ]
+    },
+    {
+     "id": "ex_abraco_02",
+     "who": "vo_possuida",
+     "text": "Você cresceu, meu neto. Vai dar mais trabalho.",
+     "tags": "[whispering in the ear, deep, wrong]"
+    },
+    {
+     "id": "ex_abraco_03",
+     "who": "vo_celeste",
+     "text": "Vai deitar no sofá, meu filho. A vó já vai subir.",
+     "tags": "[old woman, sweet again, as if nothing happened]",
+     "acoes": [
+      {
+       "t": 0.6,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        0.6
+       ],
+       "dur": 1.0
+      }
+     ]
+    }
+   ],
+   "next": "noite"
+  },
+  "santos": {
+   "location": "sala_vo",
+   "cast": {
+    "center": {
+     "char": "vo_celeste",
+     "anim": "SitIdle",
+     "facing": "away"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_celeste",
+     "para": [
+      -0.7,
+      0,
+      -3.25
+     ],
+     "dur": 0.01,
+     "virar": false
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_santos_01",
+     "who": "sistema",
+     "text": "Todos os santos da prateleira estão virados para a parede. O relógio parou nas três em ponto.",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "camera_olhar",
+       "olhar": [
+        -3.86,
+        1.65,
+        -4.6
+       ],
+       "dur": 1.4
+      },
+      {
+       "t": 2.6,
+       "acao": "camera_olhar",
+       "olhar": [
+        -2.4,
+        2.25,
+        -6.97
+       ],
+       "dur": 1.2
+      }
+     ]
+    },
+    {
+     "id": "ex_santos_02",
+     "who": "sistema",
+     "text": "Atrás deles tem um vidrinho de água benta de Aparecida. E um papel dobrado, com uma palavra escrita ao contrário.",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "camera_olhar",
+       "olhar": [
+        -3.86,
+        1.6,
+        -4.3
+       ],
+       "dur": 1.0
+      }
+     ]
+    },
+    {
+     "id": "ex_santos_03",
+     "who": "vo_celeste",
+     "text": "Eles ficam me olhando. A noite inteira.",
+     "tags": "[old woman, slow, empty voice]",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "camera_olhar",
+       "olhar": [
+        -0.7,
+        1.0,
+        -3.2
+       ],
+       "dur": 0.8
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "Você só tem tempo de pegar um.",
+    "options": [
+     {
+      "text": "Pegar o vidro de água benta",
+      "set": {
+       "agua_benta": true
+      },
+      "next": "cabeca_sala"
+     },
+     {
+      "text": "Ler o papel: LEIUQAZ",
+      "set": {
+       "sabe_nome": true
+      },
+      "next": "cabeca_sala"
+     }
+    ]
+   }
+  },
+  "cabeca_sala": {
+   "location": "sala_vo",
+   "music": "ex_tensao",
+   "cast": {
+    "center": {
+     "char": "vo_celeste",
+     "anim": "SitIdle",
+     "facing": "away"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_celeste",
+     "para": [
+      -0.7,
+      0,
+      -3.25
+     ],
+     "dur": 0.01,
+     "virar": false
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_csala_01",
+     "who": "sistema",
+     "text": "Ao contrário, a palavra é Zaquiel. Você guarda o papel no bolso.",
+     "if": "sabe_nome"
+    },
+    {
+     "id": "ex_csala_02",
+     "who": "sistema",
+     "text": "Você guarda o vidrinho no bolso. Está morno. Como se alguém tivesse segurado ele a noite toda.",
+     "if": "agua_benta"
+    },
+    {
+     "id": "ex_csala_03",
+     "who": "sistema",
+     "text": "A cadeira para de balançar. Ela se levanta. Ainda de costas para você.",
+     "acoes": [
+      {
+       "t": 0.6,
+       "acao": "anim",
+       "who": "vo_celeste",
+       "anim": "Idle",
+       "fixo": true
+      },
+      {
+       "t": 0.6,
+       "acao": "mover",
+       "who": "vo_celeste",
+       "para": [
+        0.0,
+        0,
+        -3.35
+       ],
+       "dur": 1.2,
+       "virar": false
+      },
+      {
+       "t": 0.4,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.0,
+        1.3,
+        -3.35
+       ],
+       "dur": 1.0
+      }
+     ]
+    },
+    {
+     "id": "ex_csala_04",
+     "who": "sistema",
+     "text": "O corpo não se mexe. Só a cabeça. Ela gira, estalando, até o rosto ficar virado para você por cima das costas.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "silencio",
+       "dur": 6.0
+      },
+      {
+       "t": 0.4,
+       "acao": "anim",
+       "who": "vo_celeste",
+       "anim": "HeadTurn",
+       "fixo": true
+      },
+      {
+       "t": 0.8,
+       "acao": "sfx",
+       "som": "estalos",
+       "volume": 0
+      },
+      {
+       "t": 1.6,
+       "acao": "sfx",
+       "som": "estalos",
+       "volume": -2
+      },
+      {
+       "t": 2.3,
+       "acao": "sfx",
+       "som": "estalos",
+       "volume": 0
+      },
+      {
+       "t": 1.0,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        -0.35
+       ],
+       "dur": 3.0
+      }
+     ]
+    },
+    {
+     "id": "ex_csala_05",
+     "who": "vo_celeste",
+     "text": "Você não vai dar um abraço na sua vó?",
+     "tags": "[old woman, sweet, smiling, slightly too slow]"
+    },
+    {
+     "id": "ex_csala_06",
+     "who": "sistema",
+     "text": "A luz da sala pisca. Quando volta, ela está sentada de novo, de costas, cantarolando uma música de igreja.",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "fx",
+       "tipo": "apagar",
+       "dur": 0.15
+      },
+      {
+       "t": 0.5,
+       "acao": "anim",
+       "who": "vo_celeste",
+       "anim": "SitIdle",
+       "fixo": true
+      },
+      {
+       "t": 0.5,
+       "acao": "mover",
+       "who": "vo_celeste",
+       "para": [
+        -0.7,
+        0,
+        -3.25
+       ],
+       "dur": 0.01,
+       "virar": false
+      },
+      {
+       "t": 1.1,
+       "acao": "fx",
+       "tipo": "acender",
+       "dur": 0.4
+      },
+      {
+       "t": 0.6,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        0.35
+       ],
+       "dur": 0.01
+      }
+     ]
+    }
+   ],
+   "next": "noite"
+  },
+  "noite": {
+   "location": "sala_vo",
+   "title_card": "02:57",
+   "ambience": "tensao",
+   "music": "ex_tensao",
+   "camera": {
+    "pos": [
+     -3.2,
+     1.05,
+     -1.4
+    ],
+    "olhar": [
+     1.5,
+     1.8,
+     -4.0
+    ]
+   },
+   "cast": {},
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#1c2030",
+     "energia": 0.35,
+     "neblina": "#020306",
+     "densidade": 0.04,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "luz_no",
+     "nome": "tv_vo",
+     "energia": 0.0,
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "tela_tv",
+     "para": [
+      -0.7,
+      -10.0,
+      -6.31
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "luz_no",
+     "nome": "abajur_sala",
+     "energia": 0.0,
+     "dur": 0.01
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_noite_01",
+     "who": "sistema",
+     "text": "Você acorda no sofá. A TV desligou sozinha. O relógio da parede, que estava parado, voltou a andar.",
+     "acoes": [
+      {
+       "t": 0.5,
+       "acao": "sfx",
+       "som": "relogio",
+       "volume": -4
+      },
+      {
+       "t": 0.6,
+       "acao": "camera_olhar",
+       "olhar": [
+        -2.4,
+        2.25,
+        -6.97
+       ],
+       "dur": 2.0
+      }
+     ]
+    },
+    {
+     "id": "ex_noite_02",
+     "who": "sistema",
+     "text": "Três batidas no teto, bem em cima de você. Uma. Duas. Três.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        -3.0,
+        3.0,
+        -1.6
+       ],
+       "dur": 1.2
+      },
+      {
+       "t": 1.6,
+       "acao": "sfx",
+       "som": "batidas_teto",
+       "volume": 0
+      }
+     ]
+    },
+    {
+     "id": "ex_noite_03",
+     "who": "sistema",
+     "text": "O celular vibra no seu bolso.",
+     "acoes": [
+      {
+       "t": 0.6,
+       "acao": "celular",
+       "texto": "Mãe\nA Neuza me ligou chorando. Como tá a vó? Me liga, filho."
+      }
+     ],
+     "sfx": "celular"
+    },
+    {
+     "id": "ex_noite_04",
+     "who": "sistema",
+     "text": "Lá em cima, alguém começa a andar. Para lá e para cá. Arrastando os pés.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "celular",
+       "texto": ""
+      },
+      {
+       "t": 0.3,
+       "acao": "sfx",
+       "som": "passos",
+       "volume": -6
+      },
+      {
+       "t": 1.6,
+       "acao": "sfx",
+       "som": "passos",
+       "volume": -6
+      },
+      {
+       "t": 0.4,
+       "acao": "camera_olhar",
+       "olhar": [
+        3.35,
+        3.2,
+        -6.6
+       ],
+       "dur": 1.5
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "O que você faz?",
+    "timer": 8,
+    "options": [
+     {
+      "text": "Subir para ver a vó",
+      "next": "subir"
+     },
+     {
+      "text": "Ligar para a mãe",
+      "set": {
+       "ligou_mae": true
+      },
+      "next": "ligar"
+     },
+     {
+      "text": "Cobrir a cabeça e esperar amanhecer",
+      "next": "esperar"
+     }
+    ],
+    "timeout": {
+     "next": "esperar"
+    }
+   }
+  },
+  "ligar": {
+   "location": "sala_vo",
+   "camera": {
+    "pos": [
+     -3.2,
+     1.05,
+     -1.4
+    ],
+    "olhar": [
+     1.5,
+     1.8,
+     -4.0
+    ]
+   },
+   "cast": {
+    "phone": {
+     "char": "mae_ex"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#1c2030",
+     "energia": 0.35,
+     "neblina": "#020306",
+     "densidade": 0.04,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "luz_no",
+     "nome": "tv_vo",
+     "energia": 0.0,
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "tela_tv",
+     "para": [
+      -0.7,
+      -10.0,
+      -6.31
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "luz_no",
+     "nome": "abajur_sala",
+     "energia": 0.0,
+     "dur": 0.01
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_ligar_01",
+     "who": "mae_ex",
+     "text": "Filho? São três da manhã. O que aconteceu? Fala comigo.",
+     "tags": "[sleepy, then worried, on the phone]"
+    },
+    {
+     "id": "ex_ligar_02",
+     "who": "sistema",
+     "text": "Antes que você responda, outra voz entra na linha. A da sua avó. Rindo baixinho."
+    },
+    {
+     "id": "ex_ligar_03",
+     "who": "vo_possuida",
+     "text": "Ela não pode te ajudar. Ninguém pode. Sobe, netinho.",
+     "tags": "[deep, distorted, amused, on the phone]",
+     "phone": true
+    },
+    {
+     "id": "ex_ligar_04",
+     "who": "sistema",
+     "text": "A ligação cai. No escuro, a tela do celular mostra: sem sinal.",
+     "sfx": "linha_caiu"
+    }
+   ],
+   "next": "subir"
+  },
+  "esperar": {
+   "location": "sala_vo",
+   "camera": {
+    "pos": [
+     -3.2,
+     1.05,
+     -1.4
+    ],
+    "olhar": [
+     1.5,
+     1.8,
+     -4.0
+    ]
+   },
+   "cast": {},
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#1c2030",
+     "energia": 0.35,
+     "neblina": "#020306",
+     "densidade": 0.04,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "luz_no",
+     "nome": "tv_vo",
+     "energia": 0.0,
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "tela_tv",
+     "para": [
+      -0.7,
+      -10.0,
+      -6.31
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "luz_no",
+     "nome": "abajur_sala",
+     "energia": 0.0,
+     "dur": 0.01
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_esp_01",
+     "who": "sistema",
+     "text": "Você puxa a coberta até os olhos. Os passos descem a escada. E param do lado do sofá.",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "sfx",
+       "som": "passos",
+       "volume": -3
+      },
+      {
+       "t": 1.4,
+       "acao": "sfx",
+       "som": "passos",
+       "volume": 0
+      },
+      {
+       "t": 0.4,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        -0.25,
+        0
+       ],
+       "dur": 1.0
+      }
+     ]
+    },
+    {
+     "id": "ex_esp_02",
+     "who": "sistema",
+     "text": "Uma mão fria encosta no seu tornozelo, por cima da coberta. E aperta.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "silencio",
+       "dur": 3.0
+      },
+      {
+       "t": 1.2,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.05
+      }
+     ]
+    },
+    {
+     "id": "ex_esp_03",
+     "who": "sistema",
+     "text": "Quando você tira a coberta, não tem ninguém. Lá em cima, a porta do quarto dela está aberta. Esperando.",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0.25,
+        0
+       ],
+       "dur": 0.6
+      },
+      {
+       "t": 0.6,
+       "acao": "camera_olhar",
+       "olhar": [
+        3.35,
+        3.4,
+        -6.8
+       ],
+       "dur": 1.4
+      }
+     ]
+    }
+   ],
+   "next": "subir"
+  },
+  "subir": {
+   "location": "sala_vo",
+   "music": "ex_tensao",
+   "cast": {},
+   "camera": {
+    "pos": [
+     3.35,
+     1.6,
+     -0.6
+    ],
+    "olhar": [
+     3.35,
+     3.2,
+     -6.6
+    ]
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#1c2030",
+     "energia": 0.35,
+     "neblina": "#020306",
+     "densidade": 0.04,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "luz_no",
+     "nome": "tv_vo",
+     "energia": 0.0,
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "tela_tv",
+     "para": [
+      -0.7,
+      -10.0,
+      -6.31
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "luz_no",
+     "nome": "abajur_sala",
+     "energia": 0.0,
+     "dur": 0.01
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_subir_01",
+     "who": "sistema",
+     "text": "Cada degrau range. Lá em cima, a porta do quarto dela está entreaberta. Uma luz de vela treme lá dentro.",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "camera_andar",
+       "pos": [
+        3.35,
+        2.5,
+        -3.4
+       ],
+       "olhar": [
+        3.35,
+        3.6,
+        -7.0
+       ],
+       "dur": 4.5
+      }
+     ]
+    },
+    {
+     "id": "ex_subir_02",
+     "who": "vo_possuida",
+     "text": "Nemo te audit. Nemo te videt. Ascende, puer.",
+     "tags": "[deep guttural whisper, chanting, muffled behind a door]",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "sfx",
+       "som": "sussurros",
+       "volume": -2
+      },
+      {
+       "t": 2.5,
+       "acao": "fx",
+       "tipo": "apagar",
+       "dur": 1.2
+      }
+     ]
+    }
+   ],
+   "next": "porta"
+  },
+  "porta": {
+   "location": "quarto_vo",
+   "camera": {
+    "pos": [
+     0.3,
+     1.6,
+     2.05
+    ],
+    "olhar": [
+     0.15,
+     1.25,
+     -3.0
+    ]
+   },
+   "music": "ex_tensao",
+   "cast": {
+    "center": {
+     "char": "vo_possuida",
+     "anim": "Idle",
+     "facing": "away"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#2a2430",
+     "energia": 0.45,
+     "neblina": "#040305",
+     "densidade": 0.035,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "porta_quarto",
+     "rot": [
+      0,
+      16,
+      0
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_possuida",
+     "para": [
+      0.0,
+      0,
+      -2.4
+     ],
+     "dur": 0.01,
+     "virar": false
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_porta_01",
+     "who": "sistema",
+     "text": "Pela fresta, você vê sua avó de pé no meio do quarto, de costas para a porta. Falando com a parede."
+    },
+    {
+     "id": "ex_porta_02",
+     "who": "vo_possuida",
+     "text": "Ele chegou. O neto. Eu sinto o cheiro dele daqui.",
+     "tags": "[deep, guttural, slow, possessed old woman]",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "sfx",
+       "som": "sussurros",
+       "volume": -6
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "Ela ainda não te viu.",
+    "timer": 8,
+    "options": [
+     {
+      "text": "Espiar pela fresta, sem respirar",
+      "teste": {
+       "atributo": "furtividade",
+       "cd": 12,
+       "mods": [
+        {
+         "if": "terco",
+         "valor": 1,
+         "texto": "O terço esquenta no seu peito"
+        }
+       ],
+       "sucesso": {
+        "next": "cabeca"
+       },
+       "falha": {
+        "next": "teto_porta"
+       }
+      }
+     },
+     {
+      "text": "Empurrar a porta de uma vez",
+      "next": "teto_porta"
+     }
+    ],
+    "timeout": {
+     "next": "teto_porta"
+    }
+   }
+  },
+  "cabeca": {
+   "location": "quarto_vo",
+   "camera": {
+    "pos": [
+     0.3,
+     1.6,
+     2.05
+    ],
+    "olhar": [
+     0.15,
+     1.25,
+     -3.0
+    ]
+   },
+   "cast": {
+    "center": {
+     "char": "vo_possuida",
+     "anim": "Idle",
+     "facing": "away"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#2a2430",
+     "energia": 0.45,
+     "neblina": "#040305",
+     "densidade": 0.035,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "porta_quarto",
+     "rot": [
+      0,
+      16,
+      0
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_possuida",
+     "para": [
+      0.0,
+      0,
+      -2.4
+     ],
+     "dur": 0.01,
+     "virar": false
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_cab_01",
+     "who": "sistema",
+     "text": "O corpo dela fica parado. Só a cabeça gira. Estalando. Até o rosto ficar virado para a fresta, por cima das costas.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "silencio",
+       "dur": 6.0
+      },
+      {
+       "t": 0.5,
+       "acao": "anim",
+       "who": "vo_possuida",
+       "anim": "HeadTurn",
+       "fixo": true
+      },
+      {
+       "t": 1.0,
+       "acao": "sfx",
+       "som": "estalos",
+       "volume": 2
+      },
+      {
+       "t": 1.8,
+       "acao": "sfx",
+       "som": "estalos",
+       "volume": 0
+      },
+      {
+       "t": 2.6,
+       "acao": "sfx",
+       "som": "estalos",
+       "volume": 2
+      },
+      {
+       "t": 1.2,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        0,
+        -0.25
+       ],
+       "dur": 3.0,
+       "olhar": [
+        0.0,
+        1.35,
+        -2.4
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ex_cab_02",
+     "who": "vo_possuida",
+     "text": "Entra, netinho. Senta aqui com a vó.",
+     "tags": "[deep, distorted, sweet and wrong]",
+     "acoes": [
+      {
+       "t": 1.0,
+       "acao": "no",
+       "nome": "porta_quarto",
+       "rot": [
+        0,
+        85,
+        0
+       ],
+       "dur": 2.0
+      },
+      {
+       "t": 1.0,
+       "acao": "sfx",
+       "som": "portao_rangendo",
+       "volume": -4
+      }
+     ]
+    },
+    {
+     "id": "ex_cab_03",
+     "who": "sistema",
+     "text": "A porta abre sozinha. Quando você pisca, ela já está deitada na cama. Dura. Com os braços cruzados no peito.",
+     "acoes": [
+      {
+       "t": 0.8,
+       "acao": "fx",
+       "tipo": "apagar",
+       "dur": 0.6
+      }
+     ]
+    }
+   ],
+   "next": "levita"
+  },
+  "teto_porta": {
+   "location": "quarto_vo",
+   "music": "ex_tensao",
+   "camera": {
+    "pos": [
+     0.2,
+     1.6,
+     1.9
+    ],
+    "olhar": [
+     0.0,
+     1.0,
+     -3.5
+    ]
+   },
+   "cast": {
+    "center": {
+     "char": "vo_possuida",
+     "anim": "Crawl"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#2a2430",
+     "energia": 0.45,
+     "neblina": "#040305",
+     "densidade": 0.035,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "porta_quarto",
+     "rot": [
+      0,
+      16,
+      0
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_possuida",
+     "para": [
+      0.0,
+      2.68,
+      -0.9
+     ],
+     "dur": 0.01,
+     "virar": false
+    },
+    {
+     "t": 0,
+     "acao": "rotacionar",
+     "who": "vo_possuida",
+     "rot": [
+      0,
+      0,
+      180
+     ],
+     "dur": 0
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_tp_01",
+     "who": "sistema",
+     "text": "A porta bate na parede. A cama está vazia. A colcha amassada ainda está quente.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "no",
+       "nome": "porta_quarto",
+       "rot": [
+        0,
+        88,
+        0
+       ],
+       "dur": 0.3
+      },
+      {
+       "t": 0,
+       "acao": "sfx",
+       "som": "porta_bate",
+       "volume": 0
+      },
+      {
+       "t": 0.4,
+       "acao": "camera_andar",
+       "pos": [
+        0.0,
+        1.6,
+        0.4
+       ],
+       "olhar": [
+        0.0,
+        0.8,
+        -3.9
+       ],
+       "dur": 1.8
+      }
+     ]
+    },
+    {
+     "id": "ex_tp_02",
+     "who": "sistema",
+     "text": "Uma gota escura pinga no seu ombro. Vem do teto.",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "silencio",
+       "dur": 4.0
+      },
+      {
+       "t": 1.0,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.0,
+        2.3,
+        -0.9
+       ],
+       "dur": 1.4
+      }
+     ]
+    },
+    {
+     "id": "ex_tp_03",
+     "who": "sistema",
+     "text": "Ela está no teto. De quatro. De cabeça para baixo. Olhando para você.",
+     "acoes": [
+      {
+       "t": 0.5,
+       "acao": "sfx",
+       "som": "estalos",
+       "volume": 0
+      },
+      {
+       "t": 1.4,
+       "acao": "tremer",
+       "who": "vo_possuida",
+       "dur": 1.0
+      }
+     ]
+    },
+    {
+     "id": "ex_tp_04",
+     "who": "sistema",
+     "text": "Ela se solta do teto e cai em cima de você. As unhas rasgam o seu pescoço.",
+     "acoes": [
+      {
+       "t": 0.1,
+       "acao": "esconder",
+       "who": "vo_possuida"
+      },
+      {
+       "t": 0.1,
+       "acao": "susto",
+       "who": "vo_possuida",
+       "anim": "Attack",
+       "de_cima": true,
+       "de": 1.4,
+       "ate": 0.42,
+       "rapido": 0.12,
+       "segura": 0.8,
+       "depois": "sumir",
+       "som": "susto_vo",
+       "volume": 4.0
+      },
+      {
+       "t": 1.2,
+       "acao": "maos_cor",
+       "cor": "#a03030",
+       "dur": 0.3
+      }
+     ]
+    },
+    {
+     "id": "ex_tp_05",
+     "who": "sistema",
+     "text": "Quando você consegue levantar, ela já está deitada na cama. Dura. Com os braços cruzados no peito, como num velório.",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "fx",
+       "tipo": "acender",
+       "dur": 0.6
+      }
+     ]
+    }
+   ],
+   "set": {
+    "arranhado": true
+   },
+   "next": "levita"
+  },
+  "levita": {
+   "location": "quarto_vo",
+   "camera": {
+    "pos": [
+     0.35,
+     1.65,
+     -0.7
+    ],
+    "olhar": [
+     0.0,
+     0.8,
+     -4.0
+    ]
+   },
+   "music": "ex_ritual",
+   "cast": {
+    "center": {
+     "char": "vo_possuida",
+     "anim": "LieIdle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#2a2430",
+     "energia": 0.45,
+     "neblina": "#040305",
+     "densidade": 0.035,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "porta_quarto",
+     "rot": [
+      0,
+      88,
+      0
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_possuida",
+     "para": [
+      0.0,
+      0,
+      -3.9
+     ],
+     "dur": 0.01,
+     "virar": false
+    },
+    {
+     "t": 0,
+     "acao": "rotacionar",
+     "who": "vo_possuida",
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_lev_01",
+     "who": "sistema",
+     "text": "A cama começa a tremer. Primeiro devagar. Depois as pernas de ferro batem no chão como martelos.",
+     "acoes": [
+      {
+       "t": 1.2,
+       "acao": "no",
+       "nome": "cama",
+       "para": [
+        -0.04,
+        0.0,
+        -3.9
+       ],
+       "dur": 0.08
+      },
+      {
+       "t": 1.3599999999999999,
+       "acao": "no",
+       "nome": "cama",
+       "para": [
+        0.04,
+        0.02,
+        -3.9
+       ],
+       "dur": 0.08
+      },
+      {
+       "t": 1.52,
+       "acao": "no",
+       "nome": "cama",
+       "para": [
+        -0.04,
+        0.0,
+        -3.9
+       ],
+       "dur": 0.08
+      },
+      {
+       "t": 1.68,
+       "acao": "no",
+       "nome": "cama",
+       "para": [
+        0.04,
+        0.02,
+        -3.9
+       ],
+       "dur": 0.08
+      },
+      {
+       "t": 1.8399999999999999,
+       "acao": "no",
+       "nome": "cama",
+       "para": [
+        -0.04,
+        0.0,
+        -3.9
+       ],
+       "dur": 0.08
+      },
+      {
+       "t": 2.0,
+       "acao": "no",
+       "nome": "cama",
+       "para": [
+        0.04,
+        0.02,
+        -3.9
+       ],
+       "dur": 0.08
+      },
+      {
+       "t": 2.16,
+       "acao": "no",
+       "nome": "cama",
+       "para": [
+        -0.04,
+        0.0,
+        -3.9
+       ],
+       "dur": 0.08
+      },
+      {
+       "t": 2.3200000000000003,
+       "acao": "no",
+       "nome": "cama",
+       "para": [
+        0.04,
+        0.02,
+        -3.9
+       ],
+       "dur": 0.08
+      },
+      {
+       "t": 2.48,
+       "acao": "no",
+       "nome": "cama",
+       "para": [
+        -0.04,
+        0.0,
+        -3.9
+       ],
+       "dur": 0.08
+      },
+      {
+       "t": 2.6399999999999997,
+       "acao": "no",
+       "nome": "cama",
+       "para": [
+        0.04,
+        0.02,
+        -3.9
+       ],
+       "dur": 0.08
+      },
+      {
+       "t": 2.8,
+       "acao": "no",
+       "nome": "cama",
+       "para": [
+        -0.04,
+        0.0,
+        -3.9
+       ],
+       "dur": 0.08
+      },
+      {
+       "t": 2.96,
+       "acao": "no",
+       "nome": "cama",
+       "para": [
+        0.04,
+        0.02,
+        -3.9
+       ],
+       "dur": 0.08
+      },
+      {
+       "t": 3.12,
+       "acao": "no",
+       "nome": "cama",
+       "para": [
+        -0.04,
+        0.0,
+        -3.9
+       ],
+       "dur": 0.08
+      },
+      {
+       "t": 3.2800000000000002,
+       "acao": "no",
+       "nome": "cama",
+       "para": [
+        0.04,
+        0.02,
+        -3.9
+       ],
+       "dur": 0.08
+      },
+      {
+       "t": 3.4400000000000004,
+       "acao": "no",
+       "nome": "cama",
+       "para": [
+        0.0,
+        0,
+        -3.9
+       ],
+       "dur": 0.1
+      },
+      {
+       "t": 1.2,
+       "acao": "sfx",
+       "som": "cama_tremendo",
+       "volume": 0
+      },
+      {
+       "t": 1.2,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.05
+      }
+     ]
+    },
+    {
+     "id": "ex_lev_02",
+     "who": "sistema",
+     "text": "E ela sobe. O corpo sai do colchão, duro, e fica parado no ar, um metro acima da cama.",
+     "acoes": [
+      {
+       "t": 0.6,
+       "acao": "anim",
+       "who": "vo_possuida",
+       "anim": "LevitateIdle",
+       "fixo": true
+      },
+      {
+       "t": 0.6,
+       "acao": "mover",
+       "who": "vo_possuida",
+       "para": [
+        0.0,
+        1.0,
+        -3.9
+       ],
+       "dur": 3.5,
+       "virar": false
+      },
+      {
+       "t": 0.8,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.0,
+        1.5,
+        -3.9
+       ],
+       "dur": 3.0
+      }
+     ]
+    },
+    {
+     "id": "ex_lev_03",
+     "who": "sistema",
+     "text": "Na parede, o crucifixo gira sozinho até ficar de cabeça para baixo.",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.0,
+        1.85,
+        -4.97
+       ],
+       "dur": 0.8
+      },
+      {
+       "t": 0.8,
+       "acao": "no",
+       "nome": "crucifixo",
+       "rot": [
+        0,
+        0,
+        180
+       ],
+       "dur": 2.2
+      },
+      {
+       "t": 0.8,
+       "acao": "sfx",
+       "som": "estalos",
+       "volume": -4
+      }
+     ]
+    },
+    {
+     "id": "ex_lev_04",
+     "who": "vo_possuida",
+     "text": "Sua vó não está mais aqui, netinho. Ela está comigo. Lá embaixo. Gritando.",
+     "tags": "[deep, demonic, slow, mocking]",
+     "acoes": [
+      {
+       "t": 0,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.0,
+        1.4,
+        -3.9
+       ],
+       "dur": 0.8
+      },
+      {
+       "t": 0.5,
+       "acao": "sfx",
+       "som": "sussurros",
+       "volume": -4
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "O que você faz?",
+    "timer": 8,
+    "options": [
+     {
+      "text": "Agarrar os tornozelos dela e puxar para a cama",
+      "who": "vo_possuida",
+      "teste": {
+       "atributo": "forca",
+       "cd": 13,
+       "mods": [
+        {
+         "if": "arranhado",
+         "valor": -2,
+         "texto": "O pescoço sangrando"
+        },
+        {
+         "if": "terco",
+         "valor": 1,
+         "texto": "O terço no pescoço"
+        }
+       ],
+       "sucesso": {
+        "next": "puxou"
+       },
+       "falha": {
+        "next": "jogado"
+       },
+       "falha_critica": {
+        "next": "jogado"
+       }
+      }
+     },
+     {
+      "text": "Rezar o Pai-Nosso em voz alta",
+      "teste": {
+       "atributo": "fe",
+       "cd": 12,
+       "vantagem": "terco",
+       "sucesso": {
+        "next": "reza_ok"
+       },
+       "falha": {
+        "next": "reza_falha"
+       }
+      }
+     },
+     {
+      "text": "Fugir do quarto",
+      "next": "fuga_porta"
+     }
+    ],
+    "timeout": {
+     "next": "jogado"
+    }
+   }
+  },
+  "puxou": {
+   "location": "quarto_vo",
+   "camera": {
+    "pos": [
+     0.35,
+     1.65,
+     -0.7
+    ],
+    "olhar": [
+     0.0,
+     0.8,
+     -4.0
+    ]
+   },
+   "cast": {
+    "center": {
+     "char": "vo_possuida",
+     "anim": "LevitateIdle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#2a2430",
+     "energia": 0.45,
+     "neblina": "#040305",
+     "densidade": 0.035,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "porta_quarto",
+     "rot": [
+      0,
+      88,
+      0
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "crucifixo",
+     "rot": [
+      0,
+      0,
+      180
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_possuida",
+     "para": [
+      0.0,
+      1.0,
+      -3.9
+     ],
+     "dur": 0.01,
+     "virar": false
+    },
+    {
+     "t": 0,
+     "acao": "rotacionar",
+     "who": "vo_possuida",
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_puxou_01",
+     "who": "sistema",
+     "text": "Você agarra os tornozelos dela. São gelados. Você puxa com o corpo inteiro e ela despenca no colchão.",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "maos",
+       "anim": "grab.L"
+      },
+      {
+       "t": 1.6,
+       "acao": "mover",
+       "who": "vo_possuida",
+       "para": [
+        0.0,
+        0,
+        -3.9
+       ],
+       "dur": 0.25,
+       "virar": false
+      },
+      {
+       "t": 1.8,
+       "acao": "anim",
+       "who": "vo_possuida",
+       "anim": "LieIdle",
+       "fixo": true
+      },
+      {
+       "t": 1.85,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.08
+      },
+      {
+       "t": 1.85,
+       "acao": "sfx",
+       "som": "cama_tremendo",
+       "volume": -6
+      }
+     ]
+    },
+    {
+     "id": "ex_puxou_02",
+     "who": "vo_celeste",
+     "text": "Me ajuda... chama o padre Ângelo... eu não aguento mais segurar ele...",
+     "tags": "[old woman, weak, crying, desperate whisper]"
+    }
+   ],
+   "set": {
+    "ouviu_vo": true
+   },
+   "next": "parede"
+  },
+  "reza_ok": {
+   "location": "quarto_vo",
+   "camera": {
+    "pos": [
+     0.35,
+     1.65,
+     -0.7
+    ],
+    "olhar": [
+     0.0,
+     0.8,
+     -4.0
+    ]
+   },
+   "cast": {
+    "center": {
+     "char": "vo_possuida",
+     "anim": "LevitateIdle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#2a2430",
+     "energia": 0.45,
+     "neblina": "#040305",
+     "densidade": 0.035,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "porta_quarto",
+     "rot": [
+      0,
+      88,
+      0
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "crucifixo",
+     "rot": [
+      0,
+      0,
+      180
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_possuida",
+     "para": [
+      0.0,
+      1.0,
+      -3.9
+     ],
+     "dur": 0.01,
+     "virar": false
+    },
+    {
+     "t": 0,
+     "acao": "rotacionar",
+     "who": "vo_possuida",
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_rezaok_01",
+     "who": "sistema",
+     "text": "A cada palavra, ela se contorce no ar. No amém, ela cai na cama. E por um segundo a voz é a da sua avó.",
+     "acoes": [
+      {
+       "t": 0.6,
+       "acao": "tremer",
+       "who": "vo_possuida",
+       "dur": 2.5
+      },
+      {
+       "t": 3.4,
+       "acao": "mover",
+       "who": "vo_possuida",
+       "para": [
+        0.0,
+        0,
+        -3.9
+       ],
+       "dur": 0.25,
+       "virar": false
+      },
+      {
+       "t": 3.6,
+       "acao": "anim",
+       "who": "vo_possuida",
+       "anim": "LieIdle",
+       "fixo": true
+      },
+      {
+       "t": 3.65,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.06
+      }
+     ]
+    },
+    {
+     "id": "ex_rezaok_02",
+     "who": "vo_celeste",
+     "text": "Me ajuda... chama o padre Ângelo... eu não aguento mais segurar ele...",
+     "tags": "[old woman, weak, crying, desperate whisper]"
+    }
+   ],
+   "set": {
+    "ouviu_vo": true
+   },
+   "next": "parede"
+  },
+  "reza_falha": {
+   "location": "quarto_vo",
+   "camera": {
+    "pos": [
+     0.35,
+     1.65,
+     -0.7
+    ],
+    "olhar": [
+     0.0,
+     0.8,
+     -4.0
+    ]
+   },
+   "cast": {
+    "center": {
+     "char": "vo_possuida",
+     "anim": "LevitateIdle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#2a2430",
+     "energia": 0.45,
+     "neblina": "#040305",
+     "densidade": 0.035,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "porta_quarto",
+     "rot": [
+      0,
+      88,
+      0
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "crucifixo",
+     "rot": [
+      0,
+      0,
+      180
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_possuida",
+     "para": [
+      0.0,
+      1.0,
+      -3.9
+     ],
+     "dur": 0.01,
+     "virar": false
+    },
+    {
+     "t": 0,
+     "acao": "rotacionar",
+     "who": "vo_possuida",
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_rezaf_01",
+     "who": "sistema",
+     "text": "Sua voz falha no meio da oração. Ela termina por você. De trás para a frente.",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "sfx",
+       "som": "sussurros",
+       "volume": 0
+      }
+     ]
+    },
+    {
+     "id": "ex_rezaf_02",
+     "who": "vo_possuida",
+     "text": "Mal do livrai-nos... tentação em cair deixeis não nos...",
+     "tags": "[deep, demonic, chanting backwards, laughing]"
+    },
+    {
+     "id": "ex_rezaf_03",
+     "who": "sistema",
+     "text": "As velas do oratório apagam todas de uma vez. O quarto fica só com a luz da lua.",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "luz_no",
+       "nome": "velas",
+       "energia": 0.0,
+       "dur": 0.1
+      },
+      {
+       "t": 0.3,
+       "acao": "luz_no",
+       "nome": "abajur",
+       "energia": 0.0,
+       "dur": 0.1
+      },
+      {
+       "t": 0.4,
+       "acao": "luz",
+       "ambiente": "#1a1e30",
+       "energia": 0.3,
+       "neblina": "#020306",
+       "densidade": 0.04,
+       "fundo": "#000000",
+       "dur": 0.3
+      }
+     ]
+    }
+   ],
+   "set": {
+    "velas_apagadas": true
+   },
+   "next": "parede"
+  },
+  "jogado": {
+   "location": "quarto_vo",
+   "camera": {
+    "pos": [
+     0.35,
+     1.65,
+     -0.7
+    ],
+    "olhar": [
+     0.0,
+     0.8,
+     -4.0
+    ]
+   },
+   "cast": {
+    "center": {
+     "char": "vo_possuida",
+     "anim": "LevitateIdle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#2a2430",
+     "energia": 0.45,
+     "neblina": "#040305",
+     "densidade": 0.035,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "porta_quarto",
+     "rot": [
+      0,
+      88,
+      0
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "crucifixo",
+     "rot": [
+      0,
+      0,
+      180
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_possuida",
+     "para": [
+      0.0,
+      1.0,
+      -3.9
+     ],
+     "dur": 0.01,
+     "virar": false
+    },
+    {
+     "t": 0,
+     "acao": "rotacionar",
+     "who": "vo_possuida",
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_jog_01",
+     "who": "sistema",
+     "text": "Ela abre os olhos. Sem encostar em você, ela te joga para trás. Você bate no guarda-roupa e o mundo fica vermelho.",
+     "acoes": [
+      {
+       "t": 1.2,
+       "acao": "camera",
+       "pos": [
+        1.9,
+        1.1,
+        -1.2
+       ],
+       "olhar": [
+        0.0,
+        1.2,
+        -3.9
+       ],
+       "dur": 0.22
+      },
+      {
+       "t": 1.42,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.16
+      },
+      {
+       "t": 1.42,
+       "acao": "sfx",
+       "som": "porta_bate",
+       "volume": 2
+      },
+      {
+       "t": 1.45,
+       "acao": "fx",
+       "tipo": "vermelho",
+       "de": 0.0,
+       "ate": 0.7,
+       "dur": 0.1
+      },
+      {
+       "t": 1.6,
+       "acao": "fx",
+       "tipo": "vermelho",
+       "de": 0.7,
+       "ate": 0.0,
+       "dur": 1.6
+      }
+     ]
+    },
+    {
+     "id": "ex_jog_02",
+     "who": "vo_possuida",
+     "text": "Ainda não, netinho. A gente mal começou.",
+     "tags": "[deep, demonic, amused]"
+    }
+   ],
+   "set": {
+    "ferido": true
+   },
+   "next": "parede"
+  },
+  "fuga_porta": {
+   "location": "quarto_vo",
+   "camera": {
+    "pos": [
+     0.35,
+     1.65,
+     -0.7
+    ],
+    "olhar": [
+     0.0,
+     0.8,
+     -4.0
+    ]
+   },
+   "cast": {
+    "center": {
+     "char": "vo_possuida",
+     "anim": "LevitateIdle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#2a2430",
+     "energia": 0.45,
+     "neblina": "#040305",
+     "densidade": 0.035,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "porta_quarto",
+     "rot": [
+      0,
+      88,
+      0
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "crucifixo",
+     "rot": [
+      0,
+      0,
+      180
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_possuida",
+     "para": [
+      0.0,
+      1.0,
+      -3.9
+     ],
+     "dur": 0.01,
+     "virar": false
+    },
+    {
+     "t": 0,
+     "acao": "rotacionar",
+     "who": "vo_possuida",
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_fpor_01",
+     "who": "sistema",
+     "text": "Você corre para a porta. Ela bate na sua cara antes que você chegue. A maçaneta não gira.",
+     "acoes": [
+      {
+       "t": 0.1,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.0,
+        1.3,
+        1.2
+       ],
+       "dur": 0.3
+      },
+      {
+       "t": 0.3,
+       "acao": "camera_andar",
+       "pos": [
+        0.0,
+        1.6,
+        0.7
+       ],
+       "olhar": [
+        0.0,
+        1.3,
+        1.2
+       ],
+       "dur": 0.8
+      },
+      {
+       "t": 1.0,
+       "acao": "no",
+       "nome": "porta_quarto",
+       "rot": [
+        0,
+        0,
+        0
+       ],
+       "dur": 0.15
+      },
+      {
+       "t": 1.1,
+       "acao": "sfx",
+       "som": "porta_bate",
+       "volume": 2
+      },
+      {
+       "t": 1.15,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.1
+      },
+      {
+       "t": 2.6,
+       "acao": "maos",
+       "anim": "grab.R"
+      }
+     ]
+    },
+    {
+     "id": "ex_fpor_02",
+     "who": "vo_possuida",
+     "text": "Ninguém sai dessa casa antes das três, netinho.",
+     "tags": "[deep, demonic, whispering behind you]",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.0,
+        1.5,
+        -3.9
+       ],
+       "dur": 0.8
+      }
+     ]
+    }
+   ],
+   "set": {
+    "porta_fechada": true
+   },
+   "next": "parede"
+  },
+  "parede": {
+   "location": "quarto_vo",
+   "music": "ex_ritual",
+   "camera": {
+    "pos": [
+     0.6,
+     1.6,
+     0.2
+    ],
+    "olhar": [
+     -1.6,
+     1.4,
+     -3.4
+    ]
+   },
+   "cast": {
+    "center": {
+     "char": "vo_possuida",
+     "anim": "LieIdle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#2a2430",
+     "energia": 0.45,
+     "neblina": "#040305",
+     "densidade": 0.035,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "crucifixo",
+     "rot": [
+      0,
+      0,
+      180
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "porta_quarto",
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "if": "porta_fechada"
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "porta_quarto",
+     "rot": [
+      0,
+      88,
+      0
+     ],
+     "dur": 0.01,
+     "if": "not porta_fechada"
+    },
+    {
+     "t": 0,
+     "acao": "luz_no",
+     "nome": "velas",
+     "energia": 0.0,
+     "dur": 0.01,
+     "if": "velas_apagadas"
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_possuida",
+     "para": [
+      0.0,
+      0,
+      -3.9
+     ],
+     "dur": 0.01,
+     "virar": false
+    },
+    {
+     "t": 0,
+     "acao": "rotacionar",
+     "who": "vo_possuida",
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_par_01",
+     "who": "sistema",
+     "text": "Ela salta da cama para a parede. E fica lá. De quatro. De lado. As unhas cravadas no papel de parede.",
+     "acoes": [
+      {
+       "t": 0.8,
+       "acao": "anim",
+       "who": "vo_possuida",
+       "anim": "Crawl",
+       "fixo": true
+      },
+      {
+       "t": 0.8,
+       "acao": "rotacionar",
+       "who": "vo_possuida",
+       "rot": [
+        0,
+        0,
+        -90
+       ],
+       "dur": 0.25
+      },
+      {
+       "t": 0.8,
+       "acao": "mover",
+       "who": "vo_possuida",
+       "para": [
+        -2.95,
+        1.3,
+        -3.4
+       ],
+       "dur": 0.3,
+       "virar": false
+      },
+      {
+       "t": 0.9,
+       "acao": "sfx",
+       "som": "estalos",
+       "volume": 2
+      },
+      {
+       "t": 0.8,
+       "acao": "camera_olhar",
+       "olhar": [
+        -2.4,
+        1.4,
+        -3.4
+       ],
+       "dur": 0.4
+      }
+     ]
+    },
+    {
+     "id": "ex_par_02",
+     "who": "sistema",
+     "text": "Ela anda pela parede na sua direção, estalando as juntas. E passa para o teto. De cabeça para baixo.",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "mover",
+       "who": "vo_possuida",
+       "para": [
+        -2.95,
+        1.9,
+        -1.4
+       ],
+       "dur": 2.8,
+       "virar": false
+      },
+      {
+       "t": 0.3,
+       "acao": "camera_olhar",
+       "olhar": [
+        -2.3,
+        1.8,
+        -1.4
+       ],
+       "dur": 2.8
+      },
+      {
+       "t": 3.2,
+       "acao": "rotacionar",
+       "who": "vo_possuida",
+       "rot": [
+        0,
+        0,
+        180
+       ],
+       "dur": 0.5
+      },
+      {
+       "t": 3.2,
+       "acao": "mover",
+       "who": "vo_possuida",
+       "para": [
+        -1.2,
+        2.68,
+        -0.9
+       ],
+       "dur": 0.8,
+       "virar": false
+      },
+      {
+       "t": 3.2,
+       "acao": "camera_olhar",
+       "olhar": [
+        -0.9,
+        2.2,
+        -0.9
+       ],
+       "dur": 0.9
+      },
+      {
+       "t": 4.2,
+       "acao": "mover",
+       "who": "vo_possuida",
+       "para": [
+        0.2,
+        2.68,
+        -0.5
+       ],
+       "dur": 2.0,
+       "virar": false
+      },
+      {
+       "t": 4.2,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.3,
+        2.2,
+        -0.5
+       ],
+       "dur": 2.0
+      },
+      {
+       "t": 1.0,
+       "acao": "sfx",
+       "som": "estalos",
+       "volume": 0
+      },
+      {
+       "t": 3.4,
+       "acao": "sfx",
+       "som": "estalos",
+       "volume": 2
+      }
+     ]
+    },
+    {
+     "id": "ex_par_03",
+     "who": "vo_possuida",
+     "text": "Corre, netinho. A vó gosta quando você corre.",
+     "tags": "[deep, demonic, playful, upside down]"
+    }
+   ],
+   "choice": {
+    "prompt": "Ela está bem em cima de você!",
+    "timer": 6,
+    "options": [
+     {
+      "text": "Correr para a escada",
+      "teste": {
+       "atributo": "agilidade",
+       "cd": 12,
+       "mods": [
+        {
+         "if": "ferido",
+         "valor": -2,
+         "texto": "As costas latejando"
+        },
+        {
+         "if": "porta_fechada",
+         "valor": -2,
+         "texto": "A porta emperrada"
+        }
+       ],
+       "sucesso": {
+        "next": "escada"
+       },
+       "falha": {
+        "next": "teto_cai"
+       },
+       "falha_critica": {
+        "ending": "abraco_no_escuro"
+       }
+      }
+     },
+     {
+      "text": "Fechar os olhos e apertar o terço",
+      "if": "terco",
+      "next": "terco_brilha"
+     }
+    ],
+    "timeout": {
+     "next": "teto_cai"
+    }
+   }
+  },
+  "teto_cai": {
+   "location": "quarto_vo",
+   "camera": {
+    "pos": [
+     0.6,
+     1.6,
+     0.2
+    ],
+    "olhar": [
+     0.3,
+     2.2,
+     -0.5
+    ]
+   },
+   "cast": {
+    "center": {
+     "char": "vo_possuida",
+     "anim": "Crawl"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#2a2430",
+     "energia": 0.45,
+     "neblina": "#040305",
+     "densidade": 0.035,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "crucifixo",
+     "rot": [
+      0,
+      0,
+      180
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "porta_quarto",
+     "rot": [
+      0,
+      88,
+      0
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_possuida",
+     "para": [
+      0.2,
+      2.68,
+      -0.5
+     ],
+     "dur": 0.01,
+     "virar": false
+    },
+    {
+     "t": 0,
+     "acao": "rotacionar",
+     "who": "vo_possuida",
+     "rot": [
+      0,
+      0,
+      180
+     ],
+     "dur": 0
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_tcai_01",
+     "who": "sistema",
+     "text": "Ela se solta do teto e cai em cima de você. Vocês rolam no chão. Os dentes dela batem a um dedo do seu rosto.",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "esconder",
+       "who": "vo_possuida"
+      },
+      {
+       "t": 0.2,
+       "acao": "susto",
+       "who": "vo_possuida",
+       "anim": "Attack",
+       "de_cima": true,
+       "de": 1.4,
+       "ate": 0.42,
+       "rapido": 0.12,
+       "segura": 1.0,
+       "depois": "sumir",
+       "som": "susto_vo",
+       "volume": 4.0
+      },
+      {
+       "t": 1.5,
+       "acao": "camera",
+       "pos": [
+        0.6,
+        0.4,
+        0.4
+       ],
+       "olhar": [
+        0.0,
+        1.0,
+        -2.0
+       ],
+       "dur": 0.3
+      },
+      {
+       "t": 1.8,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.12
+      }
+     ]
+    },
+    {
+     "id": "ex_tcai_02",
+     "who": "sistema",
+     "text": "Você empurra ela com os pés e corre. A porta está aberta. A escada está logo ali.",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "camera",
+       "pos": [
+        0.0,
+        1.6,
+        0.9
+       ],
+       "olhar": [
+        0.0,
+        1.4,
+        3.0
+       ],
+       "dur": 0.6
+      },
+      {
+       "t": 1.2,
+       "acao": "fx",
+       "tipo": "apagar",
+       "dur": 0.5
+      }
+     ]
+    }
+   ],
+   "set": {
+    "arranhado": true,
+    "porta_fechada": false
+   },
+   "next": "escada"
+  },
+  "terco_brilha": {
+   "location": "quarto_vo",
+   "camera": {
+    "pos": [
+     0.6,
+     1.6,
+     0.2
+    ],
+    "olhar": [
+     0.3,
+     2.2,
+     -0.5
+    ]
+   },
+   "cast": {
+    "center": {
+     "char": "vo_possuida",
+     "anim": "Crawl"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#2a2430",
+     "energia": 0.45,
+     "neblina": "#040305",
+     "densidade": 0.035,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "crucifixo",
+     "rot": [
+      0,
+      0,
+      180
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "porta_quarto",
+     "rot": [
+      0,
+      88,
+      0
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_possuida",
+     "para": [
+      0.2,
+      2.68,
+      -0.5
+     ],
+     "dur": 0.01,
+     "virar": false
+    },
+    {
+     "t": 0,
+     "acao": "rotacionar",
+     "who": "vo_possuida",
+     "rot": [
+      0,
+      0,
+      180
+     ],
+     "dur": 0
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_tbri_01",
+     "who": "sistema",
+     "text": "Você fecha os olhos e aperta o terço até as contas machucarem a mão. Alguma coisa ruge no teto, bem em cima de você.",
+     "acoes": [
+      {
+       "t": 0.6,
+       "acao": "fx",
+       "tipo": "apagar",
+       "dur": 0.4
+      },
+      {
+       "t": 1.2,
+       "acao": "sfx",
+       "som": "susto_vo",
+       "volume": -4
+      },
+      {
+       "t": 2.6,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.06
+      }
+     ]
+    },
+    {
+     "id": "ex_tbri_02",
+     "who": "sistema",
+     "text": "Quando você abre os olhos, o teto está vazio. Lá embaixo, na sala, alguém está batendo na porta da frente.",
+     "acoes": [
+      {
+       "t": 0.1,
+       "acao": "esconder",
+       "who": "vo_possuida"
+      },
+      {
+       "t": 0.2,
+       "acao": "fx",
+       "tipo": "acender",
+       "dur": 0.6
+      },
+      {
+       "t": 1.4,
+       "acao": "sfx",
+       "som": "batida_porta",
+       "volume": 0
+      }
+     ]
+    }
+   ],
+   "next": "padre"
+  },
+  "escada": {
+   "location": "sala_vo",
+   "music": "perseguicao",
+   "camera": {
+    "pos": [
+     0.9,
+     1.6,
+     0.4
+    ],
+    "olhar": [
+     3.35,
+     2.6,
+     -6.2
+    ]
+   },
+   "cast": {
+    "center": {
+     "char": "vo_possuida",
+     "anim": "SpiderCrawl"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#1c2030",
+     "energia": 0.35,
+     "neblina": "#020306",
+     "densidade": 0.04,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "luz_no",
+     "nome": "tv_vo",
+     "energia": 0.0,
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "tela_tv",
+     "para": [
+      -0.7,
+      -10.0,
+      -6.31
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "luz_no",
+     "nome": "abajur_sala",
+     "energia": 0.0,
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "luz_no",
+     "nome": "luz_escada",
+     "energia": 1.4,
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_possuida",
+     "para": [
+      3.35,
+      3.0,
+      -6.75
+     ],
+     "dur": 0.01,
+     "virar": false
+    },
+    {
+     "t": 0,
+     "acao": "rotacionar",
+     "who": "vo_possuida",
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "esconder",
+     "who": "vo_possuida"
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_esc_01",
+     "who": "sistema",
+     "text": "Você desce a escada pulando os degraus e chega na sala. Atrás de você, lá em cima, alguma coisa estala.",
+     "acoes": [
+      {
+       "t": 0.4,
+       "acao": "sfx",
+       "som": "estalos",
+       "volume": 0
+      }
+     ]
+    },
+    {
+     "id": "ex_esc_02",
+     "who": "sistema",
+     "text": "No alto da escada, ela aparece. De barriga para cima. Arqueada como uma ponte. A cabeça de ponta-cabeça, olhando para você.",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "mostrar",
+       "who": "vo_possuida"
+      },
+      {
+       "t": 0.3,
+       "acao": "camera_olhar",
+       "olhar": [
+        3.35,
+        2.6,
+        -6.5
+       ],
+       "dur": 1.0
+      },
+      {
+       "t": 1.2,
+       "acao": "sfx",
+       "som": "estalos",
+       "volume": 2
+      }
+     ]
+    },
+    {
+     "id": "ex_esc_03",
+     "who": "sistema",
+     "text": "E desce. Degrau por degrau. De costas. Rápido demais.",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "rotacionar",
+       "who": "vo_possuida",
+       "rot": [
+        34,
+        0,
+        0
+       ],
+       "dur": 0.3
+      },
+      {
+       "t": 0.3,
+       "acao": "mover",
+       "who": "vo_possuida",
+       "para": [
+        3.35,
+        0.1,
+        -2.2
+       ],
+       "dur": 3.6,
+       "virar": false
+      },
+      {
+       "t": 0.3,
+       "acao": "camera_olhar",
+       "olhar": [
+        3.35,
+        0.6,
+        -2.2
+       ],
+       "dur": 3.6
+      },
+      {
+       "t": 3.9,
+       "acao": "rotacionar",
+       "who": "vo_possuida",
+       "rot": [
+        0,
+        0,
+        0
+       ],
+       "dur": 0.3
+      },
+      {
+       "t": 3.9,
+       "acao": "mover",
+       "who": "vo_possuida",
+       "para": [
+        3.0,
+        0.0,
+        -1.6
+       ],
+       "dur": 0.4,
+       "virar": false
+      },
+      {
+       "t": 0.6,
+       "acao": "sfx",
+       "som": "passos",
+       "volume": 0
+      },
+      {
+       "t": 1.6,
+       "acao": "sfx",
+       "som": "passos",
+       "volume": 2
+      }
+     ]
+    }
+   ],
+   "choice": {
+    "prompt": "Ela está no pé da escada!",
+    "timer": 6,
+    "options": [
+     {
+      "text": "Jogar a água benta nela",
+      "if": "agua_benta",
+      "who": "vo_possuida",
+      "next": "agua"
+     },
+     {
+      "text": "Correr para a porta da frente",
+      "teste": {
+       "atributo": "agilidade",
+       "cd": 12,
+       "mods": [
+        {
+         "if": "arranhado",
+         "valor": -1,
+         "texto": "O sangue escorrendo no colarinho"
+        },
+        {
+         "if": "ferido",
+         "valor": -2,
+         "texto": "As costas latejando"
+        }
+       ],
+       "sucesso": {
+        "next": "porta_frente"
+       },
+       "falha": {
+        "next": "pega_tornozelo"
+       }
+      }
+     }
+    ],
+    "timeout": {
+     "next": "pega_tornozelo"
+    }
+   }
+  },
+  "agua": {
+   "location": "sala_vo",
+   "camera": {
+    "pos": [
+     0.9,
+     1.6,
+     0.4
+    ],
+    "olhar": [
+     3.0,
+     0.6,
+     -1.6
+    ]
+   },
+   "cast": {
+    "center": {
+     "char": "vo_possuida",
+     "anim": "SpiderCrawl"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#1c2030",
+     "energia": 0.35,
+     "neblina": "#020306",
+     "densidade": 0.04,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "luz_no",
+     "nome": "tv_vo",
+     "energia": 0.0,
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "tela_tv",
+     "para": [
+      -0.7,
+      -10.0,
+      -6.31
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "luz_no",
+     "nome": "abajur_sala",
+     "energia": 0.0,
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_possuida",
+     "para": [
+      3.0,
+      0.0,
+      -1.6
+     ],
+     "dur": 0.01,
+     "virar": false
+    },
+    {
+     "t": 0,
+     "acao": "rotacionar",
+     "who": "vo_possuida",
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_agua_01",
+     "who": "sistema",
+     "text": "A água benta acerta o rosto dela. A pele chia como gordura na frigideira. Ela grita com duas vozes ao mesmo tempo.",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "maos",
+       "anim": "grab.R"
+      },
+      {
+       "t": 0.9,
+       "acao": "sfx",
+       "som": "susto_vo",
+       "volume": 0
+      },
+      {
+       "t": 0.9,
+       "acao": "tremer",
+       "who": "vo_possuida",
+       "dur": 2.0
+      },
+      {
+       "t": 1.0,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.06
+      }
+     ]
+    },
+    {
+     "id": "ex_agua_02",
+     "who": "sistema",
+     "text": "E sobe a escada de volta, de costas, se arrastando. Lá fora, um farol de carro ilumina a janela.",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "rotacionar",
+       "who": "vo_possuida",
+       "rot": [
+        -34,
+        180,
+        0
+       ],
+       "dur": 0.3
+      },
+      {
+       "t": 0.3,
+       "acao": "mover",
+       "who": "vo_possuida",
+       "para": [
+        3.35,
+        3.0,
+        -6.75
+       ],
+       "dur": 2.6,
+       "virar": false
+      },
+      {
+       "t": 2.9,
+       "acao": "esconder",
+       "who": "vo_possuida"
+      },
+      {
+       "t": 2.6,
+       "acao": "luz_ponto",
+       "pos": [
+        -4.6,
+        1.6,
+        0.2
+       ],
+       "cor": "#fff4d0",
+       "energia": 3.0,
+       "raio": 6
+      }
+     ]
+    }
+   ],
+   "next": "padre"
+  },
+  "porta_frente": {
+   "location": "sala_vo",
+   "camera": {
+    "pos": [
+     0.9,
+     1.6,
+     0.4
+    ],
+    "olhar": [
+     3.0,
+     0.6,
+     -1.6
+    ]
+   },
+   "cast": {
+    "center": {
+     "char": "vo_possuida",
+     "anim": "SpiderCrawl"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#1c2030",
+     "energia": 0.35,
+     "neblina": "#020306",
+     "densidade": 0.04,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "luz_no",
+     "nome": "tv_vo",
+     "energia": 0.0,
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "tela_tv",
+     "para": [
+      -0.7,
+      -10.0,
+      -6.31
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "luz_no",
+     "nome": "abajur_sala",
+     "energia": 0.0,
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_possuida",
+     "para": [
+      3.0,
+      0.0,
+      -1.6
+     ],
+     "dur": 0.01,
+     "virar": false
+    },
+    {
+     "t": 0,
+     "acao": "rotacionar",
+     "who": "vo_possuida",
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_pfr_01",
+     "who": "sistema",
+     "text": "Você corre para a porta. Antes de você chegar, ela abre sozinha. Um farol de carro te cega.",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.6,
+        1.5,
+        2.3
+       ],
+       "dur": 0.4
+      },
+      {
+       "t": 0.3,
+       "acao": "camera_andar",
+       "pos": [
+        0.6,
+        1.6,
+        1.6
+       ],
+       "olhar": [
+        0.6,
+        1.5,
+        2.3
+       ],
+       "dur": 1.0
+      },
+      {
+       "t": 1.8,
+       "acao": "luz_ponto",
+       "pos": [
+        0.6,
+        1.6,
+        2.6
+       ],
+       "cor": "#fff4d0",
+       "energia": 4.0,
+       "raio": 7
+      },
+      {
+       "t": 1.8,
+       "acao": "sfx",
+       "som": "motor",
+       "volume": -4
+      }
+     ]
+    },
+    {
+     "id": "ex_pfr_02",
+     "who": "sistema",
+     "text": "Atrás de você, o barulho de juntas estalando sobe a escada de volta. Para longe da luz.",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "sfx",
+       "som": "estalos",
+       "volume": -2
+      },
+      {
+       "t": 0.4,
+       "acao": "esconder",
+       "who": "vo_possuida"
+      }
+     ]
+    }
+   ],
+   "next": "padre"
+  },
+  "pega_tornozelo": {
+   "location": "sala_vo",
+   "camera": {
+    "pos": [
+     0.9,
+     1.6,
+     0.4
+    ],
+    "olhar": [
+     3.0,
+     0.6,
+     -1.6
+    ]
+   },
+   "cast": {
+    "center": {
+     "char": "vo_possuida",
+     "anim": "SpiderCrawl"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#1c2030",
+     "energia": 0.35,
+     "neblina": "#020306",
+     "densidade": 0.04,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "luz_no",
+     "nome": "tv_vo",
+     "energia": 0.0,
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "tela_tv",
+     "para": [
+      -0.7,
+      -10.0,
+      -6.31
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "luz_no",
+     "nome": "abajur_sala",
+     "energia": 0.0,
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_possuida",
+     "para": [
+      3.0,
+      0.0,
+      -1.6
+     ],
+     "dur": 0.01,
+     "virar": false
+    },
+    {
+     "t": 0,
+     "acao": "rotacionar",
+     "who": "vo_possuida",
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_ptor_01",
+     "who": "sistema",
+     "text": "Ela salta do último degrau e agarra o seu tornozelo. Você cai de cara no chão de tábua.",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "esconder",
+       "who": "vo_possuida"
+      },
+      {
+       "t": 0.2,
+       "acao": "susto",
+       "who": "vo_possuida",
+       "anim": "Attack",
+       "de": 1.6,
+       "ate": 0.45,
+       "rapido": 0.12,
+       "segura": 0.8,
+       "depois": "sumir",
+       "som": "susto_vo",
+       "volume": 4.0
+      },
+      {
+       "t": 1.3,
+       "acao": "camera",
+       "pos": [
+        0.9,
+        0.35,
+        0.4
+       ],
+       "olhar": [
+        2.0,
+        0.2,
+        -1.2
+       ],
+       "dur": 0.25
+      },
+      {
+       "t": 1.55,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.14
+      }
+     ]
+    },
+    {
+     "id": "ex_ptor_02",
+     "who": "sistema",
+     "text": "Ela te arrasta para a escada. As unhas atravessam a calça. Então a porta da frente explode para dentro e uma luz forte enche a sala.",
+     "acoes": [
+      {
+       "t": 0.5,
+       "acao": "camera_rel",
+       "por": [
+        0.4,
+        0,
+        -0.6
+       ],
+       "dur": 1.5
+      },
+      {
+       "t": 2.4,
+       "acao": "sfx",
+       "som": "porta_bate",
+       "volume": 2
+      },
+      {
+       "t": 2.5,
+       "acao": "luz_ponto",
+       "pos": [
+        0.6,
+        1.6,
+        2.4
+       ],
+       "cor": "#fff4d0",
+       "energia": 4.0,
+       "raio": 7
+      },
+      {
+       "t": 2.5,
+       "acao": "fx",
+       "tipo": "flash"
+      }
+     ]
+    }
+   ],
+   "set": {
+    "ferido": true
+   },
+   "next": "padre"
+  },
+  "padre": {
+   "location": "sala_vo",
+   "title_card": "03:10",
+   "music": "ex_casa",
+   "camera": {
+    "pos": [
+     0.6,
+     1.6,
+     -1.0
+    ],
+    "olhar": [
+     0.6,
+     1.5,
+     2.0
+    ]
+   },
+   "cast": {
+    "left": {
+     "char": "padre",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "neuza",
+     "anim": "Idle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#1c2030",
+     "energia": 0.35,
+     "neblina": "#020306",
+     "densidade": 0.04,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "luz_no",
+     "nome": "tv_vo",
+     "energia": 0.0,
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "tela_tv",
+     "para": [
+      -0.7,
+      -10.0,
+      -6.31
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "luz_no",
+     "nome": "abajur_sala",
+     "energia": 0.0,
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "luz_ponto",
+     "pos": [
+      0.6,
+      2.2,
+      1.6
+     ],
+     "cor": "#ffe0b0",
+     "energia": 1.6,
+     "raio": 5
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "padre",
+     "para": [
+      0.3,
+      0,
+      1.1
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "neuza",
+     "para": [
+      1.2,
+      0,
+      1.5
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "olhar_camera",
+     "who": "padre"
+    },
+    {
+     "t": 0,
+     "acao": "olhar_camera",
+     "who": "neuza"
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_padre_01",
+     "who": "sistema",
+     "text": "Na porta, um homem de batina, com uma maleta preta. Atrás dele, a Dona Neuza, com o rosto molhado de chorar."
+    },
+    {
+     "id": "ex_padre_02",
+     "who": "padre",
+     "text": "A Neuza me ligou. Eu conheço a Celeste há quarenta anos. Aquilo lá em cima não é ela.",
+     "tags": "[calm, grave, old priest]",
+     "anim": "Talk"
+    },
+    {
+     "id": "ex_padre_03",
+     "who": "padre",
+     "text": "Sozinho eu não seguro. Você vai segurar sua avó e responder às orações comigo.",
+     "tags": "[firm, grave]",
+     "anim": "Talk"
+    },
+    {
+     "id": "ex_padre_04",
+     "who": "padre",
+     "text": "E escuta bem: não importa a voz que ela usar. Não responda a ela. Nunca.",
+     "tags": "[serious, slow, warning]",
+     "anim": "Talk"
+    },
+    {
+     "id": "ex_padre_05",
+     "who": "padre",
+     "text": "Se ela disser o nome verdadeiro dela, a gente tem poder sobre ela. É só isso que a gente precisa.",
+     "tags": "[low voice]",
+     "anim": "Talk"
+    }
+   ],
+   "branch": [
+    {
+     "if": "hesitou >= 3",
+     "ending": "relogio"
+    },
+    {
+     "next": "padre_escolha"
+    }
+   ]
+  },
+  "padre_escolha": {
+   "location": "sala_vo",
+   "camera": {
+    "pos": [
+     0.6,
+     1.6,
+     -1.0
+    ],
+    "olhar": [
+     0.6,
+     1.5,
+     2.0
+    ]
+   },
+   "cast": {
+    "left": {
+     "char": "padre",
+     "anim": "Idle"
+    },
+    "right": {
+     "char": "neuza",
+     "anim": "Idle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#1c2030",
+     "energia": 0.35,
+     "neblina": "#020306",
+     "densidade": 0.04,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "luz_no",
+     "nome": "tv_vo",
+     "energia": 0.0,
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "tela_tv",
+     "para": [
+      -0.7,
+      -10.0,
+      -6.31
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "luz_no",
+     "nome": "abajur_sala",
+     "energia": 0.0,
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "luz_ponto",
+     "pos": [
+      0.6,
+      2.2,
+      1.6
+     ],
+     "cor": "#ffe0b0",
+     "energia": 1.6,
+     "raio": 5
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "padre",
+     "para": [
+      0.3,
+      0,
+      1.1
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "neuza",
+     "para": [
+      1.2,
+      0,
+      1.5
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "olhar_camera",
+     "who": "padre"
+    },
+    {
+     "t": 0,
+     "acao": "olhar_camera",
+     "who": "neuza"
+    }
+   ],
+   "lines": [],
+   "choice": {
+    "prompt": "Você sobe com ele?",
+    "timer": 10,
+    "plead": {
+     "padre": "Ela precisa de você",
+     "neuza": "Vamos embora"
+    },
+    "options": [
+     {
+      "text": "Subir com o padre",
+      "who": "padre",
+      "next": "ritual"
+     },
+     {
+      "text": "Ir embora com a Dona Neuza",
+      "who": "neuza",
+      "ending": "estrada_de_terra"
+     }
+    ],
+    "timeout": {
+     "next": "ritual"
+    }
+   }
+  },
+  "ritual": {
+   "location": "quarto_vo",
+   "title_card": "03:20",
+   "camera": {
+    "pos": [
+     0.55,
+     1.65,
+     -1.2
+    ],
+    "olhar": [
+     -0.2,
+     0.9,
+     -3.9
+    ]
+   },
+   "music": "ex_ritual",
+   "cast": {
+    "left": {
+     "char": "padre",
+     "anim": "Idle"
+    },
+    "center": {
+     "char": "vo_possuida",
+     "anim": "LieIdle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#2a2228",
+     "energia": 0.45,
+     "neblina": "#040305",
+     "densidade": 0.035,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "crucifixo",
+     "rot": [
+      0,
+      0,
+      180
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "porta_quarto",
+     "rot": [
+      0,
+      88,
+      0
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "padre",
+     "para": [
+      -1.25,
+      0,
+      -3.0
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "olhar_para",
+     "who": "padre",
+     "alvo": "vo_possuida"
+    },
+    {
+     "t": 0,
+     "acao": "rotacionar",
+     "who": "vo_possuida",
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_possuida",
+     "para": [
+      0.0,
+      0,
+      -3.9
+     ],
+     "dur": 0.01,
+     "virar": false
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_rit_01",
+     "who": "sistema",
+     "text": "O padre acende as velas de novo, abre o livro e joga água benta na cama. Ela ri. Sem abrir a boca.",
+     "acoes": [
+      {
+       "t": 0.4,
+       "acao": "luz_no",
+       "nome": "velas",
+       "energia": 1.3,
+       "dur": 0.6
+      },
+      {
+       "t": 1.5,
+       "acao": "sfx",
+       "som": "sussurros",
+       "volume": -6
+      }
+     ]
+    },
+    {
+     "id": "ex_rit_02",
+     "who": "padre",
+     "text": "Eu te ordeno, espírito imundo, em nome de Cristo: diga o seu nome!",
+     "tags": "[commanding, loud, exorcism prayer]",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.03
+      }
+     ],
+     "anim": "Talk"
+    },
+    {
+     "id": "ex_rit_03",
+     "who": "vo_possuida",
+     "text": "Padre... a sua mãe mandou um beijo. Ela está aqui comigo. Queimando.",
+     "tags": "[deep, demonic, slow, cruel]",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "tremer",
+       "who": "padre",
+       "dur": 1.5
+      }
+     ]
+    },
+    {
+     "id": "ex_rit_04",
+     "who": "sistema",
+     "text": "Ela vira a cabeça para você. E a voz que sai da boca dela é a da sua mãe.",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "sfx",
+       "som": "estalos",
+       "volume": 0
+      }
+     ]
+    },
+    {
+     "id": "ex_rit_05",
+     "who": "mae_falsa_ex",
+     "text": "Filho? Filho, sou eu, a mãe. Me tira daqui. Esse homem está me machucando. Por favor, fala comigo.",
+     "tags": "[crying, pleading, mother's voice, slightly wrong]"
+    }
+   ],
+   "choice": {
+    "prompt": "É a voz da sua mãe.",
+    "timer": 8,
+    "plead": {
+     "vo_possuida": "Filho..."
+    },
+    "options": [
+     {
+      "text": "\"Mãe?\"",
+      "who": "vo_possuida",
+      "set": {
+       "respondeu": true
+      },
+      "next": "ritual2"
+     },
+     {
+      "text": "Ficar calado, como o padre mandou",
+      "next": "ritual2"
+     },
+     {
+      "text": "Tirar o terço, como ela pede",
+      "if": "terco",
+      "ending": "hospedeiro"
+     }
+    ],
+    "timeout": {
+     "set": {
+      "respondeu": true
+     },
+     "next": "ritual2"
+    }
+   }
+  },
+  "ritual2": {
+   "location": "quarto_vo",
+   "camera": {
+    "pos": [
+     0.55,
+     1.65,
+     -1.2
+    ],
+    "olhar": [
+     -0.2,
+     0.9,
+     -3.9
+    ]
+   },
+   "cast": {
+    "left": {
+     "char": "padre",
+     "anim": "Idle"
+    },
+    "center": {
+     "char": "vo_possuida",
+     "anim": "LieIdle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#2a2228",
+     "energia": 0.45,
+     "neblina": "#040305",
+     "densidade": 0.035,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "crucifixo",
+     "rot": [
+      0,
+      0,
+      180
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "porta_quarto",
+     "rot": [
+      0,
+      88,
+      0
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "padre",
+     "para": [
+      -1.25,
+      0,
+      -3.0
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "olhar_para",
+     "who": "padre",
+     "alvo": "vo_possuida"
+    },
+    {
+     "t": 0,
+     "acao": "rotacionar",
+     "who": "vo_possuida",
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_possuida",
+     "para": [
+      0.0,
+      0,
+      -3.9
+     ],
+     "dur": 0.01,
+     "virar": false
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_rit2_01",
+     "who": "vo_possuida",
+     "text": "Agora eu sei a sua voz, netinho. Agora eu sei o caminho.",
+     "tags": "[deep, demonic, delighted whisper]",
+     "if": "respondeu"
+    },
+    {
+     "id": "ex_rit2_02",
+     "who": "padre",
+     "text": "Não escuta! Segura firme, filho, segura firme!",
+     "tags": "[shouting, urgent]",
+     "anim": "Talk"
+    },
+    {
+     "id": "ex_rit2_03",
+     "who": "sistema",
+     "text": "Ela se levanta da cama sem dobrar os joelhos. Fica de pé no ar, com os braços abertos, a cabeça tombada de lado.",
+     "acoes": [
+      {
+       "t": 0.6,
+       "acao": "anim",
+       "who": "vo_possuida",
+       "anim": "FloatIdle",
+       "fixo": true
+      },
+      {
+       "t": 0.6,
+       "acao": "mover",
+       "who": "vo_possuida",
+       "para": [
+        0.0,
+        0.85,
+        -3.6
+       ],
+       "dur": 2.6,
+       "virar": false
+      },
+      {
+       "t": 0.6,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.0,
+        1.9,
+        -3.6
+       ],
+       "dur": 2.6
+      },
+      {
+       "t": 0.8,
+       "acao": "sfx",
+       "som": "cama_tremendo",
+       "volume": -4
+      },
+      {
+       "t": 2.0,
+       "acao": "luz_no",
+       "nome": "velas",
+       "energia": 0.3,
+       "dur": 0.5
+      }
+     ]
+    },
+    {
+     "id": "ex_rit2_04",
+     "who": "padre",
+     "text": "Os pés dela! Segura os pés dela!",
+     "tags": "[screaming, desperate]",
+     "anim": "Talk"
+    }
+   ],
+   "choice": {
+    "prompt": "Ela está subindo!",
+    "timer": 7,
+    "options": [
+     {
+      "text": "Agarrar os pés dela e puxar",
+      "who": "vo_possuida",
+      "teste": {
+       "atributo": "forca",
+       "cd": 13,
+       "mods": [
+        {
+         "if": "ferido",
+         "valor": -2,
+         "texto": "As costas latejando"
+        },
+        {
+         "if": "arranhado",
+         "valor": -1,
+         "texto": "O pescoço sangrando"
+        },
+        {
+         "if": "respondeu",
+         "valor": -2,
+         "texto": "Ela sabe a sua voz agora"
+        },
+        {
+         "if": "ouviu_vo",
+         "valor": 2,
+         "texto": "Sua avó ainda está aí dentro, lutando"
+        }
+       ],
+       "sucesso": {
+        "next": "nome"
+       },
+       "falha": {
+        "next": "padre_cai"
+       }
+      }
+     }
+    ],
+    "timeout": {
+     "next": "padre_cai"
+    }
+   }
+  },
+  "nome": {
+   "location": "quarto_vo",
+   "camera": {
+    "pos": [
+     0.55,
+     1.65,
+     -1.2
+    ],
+    "olhar": [
+     -0.2,
+     0.9,
+     -3.9
+    ]
+   },
+   "cast": {
+    "left": {
+     "char": "padre",
+     "anim": "Idle"
+    },
+    "center": {
+     "char": "vo_possuida",
+     "anim": "FloatIdle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#2a2228",
+     "energia": 0.45,
+     "neblina": "#040305",
+     "densidade": 0.035,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "crucifixo",
+     "rot": [
+      0,
+      0,
+      180
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "porta_quarto",
+     "rot": [
+      0,
+      88,
+      0
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "padre",
+     "para": [
+      -1.25,
+      0,
+      -3.0
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "olhar_para",
+     "who": "padre",
+     "alvo": "vo_possuida"
+    },
+    {
+     "t": 0,
+     "acao": "rotacionar",
+     "who": "vo_possuida",
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_possuida",
+     "para": [
+      0.0,
+      0.85,
+      -3.6
+     ],
+     "dur": 0.01,
+     "virar": false
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_nome_01",
+     "who": "sistema",
+     "text": "Você agarra os pés dela e se pendura com o corpo inteiro. Ela para de subir. O padre ergue o crucifixo.",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "maos",
+       "anim": "grab.L"
+      },
+      {
+       "t": 0.8,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.05
+      },
+      {
+       "t": 1.0,
+       "acao": "tremer",
+       "who": "vo_possuida",
+       "dur": 2.5
+      }
+     ]
+    },
+    {
+     "id": "ex_nome_02",
+     "who": "padre",
+     "text": "Diga o seu nome! Em nome de Deus, diga o seu nome!",
+     "tags": "[commanding, exhausted, shouting]",
+     "anim": "Talk"
+    }
+   ],
+   "choice": {
+    "prompt": "O nome!",
+    "timer": 8,
+    "options": [
+     {
+      "text": "Gritar o nome do papel: Zaquiel!",
+      "if": "sabe_nome",
+      "ending": "libertacao"
+     },
+     {
+      "text": "Rezar com o padre até o fim",
+      "teste": {
+       "atributo": "fe",
+       "cd": 14,
+       "mods": [
+        {
+         "if": "terco",
+         "valor": 2,
+         "texto": "O terço da sua avó"
+        },
+        {
+         "if": "respondeu",
+         "valor": -2,
+         "texto": "Ela sabe a sua voz"
+        }
+       ],
+       "sucesso": {
+        "ending": "descanse"
+       },
+       "falha": {
+        "ending": "o_padre"
+       },
+       "falha_critica": {
+        "ending": "hospedeiro"
+       }
+      }
+     }
+    ],
+    "timeout": {
+     "ending": "o_padre"
+    }
+   }
+  },
+  "padre_cai": {
+   "location": "quarto_vo",
+   "camera": {
+    "pos": [
+     0.55,
+     1.65,
+     -1.2
+    ],
+    "olhar": [
+     -0.2,
+     0.9,
+     -3.9
+    ]
+   },
+   "cast": {
+    "left": {
+     "char": "padre",
+     "anim": "Idle"
+    },
+    "center": {
+     "char": "vo_possuida",
+     "anim": "FloatIdle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#2a2228",
+     "energia": 0.45,
+     "neblina": "#040305",
+     "densidade": 0.035,
+     "fundo": "#000000",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "crucifixo",
+     "rot": [
+      0,
+      0,
+      180
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "porta_quarto",
+     "rot": [
+      0,
+      88,
+      0
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "padre",
+     "para": [
+      -1.25,
+      0,
+      -3.0
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "olhar_para",
+     "who": "padre",
+     "alvo": "vo_possuida"
+    },
+    {
+     "t": 0,
+     "acao": "rotacionar",
+     "who": "vo_possuida",
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_possuida",
+     "para": [
+      0.0,
+      0.85,
+      -3.6
+     ],
+     "dur": 0.01,
+     "virar": false
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_pcai_01",
+     "who": "sistema",
+     "text": "Os pés dela escorregam das suas mãos. Ela olha para o padre. Só olha. E ele voa contra a janela.",
+     "acoes": [
+      {
+       "t": 1.8,
+       "acao": "anim",
+       "who": "padre",
+       "anim": "Run"
+      },
+      {
+       "t": 1.8,
+       "acao": "mover",
+       "who": "padre",
+       "para": [
+        2.8,
+        1.0,
+        -3.9
+       ],
+       "dur": 0.3
+      },
+      {
+       "t": 2.1,
+       "acao": "sfx",
+       "som": "vidro",
+       "volume": 3
+      },
+      {
+       "t": 2.1,
+       "acao": "fx",
+       "tipo": "tremor",
+       "forca": 0.14
+      },
+      {
+       "t": 2.2,
+       "acao": "esconder",
+       "who": "padre"
+      },
+      {
+       "t": 2.0,
+       "acao": "camera_olhar",
+       "olhar": [
+        2.9,
+        1.4,
+        -3.9
+       ],
+       "dur": 0.3
+      }
+     ]
+    },
+    {
+     "id": "ex_pcai_02",
+     "who": "sistema",
+     "text": "O vidro estoura. Lá embaixo, no terreiro, o padre geme. O livro dele caiu aberto no chão do quarto.",
+     "acoes": [
+      {
+       "t": 0.6,
+       "acao": "camera_olhar",
+       "olhar": [
+        -0.6,
+        0.0,
+        -2.6
+       ],
+       "dur": 1.2
+      }
+     ]
+    },
+    {
+     "id": "ex_pcai_03",
+     "who": "vo_possuida",
+     "text": "Agora é só você e a vó, netinho.",
+     "tags": "[deep, demonic, intimate whisper]",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "camera_olhar",
+       "olhar": [
+        0.0,
+        1.9,
+        -3.6
+       ],
+       "dur": 0.8
+      }
+     ]
+    }
+   ],
+   "set": {
+    "padre_ferido": true
+   },
+   "choice": {
+    "prompt": "Sozinho.",
+    "timer": 8,
+    "options": [
+     {
+      "text": "Gritar o nome do papel: Zaquiel!",
+      "if": "sabe_nome",
+      "ending": "libertacao"
+     },
+     {
+      "text": "Pegar o livro e terminar a oração sozinho",
+      "teste": {
+       "atributo": "fe",
+       "cd": 16,
+       "mods": [
+        {
+         "if": "terco",
+         "valor": 2,
+         "texto": "O terço da sua avó"
+        },
+        {
+         "if": "ouviu_vo",
+         "valor": 1,
+         "texto": "Ela pediu a sua ajuda"
+        },
+        {
+         "if": "respondeu",
+         "valor": -2,
+         "texto": "Ela sabe a sua voz"
+        }
+       ],
+       "sucesso": {
+        "ending": "descanse"
+       },
+       "falha": {
+        "ending": "na_cama_da_vo"
+       }
+      }
+     },
+     {
+      "text": "Fugir pela escada",
+      "ending": "estrada_de_terra"
+     }
+    ],
+    "timeout": {
+     "ending": "na_cama_da_vo"
+    }
+   }
+  }
+ },
+ "endings": {
+  "libertacao": {
+   "title": "Libertação",
+   "kind": "sobreviveu",
+   "text": "Ela gritou o nome uma última vez e desabou na cama. O crucifixo voltou para o lugar sozinho. De manhã, sua avó acordou pedindo café. Não lembrava de nada.",
+   "extra": [
+    {
+     "if": "arranhado",
+     "text": "As três marcas no seu pescoço nunca sumiram."
+    },
+    {
+     "if": "respondeu",
+     "text": "Às vezes, de madrugada, você ainda ouve a voz da sua mãe te chamando do corredor."
+    },
+    {
+     "if": "padre_ferido",
+     "text": "O padre Ângelo sobreviveu à queda, com as duas pernas quebradas. Ele nunca mais rezou uma missa."
+    }
+   ],
+   "cinematica": {
+    "location": "quarto_vo",
+    "camera": {
+     "pos": [
+      0.35,
+      1.65,
+      -0.7
+     ],
+     "olhar": [
+      0.0,
+      0.8,
+      -4.0
+     ]
+    },
+    "cast": {
+     "center": {
+      "char": "vo_celeste",
+      "anim": "LieIdle"
+     }
+    },
+    "dur": 10,
+    "narrar": 1.0,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "no",
+      "nome": "crucifixo",
+      "rot": [
+       0,
+       0,
+       180
+      ],
+      "dur": 0.01
+     },
+     {
+      "t": 0,
+      "acao": "no",
+      "nome": "porta_quarto",
+      "rot": [
+       0,
+       88,
+       0
+      ],
+      "dur": 0.01
+     },
+     {
+      "t": 0,
+      "acao": "mover",
+      "who": "vo_celeste",
+      "para": [
+       0.0,
+       0,
+       -3.9
+      ],
+      "dur": 0.01,
+      "virar": false
+     },
+     {
+      "t": 0.3,
+      "acao": "luz",
+      "ambiente": "#ffd0a0",
+      "energia": 0.9,
+      "neblina": "#806040",
+      "densidade": 0.015,
+      "fundo": "#c09070",
+      "dur": 4
+     },
+     {
+      "t": 1.0,
+      "acao": "no",
+      "nome": "crucifixo",
+      "rot": [
+       0,
+       0,
+       0
+      ],
+      "dur": 3.0
+     },
+     {
+      "t": 3.5,
+      "acao": "camera",
+      "pos": [
+       0.2,
+       1.5,
+       -1.9
+      ],
+      "olhar": [
+       0.0,
+       0.8,
+       -4.2
+      ],
+      "dur": 6.0
+     },
+     {
+      "t": 6.0,
+      "acao": "sfx",
+      "som": "galo",
+      "volume": -6
+     }
+    ]
+   }
+  },
+  "descanse": {
+   "title": "Descanse, Celeste",
+   "kind": "agridoce",
+   "text": "Sem o nome, a coisa saiu arrancando. Às quatro da manhã, ela abriu os olhos castanhos de sempre, apertou a sua mão e sorriu. Depois parou de respirar. Era ela. Só ela.",
+   "extra": [
+    {
+     "if": "terco",
+     "text": "Ela foi enterrada com o terço que a Neuza te deu."
+    },
+    {
+     "if": "padre_ferido",
+     "text": "O padre Ângelo assinou o atestado do hospital com as mãos tremendo: causas naturais."
+    }
+   ],
+   "cinematica": {
+    "location": "quarto_vo",
+    "camera": {
+     "pos": [
+      0.35,
+      1.65,
+      -0.7
+     ],
+     "olhar": [
+      0.0,
+      0.8,
+      -4.0
+     ]
+    },
+    "cast": {
+     "center": {
+      "char": "vo_celeste",
+      "anim": "LieIdle"
+     }
+    },
+    "dur": 10,
+    "narrar": 1.0,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "no",
+      "nome": "porta_quarto",
+      "rot": [
+       0,
+       88,
+       0
+      ],
+      "dur": 0.01
+     },
+     {
+      "t": 0,
+      "acao": "mover",
+      "who": "vo_celeste",
+      "para": [
+       0.0,
+       0,
+       -3.9
+      ],
+      "dur": 0.01,
+      "virar": false
+     },
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#806870",
+      "energia": 0.6,
+      "neblina": "#201820",
+      "densidade": 0.025,
+      "fundo": "#100808",
+      "dur": 1
+     },
+     {
+      "t": 1.0,
+      "acao": "camera",
+      "pos": [
+       0.3,
+       1.4,
+       -2.2
+      ],
+      "olhar": [
+       0.0,
+       0.7,
+       -4.4
+      ],
+      "dur": 7.0
+     },
+     {
+      "t": 6.5,
+      "acao": "luz_no",
+      "nome": "velas",
+      "energia": 0.0,
+      "dur": 2.5
+     }
+    ]
+   }
+  },
+  "hospedeiro": {
+   "title": "Hospedeiro",
+   "kind": "secreto",
+   "text": "A voz da sua mãe agradeceu. Sua avó caiu na cama, curada, e o quarto ficou em silêncio. Você nunca mais conseguiu entrar numa igreja. E agora é você que acorda às três da manhã.",
+   "cinematica": {
+    "location": "quarto_vo",
+    "camera": {
+     "pos": [
+      0.35,
+      1.65,
+      -0.7
+     ],
+     "olhar": [
+      0.0,
+      0.8,
+      -4.0
+     ]
+    },
+    "cast": {
+     "center": {
+      "char": "vo_celeste",
+      "anim": "LieIdle"
+     }
+    },
+    "dur": 10,
+    "narrar": 1.0,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "no",
+      "nome": "porta_quarto",
+      "rot": [
+       0,
+       88,
+       0
+      ],
+      "dur": 0.01
+     },
+     {
+      "t": 0,
+      "acao": "mover",
+      "who": "vo_celeste",
+      "para": [
+       0.0,
+       0,
+       -3.9
+      ],
+      "dur": 0.01,
+      "virar": false
+     },
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#40302c",
+      "energia": 0.5,
+      "neblina": "#100806",
+      "densidade": 0.03,
+      "fundo": "#000000",
+      "dur": 1
+     },
+     {
+      "t": 1.5,
+      "acao": "camera",
+      "pos": [
+       0.3,
+       1.5,
+       -1.6
+      ],
+      "olhar": [
+       0.0,
+       0.8,
+       -4.0
+      ],
+      "dur": 4.0
+     },
+     {
+      "t": 5.0,
+      "acao": "sfx",
+      "som": "sussurros",
+      "volume": 0
+     },
+     {
+      "t": 6.0,
+      "acao": "fx",
+      "tipo": "vermelho",
+      "de": 0.0,
+      "ate": 0.45,
+      "dur": 2.0
+     },
+     {
+      "t": 6.0,
+      "acao": "maos",
+      "anim": "guard_idle"
+     },
+     {
+      "t": 6.0,
+      "acao": "maos_cor",
+      "cor": "#7a8070",
+      "dur": 2.5
+     }
+    ]
+   }
+  },
+  "o_padre": {
+   "title": "O Padre",
+   "kind": "morte",
+   "text": "O padre terminou a oração. Sua avó caiu na cama, livre. Ele fechou o livro, olhou para você e sorriu. Os olhos dele estavam pretos.",
+   "cinematica": {
+    "location": "quarto_vo",
+    "camera": {
+     "pos": [
+      0.35,
+      1.65,
+      -0.7
+     ],
+     "olhar": [
+      0.0,
+      0.8,
+      -4.0
+     ]
+    },
+    "cast": {
+     "left": {
+      "char": "padre",
+      "anim": "Idle"
+     }
+    },
+    "dur": 10,
+    "narrar": 1.0,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "no",
+      "nome": "porta_quarto",
+      "rot": [
+       0,
+       88,
+       0
+      ],
+      "dur": 0.01
+     },
+     {
+      "t": 0,
+      "acao": "mover",
+      "who": "padre",
+      "para": [
+       -0.6,
+       0,
+       -2.6
+      ],
+      "dur": 0.01
+     },
+     {
+      "t": 0,
+      "acao": "olhar_camera",
+      "who": "padre"
+     },
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#2a2228",
+      "energia": 0.45,
+      "neblina": "#040305",
+      "densidade": 0.035,
+      "fundo": "#000000",
+      "dur": 0.5
+     },
+     {
+      "t": 1.0,
+      "acao": "camera",
+      "pos": [
+       -0.1,
+       1.65,
+       -1.4
+      ],
+      "olhar": [
+       -0.6,
+       1.55,
+       -2.6
+      ],
+      "dur": 6.0
+     },
+     {
+      "t": 5.5,
+      "acao": "luz_no",
+      "nome": "velas",
+      "energia": 0.0,
+      "dur": 0.3
+     },
+     {
+      "t": 5.6,
+      "acao": "sfx",
+      "som": "stinger_hit",
+      "volume": -2
+     }
+    ]
+   }
+  },
+  "abraco_no_escuro": {
+   "title": "Abraço no Escuro",
+   "kind": "morte",
+   "text": "Ela caiu do teto e te abraçou. Forte. Do jeito que abraçava quando você tinha doze anos. Até você parar de se debater.",
+   "cinematica": {
+    "location": "quarto_vo",
+    "camera": {
+     "pos": [
+      0.4,
+      1.6,
+      0.4
+     ],
+     "olhar": [
+      0.0,
+      1.0,
+      -3.0
+     ]
+    },
+    "cast": {
+     "center": {
+      "char": "vo_possuida",
+      "anim": "Crawl"
+     }
+    },
+    "dur": 10,
+    "narrar": 1.0,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "no",
+      "nome": "porta_quarto",
+      "rot": [
+       0,
+       88,
+       0
+      ],
+      "dur": 0.01
+     },
+     {
+      "t": 0,
+      "acao": "mover",
+      "who": "vo_possuida",
+      "para": [
+       0.2,
+       2.68,
+       -0.8
+      ],
+      "dur": 0.01,
+      "virar": false
+     },
+     {
+      "t": 0,
+      "acao": "rotacionar",
+      "who": "vo_possuida",
+      "rot": [
+       0,
+       0,
+       180
+      ],
+      "dur": 0
+     },
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#1a1e30",
+      "energia": 0.35,
+      "neblina": "#020306",
+      "densidade": 0.04,
+      "fundo": "#000000",
+      "dur": 0.5
+     },
+     {
+      "t": 0.5,
+      "acao": "camera",
+      "pos": [
+       0.4,
+       1.6,
+       0.4
+      ],
+      "olhar": [
+       0.2,
+       2.2,
+       -0.8
+      ],
+      "dur": 3.0
+     },
+     {
+      "t": 4.5,
+      "acao": "esconder",
+      "who": "vo_possuida"
+     },
+     {
+      "t": 4.5,
+      "acao": "susto",
+      "who": "vo_possuida",
+      "anim": "Attack",
+      "de_cima": true,
+      "de": 1.4,
+      "ate": 0.42,
+      "rapido": 0.12,
+      "segura": 1.2,
+      "som": "susto_vo",
+      "volume": 4.0
+     }
+    ]
+   }
+  },
+  "estrada_de_terra": {
+   "title": "Estrada de Terra",
+   "kind": "agridoce",
+   "text": "Você dirigiu até o sol nascer, sem olhar para trás. Às seis da manhã, o celular tocou. Era o número da casa da sua avó. \"Volta, meu filho. A vó tá com saudade.\"",
+   "extra": [
+    {
+     "if": "padre_ferido",
+     "text": "O padre Ângelo foi encontrado no terreiro, vivo. Ele não fala desde aquela noite."
+    }
+   ],
+   "cinematica": {
+    "location": "estrada",
+    "camera": {
+     "pos": [
+      -1.5,
+      1.6,
+      14.0
+     ],
+     "olhar": [
+      0.5,
+      1.0,
+      0.0
+     ]
+    },
+    "cast": {},
+    "dur": 11,
+    "narrar": 1.0,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#d8a888",
+      "energia": 0.85,
+      "neblina": "#a07060",
+      "densidade": 0.012,
+      "fundo": "#c08060",
+      "dur": 3
+     },
+     {
+      "t": 0,
+      "acao": "no",
+      "nome": "carro_fuga",
+      "para": [
+       1.4,
+       0,
+       6.0
+      ],
+      "dur": 0.01
+     },
+     {
+      "t": 0.3,
+      "acao": "no",
+      "nome": "carro_fuga",
+      "para": [
+       1.4,
+       0,
+       -40.0
+      ],
+      "dur": 10.0
+     },
+     {
+      "t": 1.0,
+      "acao": "camera",
+      "pos": [
+       -1.0,
+       3.0,
+       8.0
+      ],
+      "olhar": [
+       1.4,
+       0.8,
+       -25.0
+      ],
+      "dur": 8.0
+     },
+     {
+      "t": 6.5,
+      "acao": "sfx",
+      "som": "celular",
+      "volume": 0
+     },
+     {
+      "t": 6.6,
+      "acao": "celular",
+      "texto": "Casa da Vó\nchamando..."
+     },
+     {
+      "t": 10.0,
+      "acao": "celular",
+      "texto": ""
+     }
+    ]
+   }
+  },
+  "na_cama_da_vo": {
+   "title": "Na Cama da Vó",
+   "kind": "morte",
+   "text": "Quando a Neuza voltou, de manhã, a cama estava arrumada e sua avó tomava café na cozinha, cantarolando. Ninguém nunca encontrou você. Mas ela anda comendo o dobro.",
+   "cinematica": {
+    "location": "quarto_vo",
+    "camera": {
+     "pos": [
+      0.35,
+      1.65,
+      -0.7
+     ],
+     "olhar": [
+      0.0,
+      0.8,
+      -4.0
+     ]
+    },
+    "cast": {
+     "center": {
+      "char": "vo_celeste",
+      "anim": "SitIdle"
+     }
+    },
+    "dur": 10,
+    "narrar": 1.0,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "no",
+      "nome": "porta_quarto",
+      "rot": [
+       0,
+       88,
+       0
+      ],
+      "dur": 0.01
+     },
+     {
+      "t": 0,
+      "acao": "mover",
+      "who": "vo_celeste",
+      "para": [
+       -2.2,
+       0,
+       -4.3
+      ],
+      "dur": 0.01
+     },
+     {
+      "t": 0,
+      "acao": "olhar_camera",
+      "who": "vo_celeste"
+     },
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#ffd0a0",
+      "energia": 0.9,
+      "neblina": "#806040",
+      "densidade": 0.015,
+      "fundo": "#c09070",
+      "dur": 3
+     },
+     {
+      "t": 1.0,
+      "acao": "camera",
+      "pos": [
+       -0.6,
+       1.5,
+       -2.2
+      ],
+      "olhar": [
+       -2.2,
+       0.9,
+       -4.3
+      ],
+      "dur": 7.0
+     }
+    ]
+   }
+  },
+  "relogio": {
+   "title": "O Relógio Parou",
+   "kind": "secreto",
+   "text": "Você hesitou tantas vezes que, quando o padre chegou, já era tarde. O relógio da sala parou de novo. Três em ponto. E ela estava sentada na cadeira de balanço, esperando por ele também.",
+   "cinematica": {
+    "location": "sala_vo",
+    "camera": {
+     "pos": [
+      0.6,
+      1.6,
+      1.4
+     ],
+     "olhar": [
+      -0.7,
+      1.0,
+      -3.2
+     ]
+    },
+    "cast": {
+     "center": {
+      "char": "vo_possuida",
+      "anim": "SitIdle",
+      "facing": "away"
+     }
+    },
+    "dur": 10,
+    "narrar": 1.0,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "mover",
+      "who": "vo_possuida",
+      "para": [
+       -0.7,
+       0,
+       -3.25
+      ],
+      "dur": 0.01,
+      "virar": false
+     },
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#1c2030",
+      "energia": 0.35,
+      "neblina": "#020306",
+      "densidade": 0.04,
+      "fundo": "#000000",
+      "dur": 0.5
+     },
+     {
+      "t": 0,
+      "acao": "luz_no",
+      "nome": "tv_vo",
+      "energia": 0.0,
+      "dur": 0.01
+     },
+     {
+      "t": 0,
+      "acao": "no",
+      "nome": "tela_tv",
+      "para": [
+       -0.7,
+       -10.0,
+       -6.31
+      ],
+      "dur": 0.01
+     },
+     {
+      "t": 1.0,
+      "acao": "camera",
+      "pos": [
+       0.0,
+       1.5,
+       -1.0
+      ],
+      "olhar": [
+       -0.7,
+       1.0,
+       -3.2
+      ],
+      "dur": 6.0
+     },
+     {
+      "t": 5.0,
+      "acao": "anim",
+      "who": "vo_possuida",
+      "anim": "HeadTurn",
+      "fixo": true
+     },
+     {
+      "t": 5.4,
+      "acao": "sfx",
+      "som": "estalos",
+      "volume": 0
+     },
+     {
+      "t": 6.2,
+      "acao": "sfx",
+      "som": "estalos",
+      "volume": 2
+     }
+    ]
+   }
+  }
+ }
+}

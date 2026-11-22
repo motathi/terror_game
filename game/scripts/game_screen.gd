@@ -342,7 +342,9 @@ func _run_step(s: Dictionary, chars: Dictionary) -> void:
 		"mostrar":
 			stage.set_actor_visible(who, true)
 		"mover":
-			stage.move_actor(who, _v(s["para"]), dur)
+			stage.move_actor(who, _v(s["para"]), dur, s.get("virar", true))
+		"rotacionar":
+			stage.rotate_actor(who, _v(s.get("rot", [0, 0, 0])), dur)
 		"olhar_camera":
 			stage.face_camera_now(who)
 		"trocar":
@@ -367,7 +369,7 @@ func _run_step(s: Dictionary, chars: Dictionary) -> void:
 		"luz_ponto":
 			stage.point_light(_v(s["pos"]), Color.html(s.get("cor", "#ffffff")), float(s.get("energia", 1.0)), float(s.get("raio", 5.0)), s.get("piscar", false))
 		"no":
-			stage.move_location_node(s.get("nome", ""), _v(s["para"]), dur)
+			stage.move_location_node(s.get("nome", ""), _v(s["para"]) if s.has("para") else null, dur, _v(s["rot"]) if s.has("rot") else null)
 		"maos":
 			stage.hands.visible = true
 			stage.play_hands(s.get("anim", "guard_idle"))

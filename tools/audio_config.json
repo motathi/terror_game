@@ -357,6 +357,70 @@
         "speed": 0.98
       },
       "_obs": "o síndico em pessoa; mesma voz do interfone"
+    },
+    "vo_celeste": {
+      "voice_id": "KHmfNHtEjHhLK9eER20w",
+      "description": "Brazilian Portuguese grandmother, about 78, from the countryside of Minas Gerais, sweet and frail voice.",
+      "settings": {
+        "stability": 0.45,
+        "similarity_boost": 0.8,
+        "style": 0.35,
+        "speed": 0.9
+      },
+      "_obs": "voz pronta \"Fernanda\" da biblioteca (limite de vozes personalizadas atingido)"
+    },
+    "vo_possuida": {
+      "voice_id": "KHmfNHtEjHhLK9eER20w",
+      "description": "Brazilian Portuguese grandmother, about 78, from the countryside of Minas Gerais, sweet and frail voice.",
+      "settings": {
+        "stability": 0.45,
+        "similarity_boost": 0.8,
+        "style": 0.35,
+        "speed": 0.9
+      },
+      "_obs": "mesma voz da Vó Celeste; o efeito monstro vem do personagem (fx)"
+    },
+    "mae_ex": {
+      "voice_id": "vA0uCpG3bW9rYS8usI2M",
+      "description": "Brazilian Portuguese woman, mid 40s, nursing technician and mother from the countryside of São Paulo state, warm but tired voice, slightly hoarse, protective and firm, natural casual tone.",
+      "settings": {
+        "stability": 0.45,
+        "similarity_boost": 0.8,
+        "style": 0.35,
+        "speed": 1.0
+      }
+    },
+    "mae_falsa_ex": {
+      "voice_id": "vA0uCpG3bW9rYS8usI2M",
+      "description": "Brazilian Portuguese woman, mid 40s, nursing technician and mother from the countryside of São Paulo state, warm but tired voice, slightly hoarse, protective and firm, natural casual tone.",
+      "settings": {
+        "stability": 0.45,
+        "similarity_boost": 0.8,
+        "style": 0.35,
+        "speed": 1.0
+      }
+    },
+    "neuza": {
+      "voice_id": "pukgAFCQgKcEgE6j1SrH",
+      "description": "Brazilian Portuguese woman, about 55, caretaker from the countryside, frightened and anxious.",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.8,
+        "style": 0.4,
+        "speed": 1.0
+      },
+      "_obs": "voz pronta \"Juliana\" da biblioteca"
+    },
+    "padre": {
+      "voice_id": "CstacWqMhJQlnfLPxRG4",
+      "description": "Brazilian Portuguese priest, about 65, deep calm grave voice, firm during the exorcism.",
+      "settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.8,
+        "style": 0.3,
+        "speed": 0.95
+      },
+      "_obs": "voz pronta \"Will - Deep\" da biblioteca"
     }
   },
   "sfx": {
@@ -585,6 +649,34 @@
       "galo": {
         "prompt": "a rooster crowing at dawn in the distant countryside, birds chirping",
         "duration": 4.0
+      },
+      "estalos": {
+        "prompt": "bones and neck joints cracking loudly one after another, wet crunchy pops, horror",
+        "duration": 2.5
+      },
+      "relogio": {
+        "prompt": "old pendulum wall clock ticking slowly in a silent house at night",
+        "duration": 4.0
+      },
+      "batidas_teto": {
+        "prompt": "three slow heavy knocks on a wooden ceiling from the floor above, pause between each knock",
+        "duration": 4.0
+      },
+      "sussurros": {
+        "prompt": "many overlapping demonic whispers in an unknown language, low and close, horror ambience",
+        "duration": 4.0
+      },
+      "cama_tremendo": {
+        "prompt": "old iron bed shaking violently, metal legs hammering a wooden floor fast, rattling springs",
+        "duration": 4.0
+      },
+      "porta_bate": {
+        "prompt": "old wooden door slamming shut violently, loud bang and rattle",
+        "duration": 1.5
+      },
+      "susto_vo": {
+        "prompt": "demonic old woman shriek, distorted layered scream, loud horror jumpscare sting",
+        "duration": 2.0
       }
     }
   },
@@ -731,9 +823,22 @@
       "hs_barraco": {
         "prompt": "Creepy music box lullaby slightly out of tune with a low drone and wooden creaks, children's nursery rhyme turned sinister, instrumental, seamless loop",
         "duration": 40
+      },
+      "ex_casa": {
+        "prompt": "Eerie horror score for an old countryside house at night, slow out-of-tune music box melody, faint church organ drone, creaking strings, unsettling calm, instrumental, seamless loop",
+        "duration": 40
+      },
+      "ex_tensao": {
+        "prompt": "Slow building dread, low pulsing cellos, dissonant whispers of a female choir, distant bell, horror tension underscore, instrumental, seamless loop",
+        "duration": 40
+      },
+      "ex_ritual": {
+        "prompt": "Intense exorcism horror score, frantic latin-sounding choir without words, pounding low drums, screeching violins, chaotic and terrifying, instrumental, seamless loop",
+        "duration": 40
       }
     }
   },
   "_doc_copias": "mae_porta/mae_falsa/coisa_mae = voz da mae; theo_falso/coisa = voz do theo (o efeito 'errado'/'monstro' é aplicado pelo ffmpeg).",
-  "_doc_hs": "Homem do Saco: mãe = voz da Patrícia (personagens mae_hs/mae_falsa_hs no JSON)."
+  "_doc_hs": "Homem do Saco: mãe = voz da Patrícia (personagens mae_hs/mae_falsa_hs no JSON).",
+  "_doc_ex": "Exorcismo: vo_possuida = voz da vo_celeste (efeito monstro); mae_ex/mae_falsa_ex = voz da mae (Skinwalker)."
 }

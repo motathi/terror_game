@@ -42,6 +42,9 @@ const AMB_FALLBACK := {
 	"condominio": PACK + "ambience/drone_low.ogg",
 	"mercadinho": PACK + "ambience/drone_low.ogg",
 	"estrada": PACK + "ambience/drone_low.ogg",
+	"casa_vo_fora": PACK + "ambience/drone_low.ogg",
+	"sala_vo": PACK + "ambience/drone_low.ogg",
+	"quarto_vo": PACK + "ambience/drone_low.ogg",
 }
 
 ## Música padrão de cada cenário (o nó da história pode trocar com "music").
@@ -62,6 +65,9 @@ const LOCATION_MUSIC := {
 	"condominio": "suspense",
 	"mercadinho": "tensao",
 	"estrada": "estrada",
+	"casa_vo_fora": "suspense",
+	"sala_vo": "suspense",
+	"quarto_vo": "tensao",
 }
 ## Sons soltos que tocam de vez em quando, baixinho, em cada cenário.
 const LOCATION_RANDOM := {
@@ -80,6 +86,9 @@ const LOCATION_RANDOM := {
 	"condominio": ["sirene", "rosnado_longe", "longe_grito", "latido_longe"],
 	"mercadinho": ["batida_porta", "gemido", "vidro"],
 	"estrada": ["helicoptero"],
+	"casa_vo_fora": ["latido_longe"],
+	"sala_vo": ["batida_porta"],
+	"quarto_vo": ["batida_porta"],
 }
 const MUSIC_DB := -9.0
 const DUCK_DB := -9.0  # quanto a música abaixa enquanto alguém fala

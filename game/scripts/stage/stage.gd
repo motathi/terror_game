@@ -551,12 +551,27 @@ func tween_camera(pos: Vector3, look: Vector3, dur: float) -> void:
 	tw.tween_method(func(k: float): _cam_base = from.interpolate_with(to, k), 0.0, 1.0, dur)
 
 
-func move_actor(char_id: String, to: Vector3, dur: float) -> void:
+func move_actor(char_id: String, to: Vector3, dur: float, face := true) -> void:
 	var a := actor_for(char_id)
 	if a == null:
 		return
-	_face_point(a, to if to.distance_to(a.global_position) > 0.3 else _cam_base.origin)
+	if face:
+		_face_point(a, to if to.distance_to(a.global_position) > 0.3 else _cam_base.origin)
 	create_tween().tween_property(a, "global_position", to, maxf(dur, 0.01))
+
+
+## Gira o personagem para uma orientação absoluta (graus, ordem do Godot: Y, X, Z).
+## Serve para andar na parede ou no teto: [0, guinada, 180] = de ponta-cabeça no teto.
+## Depois disso, use "mover" com "virar": false (senão ele volta a ficar de pé).
+func rotate_actor(char_id: String, rot_deg: Vector3, dur: float) -> void:
+	var a := actor_for(char_id)
+	if a == null:
+		return
+	var target := Vector3(deg_to_rad(rot_deg.x), deg_to_rad(rot_deg.y), deg_to_rad(rot_deg.z))
+	if dur <= 0.01:
+		a.rotation = target
+		return
+	create_tween().set_trans(Tween.TRANS_SINE).tween_property(a, "rotation", target, dur)
 
 
 func face_camera_now(char_id: String) -> void:
@@ -778,10 +793,15 @@ func tween_light(node_name: String, energy: float, dur: float) -> void:
 
 
 ## Move um nó do cenário pelo nome (ex.: portas do elevador).
-func move_location_node(node_name: String, to: Vector3, dur: float) -> void:
+func move_location_node(node_name: String, to, dur: float, rot = null) -> void:
 	var n := _location_root.find_child(node_name, true, false) as Node3D
-	if n:
+	if n == null:
+		return
+	if to is Vector3:
 		create_tween().set_trans(Tween.TRANS_SINE).tween_property(n, "position", to, maxf(dur, 0.01))
+	if rot is Vector3:  # graus (ex.: o crucifixo virando de cabeça para baixo)
+		var r: Vector3 = rot
+		create_tween().set_trans(Tween.TRANS_SINE).tween_property(n, "rotation", Vector3(deg_to_rad(r.x), deg_to_rad(r.y), deg_to_rad(r.z)), maxf(dur, 0.01))
 
 
 func post_tween(param: String, from: float, to: float, dur: float) -> void:

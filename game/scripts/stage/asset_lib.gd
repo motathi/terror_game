@@ -27,6 +27,9 @@ const MODELS := {
 	"cinzento": "res://assets/models/cinzento.glb",  # alienígena cinzento: Idle, Walk, Reach
 	"coisa_quatro": "res://assets/models/coisa_quatro.glb",  # skinwalker de quatro: Idle, Crawl, Rise
 	"homem_saco": "res://assets/models/homem_saco.glb",  # Homem do Saco de perto: Idle, Walk, Grab
+	# Vó Celeste (Exorcismo): Idle, SitIdle, Walk, HeadTurn, LieIdle, LevitateIdle, FloatIdle, Crawl, SpiderCrawl, Attack
+	"vo_celeste": "res://assets/models/vo_celeste.glb",
+	"vo_possuida": "res://assets/models/vo_possuida.glb",
 }
 
 ## Ajustes por modelo, aplicados pelo Actor:
