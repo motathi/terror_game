@@ -632,8 +632,10 @@ func world_text(key: String, text: String, pos: Vector3, size: int, color: Color
 	l.modulate = color
 
 
-func point_light(pos: Vector3, color: Color, energy: float, light_range: float, flicker := false) -> void:
+func point_light(pos: Vector3, color: Color, energy: float, light_range: float, flicker := false, light_name := "") -> void:
 	var l := OmniLight3D.new()
+	if not light_name.is_empty():
+		l.name = light_name  # "luz_no" com esse nome apaga/acende depois
 	l.position = pos
 	l.light_color = color
 	l.light_energy = energy
@@ -785,6 +787,8 @@ func set_actor_visible(char_id: String, v: bool) -> void:
 ## Liga/desliga (energia) uma luz do cenário pelo nome (ex.: postes apagando).
 func tween_light(node_name: String, energy: float, dur: float) -> void:
 	var l := _location_root.find_child(node_name, true, false) as Light3D
+	if l == null:
+		l = find_child(node_name, false, false) as Light3D  # luz criada por "luz_ponto" com "nome"
 	if l:
 		for c in l.get_children():
 			if c.get_script() != null:

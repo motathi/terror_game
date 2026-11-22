@@ -1,7 +1,7 @@
 {
  "id": "exorcismo",
- "title": "Exorcismo — Capítulo 1: A Vó Celeste",
- "start": "inicio",
+ "title": "Exorcismo — Capítulo 1: A Promessa",
+ "start": "prologo",
  "musica_cenarios": {
   "casa_vo_fora": "ex_casa",
   "sala_vo": "ex_casa",
@@ -37,7 +37,17 @@
   "respondeu": false,
   "padre_ferido": false,
   "hesitou": 0,
-  "culpa": 0
+  "culpa": 0,
+  "resposta": 0,
+  "leu_album": false,
+  "leu_cartas": false,
+  "foi_santos": false,
+  "foi_album": false,
+  "foi_cartas": false,
+  "pistas": 0,
+  "cancao": false,
+  "terco_usado": false,
+  "sabe_promessa": false
  },
  "atributos": {
   "agilidade": {
@@ -196,14 +206,20 @@
     {
      "id": "ex_ini_04",
      "who": "neuza",
-     "text": "Faz quatro dias que ela não come. Mas o prato aparece limpo de manhã.",
+     "text": "Faz quatro dias que ela não come. Desde a noite em que eu achei ela no cemitério, às três da manhã, cavando a cova do seu avô com as mãos.",
      "tags": "[nervous, low voice]"
     },
     {
      "id": "ex_ini_05",
      "who": "neuza",
-     "text": "E de madrugada ela conversa com alguém no quarto. Numa língua que não é a nossa.",
+     "text": "E de madrugada ela conversa com alguém no quarto. Numa língua que não é a nossa. Sempre falando de uma promessa.",
      "tags": "[terrified, whispering]"
+    },
+    {
+     "id": "ex_ini_05b",
+     "who": "neuza",
+     "text": "Ela me fez jurar que não ia chamar ninguém da família. Ninguém. Principalmente você.",
+     "tags": "[guilty, whispering]"
     },
     {
      "id": "ex_ini_06",
@@ -489,23 +505,7 @@
      "tags": "[old woman, sweet, frail, slow]"
     }
    ],
-   "choice": {
-    "prompt": "Ela não vira para trás.",
-    "options": [
-     {
-      "text": "Dar a volta na cadeira e abraçar ela",
-      "who": "vo_celeste",
-      "set": {
-       "abracou": true
-      },
-      "next": "abraco"
-     },
-     {
-      "text": "Olhar a prateleira de santos",
-      "next": "santos"
-     }
-    ]
-   }
+   "next": "conversa"
   },
   "abraco": {
    "location": "sala_vo",
@@ -587,7 +587,7 @@
     {
      "id": "ex_abraco_03",
      "who": "vo_celeste",
-     "text": "Vai deitar no sofá, meu filho. A vó já vai subir.",
+     "text": "Vai, meu filho. Olha a casa. Tem coisa sua guardada aí que eu nunca tive coragem de jogar fora.",
      "tags": "[old woman, sweet again, as if nothing happened]",
      "acoes": [
       {
@@ -603,7 +603,7 @@
      ]
     }
    ],
-   "next": "noite"
+   "next": "procurar"
   },
   "santos": {
    "location": "sala_vo",
@@ -700,14 +700,14 @@
       "set": {
        "agua_benta": true
       },
-      "next": "cabeca_sala"
+      "next": "pista_fim"
      },
      {
       "text": "Ler o papel: LEIUQAZ",
       "set": {
        "sabe_nome": true
       },
-      "next": "cabeca_sala"
+      "next": "pista_fim"
      }
     ]
    }
@@ -740,7 +740,7 @@
     {
      "id": "ex_csala_01",
      "who": "sistema",
-     "text": "Ao contrário, a palavra é Zaquiel. Você guarda o papel no bolso.",
+     "text": "Ao contrário, a palavra é Zaquiel. Você guarda o papel no bolso. Ele está quente, como se tivesse acabado de ser escrito.",
      "if": "sabe_nome"
     },
     {
@@ -748,6 +748,18 @@
      "who": "sistema",
      "text": "Você guarda o vidrinho no bolso. Está morno. Como se alguém tivesse segurado ele a noite toda.",
      "if": "agua_benta"
+    },
+    {
+     "id": "ex_csala_02b",
+     "who": "sistema",
+     "text": "Você volta para a sala com a foto da incubadora no bolso. Prometeu o quê, vó? Para quem?",
+     "if": "leu_album and not leu_cartas"
+    },
+    {
+     "id": "ex_csala_02c",
+     "who": "sistema",
+     "text": "Você volta para a sala com uma das cartas na mão. Ele não deve nada. Ele quem?",
+     "if": "leu_cartas"
     },
     {
      "id": "ex_csala_03",
@@ -981,6 +993,26 @@
      ]
     },
     {
+     "id": "ex_noite_01b",
+     "who": "sistema",
+     "text": "Faltam três minutos para a meia-noite que importa. Três minutos para o seu aniversário de vinte anos.",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "texto3d",
+       "id": "rel",
+       "texto": "02:57",
+       "pos": [
+        -2.4,
+        1.92,
+        -6.9
+       ],
+       "tamanho": 40,
+       "cor": "#ff3030"
+      }
+     ]
+    },
+    {
      "id": "ex_noite_02",
      "who": "sistema",
      "text": "Três batidas no teto, bem em cima de você. Uma. Duas. Três.",
@@ -1011,7 +1043,7 @@
       {
        "t": 0.6,
        "acao": "celular",
-       "texto": "Mãe\nA Neuza me ligou chorando. Como tá a vó? Me liga, filho."
+       "texto": "Mãe\nA Neuza me ligou chorando. Como tá a vó? Me liga, filho. E parabéns adiantado."
       }
      ],
      "sfx": "celular"
@@ -1150,6 +1182,12 @@
      "who": "mae_ex",
      "text": "Filho? São três da manhã. O que aconteceu? Fala comigo.",
      "tags": "[sleepy, then worried, on the phone]"
+    },
+    {
+     "id": "ex_ligar_01b",
+     "who": "mae_ex",
+     "text": "Ela me fez jurar uma coisa, anos atrás. Que você nunca ia dormir aí na noite do seu aniversário. Eu achei que era coisa da idade.",
+     "tags": "[slowly realizing, scared, on the phone]"
     },
     {
      "id": "ex_ligar_02",
@@ -1401,6 +1439,31 @@
        "dur": 4.5
       }
      ]
+    },
+    {
+     "id": "ex_subir_01b",
+     "who": "sistema",
+     "text": "Lá embaixo, o relógio da sala bate. Uma. Duas. Três vezes.",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "sfx",
+       "som": "batidas_teto",
+       "volume": -4
+      },
+      {
+       "t": 1.3,
+       "acao": "sfx",
+       "som": "relogio",
+       "volume": 0
+      }
+     ]
+    },
+    {
+     "id": "ex_subir_01c",
+     "who": "vo_possuida",
+     "text": "Feliz aniversário, netinho. Vinte anos. Eu contei cada um deles.",
+     "tags": "[deep, demonic, tender and wrong, behind the door]"
     },
     {
      "id": "ex_subir_02",
@@ -2235,7 +2298,7 @@
     {
      "id": "ex_lev_04",
      "who": "vo_possuida",
-     "text": "Sua vó não está mais aqui, netinho. Ela está comigo. Lá embaixo. Gritando.",
+     "text": "Ela não te contou? Você era meu antes de nascer direito, netinho. Ela só guardou o seu lugar.",
      "tags": "[deep, demonic, slow, mocking]",
      "acoes": [
       {
@@ -2255,6 +2318,27 @@
        "volume": -4
       }
      ]
+    },
+    {
+     "id": "ex_lev_05",
+     "who": "vo_possuida",
+     "text": "Trabalho, não é? Você tinha medo dela. Ela sentia o cheiro do seu medo pelo telefone.",
+     "tags": "[deep, mocking]",
+     "if": "resposta == 2"
+    },
+    {
+     "id": "ex_lev_06",
+     "who": "vo_possuida",
+     "text": "Ela te enxotou como um cachorro, netinho. Oito anos. E você deixou.",
+     "tags": "[deep, cruel, delighted]",
+     "if": "resposta == 1"
+    },
+    {
+     "id": "ex_lev_07",
+     "who": "vo_possuida",
+     "text": "O velho também sabia. Tentou me queimar com os papéis dela. Eu fiquei com o coração dele de lembrança.",
+     "tags": "[deep, slow, cruel]",
+     "if": "resposta == 3"
     }
    ],
    "choice": {
@@ -2436,16 +2520,30 @@
      ]
     },
     {
-     "id": "ex_puxou_02",
+     "id": "ex_puxou_02a",
      "who": "vo_celeste",
-     "text": "Me ajuda... chama o padre Ângelo... eu não aguento mais segurar ele...",
+     "text": "Vai embora, meu filho... eu te escondi por oito anos... não era pra você ter vindo...",
      "tags": "[old woman, weak, crying, desperate whisper]"
+    },
+    {
+     "id": "ex_puxou_02b",
+     "who": "vo_celeste",
+     "text": "Eu nunca deixei de te querer. Nem um dia. Eu te afastei pra ele não te achar.",
+     "tags": "[old woman, breaking, crying]",
+     "if": "resposta == 1"
+    },
+    {
+     "id": "ex_puxou_02c",
+     "who": "vo_celeste",
+     "text": "No hospital... você tava roxinho... eu prometi pra ele... me perdoa...",
+     "tags": "[old woman, sobbing, confessing]",
+     "if": "leu_album or sabe_promessa"
     }
    ],
    "set": {
     "ouviu_vo": true
    },
-   "next": "parede"
+   "next": "lembranca"
   },
   "reza_ok": {
    "location": "quarto_vo",
@@ -2564,16 +2662,30 @@
      ]
     },
     {
-     "id": "ex_rezaok_02",
+     "id": "ex_rezaok_02a",
      "who": "vo_celeste",
-     "text": "Me ajuda... chama o padre Ângelo... eu não aguento mais segurar ele...",
+     "text": "Vai embora, meu filho... eu te escondi por oito anos... não era pra você ter vindo...",
      "tags": "[old woman, weak, crying, desperate whisper]"
+    },
+    {
+     "id": "ex_rezaok_02b",
+     "who": "vo_celeste",
+     "text": "Eu nunca deixei de te querer. Nem um dia. Eu te afastei pra ele não te achar.",
+     "tags": "[old woman, breaking, crying]",
+     "if": "resposta == 1"
+    },
+    {
+     "id": "ex_rezaok_02c",
+     "who": "vo_celeste",
+     "text": "No hospital... você tava roxinho... eu prometi pra ele... me perdoa...",
+     "tags": "[old woman, sobbing, confessing]",
+     "if": "leu_album or sabe_promessa"
     }
    ],
    "set": {
     "ouviu_vo": true
    },
-   "next": "parede"
+   "next": "lembranca"
   },
   "reza_falha": {
    "location": "quarto_vo",
@@ -3598,7 +3710,10 @@
      ]
     }
    ],
-   "next": "padre"
+   "next": "lembranca",
+   "set": {
+    "terco_usado": true
+   }
   },
   "escada": {
    "location": "sala_vo",
@@ -4567,6 +4682,39 @@
      "anim": "Talk"
     },
     {
+     "id": "ex_padre_02b",
+     "who": "padre",
+     "text": "Em dois mil e seis ela me procurou. Disse que tinha ido na encruzilhada pra salvar um neto que estava morrendo no hospital.",
+     "tags": "[grave, guilty, slow]",
+     "anim": "Talk"
+    },
+    {
+     "id": "ex_padre_02c",
+     "who": "padre",
+     "text": "Prometeu o que pedissem. E alguma coisa pediu você. Daqui a vinte anos. Eu disse que era só o desespero dela falando.",
+     "tags": "[ashamed, low]",
+     "anim": "Talk"
+    },
+    {
+     "id": "ex_padre_02d",
+     "who": "padre",
+     "text": "Ela deixou essa coisa entrar nela. De propósito. Pra guardar o seu lugar até o seu aniversário passar. Deus me perdoe por não ter acreditado.",
+     "tags": "[voice breaking, grave]",
+     "anim": "Talk"
+    },
+    {
+     "id": "ex_padre_02e",
+     "who": "sistema",
+     "text": "A foto da incubadora pesa no seu bolso. Ele vai passar. Eu prometi.",
+     "if": "leu_album"
+    },
+    {
+     "id": "ex_padre_02f",
+     "who": "sistema",
+     "text": "Que leve a velha. O menino, não. Agora você entende a carta.",
+     "if": "leu_cartas"
+    },
+    {
      "id": "ex_padre_03",
      "who": "padre",
      "text": "Sozinho eu não seguro. Você vai segurar sua avó e responder às orações comigo.",
@@ -4908,6 +5056,12 @@
      "who": "mae_falsa_ex",
      "text": "Filho? Filho, sou eu, a mãe. Me tira daqui. Esse homem está me machucando. Por favor, fala comigo.",
      "tags": "[crying, pleading, mother's voice, slightly wrong]"
+    },
+    {
+     "id": "ex_rit_06",
+     "who": "vo_possuida",
+     "text": "Ou faz melhor, netinho. Vem pra mim por vontade própria, e eu devolvo ela inteira. Agora. Sem dor nenhuma.",
+     "tags": "[deep, demonic, seductive whisper]"
     }
    ],
    "choice": {
@@ -5300,6 +5454,11 @@
       "ending": "libertacao"
      },
      {
+      "text": "Cantar a canção da Senhora da Guia",
+      "if": "cancao",
+      "ending": "cancao_da_guia"
+     },
+     {
       "text": "Rezar com o padre até o fim",
       "teste": {
        "atributo": "fe",
@@ -5326,6 +5485,11 @@
         "ending": "hospedeiro"
        }
       }
+     },
+     {
+      "text": "\"Me leva. Solta ela.\"",
+      "who": "vo_possuida",
+      "ending": "a_troca"
      }
     ],
     "timeout": {
@@ -5532,6 +5696,11 @@
       "ending": "libertacao"
      },
      {
+      "text": "Cantar a canção da Senhora da Guia",
+      "if": "cancao",
+      "ending": "cancao_da_guia"
+     },
+     {
       "text": "Pegar o livro e terminar a oração sozinho",
       "teste": {
        "atributo": "fe",
@@ -5562,6 +5731,11 @@
       }
      },
      {
+      "text": "\"Me leva. Solta ela.\"",
+      "who": "vo_possuida",
+      "ending": "a_troca"
+     },
+     {
       "text": "Fugir pela escada",
       "ending": "estrada_de_terra"
      }
@@ -5570,17 +5744,779 @@
      "ending": "na_cama_da_vo"
     }
    }
+  },
+  "prologo": {
+   "location": "estrada",
+   "title_card": "SEXTA-FEIRA — 17:52",
+   "ambience": "carro",
+   "music": "ex_casa",
+   "cast": {
+    "phone": {
+     "char": "mae_ex"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#b07a80",
+     "energia": 0.75,
+     "neblina": "#5a3040",
+     "densidade": 0.016,
+     "fundo": "#3a2030",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "carro_fuga",
+     "para": [
+      1.4,
+      0,
+      6.0
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0.2,
+     "acao": "no",
+     "nome": "carro_fuga",
+     "para": [
+      1.4,
+      0,
+      -90.0
+     ],
+     "dur": 40.0
+    },
+    {
+     "t": 0,
+     "acao": "camera",
+     "pos": [
+      -1.5,
+      2.2,
+      13.0
+     ],
+     "olhar": [
+      1.4,
+      0.8,
+      -6.0
+     ],
+     "dur": 0
+    },
+    {
+     "t": 0.5,
+     "acao": "camera",
+     "pos": [
+      -1.2,
+      3.4,
+      2.0
+     ],
+     "olhar": [
+      1.4,
+      0.8,
+      -30.0
+     ],
+     "dur": 30.0
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_pro_01",
+     "who": "sistema",
+     "text": "Você não vê a sua avó há oito anos. Desde o enterro do seu avô. Na verdade, nem no enterro você foi."
+    },
+    {
+     "id": "ex_pro_02",
+     "who": "mae_ex",
+     "text": "Ela pergunta de você todo ano, sabia? No seu aniversário. Amanhã você faz vinte.",
+     "tags": "[tired, tender, on the phone]"
+    },
+    {
+     "id": "ex_pro_03",
+     "who": "mae_ex",
+     "text": "A Neuza ligou chorando. Disse que a mãe não está bem. Eu não consigo sair do plantão, filho. Vai você.",
+     "tags": "[worried, on the phone]"
+    },
+    {
+     "id": "ex_pro_04",
+     "who": "sistema",
+     "text": "Toda vez que você ligava, ela desligava rápido. Seca. Como se não quisesse ouvir a sua voz."
+    }
+   ],
+   "choice": {
+    "prompt": "Você pergunta para a sua mãe:",
+    "options": [
+     {
+      "text": "\"Por que ela parou de me querer lá?\"",
+      "next": "prologo_mae"
+     },
+     {
+      "text": "Não perguntar nada",
+      "next": "inicio"
+     }
+    ]
+   }
+  },
+  "prologo_mae": {
+   "location": "estrada",
+   "cast": {
+    "phone": {
+     "char": "mae_ex"
+    }
+   },
+   "lines": [
+    {
+     "id": "ex_promae_01",
+     "who": "mae_ex",
+     "text": "Ela me pediu pra não te levar mais. Eu briguei, eu chorei. Ela nunca me disse o porquê.",
+     "tags": "[hesitant, sad, on the phone]"
+    },
+    {
+     "id": "ex_promae_02",
+     "who": "mae_ex",
+     "text": "Só disse: depois que ele fizer vinte anos, eu explico tudo. Esquisito, né?",
+     "tags": "[uneasy laugh, on the phone]"
+    }
+   ],
+   "set": {
+    "sabe_promessa": true
+   },
+   "next": "inicio"
+  },
+  "conversa": {
+   "location": "sala_vo",
+   "cast": {
+    "center": {
+     "char": "vo_celeste",
+     "anim": "SitIdle",
+     "facing": "away"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_celeste",
+     "para": [
+      -0.7,
+      0,
+      -3.25
+     ],
+     "dur": 0.01,
+     "virar": false
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_conv_01",
+     "who": "vo_celeste",
+     "text": "Oito anos, meu filho. Você deve estar um homem. Eu fico ouvindo a sua voz e imaginando a sua cara.",
+     "tags": "[old woman, tender, slow, a bit shaky]"
+    },
+    {
+     "id": "ex_conv_02",
+     "who": "vo_celeste",
+     "text": "Por que você nunca mais veio ver a sua vó?",
+     "tags": "[old woman, sad, gentle]"
+    }
+   ],
+   "choice": {
+    "prompt": "Por que você nunca mais veio?",
+    "options": [
+     {
+      "text": "\"Eu achei que a senhora não queria me ver.\"",
+      "set": {
+       "resposta": 1
+      },
+      "next": "conversa2"
+     },
+     {
+      "text": "\"Muito trabalho, vó. A faculdade.\"",
+      "set": {
+       "resposta": 2
+      },
+      "next": "conversa2"
+     },
+     {
+      "text": "\"Desculpa. Eu não fui no enterro do vô.\"",
+      "set": {
+       "resposta": 3
+      },
+      "next": "conversa2"
+     }
+    ]
+   }
+  },
+  "conversa2": {
+   "location": "sala_vo",
+   "cast": {
+    "center": {
+     "char": "vo_celeste",
+     "anim": "SitIdle",
+     "facing": "away"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_celeste",
+     "para": [
+      -0.7,
+      0,
+      -3.25
+     ],
+     "dur": 0.01,
+     "virar": false
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_conv2_01",
+     "who": "vo_celeste",
+     "text": "Era isso mesmo que eu queria que você achasse, meu filho. Era isso mesmo.",
+     "tags": "[old woman, quiet, heartbroken, cryptic]",
+     "if": "resposta == 1"
+    },
+    {
+     "id": "ex_conv2_02",
+     "who": "vo_celeste",
+     "text": "Trabalho. Hum. Seu avô também dizia isso quando tinha medo de alguma coisa.",
+     "tags": "[old woman, knowing, a little sad]",
+     "if": "resposta == 2"
+    },
+    {
+     "id": "ex_conv2_03",
+     "who": "vo_celeste",
+     "text": "Seu avô não ia querer você lá. Ele sabia de coisas. Morreu sabendo.",
+     "tags": "[old woman, distant, grave]",
+     "if": "resposta == 3"
+    },
+    {
+     "id": "ex_conv2_04",
+     "who": "sistema",
+     "text": "A cadeira continua balançando. Sem barulho. Na TV fora do ar, por um segundo, aparece uma sala igual a esta. Com alguém parado atrás de você.",
+     "acoes": [
+      {
+       "t": 1.6,
+       "acao": "fx",
+       "tipo": "chuvisco",
+       "de": 0.0,
+       "ate": 0.6,
+       "dur": 0.3
+      },
+      {
+       "t": 2.6,
+       "acao": "fx",
+       "tipo": "chuvisco",
+       "de": 0.6,
+       "ate": 0.0,
+       "dur": 0.6
+      },
+      {
+       "t": 2.0,
+       "acao": "camera_olhar",
+       "olhar": [
+        -0.7,
+        1.05,
+        -6.3
+       ],
+       "dur": 0.5
+      },
+      {
+       "t": 3.8,
+       "acao": "camera_olhar",
+       "olhar": [
+        -0.7,
+        1.0,
+        -3.2
+       ],
+       "dur": 0.8
+      }
+     ]
+    },
+    {
+     "id": "ex_conv2_05",
+     "who": "vo_celeste",
+     "text": "Vai, meu filho. Olha a casa, mata a saudade. A vó vai cochilar um pouquinho.",
+     "tags": "[old woman, sleepy, sweet]"
+    }
+   ],
+   "choice": {
+    "prompt": "O que você faz?",
+    "options": [
+     {
+      "text": "Dar a volta na cadeira e abraçar ela",
+      "who": "vo_celeste",
+      "set": {
+       "abracou": true
+      },
+      "next": "abraco"
+     },
+     {
+      "text": "Andar pela casa",
+      "next": "procurar"
+     }
+    ]
+   }
+  },
+  "procurar": {
+   "location": "sala_vo",
+   "cast": {
+    "center": {
+     "char": "vo_celeste",
+     "anim": "SitIdle",
+     "facing": "away"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_celeste",
+     "para": [
+      -0.7,
+      0,
+      -3.25
+     ],
+     "dur": 0.01,
+     "virar": false
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_proc_01",
+     "who": "sistema",
+     "text": "A casa inteira parece prender a respiração. Você tem tempo de olhar duas coisas antes que ela acorde.",
+     "if": "pistas == 0"
+    }
+   ],
+   "choice": {
+    "prompt": "O que você olha?",
+    "options": [
+     {
+      "text": "A prateleira de santos",
+      "if": "not foi_santos",
+      "set": {
+       "foi_santos": true,
+       "pistas": "=pistas + 1"
+      },
+      "next": "santos"
+     },
+     {
+      "text": "O álbum de fotos em cima da TV",
+      "if": "not foi_album",
+      "set": {
+       "foi_album": true,
+       "pistas": "=pistas + 1",
+       "leu_album": true
+      },
+      "next": "album"
+     },
+     {
+      "text": "A gaveta trancada do aparador",
+      "if": "not foi_cartas",
+      "set": {
+       "foi_cartas": true,
+       "pistas": "=pistas + 1",
+       "leu_cartas": true
+      },
+      "next": "cartas"
+     }
+    ]
+   }
+  },
+  "pista_fim": {
+   "location": "sala_vo",
+   "cast": {
+    "center": {
+     "char": "vo_celeste",
+     "anim": "SitIdle",
+     "facing": "away"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_celeste",
+     "para": [
+      -0.7,
+      0,
+      -3.25
+     ],
+     "dur": 0.01,
+     "virar": false
+    }
+   ],
+   "lines": [],
+   "branch": [
+    {
+     "if": "pistas >= 2",
+     "next": "cabeca_sala"
+    },
+    {
+     "next": "procurar"
+    }
+   ]
+  },
+  "album": {
+   "location": "sala_vo",
+   "cast": {
+    "center": {
+     "char": "vo_celeste",
+     "anim": "SitIdle",
+     "facing": "away"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_celeste",
+     "para": [
+      -0.7,
+      0,
+      -3.25
+     ],
+     "dur": 0.01,
+     "virar": false
+    },
+    {
+     "t": 0,
+     "acao": "camera",
+     "pos": [
+      -0.1,
+      1.5,
+      -4.4
+     ],
+     "olhar": [
+      -0.7,
+      1.0,
+      -6.4
+     ],
+     "dur": 0
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_alb_01",
+     "who": "sistema",
+     "text": "O álbum é só seu. Você no batizado. Você no colo do seu avô. Você com seis anos, de pijama, nessa casa. Depois dos doze, as páginas ficam vazias.",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "camera_rel",
+       "por": [
+        0,
+        -0.2,
+        -0.2
+       ],
+       "dur": 1.5
+      }
+     ]
+    },
+    {
+     "id": "ex_alb_02",
+     "who": "sistema",
+     "text": "Na primeira página, uma foto de um bebê intubado numa incubadora. Você. Atrás dela, a letra trêmula da sua avó.",
+     "acoes": [
+      {
+       "t": 2.5,
+       "acao": "papel",
+       "texto": "Santa Casa, março de 2006\nOs médicos disseram que ele não passa desta noite.\nEle vai passar. Eu prometi."
+      }
+     ]
+    },
+    {
+     "id": "ex_alb_03",
+     "who": "sistema",
+     "text": "Embaixo, com outra tinta, mais nova: Faltam dois anos. Faltam seis meses. Faltam quatro dias.",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "papel",
+       "texto": "Faltam dois anos.\nFaltam seis meses.\nFaltam quatro dias."
+      },
+      {
+       "t": 4.5,
+       "acao": "papel",
+       "texto": ""
+      }
+     ]
+    }
+   ],
+   "next": "pista_fim"
+  },
+  "cartas": {
+   "location": "sala_vo",
+   "cast": {
+    "center": {
+     "char": "vo_celeste",
+     "anim": "SitIdle",
+     "facing": "away"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_celeste",
+     "para": [
+      -0.7,
+      0,
+      -3.25
+     ],
+     "dur": 0.01,
+     "virar": false
+    },
+    {
+     "t": 0,
+     "acao": "camera",
+     "pos": [
+      0.2,
+      1.4,
+      -4.6
+     ],
+     "olhar": [
+      -0.7,
+      0.4,
+      -6.5
+     ],
+     "dur": 0
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_cart_01",
+     "who": "sistema",
+     "text": "A gaveta abre com um grampo. Dentro, um maço de cartas, todas com o endereço da sua mãe. Nenhuma foi enviada.",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "maos",
+       "anim": "grab.R"
+      }
+     ]
+    },
+    {
+     "id": "ex_cart_02",
+     "who": "sistema",
+     "text": "Todas começam do mesmo jeito.",
+     "acoes": [
+      {
+       "t": 0.6,
+       "acao": "papel",
+       "texto": "Meu menino,\nhoje você faz quinze anos. A vó fez o bolo de fubá. Comeu sozinha, de novo.\nNão vem. Pelo amor de Deus, não vem."
+      }
+     ]
+    },
+    {
+     "id": "ex_cart_03",
+     "who": "sistema",
+     "text": "A última é desta semana. A letra mal para em pé.",
+     "acoes": [
+      {
+       "t": 0.3,
+       "acao": "papel",
+       "texto": "Se ele voltar para cobrar,\nque leve a velha.\nO menino, não.\nEle não sabe de nada. Ele não deve nada."
+      },
+      {
+       "t": 5.0,
+       "acao": "papel",
+       "texto": ""
+      }
+     ]
+    }
+   ],
+   "next": "pista_fim"
+  },
+  "lembranca": {
+   "location": "quarto_vo",
+   "music": "ex_casa",
+   "camera": {
+    "pos": [
+     0.3,
+     1.0,
+     -2.6
+    ],
+    "olhar": [
+     1.0,
+     1.35,
+     -3.6
+    ]
+   },
+   "cast": {
+    "center": {
+     "char": "vo_celeste",
+     "anim": "Idle"
+    }
+   },
+   "acoes": [
+    {
+     "t": 0,
+     "acao": "luz",
+     "ambiente": "#ffd9a8",
+     "energia": 1.0,
+     "neblina": "#c09060",
+     "densidade": 0.012,
+     "fundo": "#d0a070",
+     "dur": 0
+    },
+    {
+     "t": 0,
+     "acao": "luz_no",
+     "nome": "velas",
+     "energia": 0.0,
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "no",
+     "nome": "crucifixo",
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "luz_ponto",
+     "pos": [
+      2.2,
+      2.0,
+      -3.6
+     ],
+     "cor": "#fff0c8",
+     "energia": 2.2,
+     "raio": 6,
+     "nome": "sol_lembranca"
+    },
+    {
+     "t": 0,
+     "acao": "mover",
+     "who": "vo_celeste",
+     "para": [
+      1.1,
+      0,
+      -3.5
+     ],
+     "dur": 0.01
+    },
+    {
+     "t": 0,
+     "acao": "olhar_camera",
+     "who": "vo_celeste"
+    },
+    {
+     "t": 0,
+     "acao": "fx",
+     "tipo": "chuvisco",
+     "de": 0.5,
+     "ate": 0.0,
+     "dur": 1.5
+    }
+   ],
+   "lines": [
+    {
+     "id": "ex_lem_01",
+     "who": "sistema",
+     "text": "Por um segundo, o quarto muda. É de dia. Você tem seis anos, está com febre, deitado nessa mesma cama."
+    },
+    {
+     "id": "ex_lem_02",
+     "who": "vo_celeste",
+     "text": "Senhora da Guia, guia o meu menino. Leva a febre embora, deixa ele dormir.",
+     "tags": "[old woman, singing softly, lullaby, tender]"
+    },
+    {
+     "id": "ex_lem_03",
+     "who": "vo_celeste",
+     "text": "Se um dia a vó não estiver aqui, você canta, tá? Que eu escuto. Onde eu estiver, eu escuto.",
+     "tags": "[old woman, warm, smiling, serious underneath]"
+    },
+    {
+     "id": "ex_lem_04",
+     "who": "sistema",
+     "text": "E o quarto volta. Escuro. Frio. Com ela.",
+     "acoes": [
+      {
+       "t": 0.2,
+       "acao": "fx",
+       "tipo": "flash"
+      },
+      {
+       "t": 0.25,
+       "acao": "luz",
+       "ambiente": "#3a3240",
+       "energia": 0.6,
+       "neblina": "#040305",
+       "densidade": 0.03,
+       "fundo": "#000000",
+       "dur": 0.1
+      },
+      {
+       "t": 0.25,
+       "acao": "esconder",
+       "who": "vo_celeste"
+      },
+      {
+       "t": 0.25,
+       "acao": "no",
+       "nome": "crucifixo",
+       "rot": [
+        0,
+        0,
+        180
+       ],
+       "dur": 0.01
+      },
+      {
+       "t": 0.25,
+       "acao": "luz_no",
+       "nome": "sol_lembranca",
+       "energia": 0.0,
+       "dur": 0.05
+      },
+      {
+       "t": 0.25,
+       "acao": "luz_no",
+       "nome": "velas",
+       "energia": 1.0,
+       "dur": 0.05
+      }
+     ]
+    }
+   ],
+   "set": {
+    "cancao": true
+   },
+   "branch": [
+    {
+     "if": "terco_usado",
+     "next": "padre"
+    },
+    {
+     "next": "parede"
+    }
+   ]
   }
  },
  "endings": {
   "libertacao": {
    "title": "Libertação",
    "kind": "sobreviveu",
-   "text": "Ela gritou o nome uma última vez e desabou na cama. O crucifixo voltou para o lugar sozinho. De manhã, sua avó acordou pedindo café. Não lembrava de nada.",
+   "text": "Você gritou o nome e ele saiu dela de uma vez, arrancando, como um anzol. O crucifixo voltou para o lugar sozinho. De manhã, sua avó acordou e passou a mão no seu rosto. \"Vinte anos\", ela disse. \"Você passou dos vinte.\"",
    "extra": [
     {
-     "if": "arranhado",
-     "text": "As três marcas no seu pescoço nunca sumiram."
+     "if": "leu_cartas",
+     "text": "Naquela tarde ela te entregou o maço de cartas que nunca mandou. Vocês leram juntos, uma por ano."
+    },
+    {
+     "if": "cancao",
+     "text": "À noite, ela cantou a canção da Senhora da Guia. Você cantou junto. Ainda lembrava a letra inteira."
     },
     {
      "if": "respondeu",
@@ -5589,6 +6525,10 @@
     {
      "if": "padre_ferido",
      "text": "O padre Ângelo sobreviveu à queda, com as duas pernas quebradas. Ele nunca mais rezou uma missa."
+    },
+    {
+     "if": "arranhado",
+     "text": "As três marcas no seu pescoço nunca sumiram."
     }
    ],
    "cinematica": {
@@ -5696,11 +6636,15 @@
   "descanse": {
    "title": "Descanse, Celeste",
    "kind": "agridoce",
-   "text": "Sem o nome, a coisa saiu arrancando. Às quatro da manhã, ela abriu os olhos castanhos de sempre, apertou a sua mão e sorriu. Depois parou de respirar. Era ela. Só ela.",
+   "text": "Sem o nome, a coisa saiu arrancando, e levou o que restava dela. Às quatro da manhã, ela abriu os olhos castanhos de sempre e apertou a sua mão. \"Valeu a pena\", ela disse. \"Cada dia longe de você valeu a pena.\" Depois parou de respirar.",
    "extra": [
     {
      "if": "terco",
      "text": "Ela foi enterrada com o terço que a Neuza te deu."
+    },
+    {
+     "if": "leu_cartas",
+     "text": "No enterro, você leu a última carta em voz alta. Ninguém entendeu. Não precisava."
     },
     {
      "if": "padre_ferido",
@@ -5791,7 +6735,7 @@
   "hospedeiro": {
    "title": "Hospedeiro",
    "kind": "secreto",
-   "text": "A voz da sua mãe agradeceu. Sua avó caiu na cama, curada, e o quarto ficou em silêncio. Você nunca mais conseguiu entrar numa igreja. E agora é você que acorda às três da manhã.",
+   "text": "A voz da sua mãe agradeceu. Sua avó caiu na cama, livre, e quando viu os seus olhos começou a gritar. Vinte anos guardando o seu lugar. E você abriu a porta sozinho.",
    "cinematica": {
     "location": "quarto_vo",
     "camera": {
@@ -5894,7 +6838,7 @@
   "o_padre": {
    "title": "O Padre",
    "kind": "morte",
-   "text": "O padre terminou a oração. Sua avó caiu na cama, livre. Ele fechou o livro, olhou para você e sorriu. Os olhos dele estavam pretos.",
+   "text": "O padre terminou a oração. Sua avó caiu na cama, livre. Ele fechou o livro, olhou para você e sorriu. Os olhos dele estavam pretos. \"Uma promessa é uma promessa, netinho. Eu só troquei de casa.\"",
    "cinematica": {
     "location": "quarto_vo",
     "camera": {
@@ -5989,7 +6933,7 @@
   "abraco_no_escuro": {
    "title": "Abraço no Escuro",
    "kind": "morte",
-   "text": "Ela caiu do teto e te abraçou. Forte. Do jeito que abraçava quando você tinha doze anos. Até você parar de se debater.",
+   "text": "Ela caiu do teto e te abraçou. Forte. Do jeito que abraçava quando você tinha seis anos e ardia em febre. Só que desta vez ninguém cantou.",
    "cinematica": {
     "location": "quarto_vo",
     "camera": {
@@ -6096,7 +7040,7 @@
   "estrada_de_terra": {
    "title": "Estrada de Terra",
    "kind": "agridoce",
-   "text": "Você dirigiu até o sol nascer, sem olhar para trás. Às seis da manhã, o celular tocou. Era o número da casa da sua avó. \"Volta, meu filho. A vó tá com saudade.\"",
+   "text": "Ela te escondeu por oito anos. Você não ficou nem uma noite. Às seis da manhã, o celular tocou. Era o número da casa da sua avó. \"Volta, meu filho. A vó tá com saudade. A gente tem um aniversário pra comemorar.\"",
    "extra": [
     {
      "if": "padre_ferido",
@@ -6190,7 +7134,7 @@
   "na_cama_da_vo": {
    "title": "Na Cama da Vó",
    "kind": "morte",
-   "text": "Quando a Neuza voltou, de manhã, a cama estava arrumada e sua avó tomava café na cozinha, cantarolando. Ninguém nunca encontrou você. Mas ela anda comendo o dobro.",
+   "text": "Quando a Neuza voltou, de manhã, sua avó tomava café na cozinha, cantarolando uma música de ninar. Ninguém nunca encontrou você. Mas ela anda pondo dois pratos na mesa. E conversa com o segundo.",
    "cinematica": {
     "location": "quarto_vo",
     "camera": {
@@ -6272,7 +7216,7 @@
   "relogio": {
    "title": "O Relógio Parou",
    "kind": "secreto",
-   "text": "Você hesitou tantas vezes que, quando o padre chegou, já era tarde. O relógio da sala parou de novo. Três em ponto. E ela estava sentada na cadeira de balanço, esperando por ele também.",
+   "text": "Você hesitou tantas vezes que, quando o padre chegou, o relógio já tinha batido as três. A promessa venceu às três em ponto. E ela estava sentada na cadeira de balanço, esperando por ele também.",
    "cinematica": {
     "location": "sala_vo",
     "camera": {
@@ -6370,6 +7314,246 @@
       "acao": "sfx",
       "som": "estalos",
       "volume": 2
+     }
+    ]
+   }
+  },
+  "cancao_da_guia": {
+   "title": "Canção da Guia",
+   "kind": "sobreviveu",
+   "text": "Você cantou a música que ela cantava quando você ardia em febre. Lá dentro, bem fundo, uma voz fraquinha cantou junto. A voz dela foi ficando mais alta que a outra, até a outra calar. Ela abriu os olhos e terminou a última estrofe sozinha.",
+   "extra": [
+    {
+     "if": "leu_album",
+     "text": "Ela rasgou a foto da incubadora e jogou no fogão a lenha. A promessa queimou junto."
+    },
+    {
+     "if": "padre_ferido",
+     "text": "O padre Ângelo, com o braço engessado, batizou a canção de oração. Ela virou a primeira coisa que se reza naquela capela."
+    },
+    {
+     "if": "respondeu",
+     "text": "Mas tem noites em que você acorda cantando. E não é a sua voz."
+    }
+   ],
+   "cinematica": {
+    "location": "quarto_vo",
+    "camera": {
+     "pos": [
+      0.35,
+      1.65,
+      -0.7
+     ],
+     "olhar": [
+      0.0,
+      0.8,
+      -4.0
+     ]
+    },
+    "cast": {
+     "center": {
+      "char": "vo_celeste",
+      "anim": "LevitateIdle"
+     }
+    },
+    "dur": 11,
+    "narrar": 1.0,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "no",
+      "nome": "porta_quarto",
+      "rot": [
+       0,
+       88,
+       0
+      ],
+      "dur": 0.01
+     },
+     {
+      "t": 0,
+      "acao": "no",
+      "nome": "crucifixo",
+      "rot": [
+       0,
+       0,
+       180
+      ],
+      "dur": 0.01
+     },
+     {
+      "t": 0,
+      "acao": "mover",
+      "who": "vo_celeste",
+      "para": [
+       0.0,
+       0.8,
+       -3.9
+      ],
+      "dur": 0.01,
+      "virar": false
+     },
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#3a3240",
+      "energia": 0.6,
+      "neblina": "#040305",
+      "densidade": 0.03,
+      "fundo": "#000000",
+      "dur": 0
+     },
+     {
+      "t": 1.5,
+      "acao": "mover",
+      "who": "vo_celeste",
+      "para": [
+       0.0,
+       0.0,
+       -3.9
+      ],
+      "dur": 3.0,
+      "virar": false
+     },
+     {
+      "t": 4.4,
+      "acao": "anim",
+      "who": "vo_celeste",
+      "anim": "LieIdle",
+      "fixo": true
+     },
+     {
+      "t": 4.5,
+      "acao": "no",
+      "nome": "crucifixo",
+      "rot": [
+       0,
+       0,
+       0
+      ],
+      "dur": 2.5
+     },
+     {
+      "t": 0.3,
+      "acao": "luz",
+      "ambiente": "#ffd0a0",
+      "energia": 0.9,
+      "neblina": "#806040",
+      "densidade": 0.015,
+      "fundo": "#c09070",
+      "dur": 4
+     },
+     {
+      "t": 5.0,
+      "acao": "camera",
+      "pos": [
+       0.2,
+       1.5,
+       -1.9
+      ],
+      "olhar": [
+       0.0,
+       0.8,
+       -4.2
+      ],
+      "dur": 5.5
+     },
+     {
+      "t": 7.5,
+      "acao": "sfx",
+      "som": "galo",
+      "volume": -6
+     }
+    ]
+   }
+  },
+  "a_troca": {
+   "title": "A Troca",
+   "kind": "secreto",
+   "text": "Você ofereceu o que ele veio buscar. Sua avó acordou gritando que não, que a promessa era dela. Você já não ouvia. A casa da vó tem um quarto trancado agora. E todo ano, no seu aniversário, ela faz bolo de fubá e canta na porta.",
+   "extra": [
+    {
+     "if": "cancao",
+     "text": "Às vezes, do outro lado da porta, alguém canta junto. Um verso só. Depois para."
+    }
+   ],
+   "cinematica": {
+    "location": "quarto_vo",
+    "camera": {
+     "pos": [
+      0.3,
+      1.6,
+      2.2
+     ],
+     "olhar": [
+      0.0,
+      1.2,
+      -1.0
+     ]
+    },
+    "cast": {
+     "center": {
+      "char": "vo_celeste",
+      "anim": "Idle",
+      "facing": "away"
+     }
+    },
+    "dur": 11,
+    "narrar": 1.0,
+    "passos": [
+     {
+      "t": 0,
+      "acao": "mover",
+      "who": "vo_celeste",
+      "para": [
+       0.0,
+       0,
+       1.65
+      ],
+      "dur": 0.01,
+      "virar": false
+     },
+     {
+      "t": 0,
+      "acao": "no",
+      "nome": "porta_quarto",
+      "rot": [
+       0,
+       0,
+       0
+      ],
+      "dur": 0.01
+     },
+     {
+      "t": 0,
+      "acao": "luz",
+      "ambiente": "#806870",
+      "energia": 0.55,
+      "neblina": "#201820",
+      "densidade": 0.025,
+      "fundo": "#100808",
+      "dur": 1
+     },
+     {
+      "t": 1.0,
+      "acao": "camera",
+      "pos": [
+       0.6,
+       1.5,
+       2.6
+      ],
+      "olhar": [
+       0.0,
+       1.2,
+       1.2
+      ],
+      "dur": 7.0
+     },
+     {
+      "t": 6.0,
+      "acao": "sfx",
+      "som": "batidas_teto",
+      "volume": -6
      }
     ]
    }

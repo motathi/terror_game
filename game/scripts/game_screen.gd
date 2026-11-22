@@ -228,6 +228,7 @@ func _on_screen_tapped(pos: Vector2) -> void:
 
 func _show_ending(ending_id: String) -> void:
 	ui.show_phone("")
+	ui.show_paper("")
 	var data := runner.ending(ending_id)
 	var is_new := GameState.discover_ending(runner.campaign_id, ending_id)
 	var found := GameState.count_discovered(runner.campaign_id, runner.ending_ids())
@@ -367,7 +368,7 @@ func _run_step(s: Dictionary, chars: Dictionary) -> void:
 			stage.tween_env(Color.html(s.get("ambiente", "#404050")), float(s.get("energia", 0.5)),
 				Color.html(s.get("neblina", "#101010")), float(s.get("densidade", 0.03)), Color.html(s.get("fundo", "#000000")), dur)
 		"luz_ponto":
-			stage.point_light(_v(s["pos"]), Color.html(s.get("cor", "#ffffff")), float(s.get("energia", 1.0)), float(s.get("raio", 5.0)), s.get("piscar", false))
+			stage.point_light(_v(s["pos"]), Color.html(s.get("cor", "#ffffff")), float(s.get("energia", 1.0)), float(s.get("raio", 5.0)), s.get("piscar", false), s.get("nome", ""))
 		"no":
 			stage.move_location_node(s.get("nome", ""), _v(s["para"]) if s.has("para") else null, dur, _v(s["rot"]) if s.has("rot") else null)
 		"maos":
@@ -391,6 +392,8 @@ func _run_step(s: Dictionary, chars: Dictionary) -> void:
 			Audio.play_sfx(s.get("som", "susto_grito"), float(s.get("volume", 3.0)))
 		"celular":
 			ui.show_phone(s.get("texto", ""))
+		"papel":
+			ui.show_paper(s.get("texto", ""))
 		"silencio":
 			Audio.hush(dur)
 		"fx":

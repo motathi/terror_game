@@ -154,6 +154,68 @@ func _build_phone() -> void:
 	_phone.visible = false
 
 
+## Papel: carta, página de diário, verso de foto. Mesmo esquema do celular
+## (primeira linha = cabeçalho), em papel amarelado com tinta escura, levemente torto.
+var _paper: PanelContainer
+var _paper_head: Label
+var _paper_body: Label
+var _paper_tween: Tween
+
+
+func _build_paper() -> void:
+	_paper = PanelContainer.new()
+	var st := UI.panel_style(Color(0.86, 0.8, 0.64, 0.98), 4, Color(0.55, 0.45, 0.3))
+	st.content_margin_left = 30
+	st.content_margin_right = 30
+	st.content_margin_top = 28
+	st.content_margin_bottom = 34
+	_paper.add_theme_stylebox_override("panel", st)
+	_paper.anchor_left = 0.1
+	_paper.anchor_right = 0.9
+	_paper.anchor_top = 0.14
+	_paper.anchor_bottom = 0.14
+	_paper.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(_paper)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 14)
+	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_paper.add_child(v)
+	_paper_head = UI.label("", 28, Color(0.42, 0.18, 0.12), true)
+	v.add_child(_paper_head)
+	_paper_body = UI.label("", 38, Color(0.16, 0.12, 0.08))
+	v.add_child(_paper_body)
+	_paper.visible = false
+
+
+func show_paper(text: String) -> void:
+	if _paper == null:
+		_build_paper()
+	if _paper_tween and _paper_tween.is_valid():
+		_paper_tween.kill()
+	if text.strip_edges().is_empty():
+		if _paper.visible:
+			_paper_tween = create_tween()
+			_paper_tween.tween_property(_paper, "modulate:a", 0.0, 0.3)
+			_paper_tween.tween_callback(_paper.hide)
+		return
+	var lines := text.split("\n")
+	if lines.size() > 1:
+		_paper_head.text = lines[0].strip_edges()
+		_paper_head.visible = true
+		lines.remove_at(0)
+		_paper_body.text = "\n".join(lines)
+	else:
+		_paper_head.visible = false
+		_paper_body.text = text
+	if not _paper.visible:
+		_paper.modulate.a = 0.0
+	_paper.visible = true
+	_paper.pivot_offset = _paper.size * 0.5
+	_paper.rotation = -0.03
+	_paper_tween = create_tween()
+	_paper_tween.tween_property(_paper, "modulate:a", 1.0, 0.4)
+
+
 ## Mostra a tela do celular. A primeira linha (se houver mais de uma) é o
 ## cabeçalho (contato/hora). Texto vazio guarda o celular.
 func show_phone(text: String) -> void:

@@ -161,8 +161,8 @@
     {
       "id": "exorcismo",
       "titulo": "EXORCISMO",
-      "subtitulo": "Capítulo 1 — A Vó Celeste",
-      "chamada": "Você foi passar o fim de semana com a sua avó. A cuidadora foi embora correndo. E a vó não come há quatro dias.",
+      "subtitulo": "Capítulo 1 — A Promessa",
+      "chamada": "Amanhã você faz vinte anos. Faz oito que sua avó não quer te ver. Esta noite você vai descobrir por quê.",
       "path": "res://story/exorcismo.json",
       "status": "disponivel",
       "cor": "#a070ff",
