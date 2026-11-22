@@ -6336,14 +6336,14 @@
    "music": "ex_casa",
    "camera": {
     "pos": [
-     0.3,
+     0.1,
      1.0,
-     -2.6
+     -2.4
     ],
     "olhar": [
-     1.0,
-     1.35,
-     -3.6
+     1.4,
+     1.2,
+     -4.4
     ]
    },
    "cast": {
@@ -6356,9 +6356,9 @@
     {
      "t": 0,
      "acao": "luz",
-     "ambiente": "#ffd9a8",
-     "energia": 1.0,
-     "neblina": "#c09060",
+     "ambiente": "#e8c090",
+     "energia": 0.7,
+     "neblina": "#a07850",
      "densidade": 0.012,
      "fundo": "#d0a070",
      "dur": 0
@@ -6390,8 +6390,8 @@
       -3.6
      ],
      "cor": "#fff0c8",
-     "energia": 2.2,
-     "raio": 6,
+     "energia": 1.4,
+     "raio": 5,
      "nome": "sol_lembranca"
     },
     {
@@ -6399,9 +6399,9 @@
      "acao": "mover",
      "who": "vo_celeste",
      "para": [
-      1.1,
+      1.5,
       0,
-      -3.5
+      -4.5
      ],
      "dur": 0.01
     },
