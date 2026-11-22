@@ -1171,10 +1171,10 @@ static func _sala_vo(root: Node3D, cfg: Dictionary) -> void:
 	var corr := box(root, Vector3(0.07, 0.07, 5.4), Vector3(2.68, 2.05, -4.3), madeira)  # corrimão
 	corr.rotation.x = deg_to_rad(33.7)
 	box(root, Vector3(1.4, 0.1, 1.0), Vector3(3.35, 3.0, -7.0), madeira)  # patamar lá em cima
-	var topo := omni(root, Vector3(3.3, 3.6, -6.6), Color(0.5, 0.55, 0.8), 0.6, 3.0)
+	var topo := omni(root, Vector3(3.0, 3.7, -6.2), Color(0.55, 0.6, 0.85), 0.8, 5.0)
 	topo.name = "luz_escada"
 	# cadeira de balanço virada para a TV, de costas para quem entra
-	cadeira_balanco(root, Vector3(-0.7, 0, -3.2), 180.0, "cadeira")
+	cadeira_balanco(root, Vector3(-0.7, 0, -3.2), 0.0, "cadeira")
 	box(root, Vector3(0.9, 0.75, 0.5), Vector3(-0.7, 0.375, -6.6), Color(0.3, 0.2, 0.12))  # rack
 	box(root, Vector3(0.75, 0.6, 0.55), Vector3(-0.7, 1.05, -6.6), Color(0.18, 0.17, 0.16))  # TV de tubo
 	var tela := box(root, Vector3(0.58, 0.44, 0.02), Vector3(-0.7, 1.06, -6.31), Color(0.75, 0.8, 0.85), 1.6)
